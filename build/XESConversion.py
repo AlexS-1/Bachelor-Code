@@ -94,34 +94,31 @@ def create_xes_log(data):
     log = EventLog()
 
     # Iterate over each commit entry in the data
-    for file in data:
-        # For each file affected in the commit, create a trace
-        for file_data in commit_data['files']:
-            # Check if a trace for this file already exists, if not, create one
-            trace_name = file_data['filename']
-            trace = next((t for t in log if t.attributes.get("concept:name") == trace_name), None)
-            
-            if trace is None:
-                trace = Trace()
-                trace.attributes["concept:name"] = trace_name
-                log.append(trace)
+    for file, commits in data.items():
+        # Create a trace for the file
+        trace = Trace()
+        trace.attributes["file"] = file
 
-            # Create an event for the current commit affecting this file
+        for commit in commits:
+            # Extract event attributes
             event = Event()
-            event["concept:name"] = file_data['activity']
-            event["time:timestamp"] = commit_data['timestamp']
-            event["org:resource"] = commit_data['author']
+            event["timestamp"] = commit.get("timestamp")
+            event["author"] = commit.get("author")
+            event["change_type"] = commit.get("change_type")
+            event["commit_message"] = commit.get("commit_message")
+            event["additions"] = commit.get("additions")
+            event["deletions"] = commit.get("deletions")
+            event["diff"] = commit.get("diff")
+            if commit.get("comment_added_diff"):
+                event["comment_change"] = "True"
+            else:
+                event["comment_change"] = "False"
 
-            # Add custom attributes for the event
-            event["additions"] = file_data['additions']
-            event["deletions"] = file_data['deletions']
-            event["change_type"] = file_data['change_type']
-            event["commit_message"] = file_data['commit_message']
-            #event["effect_keywords"] = ', '.join(file_data['effect_keywords'])
-            event["diff"] = file_data["diff"]
-
-            # Append the event to the trace
+            # Add the event to the trace
             trace.append(event)
+
+        # Add the trace to the log
+        log.append(trace)
 
     return log
 
@@ -131,9 +128,9 @@ def save_xes_log(log, filename):
 
 if __name__ == "__main__":
     repo_url = "https://github.com/numpy/numpy"  # Example repository URL
-    # commits_data = analyze_commits(repo_url, "#", "py")
-    # save_to_json(commits_data, "Data/commits_data.json")
-    # print("Commit data has been saved to commits_data.json")
+    commits_data = analyze_commits(repo_url, "#", "py")
+    save_to_json(commits_data, "Data/commits_data.json")
+    print("Commit data has been saved to commits_data.json")
     # Load the previously saved commit data JSON file
     with open("Data/commits_data.json", "r") as json_file:
        commits_data = json.load(json_file)
