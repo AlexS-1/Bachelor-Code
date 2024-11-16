@@ -11,4 +11,4 @@ pip install PyDriller
 
 ## Usage
 
-```main.py``` includes all the current capabilities
+```XESConversion.py``` includes all the current capabilities
