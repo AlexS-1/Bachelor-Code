@@ -45,8 +45,8 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
                 for line in modified_file.diff_parsed["deleted"]:
                     if line[1].find(comment_symbol) != -1:
                         diff_deleted[line[0]] = line[1]
-                    if line[0] in diff_added.keys():
-                        diff_modified[line[0]] = line[1]
+                        if line[0] in diff_added.keys():
+                            diff_modified[line[0]] = line[1]
                 file_data["comment_deleted_diff"] = diff_deleted
                 file_data["comment_modified_diff"] = diff_modified
                 # Generate keywords based on the commit message and type of changes
@@ -127,8 +127,8 @@ def save_xes_log(log, filename):
     xes_exporter.apply(log, filename)
 
 if __name__ == "__main__":
-    repo_url = "https://github.com/numpy/numpy"  # Example repository URL
-    commits_data = analyze_commits(repo_url, "#", "py")
+    repo_url = "https://github.com/espressif/arduino-esp32"  # Example repository URL
+    commits_data = analyze_commits(repo_url, "// ", "cpp")
     save_to_json(commits_data, "Data/commits_data.json")
     print("Commit data has been saved to commits_data.json")
     # Load the previously saved commit data JSON file
