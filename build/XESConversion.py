@@ -10,14 +10,14 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
     files_data = {}
 
     # Analysis range
-    dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)
-    dt2 = datetime.datetime(2023, 10, 8, 17, 59, 0)
+    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)
+    dt2 = datetime.datetime(2020, 10, 8, 17, 59, 0)
 
     # Traverse through the commits in the repository
     # Only save commits, that contain at least one file of the format {language_file_extension}
     for commit in Repository(repo_url, 
     only_modifications_with_file_types=[f".{language_file_extension}"],
-    since=dt1,
+    # since=dt1,
     to=dt2).traverse_commits():
         # Analyze each file modified in the commit
         for modified_file in commit.modified_files:
@@ -33,13 +33,14 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
                     "additions": modified_file.added_lines,
                     "deletions": modified_file.deleted_lines,
                     "change_type": modified_file.change_type.name,
-                    "diff": modified_file.diff
+                    "diff": modified_file.diff_parsed
                 }
                 diff_added = {}
                 diff_deleted = {}
                 diff_modified = {}
                 for line in modified_file.diff_parsed["added"]:
                     if line[1].find(comment_symbol) != -1:
+                        print(int(line[0]))
                         diff_added[line[0]] = line[1]
                 file_data["comment_added_diff"] = diff_added
                 for line in modified_file.diff_parsed["deleted"]:
@@ -84,10 +85,44 @@ def extract_activity(commit_message):
         activity = "Other"
     return activity
 
-def save_to_json(commits_data, filename):
+def analyze_diff(commits_data, type):
+    for file, commits in commits_data.items():
+        if len(file) > 0:
+            for commit in commits:
+                diff_edited = []
+                for i in range(len(commit["diff"][type])):
+                    if commit["diff"][type][i][1].find("// ") == -1:
+                        if len(diff_edited) > 0:
+                            # In case of no comment add lines to existing dict if line number directly follows
+                            if commit["diff"][type][i][0] == diff_edited[-1]["line_numbers"][-1] + 1:
+                                diff_edited[-1]["line_numbers"].append(commit["diff"][type][i][0])
+                                diff_edited[-1]["lines"].append(commit["diff"][type][i][1])
+                            else:
+                                # or create new one
+                                diff_edited.append({
+                                    "line_numbers": [commit["diff"][type][i][0]],
+                                    "comments": [],
+                                    "lines": [commit["diff"][type][i][1]]})
+                    else:
+                        if len(diff_edited) > 0:
+                            # In case of comment add them to existing dict if they directly follow
+                            if commit["diff"][type][i][0] == diff_edited[-1]["line_numbers"][-1] + 1:
+                                diff_edited[-1]["line_numbers"].append(commit["diff"][type][i][0])
+                                diff_edited[-1]["comments"].append(commit["diff"][type][i][1])
+                        else:
+                            # or create new one
+                            diff_edited.append({
+                                "line_numbers": [commit["diff"][type][i][0]],
+                                "comments": [commit["diff"][type][i][1]],
+                                "lines": []})
+                commit["diff"][type] = diff_edited
+    return commits_data
+
+def save_to_json(commits_data, path):
     # Save the processed commit data to a JSON file
-    with open(filename, 'w') as json_file:
+    with open(path, 'w') as json_file:
         json.dump(commits_data, json_file, indent=4)
+    print("Commit data has been saved to ", path)
 
 def create_xes_log(data):
     # Create a new EventLog object
@@ -126,18 +161,24 @@ def save_xes_log(log, filename):
     # Export the log to an XES file
     xes_exporter.apply(log, filename)
 
+def save_to_xes(log, path):
+    # Create the XES log from the commit data
+    xes_log = create_xes_log(log)
+
+    # Save the XES log to a file
+    save_xes_log(xes_log, path)
+    print("XES log has been saved to ", path)
+
 if __name__ == "__main__":
     repo_url = "https://github.com/espressif/arduino-esp32"  # Example repository URL
     commits_data = analyze_commits(repo_url, "// ", "cpp")
     save_to_json(commits_data, "Data/commits_data.json")
-    print("Commit data has been saved to commits_data.json")
-    # Load the previously saved commit data JSON file
+    # save_to_xes(commits_data, "Data/commits_data.xes")
     with open("Data/commits_data.json", "r") as json_file:
        commits_data = json.load(json_file)
+    analyzed_data = analyze_diff(commits_data, "added")
+    save_to_json(analyzed_data, "Exports/analyzed_data.json")
+    analyzed_data = analyze_diff(commits_data, "deleted")
+    save_to_json(analyzed_data, "Exports/analyzed_data.json")
 
-    # Create the XES log from the commit data
-    xes_log = create_xes_log(commits_data)
 
-    # Save the XES log to a file
-    save_xes_log(xes_log, "Data/commits_data.xes")
-    print("XES log has been saved to commits_data.xes")
