@@ -1,0 +1,93 @@
+{
+    "Print.cpp": [
+        {
+            "commit": "123abc",
+            "timestamp": "2022-01-01T12:00:00+00:00",
+            "author": "Author One",
+            "commit_message": "Added comments to explain code logic",
+            "additions": 10,
+            "deletions": 5,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            10,
+                            11
+                        ],
+                        "comments": [
+                            "// Initialize variables"
+                        ],
+                        "lines": [
+                            "int x = 0;"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            20
+                        ],
+                        "comments": [],
+                        "lines": [
+                            "x = x + 1;"
+                        ]
+                    },
+                    {
+                        "line_numbers": [30],
+                        "comments": ["// Increment completed"],
+                        "lines": []
+                    }
+                ],
+                "deleted": []
+            },
+            "comment_added_diff": {
+                "10": "// Initialize variables",
+                "30": "// Increment completed"
+            },
+            "comment_deleted_diff": {}
+        },
+        {
+            "commit": "456def",
+            "timestamp": "2023-01-02T15:00:00+00:00",
+            "author": "Author Two",
+            "commit_message": "Refactored function and updated comments",
+            "additions": 15,
+            "deletions": 10,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            21
+                        ],
+                        "comments": [
+                            "Updated loop logic"
+                        ],
+                        "lines": [
+                            
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            51
+                        ],
+                        "comments": [],
+                        "lines": [
+                            "    sum += i;"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [45],
+                        "comments": [],
+                        "lines": ["int sum = 0;"]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "20": "// Updated loop logic"
+            },
+            "comment_deleted_diff": {}
+        }
+    ]
+}

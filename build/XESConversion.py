@@ -1,7 +1,7 @@
 from pydriller import Repository
 import json
 import pm4py
-import datetime
+from datetime import datetime
 from pm4py.objects.log.obj import EventLog, Trace, Event
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
@@ -10,8 +10,8 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
     files_data = {}
 
     # Analysis range
-    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)
-    dt2 = datetime.datetime(2020, 10, 8, 17, 59, 0)
+    # dt1 = datetime(2022, 10, 8, 17, 0, 0)
+    dt2 = datetime(2022, 10, 8, 17, 59, 0)
 
     # Traverse through the commits in the repository
     # Only save commits, that contain at least one file of the format {language_file_extension}
@@ -40,7 +40,6 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
                 diff_modified = {}
                 for line in modified_file.diff_parsed["added"]:
                     if line[1].find(comment_symbol) != -1:
-                        print(int(line[0]))
                         diff_added[line[0]] = line[1]
                 file_data["comment_added_diff"] = diff_added
                 for line in modified_file.diff_parsed["deleted"]:
@@ -85,7 +84,7 @@ def extract_activity(commit_message):
         activity = "Other"
     return activity
 
-def analyze_diff(commits_data, type):
+def pretty_diff(commits_data, type):
     for file, commits in commits_data.items():
         if len(file) > 0:
             for commit in commits:
@@ -118,11 +117,50 @@ def analyze_diff(commits_data, type):
                 commit["diff"][type] = diff_edited
     return commits_data
 
+def analyze_diffs(data):
+    analysis_results = []
+
+    for file, commits in data.items():
+        # Store last modified timestamps for each line
+        last_modified = {}
+
+        for commit in commits:
+            print("Starting to analyse commit: ", commit["commit"])
+            commit_time = datetime.fromisoformat(commit["timestamp"])
+            
+            # Track modified lines
+            for block in commit["diff"]["added"]:
+                for line in block["line_numbers"]:
+                    line_number = line
+                    last_modified[line_number] = commit_time
+
+            print(last_modified)
+
+            # Compare with comments
+            for line in commit["comment_added_diff"]:
+                comment_time = datetime.fromisoformat(commit["timestamp"])
+                last_modified_lines = list(last_modified.keys())
+                # print("Check if ", line, " is in keys ", last_modified_lines)
+                if int(line) in last_modified_lines:
+                    # print("Check if ", comment_time, " is larger than ", last_modified[int(line)])
+                    if(comment_time > last_modified[int(line)]):
+                        analysis_results.append({
+                            "file": file,
+                            "line": int(line),
+                            "comment": commit["comment_added_diff"][line],
+                            "comment_time": str(comment_time),
+                            "last_code_change_time": str(last_modified[int(line)])
+                        })
+            # print("Finsihed with commit")
+            # print("Current state analysis results: ", analysis_results, "\n")
+    
+    return analysis_results
+
 def save_to_json(commits_data, path):
     # Save the processed commit data to a JSON file
     with open(path, 'w') as json_file:
         json.dump(commits_data, json_file, indent=4)
-    print("Commit data has been saved to ", path)
+    print("Data has been saved to", path)
 
 def create_xes_log(data):
     # Create a new EventLog object
@@ -167,18 +205,26 @@ def save_to_xes(log, path):
 
     # Save the XES log to a file
     save_xes_log(xes_log, path)
-    print("XES log has been saved to ", path)
+    print("XES log has been saved to", path)
 
 if __name__ == "__main__":
     repo_url = "https://github.com/espressif/arduino-esp32"  # Example repository URL
-    commits_data = analyze_commits(repo_url, "// ", "cpp")
-    save_to_json(commits_data, "Data/commits_data.json")
+    # commits_data = analyze_commits(repo_url, "// ", "cpp")
+    # save_to_json(commits_data, "Data/commits_data.json")
     # save_to_xes(commits_data, "Data/commits_data.xes")
-    with open("Data/commits_data.json", "r") as json_file:
-       commits_data = json.load(json_file)
-    analyzed_data = analyze_diff(commits_data, "added")
-    save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    analyzed_data = analyze_diff(commits_data, "deleted")
-    save_to_json(analyzed_data, "Exports/analyzed_data.json")
-
-
+    # with open("Data/commits_data.json", "r") as json_file:
+      #  commits_data = json.load(json_file)
+    # analyzed_data = pretty_diff(commits_data, "added")
+    # save_to_json(analyzed_data, "Exports/analyzed_data.json")
+    # analyzed_data = pretty_diff(commits_data, "deleted")
+    # save_to_json(analyzed_data, "Exports/analyzed_data.json")
+    
+    # Test case
+    with open("Exports/analyzed_data.json", "r") as json_file:
+        data = json.load(json_file)
+    print("\n")
+    analyzed_data = analyze_diffs(data) 
+    for result in analyzed_data:
+        print(f"In {result['file']}, line {result['line']} was commented on {result['comment_time']} "
+            f"after being changed on {result['last_code_change_time']}.")
+    save_to_json(analyzed_data, "Exports/analysis_results.json")

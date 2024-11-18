@@ -1,0 +1,555 @@
+[
+    {
+        "file": "Esp.cpp",
+        "line": 162,
+        "comment": "    case 0x1: // 16 MBit (2MB)",
+        "comment_time": "2017-02-23 02:23:27+02:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Esp.cpp",
+        "line": 164,
+        "comment": "    case 0x2: // 32 MBit (4MB)",
+        "comment_time": "2017-02-23 02:23:27+02:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Esp.cpp",
+        "line": 166,
+        "comment": "    case 0x3: // 64 MBit (8MB)",
+        "comment_time": "2017-02-23 02:23:27+02:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Esp.cpp",
+        "line": 168,
+        "comment": "    case 0x4: // 128 MBit (16MB)",
+        "comment_time": "2017-02-23 02:23:27+02:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Esp.cpp",
+        "line": 205,
+        "comment": "// Warning: These functions do not work with encrypted flash",
+        "comment_time": "2017-02-23 02:23:27+02:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Esp.cpp",
+        "line": 44,
+        "comment": "#define ESP_FLASH_IMAGE_BASE 0x0000     // Esp32c3 is located at 0x0000",
+        "comment_time": "2021-06-11 13:46:14+03:00",
+        "last_code_change_time": "2021-04-05 14:23:58+03:00"
+    },
+    {
+        "file": "HardwareSerial.cpp",
+        "line": 198,
+        "comment": "        _createEventTask(this); // Create event task",
+        "comment_time": "2022-03-28 14:18:30+03:00",
+        "last_code_change_time": "2022-03-02 15:20:43+02:00"
+    },
+    {
+        "file": "HardwareSerial.cpp",
+        "line": 203,
+        "comment": "// timout is calculates in time to receive UART symbols at the UART baudrate.",
+        "comment_time": "2022-03-28 14:18:30+03:00",
+        "last_code_change_time": "2022-03-02 15:20:43+02:00"
+    },
+    {
+        "file": "HardwareSerial.cpp",
+        "line": 204,
+        "comment": "// the estimation is about 11 bits per symbol (SERIAL_8N1)",
+        "comment_time": "2022-03-28 14:18:30+03:00",
+        "last_code_change_time": "2022-03-02 15:20:43+02:00"
+    },
+    {
+        "file": "HardwareSerial.cpp",
+        "line": 238,
+        "comment": "    uartSetRxTimeout(_uart, _rxTimeout); // Set new timeout",
+        "comment_time": "2022-09-15 15:12:40+03:00",
+        "last_code_change_time": "2022-03-02 15:20:43+02:00"
+    },
+    {
+        "file": "Stream.cpp",
+        "line": 164,
+        "comment": "        // otherwise we need to check the rest of the found string",
+        "comment_time": "2020-10-14 15:20:40+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Stream.cpp",
+        "line": 172,
+        "comment": "        // if we successfully got through the previous loop then our current",
+        "comment_time": "2020-10-14 15:20:40+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "Stream.cpp",
+        "line": 173,
+        "comment": "        // index is good.",
+        "comment_time": "2020-10-14 15:20:40+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "WString.cpp",
+        "line": 181,
+        "comment": "        size_t oldSize = capacity() + 1; // include NULL.",
+        "comment_time": "2019-04-26 19:41:42+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "WString.cpp",
+        "line": 749,
+        "comment": "        unsigned int size = len(); // compute size needed for result",
+        "comment_time": "2019-04-26 19:41:42+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "WString.cpp",
+        "line": 850,
+        "comment": "// global empty string to allow returning const String& with nothing",
+        "comment_time": "2019-04-26 19:41:42+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "WString.cpp",
+        "line": 223,
+        "comment": "    memcpy_P(wbuffer(), (PGM_P)pstr, length + 1); // We know wbuffer() cannot ever be in PROGMEM, so memcpy safe here",
+        "comment_time": "2019-08-27 20:05:36+03:00",
+        "last_code_change_time": "2016-10-06 07:09:44-06:00"
+    },
+    {
+        "file": "WiFiGeneric.cpp",
+        "line": 594,
+        "comment": "// Temporary fix to ensure that CDC+JTAG stay on on ESP32-C3",
+        "comment_time": "2022-02-16 09:30:59+02:00",
+        "last_code_change_time": "2018-06-27 09:01:06+02:00"
+    },
+    {
+        "file": "WiFiGeneric.cpp",
+        "line": 173,
+        "comment": "        // Check if local_ip is within DHCP range",
+        "comment_time": "2022-05-16 20:58:02+03:00",
+        "last_code_change_time": "2018-04-16 16:34:39+02:00"
+    },
+    {
+        "file": "WiFiMulti.cpp",
+        "line": 107,
+        "comment": "        // clean up ram",
+        "comment_time": "2019-02-14 12:52:52+01:00",
+        "last_code_change_time": "2018-04-16 16:34:39+02:00"
+    },
+    {
+        "file": "Wire.cpp",
+        "line": 174,
+        "comment": "    return (last_error == I2C_ERROR_CONTINUE)?I2C_ERROR_OK:last_error; // Don't return Continue for compatibility.",
+        "comment_time": "2018-12-03 16:16:43+01:00",
+        "last_code_change_time": "2018-06-27 09:01:06+02:00"
+    },
+    {
+        "file": "Wire.cpp",
+        "line": 180,
+        "comment": "// Master Begin",
+        "comment_time": "2021-10-11 14:46:31+03:00",
+        "last_code_change_time": "2018-06-27 09:01:06+02:00"
+    },
+    {
+        "file": "ssl_client.cpp",
+        "line": 172,
+        "comment": "\t\t// free the client_cert in the case parse failed, otherwise, the old client_cert still in the heap memory, that lead to \"out of memory\" crash.",
+        "comment_time": "2020-10-14 14:25:26+03:00",
+        "last_code_change_time": "2018-04-16 16:34:39+02:00"
+    },
+    {
+        "file": "ssl_client.cpp",
+        "line": 182,
+        "comment": "        // free the client_cert in the case parse failed, otherwise, the old client_cert still in the heap memory, that lead to \"out of memory\" crash.",
+        "comment_time": "2020-12-21 01:09:37+02:00",
+        "last_code_change_time": "2018-04-16 16:34:39+02:00"
+    },
+    {
+        "file": "ssl_client.cpp",
+        "line": 237,
+        "comment": "            mbedtls_x509_crt_free(&ssl_client->client_cert); // cert+key are free'd in pair",
+        "comment_time": "2021-12-14 15:59:26+02:00",
+        "last_code_change_time": "2018-04-16 16:34:39+02:00"
+    },
+    {
+        "file": "ssl_client.cpp",
+        "line": 318,
+        "comment": "    // avoid memory leak if ssl connection attempt failed",
+        "comment_time": "2021-12-14 15:59:26+02:00",
+        "last_code_change_time": "2018-05-14 13:00:40+02:00"
+    },
+    {
+        "file": "ssl_client.cpp",
+        "line": 330,
+        "comment": "    // reset embedded pointers to zero",
+        "comment_time": "2021-12-14 15:59:26+02:00",
+        "last_code_change_time": "2018-05-14 13:00:40+02:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 220,
+        "comment": "#endif // HTTPCLIENT_1_1_COMPATIBLE",
+        "comment_time": "2018-11-19 16:57:23+01:00",
+        "last_code_change_time": "2017-05-19 10:18:20+02:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 328,
+        "comment": "#endif // HTTPCLIENT_1_1_COMPATIBLE",
+        "comment_time": "2018-11-19 16:57:23+01:00",
+        "last_code_change_time": "2017-05-19 10:18:20+02:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 969,
+        "comment": "    // set Timeout for WiFiClient and for Stream::readBytesUntil() and Stream::readStringUntil()",
+        "comment_time": "2018-11-19 16:57:23+01:00",
+        "last_code_change_time": "2017-05-19 10:18:20+02:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 573,
+        "comment": "        // send Header",
+        "comment_time": "2020-10-01 14:41:54+03:00",
+        "last_code_change_time": "2017-05-19 10:18:20+02:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 1442,
+        "comment": "    // disconnect but preserve _client.",
+        "comment_time": "2020-10-14 14:32:47+03:00",
+        "last_code_change_time": "2020-10-01 14:41:54+03:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 1443,
+        "comment": "    // Also have to keep the connection otherwise it will free some of the memory used by _client",
+        "comment_time": "2020-10-14 14:32:47+03:00",
+        "last_code_change_time": "2020-10-01 14:41:54+03:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 1444,
+        "comment": "    // and will blow up later when trying to do _client->available() or similar",
+        "comment_time": "2020-10-14 14:32:47+03:00",
+        "last_code_change_time": "2020-10-01 14:41:54+03:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 611,
+        "comment": "        // add cookies to header, if present",
+        "comment_time": "2022-02-05 13:04:57+02:00",
+        "last_code_change_time": "2020-10-01 14:41:54+03:00"
+    },
+    {
+        "file": "HTTPClient.cpp",
+        "line": 720,
+        "comment": "    // add cookies to header, if present",
+        "comment_time": "2022-02-05 13:04:57+02:00",
+        "last_code_change_time": "2017-05-19 10:18:20+02:00"
+    },
+    {
+        "file": "EEPROM.cpp",
+        "line": 73,
+        "comment": "  //  _mypart = esp_partition_find_first(ESP_PARTITION_TYPE_DATA,ESP_PARTITION_SUBTYPE_ANY, EEPROM_FLASH_PARTITION_NAME);",
+        "comment_time": "2018-03-04 20:22:48+01:00",
+        "last_code_change_time": "2017-08-01 12:51:38+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 67,
+        "comment": "        // 50 MHz = 40MHz * (4 + 6) / (2 * (2 + 2) = 50.000",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 68,
+        "comment": "        // sdm0 = 0, sdm1 = 0, sdm2 = 6, o_div = 2",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 72,
+        "comment": "        // 50 MHz = 26MHz * (4 + 15 + 118 / 256 + 39/65536) / ((3 + 2) * 2) = 49.999992",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 73,
+        "comment": "        // sdm0 = 39, sdm1 = 118, sdm2 = 15, o_div = 3",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 77,
+        "comment": "        // 50 MHz = 24MHz * (4 + 12 + 255 / 256 + 255/65536) / ((2 + 2) * 2) = 49.499977",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "ETH.cpp",
+        "line": 78,
+        "comment": "        // sdm0 = 255, sdm1 = 255, sdm2 = 12, o_div = 2",
+        "comment_time": "2022-05-09 23:17:12+03:00",
+        "last_code_change_time": "2021-06-16 20:45:20+03:00"
+    },
+    {
+        "file": "BluetoothSerial.cpp",
+        "line": 84,
+        "comment": "// _spp_event_group",
+        "comment_time": "2022-04-26 14:41:29+03:00",
+        "last_code_change_time": "2018-03-05 07:34:10+01:00"
+    },
+    {
+        "file": "BluetoothSerial.cpp",
+        "line": 88,
+        "comment": "// true until OPEN successful, changes to false on CLOSE",
+        "comment_time": "2022-04-26 14:41:29+03:00",
+        "last_code_change_time": "2018-03-05 07:34:10+01:00"
+    },
+    {
+        "file": "BluetoothSerial.cpp",
+        "line": 90,
+        "comment": "// true until connect(), changes to true on CLOSE",
+        "comment_time": "2022-04-26 14:41:29+03:00",
+        "last_code_change_time": "2018-03-05 07:34:10+01:00"
+    },
+    {
+        "file": "BluetoothSerial.cpp",
+        "line": 93,
+        "comment": "// _bt_event_group",
+        "comment_time": "2022-04-26 14:41:29+03:00",
+        "last_code_change_time": "2018-03-05 07:34:10+01:00"
+    },
+    {
+        "file": "BluetoothSerial.cpp",
+        "line": 757,
+        "comment": "    // wait for connected or closed",
+        "comment_time": "2022-04-26 14:41:29+03:00",
+        "last_code_change_time": "2019-10-01 17:34:46+03:00"
+    },
+    {
+        "file": "HTTPUpdate.cpp",
+        "line": 174,
+        "comment": "    // Sketch MD5 is not supported by the core, but SHA256 is, so add a SHA256 instead",
+        "comment_time": "2018-11-27 21:27:38+01:00",
+        "last_code_change_time": "2018-11-19 16:57:38+01:00"
+    },
+    {
+        "file": "HTTPUpdate.cpp",
+        "line": 345,
+        "comment": "                    // Warn main app we're all done",
+        "comment_time": "2021-07-19 14:28:17+03:00",
+        "last_code_change_time": "2018-11-19 16:57:38+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 103,
+        "comment": "// #if TWO_STAGE",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 104,
+        "comment": "// static HumanFaceDetectMSR01 s1(0.1F, 0.5F, 10, 0.2F);",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 105,
+        "comment": "// static HumanFaceDetectMNP01 s2(0.5F, 0.3F, 5);",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 106,
+        "comment": "// #else",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 107,
+        "comment": "// static HumanFaceDetectMSR01 s1(0.3F, 0.5F, 10, 0.2F);",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "app_httpd.cpp",
+        "line": 108,
+        "comment": "// #endif",
+        "comment_time": "2022-04-21 17:48:47+03:00",
+        "last_code_change_time": "2018-12-20 00:41:48+01:00"
+    },
+    {
+        "file": "BLEAdvertisedDevice.cpp",
+        "line": 491,
+        "comment": "\tm_serviceData.push_back(serviceData); // Save the service data that we received.",
+        "comment_time": "2020-01-20 15:30:29+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 380,
+        "comment": "\t\t\t\t\t\t// If is.long is false then this is the first (or only) request to read data, so invoke the callback",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 381,
+        "comment": "\t\t\t\t\t\t// Invoke the read callback.",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-07-09 19:35:07+03:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 482,
+        "comment": "\tm_pCallbacks->onNotify(this);   // Invoke the notify callback.",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 499,
+        "comment": "\t\t\tm_pCallbacks->onStatus(this, BLECharacteristicCallbacks::Status::ERROR_NOTIFY_DISABLED, 0);   // Invoke the notify callback.",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 506,
+        "comment": "\t\t\tm_pCallbacks->onStatus(this, BLECharacteristicCallbacks::Status::ERROR_INDICATE_DISABLED, 0);   // Invoke the notify callback.",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 517,
+        "comment": "\t\tif(!is_notification) // is indication",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 526,
+        "comment": "\t\t\tm_pCallbacks->onStatus(this, BLECharacteristicCallbacks::Status::ERROR_GATT, errRc);   // Invoke the notify callback.",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 529,
+        "comment": "\t\tif(!is_notification){ // is indication",
+        "comment_time": "2019-08-20 17:15:30+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLECharacteristic.cpp",
+        "line": 315,
+        "comment": "\t\t\t\t\t// Invoke the onWrite callback handler.",
+        "comment_time": "2021-04-15 16:08:22+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 267,
+        "comment": "\t\t\t// \tlog_i(\"Get service information from flash\");",
+        "comment_time": "2019-04-15 17:26:35+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 269,
+        "comment": "\t\t\t// \tlog_i(\"unknown service source\");",
+        "comment_time": "2019-04-15 17:26:35+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 141,
+        "comment": "\trc = m_semaphoreOpenEvt.wait(\"connect\");   // Wait for the connection to complete.",
+        "comment_time": "2021-02-16 11:21:45+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 142,
+        "comment": "\t// check the status of the connection and cleanup in case of failure",
+        "comment_time": "2021-02-16 11:21:45+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 179,
+        "comment": "\t// it is possible to receive events from other connections while waiting for registration",
+        "comment_time": "2021-02-16 11:21:45+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEClient.cpp",
+        "line": 254,
+        "comment": "\t\t\t// pass on the registration status result, in case of failure",
+        "comment_time": "2021-02-16 11:21:45+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEEddystoneTLM.cpp",
+        "line": 70,
+        "comment": "  out += \"Battery Voltage \"; // + ENDIAN_CHANGE_U16(m_eddystoneData.volt);",
+        "comment_time": "2020-09-30 14:55:58+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLERemoteDescriptor.cpp",
+        "line": 64,
+        "comment": "\t\t\t// If this event is not for us, then nothing further to do.",
+        "comment_time": "2022-06-24 13:52:08+03:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEScan.cpp",
+        "line": 124,
+        "comment": "\t\t\t\t\tif (m_pAdvertisedDeviceCallbacks) { // if has callback, no need to record to vector",
+        "comment_time": "2020-11-02 20:41:50+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "BLEScan.cpp",
+        "line": 126,
+        "comment": "\t\t\t\t\t} else if (!m_wantDuplicates && !found) {   // if no callback and not want duplicate, and not already in vector, record it",
+        "comment_time": "2020-11-02 20:41:50+02:00",
+        "last_code_change_time": "2019-04-12 15:43:53+02:00"
+    },
+    {
+        "file": "USBCDC.cpp",
+        "line": 50,
+        "comment": "// Invoked when line coding is change via SET_LINE_CODING",
+        "comment_time": "2021-07-20 11:59:13+03:00",
+        "last_code_change_time": "2021-04-05 14:23:58+03:00"
+    },
+    {
+        "file": "USBCDC.cpp",
+        "line": 59,
+        "comment": "// Invoked when received new data",
+        "comment_time": "2021-07-20 11:59:13+03:00",
+        "last_code_change_time": "2021-04-05 14:23:58+03:00"
+    },
+    {
+        "file": "USBCDC.cpp",
+        "line": 68,
+        "comment": "// Invoked when received send break",
+        "comment_time": "2021-07-20 11:59:13+03:00",
+        "last_code_change_time": "2021-04-05 14:23:58+03:00"
+    }
+]
