@@ -11,7 +11,7 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
 
     # Analysis range
     # dt1 = datetime(2022, 10, 8, 17, 0, 0)
-    dt2 = datetime(2022, 10, 8, 17, 59, 0)
+    dt2 = datetime(2010, 10, 8, 17, 59, 0)
 
     # Traverse through the commits in the repository
     # Only save commits, that contain at least one file of the format {language_file_extension}
@@ -90,30 +90,39 @@ def pretty_diff(commits_data, type):
             for commit in commits:
                 diff_edited = []
                 for i in range(len(commit["diff"][type])):
-                    if commit["diff"][type][i][1].find("// ") == -1:
+                    curr_line = commit["diff"][type][i][0]
+                    curr_content = commit["diff"][type][i][1]
+                    if curr_content.find("//") == 0 or curr_content.find("// ") != -1:
+                        if len(diff_edited) > 0:
+                            # In case of comment add them to existing dict if they directly follow
+                            if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
+                                diff_edited[-1]["comments"][curr_line] = curr_content
+                            # else: 
+                            #     diff_edited.append({
+                            #         "line_numbers": [],
+                            #         "comments": {curr_line: curr_content},
+                            #         "lines": []})
+                        else:
+                        #     if i < 5:
+                        #     # or create new one
+                        #         print("I: ", i, "comment is first part of block: ", curr_line, ": ", curr_content)
+                            # or create new one
+                            diff_edited.append({
+                                "line_numbers": [],
+                                "comments": {curr_line: curr_content},
+                                "lines": []})
+                    else:
                         if len(diff_edited) > 0:
                             # In case of no comment add lines to existing dict if line number directly follows
-                            if commit["diff"][type][i][0] == diff_edited[-1]["line_numbers"][-1] + 1:
-                                diff_edited[-1]["line_numbers"].append(commit["diff"][type][i][0])
-                                diff_edited[-1]["lines"].append(commit["diff"][type][i][1])
+                            if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
+                                diff_edited[-1]["line_numbers"].append(curr_line)
+                                diff_edited[-1]["lines"].append(curr_content)
                             else:
                                 # or create new one
                                 diff_edited.append({
-                                    "line_numbers": [commit["diff"][type][i][0]],
-                                    "comments": [],
-                                    "lines": [commit["diff"][type][i][1]]})
-                    else:
-                        if len(diff_edited) > 0:
-                            # In case of comment add them to existing dict if they directly follow
-                            if commit["diff"][type][i][0] == diff_edited[-1]["line_numbers"][-1] + 1:
-                                diff_edited[-1]["line_numbers"].append(commit["diff"][type][i][0])
-                                diff_edited[-1]["comments"].append(commit["diff"][type][i][1])
-                        else:
-                            # or create new one
-                            diff_edited.append({
-                                "line_numbers": [commit["diff"][type][i][0]],
-                                "comments": [commit["diff"][type][i][1]],
-                                "lines": []})
+                                    "line_numbers": [curr_line],
+                                    "comments": {},
+                                    "lines": [curr_content]})       
                 commit["diff"][type] = diff_edited
     return commits_data
 
@@ -125,7 +134,7 @@ def analyze_diffs(data):
         last_modified = {}
 
         for commit in commits:
-            print("Starting to analyse commit: ", commit["commit"])
+            # print("Starting to analyse commit: ", commit["commit"])
             commit_time = datetime.fromisoformat(commit["timestamp"])
             
             # Track modified lines
@@ -134,25 +143,23 @@ def analyze_diffs(data):
                     line_number = line
                     last_modified[line_number] = commit_time
 
-            print(last_modified)
+            # print(last_modified)
 
             # Compare with comments
             for line in commit["comment_added_diff"]:
                 comment_time = datetime.fromisoformat(commit["timestamp"])
                 last_modified_lines = list(last_modified.keys())
-                # print("Check if ", line, " is in keys ", last_modified_lines)
                 if int(line) in last_modified_lines:
-                    # print("Check if ", comment_time, " is larger than ", last_modified[int(line)])
-                    if(comment_time > last_modified[int(line)]):
-                        analysis_results.append({
-                            "file": file,
-                            "line": int(line),
-                            "comment": commit["comment_added_diff"][line],
-                            "comment_time": str(comment_time),
-                            "last_code_change_time": str(last_modified[int(line)])
-                        })
-            # print("Finsihed with commit")
-            # print("Current state analysis results: ", analysis_results, "\n")
+                    for block in commit["diff"]["added"]:
+                        if line in block["comments"] and len(block["line_numbers"]) == 0:
+                            if(comment_time > last_modified[int(line)]):
+                                analysis_results.append({
+                                    "file": file,
+                                    "line": int(line),
+                                    "comment": commit["comment_added_diff"][line],
+                                    "comment_time": str(comment_time),
+                                    "last_code_change_time": str(last_modified[int(line)])
+                                })
     
     return analysis_results
 
@@ -208,23 +215,20 @@ def save_to_xes(log, path):
     print("XES log has been saved to", path)
 
 if __name__ == "__main__":
-    repo_url = "https://github.com/espressif/arduino-esp32"  # Example repository URL
-    # commits_data = analyze_commits(repo_url, "// ", "cpp")
+    repo_url = "https://github.com/nodejs/node"  # Example repository URL
+    # commits_data = analyze_commits(repo_url, "//", "js")
     # save_to_json(commits_data, "Data/commits_data.json")
     # save_to_xes(commits_data, "Data/commits_data.xes")
-    # with open("Data/commits_data.json", "r") as json_file:
-      #  commits_data = json.load(json_file)
-    # analyzed_data = pretty_diff(commits_data, "added")
-    # save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    # analyzed_data = pretty_diff(commits_data, "deleted")
-    # save_to_json(analyzed_data, "Exports/analyzed_data.json")
+    with open("Data/commits_data.json", "r") as json_file:
+       commits_data = json.load(json_file)
+    analyzed_data = pretty_diff(commits_data, "added")
+    save_to_json(analyzed_data, "Exports/analyzed_data.json")
+    analyzed_data = pretty_diff(commits_data, "deleted")
+    save_to_json(analyzed_data, "Exports/analyzed_data.json")
     
     # Test case
     with open("Exports/analyzed_data.json", "r") as json_file:
         data = json.load(json_file)
-    print("\n")
-    analyzed_data = analyze_diffs(data) 
-    for result in analyzed_data:
-        print(f"In {result['file']}, line {result['line']} was commented on {result['comment_time']} "
-            f"after being changed on {result['last_code_change_time']}.")
+    analyzed_data = analyze_diffs(data)
+
     save_to_json(analyzed_data, "Exports/analysis_results.json")
