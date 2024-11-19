@@ -114,13 +114,19 @@ def pretty_diff(commits_data, type, single_comment_symbol, multi_comment_symbols
                     curr_line = commit["diff"][type][i][0]
                     curr_content = commit["diff"][type][i][1]
                     # In case of a starting multiline comment start adding future lines without comment symbol 
-                    if curr_content.find(multi_comment_symbols[0]) != -1:
+                    if multi_comments_enabled and curr_content.find(multi_comment_symbols[0]) != -1:
                             following_multi_comment = True
                     # In case of comment add them to existing dict if they directly follow
                     if curr_content.find(single_comment_symbol) == 0 or curr_content.find(single_comment_symbol + " ") != -1 or following_multi_comment:
                         if len(diff_edited) > 0:
                             if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
-                                diff_edited[-1]["comments"][curr_line] = curr_content
+                                if len(diff_edited[-1]["comments"].keys()) > 0 and list(diff_edited[-1]["comments"].keys())[-1] + 1 == curr_line:
+                                    diff_edited[-1]["comments"][curr_line] = curr_content
+                                else:
+                                    diff_edited.append({
+                                        "line_numbers": [],
+                                        "comments": {curr_line: curr_content},
+                                        "lines": []})
                         else:
                     # or create new one
                             diff_edited.append({
@@ -228,15 +234,15 @@ def save_to_xes(log, path):
     print("XES log has been saved to", path)
 
 if __name__ == "__main__":
-    repo_url = "https://github.com/nodejs/node"  # Example repository URL
-    commits_data = analyze_commits(repo_url, "js", datetime(2015,2,1), datetime(2015,8,1), "//", ["/*", "*/"])
-    save_to_json(commits_data, "Data/commits_data.json")
+    repo_url = "https://github.com/AlexS-1/Bachelor-Code"  # Example repository URL
+    # commits_data = analyze_commits(repo_url, "py", datetime(2015,2,1), datetime.today(), "#")
+    # save_to_json(commits_data, "Data/commits_data.json")
     # save_to_xes(commits_data, "Data/commits_data.xes")
     with open("Data/commits_data.json", "r") as json_file:
        commits_data = json.load(json_file)
-    analyzed_data = pretty_diff(commits_data, "added", "//", ["/*", "*/"])
+    analyzed_data = pretty_diff(commits_data, "added", "#")
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    analyzed_data = pretty_diff(commits_data, "deleted", "//", ["/*", "*/"])
+    analyzed_data = pretty_diff(commits_data, "deleted", "#")
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
     
     # Test case
