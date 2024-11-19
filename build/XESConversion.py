@@ -6,9 +6,7 @@ from pm4py.objects.log.obj import EventLog, Trace, Event
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
 def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_symbol, multi_comment_symbols=[]):
-    # This will hold the data for each file and its changes across commits
     files_data = {}
-
     # Traverse through the commits in the repository
     # Only save commits, that contain at least one file of the format {language_file_extension}
     for commit in Repository(repo_url, 
@@ -39,6 +37,7 @@ def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_
                 diff_deleted = {}
                 diff_modified = {}
                 following_multi_comment = False
+                # For added diff ispect lines filter out comments
                 for line in modified_file.diff_parsed["added"]:
                     if line[1].find(single_comment_symbol) != -1 or following_multi_comment:
                         diff_added[line[0]] = line[1]
@@ -49,6 +48,7 @@ def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_
                         diff_added[line[0]] = line[1]
                         following_multi_comment = False
                 file_data["comment_added_diff"] = diff_added
+                # For deleted diff ispect lines filter out comments
                 for line in modified_file.diff_parsed["deleted"]:
                     if line[1].find(single_comment_symbol) != -1 or following_multi_comment:
                         diff_deleted[line[0]] = line[1]
@@ -74,8 +74,7 @@ def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_
     return files_data
 
 def extract_keywords(commit_message, modified_file):
-    # This function can use NLP techniques or simple keyword extraction
-    # Here, a simplified approach is used: basic keywords based on the commit message
+    # Determine basic keywords based on the commit message
     keywords = []
     if "performance" in commit_message.lower():
         keywords.append("performance")
@@ -110,36 +109,37 @@ def pretty_diff(commits_data, type, single_comment_symbol, multi_comment_symbols
         if len(file) > 0:
             for commit in commits:
                 diff_edited = []
+                # Set current line for each analysis
                 for i in range(len(commit["diff"][type])):
                     curr_line = commit["diff"][type][i][0]
                     curr_content = commit["diff"][type][i][1]
-                    if curr_content == "/*<replacement>*/": 
-                        print()
+                    # In case of a starting multiline comment start adding future lines without comment symbol 
                     if curr_content.find(multi_comment_symbols[0]) != -1:
                             following_multi_comment = True
+                    # In case of comment add them to existing dict if they directly follow
                     if curr_content.find(single_comment_symbol) == 0 or curr_content.find(single_comment_symbol + " ") != -1 or following_multi_comment:
                         if len(diff_edited) > 0:
-                            # In case of comment add them to existing dict if they directly follow
                             if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
                                 diff_edited[-1]["comments"][curr_line] = curr_content
                         else:
-                            # or create new one
+                    # or create new one
                             diff_edited.append({
                                 "line_numbers": [],
                                 "comments": {curr_line: curr_content},
                                 "lines": []})
-                    else:
+                    # In case of no comment add lines to existing dict if line number directly follows
+                    else:    
                         if len(diff_edited) > 0:
-                            # In case of no comment add lines to existing dict if line number directly follows
                             if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
                                 diff_edited[-1]["line_numbers"].append(curr_line)
                                 diff_edited[-1]["lines"].append(curr_content)
                             else:
-                                # or create new one
+                    # Or create new one
                                 diff_edited.append({
                                     "line_numbers": [curr_line],
                                     "comments": {},
-                                    "lines": [curr_content]}) 
+                                    "lines": [curr_content]})
+                    # Disable multiline comments when symbol found
                     if multi_comments_enabled and curr_content.find(multi_comment_symbols[1]) != -1:
                         following_multi_comment = False
                 commit["diff"][type] = diff_edited
@@ -151,19 +151,14 @@ def analyze_diffs(data):
     for file, commits in data.items():
         # Store last modified timestamps for each line
         last_modified = {}
-
         for commit in commits:
             # print("Starting to analyse commit: ", commit["commit"])
             commit_time = datetime.fromisoformat(commit["timestamp"])
-            
             # Track modified lines
             for block in commit["diff"]["added"]:
                 for line in block["line_numbers"]:
                     line_number = line
                     last_modified[line_number] = commit_time
-
-            # print(last_modified)
-
             # Compare with comments
             for line in commit["comment_added_diff"]:
                 comment_time = datetime.fromisoformat(commit["timestamp"])
@@ -179,7 +174,6 @@ def analyze_diffs(data):
                                     "comment_time": str(comment_time),
                                     "last_code_change_time": str(last_modified[int(line)])
                                 })
-    
     return analysis_results
 
 def save_to_json(commits_data, path):
