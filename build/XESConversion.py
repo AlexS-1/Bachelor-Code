@@ -5,20 +5,20 @@ from datetime import datetime
 from pm4py.objects.log.obj import EventLog, Trace, Event
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
-def analyze_commits(repo_url, comment_symbol, language_file_extension):
+def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_symbol, multi_comment_symbols=[]):
     # This will hold the data for each file and its changes across commits
     files_data = {}
-
-    # Analysis range
-    # dt1 = datetime(2022, 10, 8, 17, 0, 0)
-    dt2 = datetime(2010, 10, 8, 17, 59, 0)
 
     # Traverse through the commits in the repository
     # Only save commits, that contain at least one file of the format {language_file_extension}
     for commit in Repository(repo_url, 
     only_modifications_with_file_types=[f".{language_file_extension}"],
-    # since=dt1,
+    since=dt1,
     to=dt2).traverse_commits():
+        if len(multi_comment_symbols) >= 2:
+            multi_comments_enabled = True
+        else:
+            multi_comments_enabled = False
         # Analyze each file modified in the commit
         for modified_file in commit.modified_files:
             # only store file data for Rust files
@@ -38,13 +38,29 @@ def analyze_commits(repo_url, comment_symbol, language_file_extension):
                 diff_added = {}
                 diff_deleted = {}
                 diff_modified = {}
+                following_multi_comment = False
                 for line in modified_file.diff_parsed["added"]:
-                    if line[1].find(comment_symbol) != -1:
+                    if line[1].find(single_comment_symbol) != -1 or following_multi_comment:
                         diff_added[line[0]] = line[1]
+                    if multi_comments_enabled and line[1].find(multi_comment_symbols[0]) != -1:
+                        diff_added[line[0]] = line[1]
+                        following_multi_comment = True
+                    if multi_comments_enabled and line[1].find(multi_comment_symbols[1]) != -1:
+                        diff_added[line[0]] = line[1]
+                        following_multi_comment = False
                 file_data["comment_added_diff"] = diff_added
                 for line in modified_file.diff_parsed["deleted"]:
-                    if line[1].find(comment_symbol) != -1:
+                    if line[1].find(single_comment_symbol) != -1 or following_multi_comment:
                         diff_deleted[line[0]] = line[1]
+                        if line[0] in diff_added.keys():
+                            diff_modified[line[0]] = line[1]
+                    if multi_comments_enabled and line[1].find(multi_comment_symbols[0]) != -1:
+                        diff_added[line[0]] = line[1]
+                        following_multi_comment = True
+                        if line[0] in diff_added.keys():
+                            diff_modified[line[0]] = line[1]
+                    if multi_comments_enabled and line[1].find(multi_comment_symbols[1]) != -1:
+                        diff_added[line[0]] = line[1]
                         if line[0] in diff_added.keys():
                             diff_modified[line[0]] = line[1]
                 file_data["comment_deleted_diff"] = diff_deleted
@@ -84,7 +100,12 @@ def extract_activity(commit_message):
         activity = "Other"
     return activity
 
-def pretty_diff(commits_data, type):
+def pretty_diff(commits_data, type, single_comment_symbol, multi_comment_symbols=[]):
+    following_multi_comment = False
+    if len(multi_comment_symbols) >= 2:
+        multi_comments_enabled = True
+    else:
+        multi_comments_enabled = False
     for file, commits in commits_data.items():
         if len(file) > 0:
             for commit in commits:
@@ -92,20 +113,16 @@ def pretty_diff(commits_data, type):
                 for i in range(len(commit["diff"][type])):
                     curr_line = commit["diff"][type][i][0]
                     curr_content = commit["diff"][type][i][1]
-                    if curr_content.find("//") == 0 or curr_content.find("// ") != -1:
+                    if curr_content == "/*<replacement>*/": 
+                        print()
+                    if curr_content.find(multi_comment_symbols[0]) != -1:
+                            following_multi_comment = True
+                    if curr_content.find(single_comment_symbol) == 0 or curr_content.find(single_comment_symbol + " ") != -1 or following_multi_comment:
                         if len(diff_edited) > 0:
                             # In case of comment add them to existing dict if they directly follow
                             if len(diff_edited[-1]["line_numbers"]) == 0 or curr_line == diff_edited[-1]["line_numbers"][-1] + 1:
                                 diff_edited[-1]["comments"][curr_line] = curr_content
-                            # else: 
-                            #     diff_edited.append({
-                            #         "line_numbers": [],
-                            #         "comments": {curr_line: curr_content},
-                            #         "lines": []})
                         else:
-                        #     if i < 5:
-                        #     # or create new one
-                        #         print("I: ", i, "comment is first part of block: ", curr_line, ": ", curr_content)
                             # or create new one
                             diff_edited.append({
                                 "line_numbers": [],
@@ -122,7 +139,9 @@ def pretty_diff(commits_data, type):
                                 diff_edited.append({
                                     "line_numbers": [curr_line],
                                     "comments": {},
-                                    "lines": [curr_content]})       
+                                    "lines": [curr_content]}) 
+                    if multi_comments_enabled and curr_content.find(multi_comment_symbols[1]) != -1:
+                        following_multi_comment = False
                 commit["diff"][type] = diff_edited
     return commits_data
 
@@ -216,14 +235,14 @@ def save_to_xes(log, path):
 
 if __name__ == "__main__":
     repo_url = "https://github.com/nodejs/node"  # Example repository URL
-    # commits_data = analyze_commits(repo_url, "//", "js")
-    # save_to_json(commits_data, "Data/commits_data.json")
+    commits_data = analyze_commits(repo_url, "js", datetime(2015,2,1), datetime(2015,8,1), "//", ["/*", "*/"])
+    save_to_json(commits_data, "Data/commits_data.json")
     # save_to_xes(commits_data, "Data/commits_data.xes")
     with open("Data/commits_data.json", "r") as json_file:
        commits_data = json.load(json_file)
-    analyzed_data = pretty_diff(commits_data, "added")
+    analyzed_data = pretty_diff(commits_data, "added", "//", ["/*", "*/"])
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    analyzed_data = pretty_diff(commits_data, "deleted")
+    analyzed_data = pretty_diff(commits_data, "deleted", "//", ["/*", "*/"])
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
     
     # Test case
