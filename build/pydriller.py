@@ -6,6 +6,22 @@ from dateutil.relativedelta import relativedelta
 from pm4py.objects.log.obj import EventLog, Trace, Event
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
+def get_commits_data(repo_path, from_date, to_date):
+    files_data = {}
+    for commit in Repository(repo_path, since=from_date, to=to_date).traverse_commits():
+        for file in commit.modified_files:
+            if file not in files_data:
+                files_data[file.filename] = []
+            file_data = {
+                "commit": commit.hash,
+                "timestamp": commit.committer_date.isoformat(),
+                "author": commit.author.name,
+                "diff": file.diff_parsed
+            }
+            if len(file.diff_parsed) != 0:
+                files_data[file.filename].append(file_data)
+    return files_data
+
 def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_symbol, multi_comment_symbols=[]):
     files_data = {}
     # Traverse through the commits in the repository

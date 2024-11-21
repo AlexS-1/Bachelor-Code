@@ -1,0 +1,854 @@
+[
+    {
+        "commit": "96c6276dc1ea0aad50b96cf844406a8641fa1d37",
+        "timestamp": "2024-11-21T12:33:35+01:00",
+        "author": "alexander.schranner",
+        "diff": {
+            "added": [
+                [
+                    1,
+                    "{"
+                ],
+                [
+                    2,
+                    "  \"Repository\" : \"Bachelor-Code/.git\","
+                ],
+                [
+                    3,
+                    "  \"Revision\" : \"HEAD\","
+                ],
+                [
+                    4,
+                    "  \"ObjectId\" : \"2bfdaaeca6f4bc1b69403beb494198e8364ba925\","
+                ],
+                [
+                    5,
+                    "  \"CommitTime\" : \"2024-11-19T17:23:46Z\","
+                ],
+                [
+                    6,
+                    "  \"Files\" : {"
+                ],
+                [
+                    7,
+                    "    \"build/XESConversion.py\" : {"
+                ],
+                [
+                    8,
+                    "      \"ObjectId\" : \"b060dedde034c8e8cf02b7e67d7d447d41056c69\","
+                ],
+                [
+                    9,
+                    "      \"LastModified\" : \"2024-11-19T17:23:46Z\","
+                ],
+                [
+                    10,
+                    "      \"FileType\" : \"PYTHON\","
+                ],
+                [
+                    11,
+                    "      \"0\" : {"
+                ],
+                [
+                    12,
+                    "        \"Text\" : \"# Traverse through the commits in the repository\\n# Only save commits, that contain at least one file of the format {language_file_extension}\","
+                ],
+                [
+                    13,
+                    "        \"Line\" : 10,"
+                ],
+                [
+                    14,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    15,
+                    "      },"
+                ],
+                [
+                    16,
+                    "      \"1\" : {"
+                ],
+                [
+                    17,
+                    "        \"Text\" : \"# Analyze each file modified in the commit\","
+                ],
+                [
+                    18,
+                    "        \"Line\" : 20,"
+                ],
+                [
+                    19,
+                    "        \"CharPositionInLine\" : 8"
+                ],
+                [
+                    20,
+                    "      },"
+                ],
+                [
+                    21,
+                    "      \"2\" : {"
+                ],
+                [
+                    22,
+                    "        \"Text\" : \"# only store file data for Rust files\","
+                ],
+                [
+                    23,
+                    "        \"Line\" : 22,"
+                ],
+                [
+                    24,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    25,
+                    "      },"
+                ],
+                [
+                    26,
+                    "      \"3\" : {"
+                ],
+                [
+                    27,
+                    "        \"Text\" : \"# For added diff ispect lines filter out comments\","
+                ],
+                [
+                    28,
+                    "        \"Line\" : 40,"
+                ],
+                [
+                    29,
+                    "        \"CharPositionInLine\" : 16"
+                ],
+                [
+                    30,
+                    "      },"
+                ],
+                [
+                    31,
+                    "      \"4\" : {"
+                ],
+                [
+                    32,
+                    "        \"Text\" : \"# For deleted diff ispect lines filter out comments\","
+                ],
+                [
+                    33,
+                    "        \"Line\" : 51,"
+                ],
+                [
+                    34,
+                    "        \"CharPositionInLine\" : 16"
+                ],
+                [
+                    35,
+                    "      },"
+                ],
+                [
+                    36,
+                    "      \"5\" : {"
+                ],
+                [
+                    37,
+                    "        \"Text\" : \"# Generate keywords based on the commit message and type of changes\\n# file_data[\\\"keywords\\\"] = extract_keywords(commit.msg, modified_file)\\n# Extract type of commit from commit message\\n# file_data[\\\"activity\\\"] = extract_activity(commit.msg)\","
+                ],
+                [
+                    38,
+                    "        \"Line\" : 68,"
+                ],
+                [
+                    39,
+                    "        \"CharPositionInLine\" : 16"
+                ],
+                [
+                    40,
+                    "      },"
+                ],
+                [
+                    41,
+                    "      \"6\" : {"
+                ],
+                [
+                    42,
+                    "        \"Text\" : \"# Determine basic keywords based on the commit message\","
+                ],
+                [
+                    43,
+                    "        \"Line\" : 77,"
+                ],
+                [
+                    44,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    45,
+                    "      },"
+                ],
+                [
+                    46,
+                    "      \"7\" : {"
+                ],
+                [
+                    47,
+                    "        \"Text\" : \"# Use commit message keywords to determine activity type\","
+                ],
+                [
+                    48,
+                    "        \"Line\" : 90,"
+                ],
+                [
+                    49,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    50,
+                    "      },"
+                ],
+                [
+                    51,
+                    "      \"8\" : {"
+                ],
+                [
+                    52,
+                    "        \"Text\" : \"# Set current line for each analysis\","
+                ],
+                [
+                    53,
+                    "        \"Line\" : 112,"
+                ],
+                [
+                    54,
+                    "        \"CharPositionInLine\" : 16"
+                ],
+                [
+                    55,
+                    "      },"
+                ],
+                [
+                    56,
+                    "      \"9\" : {"
+                ],
+                [
+                    57,
+                    "        \"Text\" : \"# In case of a starting multiline comment start adding future lines without comment symbol \","
+                ],
+                [
+                    58,
+                    "        \"Line\" : 116,"
+                ],
+                [
+                    59,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    60,
+                    "      },"
+                ],
+                [
+                    61,
+                    "      \"10\" : {"
+                ],
+                [
+                    62,
+                    "        \"Text\" : \"# In case of comment add them to existing dict if they directly follow\","
+                ],
+                [
+                    63,
+                    "        \"Line\" : 119,"
+                ],
+                [
+                    64,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    65,
+                    "      },"
+                ],
+                [
+                    66,
+                    "      \"11\" : {"
+                ],
+                [
+                    67,
+                    "        \"Text\" : \"# or create new one\","
+                ],
+                [
+                    68,
+                    "        \"Line\" : 131,"
+                ],
+                [
+                    69,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    70,
+                    "      },"
+                ],
+                [
+                    71,
+                    "      \"12\" : {"
+                ],
+                [
+                    72,
+                    "        \"Text\" : \"# In case of no comment add lines to existing dict if line number directly follows\","
+                ],
+                [
+                    73,
+                    "        \"Line\" : 136,"
+                ],
+                [
+                    74,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    75,
+                    "      },"
+                ],
+                [
+                    76,
+                    "      \"13\" : {"
+                ],
+                [
+                    77,
+                    "        \"Text\" : \"# Or create new one\","
+                ],
+                [
+                    78,
+                    "        \"Line\" : 143,"
+                ],
+                [
+                    79,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    80,
+                    "      },"
+                ],
+                [
+                    81,
+                    "      \"14\" : {"
+                ],
+                [
+                    82,
+                    "        \"Text\" : \"# Disable multiline comments when symbol found\","
+                ],
+                [
+                    83,
+                    "        \"Line\" : 148,"
+                ],
+                [
+                    84,
+                    "        \"CharPositionInLine\" : 20"
+                ],
+                [
+                    85,
+                    "      },"
+                ],
+                [
+                    86,
+                    "      \"15\" : {"
+                ],
+                [
+                    87,
+                    "        \"Text\" : \"# Store last modified timestamps for each line\","
+                ],
+                [
+                    88,
+                    "        \"Line\" : 158,"
+                ],
+                [
+                    89,
+                    "        \"CharPositionInLine\" : 8"
+                ],
+                [
+                    90,
+                    "      },"
+                ],
+                [
+                    91,
+                    "      \"16\" : {"
+                ],
+                [
+                    92,
+                    "        \"Text\" : \"# print(\\\"Starting to analyse commit: \\\", commit[\\\"commit\\\"])\","
+                ],
+                [
+                    93,
+                    "        \"Line\" : 161,"
+                ],
+                [
+                    94,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    95,
+                    "      },"
+                ],
+                [
+                    96,
+                    "      \"17\" : {"
+                ],
+                [
+                    97,
+                    "        \"Text\" : \"# Track modified lines\","
+                ],
+                [
+                    98,
+                    "        \"Line\" : 163,"
+                ],
+                [
+                    99,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    100,
+                    "      },"
+                ],
+                [
+                    101,
+                    "      \"18\" : {"
+                ],
+                [
+                    102,
+                    "        \"Text\" : \"# Compare with comments\","
+                ],
+                [
+                    103,
+                    "        \"Line\" : 168,"
+                ],
+                [
+                    104,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    105,
+                    "      },"
+                ],
+                [
+                    106,
+                    "      \"19\" : {"
+                ],
+                [
+                    107,
+                    "        \"Text\" : \"# Save the processed commit data to a JSON file\","
+                ],
+                [
+                    108,
+                    "        \"Line\" : 186,"
+                ],
+                [
+                    109,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    110,
+                    "      },"
+                ],
+                [
+                    111,
+                    "      \"20\" : {"
+                ],
+                [
+                    112,
+                    "        \"Text\" : \"# Create a new EventLog object\","
+                ],
+                [
+                    113,
+                    "        \"Line\" : 192,"
+                ],
+                [
+                    114,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    115,
+                    "      },"
+                ],
+                [
+                    116,
+                    "      \"21\" : {"
+                ],
+                [
+                    117,
+                    "        \"Text\" : \"# Iterate over each commit entry in the data\","
+                ],
+                [
+                    118,
+                    "        \"Line\" : 195,"
+                ],
+                [
+                    119,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    120,
+                    "      },"
+                ],
+                [
+                    121,
+                    "      \"22\" : {"
+                ],
+                [
+                    122,
+                    "        \"Text\" : \"# Create a trace for the file\","
+                ],
+                [
+                    123,
+                    "        \"Line\" : 197,"
+                ],
+                [
+                    124,
+                    "        \"CharPositionInLine\" : 8"
+                ],
+                [
+                    125,
+                    "      },"
+                ],
+                [
+                    126,
+                    "      \"23\" : {"
+                ],
+                [
+                    127,
+                    "        \"Text\" : \"# Extract event attributes\","
+                ],
+                [
+                    128,
+                    "        \"Line\" : 202,"
+                ],
+                [
+                    129,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    130,
+                    "      },"
+                ],
+                [
+                    131,
+                    "      \"24\" : {"
+                ],
+                [
+                    132,
+                    "        \"Text\" : \"# Add the event to the trace\","
+                ],
+                [
+                    133,
+                    "        \"Line\" : 216,"
+                ],
+                [
+                    134,
+                    "        \"CharPositionInLine\" : 12"
+                ],
+                [
+                    135,
+                    "      },"
+                ],
+                [
+                    136,
+                    "      \"25\" : {"
+                ],
+                [
+                    137,
+                    "        \"Text\" : \"# Add the trace to the log\","
+                ],
+                [
+                    138,
+                    "        \"Line\" : 219,"
+                ],
+                [
+                    139,
+                    "        \"CharPositionInLine\" : 8"
+                ],
+                [
+                    140,
+                    "      },"
+                ],
+                [
+                    141,
+                    "      \"26\" : {"
+                ],
+                [
+                    142,
+                    "        \"Text\" : \"# Export the log to an XES file\","
+                ],
+                [
+                    143,
+                    "        \"Line\" : 225,"
+                ],
+                [
+                    144,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    145,
+                    "      },"
+                ],
+                [
+                    146,
+                    "      \"27\" : {"
+                ],
+                [
+                    147,
+                    "        \"Text\" : \"# Create the XES log from the commit data\","
+                ],
+                [
+                    148,
+                    "        \"Line\" : 229,"
+                ],
+                [
+                    149,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    150,
+                    "      },"
+                ],
+                [
+                    151,
+                    "      \"28\" : {"
+                ],
+                [
+                    152,
+                    "        \"Text\" : \"# Save the XES log to a file\","
+                ],
+                [
+                    153,
+                    "        \"Line\" : 232,"
+                ],
+                [
+                    154,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    155,
+                    "      },"
+                ],
+                [
+                    156,
+                    "      \"29\" : {"
+                ],
+                [
+                    157,
+                    "        \"Text\" : \"# Example repository URL\","
+                ],
+                [
+                    158,
+                    "        \"Line\" : 237,"
+                ],
+                [
+                    159,
+                    "        \"CharPositionInLine\" : 59"
+                ],
+                [
+                    160,
+                    "      },"
+                ],
+                [
+                    161,
+                    "      \"30\" : {"
+                ],
+                [
+                    162,
+                    "        \"Text\" : \"# commits_data = analyze_commits(repo_url, \\\"py\\\", datetime(2015,2,1), datetime.today(), \\\"#\\\")\\n# save_to_json(commits_data, \\\"Data/commits_data.json\\\")\\n# save_to_xes(commits_data, \\\"Data/commits_data.xes\\\")\","
+                ],
+                [
+                    163,
+                    "        \"Line\" : 238,"
+                ],
+                [
+                    164,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    165,
+                    "      },"
+                ],
+                [
+                    166,
+                    "      \"31\" : {"
+                ],
+                [
+                    167,
+                    "        \"Text\" : \"# Test case\","
+                ],
+                [
+                    168,
+                    "        \"Line\" : 248,"
+                ],
+                [
+                    169,
+                    "        \"CharPositionInLine\" : 4"
+                ],
+                [
+                    170,
+                    "      },"
+                ],
+                [
+                    171,
+                    "      \"CommentCount\" : 32"
+                ],
+                [
+                    172,
+                    "    }"
+                ],
+                [
+                    173,
+                    "  },"
+                ],
+                [
+                    174,
+                    "  \"FileTypes\" : {"
+                ],
+                [
+                    175,
+                    "    \"PYTHON\" : 1"
+                ],
+                [
+                    176,
+                    "  },"
+                ],
+                [
+                    177,
+                    "  \"ElapsedTime\" : 956"
+                ],
+                [
+                    178,
+                    "}"
+                ]
+            ],
+            "deleted": []
+        },
+        "comments": [
+            {
+                "line": 11,
+                "comment": "# Traverse through the commits in the repository\n# Only save commits, that contain at least one file of the format {language_file_extension}"
+            },
+            {
+                "line": 21,
+                "comment": "# Analyze each file modified in the commit"
+            },
+            {
+                "line": 23,
+                "comment": "# only store file data for Rust files"
+            },
+            {
+                "line": 41,
+                "comment": "# For added diff ispect lines filter out comments"
+            },
+            {
+                "line": 52,
+                "comment": "# For deleted diff ispect lines filter out comments"
+            },
+            {
+                "line": 69,
+                "comment": "# Generate keywords based on the commit message and type of changes\n# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)\n# Extract type of commit from commit message\n# file_data[\"activity\"] = extract_activity(commit.msg)"
+            },
+            {
+                "line": 78,
+                "comment": "# Determine basic keywords based on the commit message"
+            },
+            {
+                "line": 91,
+                "comment": "# Use commit message keywords to determine activity type"
+            },
+            {
+                "line": 113,
+                "comment": "# Set current line for each analysis"
+            },
+            {
+                "line": 117,
+                "comment": "# In case of a starting multiline comment start adding future lines without comment symbol "
+            },
+            {
+                "line": 120,
+                "comment": "# In case of comment add them to existing dict if they directly follow"
+            },
+            {
+                "line": 132,
+                "comment": "# or create new one"
+            },
+            {
+                "line": 137,
+                "comment": "# In case of no comment add lines to existing dict if line number directly follows"
+            },
+            {
+                "line": 144,
+                "comment": "# Or create new one"
+            },
+            {
+                "line": 149,
+                "comment": "# Disable multiline comments when symbol found"
+            },
+            {
+                "line": 159,
+                "comment": "# Store last modified timestamps for each line"
+            },
+            {
+                "line": 162,
+                "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])"
+            },
+            {
+                "line": 164,
+                "comment": "# Track modified lines"
+            },
+            {
+                "line": 169,
+                "comment": "# Compare with comments"
+            },
+            {
+                "line": 187,
+                "comment": "# Save the processed commit data to a JSON file"
+            },
+            {
+                "line": 193,
+                "comment": "# Create a new EventLog object"
+            },
+            {
+                "line": 196,
+                "comment": "# Iterate over each commit entry in the data"
+            },
+            {
+                "line": 198,
+                "comment": "# Create a trace for the file"
+            },
+            {
+                "line": 203,
+                "comment": "# Extract event attributes"
+            },
+            {
+                "line": 217,
+                "comment": "# Add the event to the trace"
+            },
+            {
+                "line": 220,
+                "comment": "# Add the trace to the log"
+            },
+            {
+                "line": 226,
+                "comment": "# Export the log to an XES file"
+            },
+            {
+                "line": 230,
+                "comment": "# Create the XES log from the commit data"
+            },
+            {
+                "line": 233,
+                "comment": "# Save the XES log to a file"
+            },
+            {
+                "line": 238,
+                "comment": "# Example repository URL"
+            },
+            {
+                "line": 241,
+                "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")"
+            },
+            {
+                "line": 249,
+                "comment": "# Test case"
+            }
+        ]
+    }
+]
