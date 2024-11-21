@@ -1,0 +1,415 @@
+[
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 99,
+        "comment": "     * that commits the compaction.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 100,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 102,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 106,
+        "comment": "     * - There is time range from T1 to T2 where only the compactor will report a UUID.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 107,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 108,
+        "comment": "     * - There is a time range T2 to T3 where compactor and fate will report a UUID.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 109,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 110,
+        "comment": "     * - There is a time range T3 to T4 where only fate will report a UUID",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 111,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 112,
+        "comment": "     * - After time T4 the compaction is complete and nothing will report the UUID",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 113,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 114,
+        "comment": "     * This algorithm does the following.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 115,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 116,
+        "comment": "     * 1. Scan the metadata table looking for compaction UUIDs",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 117,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 118,
+        "comment": "     * 2. Ask compactors what they are running",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 119,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 120,
+        "comment": "     * 3. Ask Fate what compactions its committing.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 121,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 122,
+        "comment": "     * 4. Consider anything it saw in the metadata table that compactors or fate did not report as a",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 126,
+        "comment": "     * greater than T1 because the compactor generates and advertises ids prior to placing them in",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 127,
+        "comment": "     * the metadata table.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 128,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 129,
+        "comment": "     * If this process ask a compactor if it's running a compaction uuid and it says yes, then that",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 130,
+        "comment": "     * implies we are in the time range T1 to T3.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 131,
+        "comment": "     *",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 132,
+        "comment": "     * If this process ask a compactor if it's running a compaction uuid and it says no, then that",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 133,
+        "comment": "     * implies we are in the time range >T3 defined above. So if the compaction is still active then",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 134,
+        "comment": "     * it will be reported by fate. If the time is >T4, then the compaction is finished and not",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 139,
+        "comment": "     * compactors, then it could result in false positives. If compactors were queried before the",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 140,
+        "comment": "     * metadata table, then it could cause false positives.",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "DeadCompactionDetector.java",
+        "line": 141,
+        "comment": "     */",
+        "comment_time": "2024-03-08 19:58:45-05:00",
+        "last_code_change_time": "2023-11-27 12:48:22-05:00"
+    },
+    {
+        "file": "LargeSplitRowIT.java",
+        "line": 350,
+        "comment": "   * Test the unsplittable column is cleaned up if a previously marked unsplittable tablet /* no",
+        "comment_time": "2024-08-09 12:57:49-04:00",
+        "last_code_change_time": "2024-03-08 17:04:12-05:00"
+    },
+    {
+        "file": "LargeSplitRowIT.java",
+        "line": 351,
+        "comment": "   * longer needs to be split. The test {@link ManagerRepoIT#testFindSplitsDeleteUnsplittable()} is",
+        "comment_time": "2024-08-09 12:57:49-04:00",
+        "last_code_change_time": "2024-03-08 17:04:12-05:00"
+    },
+    {
+        "file": "LargeSplitRowIT.java",
+        "line": 352,
+        "comment": "   * similar to this test.",
+        "comment_time": "2024-08-09 12:57:49-04:00",
+        "last_code_change_time": "2024-03-08 17:04:12-05:00"
+    },
+    {
+        "file": "LargeSplitRowIT.java",
+        "line": 353,
+        "comment": "   */",
+        "comment_time": "2024-08-09 12:57:49-04:00",
+        "last_code_change_time": "2024-03-08 17:04:12-05:00"
+    },
+    {
+        "file": "IdleProcessMetricsIT.java",
+        "line": 224,
+        "comment": "        assertEquals(MAX_DATA, scanner.stream().count()); // Ensure that data exists",
+        "comment_time": "2024-07-26 00:18:20-04:00",
+        "last_code_change_time": "2024-07-24 07:52:43-04:00"
+    },
+    {
+        "file": "ClientTabletCacheImpl.java",
+        "line": 894,
+        "comment": "      // so obtain info from metadata table",
+        "comment_time": "2024-08-23 12:45:17-07:00",
+        "last_code_change_time": "2024-04-05 12:05:21-04:00"
+    },
+    {
+        "file": "FateCleanerTest.java",
+        "line": 230,
+        "comment": "    // this test ensures that a new cleaner instance uses persisted data from a previous cleaner",
+        "comment_time": "2024-06-14 09:36:38-04:00",
+        "last_code_change_time": "2024-01-20 15:11:23-05:00"
+    },
+    {
+        "file": "FateCleanerTest.java",
+        "line": 231,
+        "comment": "    // instance",
+        "comment_time": "2024-06-14 09:36:38-04:00",
+        "last_code_change_time": "2024-01-20 15:11:23-05:00"
+    },
+    {
+        "file": "FateStoreIT.java",
+        "line": 131,
+        "comment": "    txStore.setStatus(TStatus.FAILED_IN_PROGRESS); // needed to satisfy the condition on pop",
+        "comment_time": "2024-02-21 10:39:10-05:00",
+        "last_code_change_time": "2024-01-26 19:18:35-05:00"
+    },
+    {
+        "file": "FateStoreIT.java",
+        "line": 142,
+        "comment": "    txStore.setStatus(TStatus.SUCCESSFUL); // needed to satisfy the condition on delete",
+        "comment_time": "2024-02-21 10:39:10-05:00",
+        "last_code_change_time": "2024-01-26 19:18:35-05:00"
+    },
+    {
+        "file": "FateStoreIT.java",
+        "line": 145,
+        "comment": "    txStore2.setStatus(TStatus.SUCCESSFUL); // needed to satisfy the condition on delete",
+        "comment_time": "2024-02-21 10:39:10-05:00",
+        "last_code_change_time": "2024-01-26 19:18:35-05:00"
+    },
+    {
+        "file": "FateId.java",
+        "line": 114,
+        "comment": "  /**",
+        "comment_time": "2024-02-14 16:31:44-05:00",
+        "last_code_change_time": "2024-01-31 21:23:33-05:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 291,
+        "comment": "  /**",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 292,
+        "comment": "   * Note that the ServiceLockPath object returned by this method does not populate the server",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 293,
+        "comment": "   * attribute. To get the location of the GarbageCollector you will need to parse the lock data at",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 294,
+        "comment": "   * the ZooKeeper path.",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 295,
+        "comment": "   */",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 305,
+        "comment": "  /**",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 306,
+        "comment": "   * Note that the ServiceLockPath object returned by this method does not populate the server",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 307,
+        "comment": "   * attribute. The location of the Manager is not in the ZooKeeper path. Instead, use",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 308,
+        "comment": "   * InstanceOperations.getServers(ServerId.Type.MANAGER) to get the location.",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 309,
+        "comment": "   */",
+        "comment_time": "2024-10-08 06:46:37-04:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 322,
+        "comment": "  /**",
+        "comment_time": "2024-11-14 09:41:53-05:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 323,
+        "comment": "   * Note that the ServiceLockPath object returned by this method does not populate the server",
+        "comment_time": "2024-11-14 09:41:53-05:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 324,
+        "comment": "   * attribute. To get the location of the GarbageCollector you will need to parse the lock data at",
+        "comment_time": "2024-11-14 09:41:53-05:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 325,
+        "comment": "   * the ZooKeeper path.",
+        "comment_time": "2024-11-14 09:41:53-05:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    },
+    {
+        "file": "ServiceLockPaths.java",
+        "line": 326,
+        "comment": "   */",
+        "comment_time": "2024-11-14 09:41:53-05:00",
+        "last_code_change_time": "2024-09-16 10:47:57-04:00"
+    }
+]

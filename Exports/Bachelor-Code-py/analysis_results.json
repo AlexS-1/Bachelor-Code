@@ -1,0 +1,100 @@
+[
+    {
+        "file": "XESConversion.py",
+        "line": 117,
+        "comment": "            # Add the event to the trace",
+        "comment_time": "2024-11-16 20:51:56+01:00",
+        "last_code_change_time": "2024-10-24 15:08:06+02:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 100,
+        "comment": "                            # else:",
+        "comment_time": "2024-11-19 15:32:58+01:00",
+        "last_code_change_time": "2024-11-18 10:51:21+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 101,
+        "comment": "                            #     diff_edited.append({",
+        "comment_time": "2024-11-19 15:32:58+01:00",
+        "last_code_change_time": "2024-11-16 20:51:56+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 102,
+        "comment": "                            #         \"line_numbers\": [],",
+        "comment_time": "2024-11-19 15:32:58+01:00",
+        "last_code_change_time": "2024-11-18 10:51:21+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 103,
+        "comment": "                            #         \"comments\": {curr_line: curr_content},",
+        "comment_time": "2024-11-19 15:32:58+01:00",
+        "last_code_change_time": "2024-11-18 10:51:21+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 104,
+        "comment": "                            #         \"lines\": []})",
+        "comment_time": "2024-11-19 15:32:58+01:00",
+        "last_code_change_time": "2024-11-18 10:51:21+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 40,
+        "comment": "                # For added diff ispect lines filter out comments",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-16 19:39:45+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 51,
+        "comment": "                # For deleted diff ispect lines filter out comments",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-16 19:39:45+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 77,
+        "comment": "    # Determine basic keywords based on the commit message",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-16 19:39:45+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 112,
+        "comment": "                # Set current line for each analysis",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-19 15:32:58+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 116,
+        "comment": "                    # In case of a starting multiline comment start adding future lines without comment symbol",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-18 10:51:21+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 119,
+        "comment": "                    # In case of comment add them to existing dict if they directly follow",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-19 15:32:58+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 125,
+        "comment": "                    # or create new one",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-19 15:32:58+01:00"
+    },
+    {
+        "file": "XESConversion.py",
+        "line": 142,
+        "comment": "                    # Disable multiline comments when symbol found",
+        "comment_time": "2024-11-19 17:28:53+01:00",
+        "last_code_change_time": "2024-11-18 15:19:19+01:00"
+    }
+]

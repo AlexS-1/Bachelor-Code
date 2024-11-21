@@ -1,0 +1,2788 @@
+[
+    {
+        "file": "codeActionController.ts",
+        "line": 291,
+        "comment": "\t\t\t\tthis._applyCodeAction(action, /* retrigger */ true, !!preview, options.fromLightbulb ? ApplyCodeActionReason.FromAILightbulb : ApplyCodeActionReason.FromCodeActions);",
+        "comment_time": "2024-10-03 17:03:07+02:00",
+        "last_code_change_time": "2024-02-01 09:14:18-08:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 372,
+        "comment": "\t\t// this._zone.value.widget.updateSlashCommands(this._session.session.slashCommands ?? []);",
+        "comment_time": "2024-03-18 19:12:44+01:00",
+        "last_code_change_time": "2024-01-12 09:11:05+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 939,
+        "comment": "\t\t\t// TODO@jrieken we are not ready for this",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-20 15:58:55+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 940,
+        "comment": "\t\t\t// widgetPosition = selection.getEndPosition();",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-20 15:58:55+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 941,
+        "comment": "\t\t\t// if (Range.spansMultipleLines(selection) && widgetPosition.column === 1) {",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-20 15:58:55+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 942,
+        "comment": "\t\t\t// \t// selection ends on \"nothing\" -> move up to match the",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-27 15:26:11+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 943,
+        "comment": "\t\t\t// \t// rendered/visible part of the selection",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-27 15:26:11+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 944,
+        "comment": "\t\t\t// \twidgetPosition = this._editor.getModel().validatePosition(widgetPosition.delta(-1, Number.MAX_SAFE_INTEGER));",
+        "comment_time": "2024-03-28 11:21:33+01:00",
+        "last_code_change_time": "2024-03-12 14:24:00+01:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 614,
+        "comment": "\t\t\t\t\tCancellationToken.None); // TODO@ulugbekna: add proper cancellation?",
+        "comment_time": "2024-08-15 12:53:47+02:00",
+        "last_code_change_time": "2024-08-15 11:00:08+02:00"
+    },
+    {
+        "file": "inlineChatController.ts",
+        "line": 751,
+        "comment": "\t\t\t// error -> no message, errors are shown with the request",
+        "comment_time": "2024-09-04 14:52:17+02:00",
+        "last_code_change_time": "2023-11-24 19:13:50+01:00"
+    },
+    {
+        "file": "multiDiffEditorWidgetImpl.ts",
+        "line": 76,
+        "comment": "\tpublic readonly scrollTop = observableFromEvent(this._scrollableElement.onScroll, () => /** @description scrollTop */ this._scrollableElement.getScrollPosition().scrollTop);",
+        "comment_time": "2024-06-16 20:22:39+02:00",
+        "last_code_change_time": "2023-11-23 19:21:08+01:00"
+    },
+    {
+        "file": "chatServiceImpl.ts",
+        "line": 644,
+        "comment": "\t\t\t\t\tconst requestProps = await prepareChatAgentRequest(agent, command, !detectedAgent && enableCommandDetection, request /* Reuse the request object if we already created it for participant detection */);",
+        "comment_time": "2024-08-20 16:35:23-07:00",
+        "last_code_change_time": "2024-04-11 18:53:15-07:00"
+    },
+    {
+        "file": "window.ts",
+        "line": 88,
+        "comment": "//#endregion",
+        "comment_time": "2024-09-27 15:39:15+02:00",
+        "last_code_change_time": "2024-03-03 14:35:38-08:00"
+    },
+    {
+        "file": "extHostTypeConverters.ts",
+        "line": 2481,
+        "comment": "\t\t) as vscode.ChatResponseReferencePart; // 'value' is extended with variableName",
+        "comment_time": "2024-05-13 20:45:26-07:00",
+        "last_code_change_time": "2024-02-09 05:32:27-08:00"
+    },
+    {
+        "file": "chatModel.ts",
+        "line": 40,
+        "comment": "\t * True if the variable has a value vs being a reference to a variable",
+        "comment_time": "2024-10-08 18:20:42+00:00",
+        "last_code_change_time": "2024-07-22 16:03:06-07:00"
+    },
+    {
+        "file": "pasteUrlProvider.ts",
+        "line": 92,
+        "comment": "\t{ regex: /<[^<>\\s]*>/g }, // Autolink",
+        "comment_time": "2024-02-07 18:01:32-08:00",
+        "last_code_change_time": "2024-01-04 15:59:14-08:00"
+    },
+    {
+        "file": "scmViewPane.ts",
+        "line": 1802,
+        "comment": "\t\t\t// Create action context",
+        "comment_time": "2023-12-01 17:28:58-08:00",
+        "last_code_change_time": "2023-11-23 16:39:53+01:00"
+    },
+    {
+        "file": "statusbarPart.ts",
+        "line": 695,
+        "comment": "\t\t// Container",
+        "comment_time": "2024-03-19 10:00:35+01:00",
+        "last_code_change_time": "2023-11-21 12:24:29+01:00"
+    },
+    {
+        "file": "statusbarPart.ts",
+        "line": 704,
+        "comment": "\t\t// Statusbar Part",
+        "comment_time": "2024-03-19 10:00:35+01:00",
+        "last_code_change_time": "2023-11-21 12:24:29+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 335,
+        "comment": "\t\treturn 12 /* padding */ + 2 /*border*/ + 12 /*shadow*/;",
+        "comment_time": "2024-03-14 10:21:41+01:00",
+        "last_code_change_time": "2024-03-12 14:24:00+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 338,
+        "comment": "\t\t// console.log('InlineChat#layout', dimension);",
+        "comment_time": "2024-03-20 15:58:55+01:00",
+        "last_code_change_time": "2024-03-12 14:24:00+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 192,
+        "comment": "\t\t\t\t// TODO@jrieken support editable code blocks",
+        "comment_time": "2024-03-20 17:07:46+01:00",
+        "last_code_change_time": "2024-03-15 15:44:41+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 530,
+        "comment": "\t */",
+        "comment_time": "2024-03-28 13:07:01+01:00",
+        "last_code_change_time": "2024-03-06 12:51:50+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 304,
+        "comment": "\t\t// this._defaultChatModel.startInitialize();",
+        "comment_time": "2024-05-21 16:54:20-07:00",
+        "last_code_change_time": "2024-03-15 15:44:41+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 305,
+        "comment": "\t\t// this._defaultChatModel.initialize(undefined);",
+        "comment_time": "2024-05-21 16:54:20-07:00",
+        "last_code_change_time": "2024-03-21 11:58:28+01:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 388,
+        "comment": "\t\treturn 4 /* padding */ + 2 /*border*/ + 4 /*shadow*/;",
+        "comment_time": "2024-08-28 10:25:19+02:00",
+        "last_code_change_time": "2024-06-26 16:48:28+02:00"
+    },
+    {
+        "file": "inlineChatWidget.ts",
+        "line": 381,
+        "comment": "\t\treturn this._options.inZoneWidget ? 1 : (2 /*border*/ + 4 /*shadow*/);",
+        "comment_time": "2024-10-04 10:47:00-07:00",
+        "last_code_change_time": "2024-03-21 11:58:28+01:00"
+    },
+    {
+        "file": "utils.ts",
+        "line": 39,
+        "comment": "/**",
+        "comment_time": "2024-09-04 11:47:58+02:00",
+        "last_code_change_time": "2024-01-19 13:14:28+01:00"
+    },
+    {
+        "file": "utils.ts",
+        "line": 40,
+        "comment": " * Use observableCodeEditor(editor).applyDecorations(decorations) instead.",
+        "comment_time": "2024-09-04 11:47:58+02:00",
+        "last_code_change_time": "2024-01-19 13:14:28+01:00"
+    },
+    {
+        "file": "utils.ts",
+        "line": 41,
+        "comment": " * @deprecated",
+        "comment_time": "2024-09-04 11:47:58+02:00",
+        "last_code_change_time": "2024-01-19 13:14:28+01:00"
+    },
+    {
+        "file": "utils.ts",
+        "line": 42,
+        "comment": "*/",
+        "comment_time": "2024-09-04 11:47:58+02:00",
+        "last_code_change_time": "2024-01-19 13:14:28+01:00"
+    },
+    {
+        "file": "actions.ts",
+        "line": 21,
+        "comment": "\t/**",
+        "comment_time": "2024-05-08 16:57:18+02:00",
+        "last_code_change_time": "2024-01-09 15:06:29+01:00"
+    },
+    {
+        "file": "actions.ts",
+        "line": 22,
+        "comment": "\t * Menu item is hidden if this expression returns false.",
+        "comment_time": "2024-05-08 16:57:18+02:00",
+        "last_code_change_time": "2024-01-09 15:06:29+01:00"
+    },
+    {
+        "file": "actions.ts",
+        "line": 23,
+        "comment": "\t */",
+        "comment_time": "2024-05-08 16:57:18+02:00",
+        "last_code_change_time": "2024-01-09 15:06:29+01:00"
+    },
+    {
+        "file": "serverHost.ts",
+        "line": 353,
+        "comment": "\t\t// skip paths without .. or ./ or /",
+        "comment_time": "2024-11-05 19:44:48-08:00",
+        "last_code_change_time": "2023-11-21 12:06:47-08:00"
+    },
+    {
+        "file": "windowImpl.ts",
+        "line": 113,
+        "comment": "\t\t// Sheet Offsets",
+        "comment_time": "2023-11-23 20:54:13+01:00",
+        "last_code_change_time": "2023-11-23 07:49:25+01:00"
+    },
+    {
+        "file": "testCoverage.ts",
+        "line": 57,
+        "comment": "\t\tthis.tree.mutatePath(this.treePathForUri(coverage.uri, /* canonical = */ false), node => {",
+        "comment_time": "2024-05-07 16:15:34-07:00",
+        "last_code_change_time": "2024-03-14 08:10:00+01:00"
+    },
+    {
+        "file": "extension.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "extension.ts",
+        "line": 34,
+        "comment": "\t\t\t// For local non bundled version of vscode-markdown-languageserver",
+        "comment_time": "2024-07-25 22:36:59-07:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "extension.ts",
+        "line": 35,
+        "comment": "\t\t\t// ? './node_modules/vscode-markdown-languageserver/out/node/workerMain'",
+        "comment_time": "2024-07-25 22:36:59-07:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "auxiliaryWindow.ts",
+        "line": 68,
+        "comment": "\t\t\t\t// probe the `options.show` value for whether the window should be maximized",
+        "comment_time": "2024-04-09 08:47:41+02:00",
+        "last_code_change_time": "2024-04-08 17:17:08+02:00"
+    },
+    {
+        "file": "native.ts",
+        "line": 148,
+        "comment": "\t/**",
+        "comment_time": "2024-10-15 06:43:37-07:00",
+        "last_code_change_time": "2024-10-14 07:53:08-07:00"
+    },
+    {
+        "file": "auxiliaryEditorPart.ts",
+        "line": 250,
+        "comment": "\t\treturn; // disabled, auxiliary editor part state is tracked outside",
+        "comment_time": "2023-12-29 08:46:38+01:00",
+        "last_code_change_time": "2023-12-06 12:23:18+01:00"
+    },
+    {
+        "file": "auxiliaryEditorPart.ts",
+        "line": 110,
+        "comment": "\t\tconst useCustomTitle = isNative && showCustomTitlebar(this.configurationService); // custom title in aux windows only enabled in native",
+        "comment_time": "2024-01-16 15:14:52+01:00",
+        "last_code_change_time": "2023-12-20 22:12:08+01:00"
+    },
+    {
+        "file": "auxiliaryEditorPart.ts",
+        "line": 110,
+        "comment": "\t\tconst useCustomTitle = isNative && hasCustomTitlebar(this.configurationService); // custom title in aux windows only enabled in native",
+        "comment_time": "2024-01-17 14:09:59+01:00",
+        "last_code_change_time": "2023-12-20 22:12:08+01:00"
+    },
+    {
+        "file": "auxiliaryEditorPart.ts",
+        "line": 110,
+        "comment": "\t\tconst useCustomTitle = isNative && !hasNativeTitlebar(this.configurationService); // custom title in aux windows only enabled in native",
+        "comment_time": "2024-01-25 17:59:38+01:00",
+        "last_code_change_time": "2023-12-20 22:12:08+01:00"
+    },
+    {
+        "file": "titlebarPart.ts",
+        "line": 423,
+        "comment": "\t\t\t}, event === EventType.CLICK /* prevents command center from appearing */));",
+        "comment_time": "2023-11-29 11:24:40+01:00",
+        "last_code_change_time": "2023-11-23 07:49:25+01:00"
+    },
+    {
+        "file": "titlebarPart.ts",
+        "line": 490,
+        "comment": "\t\t\t// Don't show title in custom titlebar when native title is shown",
+        "comment_time": "2024-01-18 18:10:50+01:00",
+        "last_code_change_time": "2023-11-23 07:49:25+01:00"
+    },
+    {
+        "file": "chatInputEditorContrib.ts",
+        "line": 592,
+        "comment": "\t\t\t\tif (!widget || widget.location !== ChatAgentLocation.Panel /* TODO@jrieken - enable when agents are adopted*/) {",
+        "comment_time": "2024-03-21 20:42:01+01:00",
+        "last_code_change_time": "2024-02-01 16:33:38+01:00"
+    },
+    {
+        "file": "inlineChat.ts",
+        "line": 115,
+        "comment": "/**",
+        "comment_time": "2024-05-21 17:41:25+02:00",
+        "last_code_change_time": "2024-02-09 05:32:27-08:00"
+    },
+    {
+        "file": "inlineChat.ts",
+        "line": 116,
+        "comment": " * @deprecated",
+        "comment_time": "2024-05-21 17:41:25+02:00",
+        "last_code_change_time": "2024-02-09 05:32:27-08:00"
+    },
+    {
+        "file": "inlineChat.ts",
+        "line": 127,
+        "comment": " */",
+        "comment_time": "2024-05-21 17:41:25+02:00",
+        "last_code_change_time": "2024-02-09 05:32:27-08:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 360,
+        "comment": "/**",
+        "comment_time": "2024-04-01 05:41:43-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 361,
+        "comment": " * A service that provides convenient access to the terminal configuration and derived values.",
+        "comment_time": "2024-04-01 05:41:43-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 362,
+        "comment": " */",
+        "comment_time": "2024-04-01 05:41:43-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 366,
+        "comment": "\t/**",
+        "comment_time": "2024-04-01 05:41:43-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 367,
+        "comment": "\t * A typed and partially validated representation of the terminal configuration.",
+        "comment_time": "2024-04-01 05:41:43-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 25,
+        "comment": "import { defaultTerminalFindCommandToSkipShell } from '../../terminalContrib/find/common/terminal.find.js'; // eslint-disable-line local/code-import-patterns",
+        "comment_time": "2024-08-30 10:31:46+02:00",
+        "last_code_change_time": "2024-04-28 05:58:10-07:00"
+    },
+    {
+        "file": "terminal.ts",
+        "line": 366,
+        "comment": "\t// #endregion",
+        "comment_time": "2024-09-30 07:44:25-07:00",
+        "last_code_change_time": "2024-04-01 05:37:04-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5737,
+        "comment": "\t\t// TODO: Uncomment when we want to expose the setting to VS Code users",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5738,
+        "comment": "\t\t// {",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5739,
+        "comment": "\t\t// \tenumDescriptions: [",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5740,
+        "comment": "\t\t// \t\tnls.localize('experimentalGpuAcceleration.off', \"Use regular DOM-based rendering.\"),",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5741,
+        "comment": "\t\t// \t\tnls.localize('experimentalGpuAcceleration.on', \"Use GPU acceleration.\"),",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5742,
+        "comment": "\t\t// \t],",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "editorOptions.ts",
+        "line": 5743,
+        "comment": "\t\t// \tdescription: nls.localize('experimentalGpuAcceleration', \"Controls whether to use the (very) experimental GPU acceleration to render the editor.\")",
+        "comment_time": "2024-08-23 11:53:58-07:00",
+        "last_code_change_time": "2024-08-23 11:43:23-07:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 200,
+        "comment": "\t\t// \treturn {",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 201,
+        "comment": "\t\t// \t\tname: remoteBranch.name,",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 202,
+        "comment": "\t\t// \t\tremote: remoteBranch.remote,",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 203,
+        "comment": "\t\t// \t\tcommit: remoteBranch.commit",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 204,
+        "comment": "\t\t// \t};",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 205,
+        "comment": "\t\t// }",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 206,
+        "comment": "\t\t// catch (err) {",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 207,
+        "comment": "\t\t// \tthis.logger.error(`Failed to get branch base for '${HEAD.name}': ${err.message}`);",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 208,
+        "comment": "\t\t// }",
+        "comment_time": "2024-01-19 11:25:59+01:00",
+        "last_code_change_time": "2024-01-18 12:39:40-08:00"
+    },
+    {
+        "file": "historyProvider.ts",
+        "line": 191,
+        "comment": "\t\t\t// Base (config -> reflog -> default)",
+        "comment_time": "2024-02-07 12:43:16+01:00",
+        "last_code_change_time": "2024-01-19 12:56:34+01:00"
+    },
+    {
+        "file": "terminalConfiguration.ts",
+        "line": 20,
+        "comment": "import { terminalInitialHintConfiguration } from 'vs/workbench/contrib/terminalContrib/chat/common/terminalInitialHintConfiguration'; // eslint-disable-line local/code-import-patterns",
+        "comment_time": "2024-08-02 11:09:08-07:00",
+        "last_code_change_time": "2024-04-28 05:29:09-07:00"
+    },
+    {
+        "file": "terminalConfiguration.ts",
+        "line": 20,
+        "comment": "import { terminalInitialHintConfiguration } from '../../terminalContrib/chat/common/terminalInitialHintConfiguration.js'; // eslint-disable-line local/code-import-patterns",
+        "comment_time": "2024-08-30 10:31:46+02:00",
+        "last_code_change_time": "2024-04-28 05:29:09-07:00"
+    },
+    {
+        "file": "voiceChatActions.ts",
+        "line": 833,
+        "comment": "\t\t\treturn; // these settings require a speech and chat provider",
+        "comment_time": "2024-01-24 19:44:10+01:00",
+        "last_code_change_time": "2024-01-18 14:59:47+01:00"
+    },
+    {
+        "file": "voiceChatActions.ts",
+        "line": 438,
+        "comment": "\t\t\t\tChatContextKeys.requestInProgress.negate() // disable when a chat request is in progress",
+        "comment_time": "2024-10-29 11:55:16-07:00",
+        "last_code_change_time": "2024-02-13 12:02:41+01:00"
+    },
+    {
+        "file": "voiceChatActions.ts",
+        "line": 457,
+        "comment": "\t\t\t\t\tChatContextKeys.requestInProgress.negate(), \t// disable when a chat request is in progress",
+        "comment_time": "2024-10-29 11:55:16-07:00",
+        "last_code_change_time": "2024-02-13 12:02:41+01:00"
+    },
+    {
+        "file": "voiceChatActions.ts",
+        "line": 511,
+        "comment": "\t\t\t\tChatContextKeys.requestInProgress.negate() // disable when a chat request is in progress",
+        "comment_time": "2024-10-29 11:55:16-07:00",
+        "last_code_change_time": "2024-05-08 16:57:18+02:00"
+    },
+    {
+        "file": "hover.ts",
+        "line": 264,
+        "comment": "// #endregion Updatable hover",
+        "comment_time": "2024-04-03 06:20:56-07:00",
+        "last_code_change_time": "2024-02-15 20:25:45+01:00"
+    },
+    {
+        "file": "terminalActions.ts",
+        "line": 1727,
+        "comment": "\t// Get selected tab list instance(s)",
+        "comment_time": "2023-12-06 16:32:17-06:00",
+        "last_code_change_time": "2023-12-06 16:24:41-06:00"
+    },
+    {
+        "file": "terminalSuggestAddon.ts",
+        "line": 143,
+        "comment": "\t\t\t// TODO: Allow the user to configure when completions are triggered - this is equivalent to editor.quickSuggestions",
+        "comment_time": "2024-04-26 09:16:45-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "terminalSuggestAddon.ts",
+        "line": 199,
+        "comment": "\t\t// this._onDidReceiveCompletions.fire();",
+        "comment_time": "2024-09-17 17:02:53-07:00",
+        "last_code_change_time": "2024-09-17 14:59:49-07:00"
+    },
+    {
+        "file": "terminalSuggestAddon.ts",
+        "line": 444,
+        "comment": "\t// TODO: Needs to be returned by the provider, I think?",
+        "comment_time": "2024-10-31 12:57:19-05:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "terminalSuggestAddon.ts",
+        "line": 448,
+        "comment": "\t// #region pwsh only",
+        "comment_time": "2024-10-31 12:57:19-05:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "notebookOptions.ts",
+        "line": 311,
+        "comment": "\t\t\t\t// do not throw and break notebook",
+        "comment_time": "2024-02-15 14:47:22-08:00",
+        "last_code_change_time": "2024-02-05 15:15:53-08:00"
+    },
+    {
+        "file": "copyPasteController.ts",
+        "line": 248,
+        "comment": "\t\t\tthis._editor.getOption(EditorOption.readOnly) // Never enabled if editor is readonly.",
+        "comment_time": "2024-08-12 17:25:31-07:00",
+        "last_code_change_time": "2024-01-11 16:50:47-08:00"
+    },
+    {
+        "file": "copyPasteController.ts",
+        "line": 249,
+        "comment": "\t\t\t|| (!this.isPasteAsEnabled() && !this._pasteAsActionContext) // Or feature disabled (but still enable if paste was explicitly requested)",
+        "comment_time": "2024-08-12 17:25:31-07:00",
+        "last_code_change_time": "2024-01-11 16:50:47-08:00"
+    },
+    {
+        "file": "bulkEditPane.ts",
+        "line": 409,
+        "comment": "\t\t\t// Issues with current implementation",
+        "comment_time": "2024-02-08 17:32:06+01:00",
+        "last_code_change_time": "2024-02-08 17:23:47+01:00"
+    },
+    {
+        "file": "bulkEditPane.ts",
+        "line": 410,
+        "comment": "\t\t\t// 1. Each time, this creates a new multi diff editor, we want it to reshow the same multi diff editor if there is one",
+        "comment_time": "2024-02-08 17:32:06+01:00",
+        "last_code_change_time": "2024-02-08 17:23:47+01:00"
+    },
+    {
+        "file": "bulkEditPane.ts",
+        "line": 411,
+        "comment": "\t\t\t// 2. The file naming does not look correct in the multi diff editor, there is a bug somewhere",
+        "comment_time": "2024-02-08 17:32:06+01:00",
+        "last_code_change_time": "2024-02-08 17:23:47+01:00"
+    },
+    {
+        "file": "bulkEditPane.ts",
+        "line": 412,
+        "comment": "\t\t\t// 3. Currently I am accessing the parent of the file element and showing all of the files, but we want to jump to the correct location when clicking on the multi diff editor",
+        "comment_time": "2024-02-08 17:32:06+01:00",
+        "last_code_change_time": "2024-02-08 17:23:47+01:00"
+    },
+    {
+        "file": "paneCompositePart.ts",
+        "line": 583,
+        "comment": "\t\treturn toolBarWidth + globalToolBarWidth + 5; // 5px padding left",
+        "comment_time": "2024-03-12 18:07:15+01:00",
+        "last_code_change_time": "2024-03-04 17:56:08+01:00"
+    },
+    {
+        "file": "webviewPreloads.ts",
+        "line": 93,
+        "comment": "\t/* eslint-disable no-restricted-globals */",
+        "comment_time": "2024-05-29 00:46:24-07:00",
+        "last_code_change_time": "2024-02-12 14:53:36+01:00"
+    },
+    {
+        "file": "1dsAppender.ts",
+        "line": 35,
+        "comment": "\t// const postPlugin = isWeb ? await importAMDNodeModule<typeof import('@microsoft/1ds-post-js')>('@microsoft/1ds-post-js', 'bundle/ms.post.min.js'): await import('@microsoft/1ds-post-js');",
+        "comment_time": "2024-08-22 12:32:57+02:00",
+        "last_code_change_time": "2024-08-14 07:19:43-07:00"
+    },
+    {
+        "file": "terminalLinkOpeners.ts",
+        "line": 109,
+        "comment": "\t\t// We can detect links in the line, which will give a `parsedLink` whose `path.text`",
+        "comment_time": "2024-04-22 13:24:19+01:00",
+        "last_code_change_time": "2024-02-29 12:59:50-08:00"
+    },
+    {
+        "file": "terminalLinkOpeners.ts",
+        "line": 110,
+        "comment": "\t\t// is also \"foo\" but it will also include the line number. We can take",
+        "comment_time": "2024-04-22 13:24:19+01:00",
+        "last_code_change_time": "2024-02-29 12:59:50-08:00"
+    },
+    {
+        "file": "terminalLinkOpeners.ts",
+        "line": 111,
+        "comment": "\t\t// that line number and send the link to quick pick with `foo:10` as the contents.",
+        "comment_time": "2024-04-22 13:24:19+01:00",
+        "last_code_change_time": "2024-02-29 12:59:50-08:00"
+    },
+    {
+        "file": "terminalLinkOpeners.ts",
+        "line": 110,
+        "comment": "\t\t// This also normalizes the path to remove suffixes like :10 or :5.0-4",
+        "comment_time": "2024-06-20 09:19:38-07:00",
+        "last_code_change_time": "2024-02-29 12:59:50-08:00"
+    },
+    {
+        "file": "externalTerminalService.ts",
+        "line": 110,
+        "comment": "\t\t\t\tcmdArgs = ['-d', dir || '.', exec, '/c', command]; // default dir fixes #204039",
+        "comment_time": "2024-02-13 09:50:40-08:00",
+        "last_code_change_time": "2023-12-15 22:34:44+01:00"
+    },
+    {
+        "file": "terminalProcess.ts",
+        "line": 666,
+        "comment": "\t\t\t// Skip the next character as the chunk would be a single character",
+        "comment_time": "2023-12-19 05:31:15-08:00",
+        "last_code_change_time": "2023-12-18 12:47:46-08:00"
+    },
+    {
+        "file": "authentication.ts",
+        "line": 205,
+        "comment": "\t * @param extensionId",
+        "comment_time": "2024-09-17 18:20:53-07:00",
+        "last_code_change_time": "2024-06-16 18:12:37-07:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 103,
+        "comment": "\t\t\t\t\tcontents: Buffer.from(`/*---------------------------------------------------------",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 107,
+        "comment": "\t\t\t\t\tbase,",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 108,
+        "comment": "\t\t\t\t\tpath: `${base}/nls.messages.js`",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 109,
+        "comment": "\t\t\t\t})",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 110,
+        "comment": "\t\t\t]) {",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 111,
+        "comment": "\t\t\t\tthis.emit('data', file);",
+        "comment_time": "2024-07-31 19:20:45+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 232,
+        "comment": "//#endregion",
+        "comment_time": "2024-09-27 08:05:50+02:00",
+        "last_code_change_time": "2024-06-28 11:55:48+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 6,
+        "comment": "// eslint-disable-next-line local/code-import-patterns",
+        "comment_time": "2024-10-02 17:22:33-07:00",
+        "last_code_change_time": "2024-09-27 08:05:50+02:00"
+    },
+    {
+        "file": "nls.ts",
+        "line": 8,
+        "comment": "// eslint-disable-next-line local/code-import-patterns",
+        "comment_time": "2024-10-02 17:22:33-07:00",
+        "last_code_change_time": "2024-09-27 08:05:50+02:00"
+    },
+    {
+        "file": "webviewElement.ts",
+        "line": 808,
+        "comment": "\t\t\tthis.element.contentWindow?.focus(); // ...because `contentWindow` is not able to do so",
+        "comment_time": "2024-03-06 14:47:45+01:00",
+        "last_code_change_time": "2024-03-04 08:41:30+01:00"
+    },
+    {
+        "file": "extHostExtensionService.ts",
+        "line": 116,
+        "comment": "\t\t\tr = <T>(require.__$__nodeRequire ?? require /* TODO@esm drop the first */)(module.fsPath);",
+        "comment_time": "2024-08-23 09:49:30+02:00",
+        "last_code_change_time": "2024-07-09 08:08:56+02:00"
+    },
+    {
+        "file": "derived.ts",
+        "line": 293,
+        "comment": "\t\tthis._isComputing = false; // TODO@hediet: Set to true and investigate diff editor scrolling issues! (also see test.skip('catches cyclic dependencies')",
+        "comment_time": "2024-10-17 09:13:42-07:00",
+        "last_code_change_time": "2024-09-05 11:02:21+02:00"
+    },
+    {
+        "file": "scmMultiDiffSourceResolver.ts",
+        "line": 79,
+        "comment": "\t\t() => /** @description resources */ this._group.resources.map(e => new MultiDiffEditorItem(e.multiDiffEditorOriginalUri, e.multiDiffEditorModifiedUri))",
+        "comment_time": "2024-07-05 14:38:21+02:00",
+        "last_code_change_time": "2024-01-09 22:28:08+01:00"
+    },
+    {
+        "file": "searchActionsRemoveReplace.ts",
+        "line": 126,
+        "comment": "\t\tawait searchView.queueRefreshTree(); // wait for refreshTree to finish",
+        "comment_time": "2024-10-18 18:36:37-07:00",
+        "last_code_change_time": "2024-09-18 19:45:01-07:00"
+    },
+    {
+        "file": "searchActionsRemoveReplace.ts",
+        "line": 294,
+        "comment": "\tawait viewlet?.queueRefreshTree(); // wait for refreshTree to finish",
+        "comment_time": "2024-10-18 18:36:37-07:00",
+        "last_code_change_time": "2024-09-18 19:45:01-07:00"
+    },
+    {
+        "file": "workspaceWatcher.ts",
+        "line": 119,
+        "comment": "\t\t// allows us to investigate this situation in context of experiments)",
+        "comment_time": "2024-05-25 12:48:33+02:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "inlineChatSessionServiceImpl.ts",
+        "line": 205,
+        "comment": "\t\t\t\t\t// if (data.message) {",
+        "comment_time": "2024-03-19 14:31:53+01:00",
+        "last_code_change_time": "2024-03-18 19:12:44+01:00"
+    },
+    {
+        "file": "inlineChatSessionServiceImpl.ts",
+        "line": 206,
+        "comment": "\t\t\t\t\t// \tprogress({ kind: 'progressMessage', content: new MarkdownString(data.message) });",
+        "comment_time": "2024-03-19 14:31:53+01:00",
+        "last_code_change_time": "2024-03-18 19:12:44+01:00"
+    },
+    {
+        "file": "inlineChatSessionServiceImpl.ts",
+        "line": 207,
+        "comment": "\t\t\t\t\t// }",
+        "comment_time": "2024-03-19 14:31:53+01:00",
+        "last_code_change_time": "2024-03-18 19:12:44+01:00"
+    },
+    {
+        "file": "inlineChatSessionServiceImpl.ts",
+        "line": 88,
+        "comment": "\t\t\t// TODO@jrieken",
+        "comment_time": "2024-03-20 17:07:46+01:00",
+        "last_code_change_time": "2024-01-16 14:50:19+01:00"
+    },
+    {
+        "file": "extHostDebugService.ts",
+        "line": 965,
+        "comment": "\t\t\t\tconst trackers = coalesce(result);\t// filter null",
+        "comment_time": "2024-04-29 18:35:47+02:00",
+        "last_code_change_time": "2024-01-18 15:31:44-08:00"
+    },
+    {
+        "file": "textFileSaveParticipant.ts",
+        "line": 40,
+        "comment": "\t\t// report to the \"outer\" progress",
+        "comment_time": "2024-10-08 09:42:20+02:00",
+        "last_code_change_time": "2024-06-03 03:56:51-07:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 288,
+        "comment": "/**",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 289,
+        "comment": " * Given a text model and edits, this function finds the inverse text edits",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 290,
+        "comment": " * @param model model on which to apply the edits",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 291,
+        "comment": " * @param edits edits applied",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 292,
+        "comment": " * @returns inverse edits",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "singleTextEdit.ts",
+        "line": 293,
+        "comment": " */",
+        "comment_time": "2024-01-31 16:22:56+01:00",
+        "last_code_change_time": "2024-01-31 11:08:25+01:00"
+    },
+    {
+        "file": "mainThreadTerminalService.ts",
+        "line": 90,
+        "comment": "\t\t// const commandDetectionStartedEvent = this._store.add(_terminalService.createOnInstanceCapabilityEvent(TerminalCapability.CommandDetection, e => e.onCommandStarted));",
+        "comment_time": "2024-03-20 15:01:58-07:00",
+        "last_code_change_time": "2024-03-20 14:10:29-07:00"
+    },
+    {
+        "file": "mainThreadTerminalService.ts",
+        "line": 91,
+        "comment": "\t\t// commandDetectionStartedEvent.event(e => this._proxy.$acceptTerminalShellExecutionStarted(e.instance.instanceId)); // TODO: Fill in",
+        "comment_time": "2024-03-20 15:01:58-07:00",
+        "last_code_change_time": "2024-03-20 14:10:29-07:00"
+    },
+    {
+        "file": "workbench.ts",
+        "line": 16,
+        "comment": "\tconst preloadGlobals: IMainWindowSandboxGlobals = (window as any).vscode; \t\t\t// defined by preload.ts",
+        "comment_time": "2024-09-27 17:04:43+02:00",
+        "last_code_change_time": "2024-09-27 15:39:15+02:00"
+    },
+    {
+        "file": "renameInputField.ts",
+        "line": 521,
+        "comment": "\t\t// insert candidates into list widget",
+        "comment_time": "2024-02-22 15:26:57+01:00",
+        "last_code_change_time": "2024-02-14 00:48:29+01:00"
+    },
+    {
+        "file": "renameInputField.ts",
+        "line": 331,
+        "comment": "\t\t\t\tif (newName === value || newName.trim().length === 0 /* is just whitespace */) {",
+        "comment_time": "2024-03-18 14:36:30+01:00",
+        "last_code_change_time": "2024-02-14 00:48:29+01:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 123,
+        "comment": "\t// \t// if (!this._model) {",
+        "comment_time": "2024-02-13 10:22:14-06:00",
+        "last_code_change_time": "2024-02-12 13:52:59-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 124,
+        "comment": "\t// \t// throw new Error('Could not start chat session');",
+        "comment_time": "2024-02-13 10:22:14-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 128,
+        "comment": "\t// \t// const initVariableData: IChatRequestVariableData = { message: getPromptText(parsedRequest.parts), variables: {} };",
+        "comment_time": "2024-02-13 10:22:14-06:00",
+        "last_code_change_time": "2024-02-12 16:27:38-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 132,
+        "comment": "\t// }",
+        "comment_time": "2024-02-13 10:22:14-06:00",
+        "last_code_change_time": "2024-02-12 16:27:38-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 47,
+        "comment": "\t\t// The inline chat widget requires a parent editor that it bases the diff view on, since the",
+        "comment_time": "2024-02-13 08:33:18-08:00",
+        "last_code_change_time": "2024-02-09 10:07:17-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 48,
+        "comment": "\t\t// terminal doesn't use that feature we can just pass in an unattached editor instance.",
+        "comment_time": "2024-02-13 08:33:18-08:00",
+        "last_code_change_time": "2024-02-09 10:07:17-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 123,
+        "comment": "\t\t// const font = this._instance.xterm?.getFont();",
+        "comment_time": "2024-03-15 12:24:00-07:00",
+        "last_code_change_time": "2024-02-12 13:52:59-06:00"
+    },
+    {
+        "file": "terminalChatWidget.ts",
+        "line": 124,
+        "comment": "\t\t// if (!font?.charHeight) {",
+        "comment_time": "2024-03-15 12:24:00-07:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "accessibilitySignalService.ts",
+        "line": 39,
+        "comment": "\t/** @deprecated Use getEnabledState(...).onChange */",
+        "comment_time": "2024-04-18 19:25:01+02:00",
+        "last_code_change_time": "2024-02-12 10:34:25-06:00"
+    },
+    {
+        "file": "accessibilitySignalService.ts",
+        "line": 39,
+        "comment": "\t/** @deprecated Use getEnabledState(...).onChange */",
+        "comment_time": "2024-04-19 11:30:40-07:00",
+        "last_code_change_time": "2024-02-12 10:34:25-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 107,
+        "comment": "\t\t// this._activeSession = new Session(EditMode.Live, , this._instance);",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 108,
+        "comment": "\t\t// const initVariableData: IChatRequestVariableData = { message: getPromptText(parsedRequest.parts), variables: {} };",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 109,
+        "comment": "\t\t// request = model.addRequest(parsedRequest, initVariableData, agent, agentSlashCommandPart?.command);",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 110,
+        "comment": "\t\t// const variableData = await this.chatVariablesService.resolveVariables(parsedRequest, model, token);",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 111,
+        "comment": "\t\t// const requestProps: IChatAgentRequest = {",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 112,
+        "comment": "\t\t// \tsessionId: 'sessionId',",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 113,
+        "comment": "\t\t// \trequestId: 'fake',",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 114,
+        "comment": "\t\t// \tagentId: 'terminal',",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 115,
+        "comment": "\t\t// \tmessage: this._chatWidget?.rawValue?.getValue() || '',",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 116,
+        "comment": "\t\t// \t// variables: variableData.variables,",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 117,
+        "comment": "\t\t// \t// command: agentSlashCommandPart?.command.name,",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 118,
+        "comment": "\t\t// \t// variables2: asVariablesData2(parsedRequest, variableData)",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 119,
+        "comment": "\t\t// };",
+        "comment_time": "2024-02-12 16:27:38-06:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 67,
+        "comment": "\t/**",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 68,
+        "comment": "\t * The base chat widget for the controller, this will be undefined if xterm is not ready yet (ie. the",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 71,
+        "comment": "\tget chatWidget(): IChatWidget | undefined { return this._terminalChatWidget?.value.inlineChatWidget?.chatWidget; }",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 85,
+        "comment": "\tget onDidHide() { return this.terminalChatWidget?.onDidHide ?? Event.None; }",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 92,
+        "comment": "\t\treturn this._terminalChatWidget?.value.inlineChatWidget.scopedContextKeyService ?? this._contextKeyService;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-12 15:49:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 123,
+        "comment": "\t\t\t\tif (!editor || !this._terminalChatWidget?.hasValue || !this.hasFocus()) {",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-13 10:22:14-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 149,
+        "comment": "\t\tthis._terminalChatWidget = new Lazy(() => {",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 16:08:57-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 152,
+        "comment": "\t\t\t\tTerminalChatController.activeChatController = this;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 16:08:57-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 184,
+        "comment": "\t\tconst inlineChatWidget = this._terminalChatWidget?.value.inlineChatWidget;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-13 14:49:37-08:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 209,
+        "comment": "\t\tthis._terminalChatWidget?.value.hide();",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 210,
+        "comment": "\t\tthis._terminalChatWidget?.value.setValue(undefined);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 214,
+        "comment": "\t\tassertType(this._terminalChatWidget);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-03-07 06:11:05-08:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 219,
+        "comment": "\t\tconst lastInput = this._terminalChatWidget.value.inlineChatWidget.value;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 224,
+        "comment": "\t\tthis._terminalChatWidget.value.inlineChatWidget.setChatModel(model);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 249,
+        "comment": "\t\t\t\t\t\tconst firstCodeBlock = await this.terminalChatWidget?.inlineChatWidget.getCodeBlockInfo(0);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 10:50:32-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 290,
+        "comment": "\t\tif (!this._terminalChatWidget?.value) {",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-03-07 06:11:05-08:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 301,
+        "comment": "\t\t\tthis._historyCandidate = this._terminalChatWidget.value.inlineChatWidget.value;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-06-07 22:20:08+02:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 319,
+        "comment": "\t\tthis._terminalChatWidget.value.inlineChatWidget.value = entry;",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-06-07 22:20:08+02:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 320,
+        "comment": "\t\tthis._terminalChatWidget.value.inlineChatWidget.selectAll();",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-06-07 22:20:08+02:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 328,
+        "comment": "\t\tconst model = this._terminalChatWidget?.value.inlineChatWidget.getChatModel();",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-03-07 06:11:05-08:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 336,
+        "comment": "\t\tconst code = await this.terminalChatWidget?.inlineChatWidget.getCodeBlockInfo(0);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-03-07 06:11:05-08:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 340,
+        "comment": "\t\tthis._terminalChatWidget?.value.acceptCommand(code.textEditorModel.getValue(), shouldExecute);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-06-07 22:20:08+02:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 345,
+        "comment": "\t\tthis._terminalChatWidget?.value.reveal();",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 346,
+        "comment": "\t\tthis._terminalChatWidget?.value.focus();",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-06-07 22:20:08+02:00"
+    },
+    {
+        "file": "terminalChatController.ts",
+        "line": 352,
+        "comment": "\t\tconst currentRequest = this.terminalChatWidget?.inlineChatWidget.chatWidget.viewModel?.model.getRequests().find(r => r.id === this._currentRequestId);",
+        "comment_time": "2024-09-23 23:01:24+02:00",
+        "last_code_change_time": "2024-02-15 13:05:30-06:00"
+    },
+    {
+        "file": "terminalChatActions.ts",
+        "line": 119,
+        "comment": "\t\t// TODO: Allow action to be made primary, the action list is hardcoded within InlineChatWidget",
+        "comment_time": "2024-02-16 12:27:24-08:00",
+        "last_code_change_time": "2024-02-13 08:49:30-08:00"
+    },
+    {
+        "file": "terminalChatActions.ts",
+        "line": 33,
+        "comment": "\t\t// TODO: This needs to change to check for a terminal location capable agent",
+        "comment_time": "2024-03-06 06:42:33-08:00",
+        "last_code_change_time": "2024-02-13 08:49:30-08:00"
+    },
+    {
+        "file": "terminalChatActions.ts",
+        "line": 26,
+        "comment": "\t\t// HACK: Force weight to be higher than the extension contributed keybinding to override it until it gets replaced",
+        "comment_time": "2024-03-07 05:38:19-08:00",
+        "last_code_change_time": "2024-02-13 08:49:30-08:00"
+    },
+    {
+        "file": "terminalChatActions.ts",
+        "line": 27,
+        "comment": "\t\tweight: KeybindingWeight.ExternalExtension + 1, // KeybindingWeight.WorkbenchContrib,",
+        "comment_time": "2024-03-07 05:38:19-08:00",
+        "last_code_change_time": "2024-02-13 08:49:30-08:00"
+    },
+    {
+        "file": "ghostTextWidget.ts",
+        "line": 37,
+        "comment": "\tprivate readonly currentTextModel = observableFromEvent(this.editor.onDidChangeModel, () => /** @description editor.model */ this.editor.getModel());",
+        "comment_time": "2024-06-16 20:22:39+02:00",
+        "last_code_change_time": "2024-02-16 16:16:05+01:00"
+    },
+    {
+        "file": "mockChatService.ts",
+        "line": 31,
+        "comment": "\t\t// eslint-disable-next-line local/code-no-dangerous-type-assertions",
+        "comment_time": "2024-04-30 18:39:44-07:00",
+        "last_code_change_time": "2024-02-21 11:28:21-08:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 19,
+        "comment": "/**",
+        "comment_time": "2024-04-03 06:10:28-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 20,
+        "comment": " * @deprecated Use `setBaseLayerHoverDelegate` instead.",
+        "comment_time": "2024-04-03 06:10:28-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 21,
+        "comment": " */",
+        "comment_time": "2024-04-03 06:10:28-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 26,
+        "comment": "/**",
+        "comment_time": "2024-04-03 06:32:03-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 27,
+        "comment": " * @deprecated If in the `base/` layer use `getBaseLayerHoverDelegate` instead, if in `platform/`",
+        "comment_time": "2024-04-03 06:32:03-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 28,
+        "comment": " * and higher use `IHoverService.setupUpdatableHover` instead.",
+        "comment_time": "2024-04-03 06:32:03-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 29,
+        "comment": " */",
+        "comment_time": "2024-04-03 06:32:03-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 19,
+        "comment": "/**",
+        "comment_time": "2024-04-03 06:40:22-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "hoverDelegateFactory.ts",
+        "line": 24,
+        "comment": "// TODO: Refine type for use in new IHoverService interface",
+        "comment_time": "2024-04-03 06:40:22-07:00",
+        "last_code_change_time": "2024-02-26 17:02:42+01:00"
+    },
+    {
+        "file": "updatableHoverWidget.ts",
+        "line": 20,
+        "comment": "// TODO: Create equivalent in IHoverService",
+        "comment_time": "2024-04-03 06:32:03-07:00",
+        "last_code_change_time": "2024-04-03 06:29:25-07:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 33,
+        "comment": "\t/**",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 34,
+        "comment": "\t * Reads the usages for an account",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 35,
+        "comment": "\t * @param providerId The id of the authentication provider to get usages for",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 36,
+        "comment": "\t * @param accountName The name of the account to get usages for",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 39,
+        "comment": "\t/**",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 40,
+        "comment": "\t *",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 41,
+        "comment": "\t * @param providerId The id of the authentication provider to get usages for",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 42,
+        "comment": "\t * @param accountName The name of the account to get usages for",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "authenticationUsageService.ts",
+        "line": 43,
+        "comment": "\t */",
+        "comment_time": "2024-09-18 17:40:57-07:00",
+        "last_code_change_time": "2024-02-29 05:41:11-08:00"
+    },
+    {
+        "file": "inlineChatZoneWidget.ts",
+        "line": 117,
+        "comment": "\t\t// console.log('ZONE#lineheight', chatContentHeight, editorHeight, contentHeight, heightInLines);",
+        "comment_time": "2024-03-18 12:45:43+01:00",
+        "last_code_change_time": "2024-03-06 12:51:50+01:00"
+    },
+    {
+        "file": "inlineChatZoneWidget.ts",
+        "line": 119,
+        "comment": "\t\t// console.log('ZONE#_computeHeightInLines', { chatContentHeight, editorHeight, contentHeight, heightInLines });",
+        "comment_time": "2024-03-21 11:58:28+01:00",
+        "last_code_change_time": "2024-03-06 12:51:50+01:00"
+    },
+    {
+        "file": "inlineChatZoneWidget.ts",
+        "line": 179,
+        "comment": "\t\treturn Math.max(0, this.editor.getOffsetForColumn(indentationLineNumber, indentationLevel)); // double-guard against invalie getOffsetForColumn-calls",
+        "comment_time": "2024-03-27 12:33:56+01:00",
+        "last_code_change_time": "2024-03-06 12:51:50+01:00"
+    },
+    {
+        "file": "inlineChatInputWidget.ts",
+        "line": 213,
+        "comment": "\t\tthis.value = ''; // update/re-inits some context keys again",
+        "comment_time": "2024-03-12 14:24:00+01:00",
+        "last_code_change_time": "2024-03-07 17:19:06+01:00"
+    },
+    {
+        "file": "jsonSchema.ts",
+        "line": 116,
+        "comment": "\t// Object",
+        "comment_time": "2024-11-20 00:16:44+01:00",
+        "last_code_change_time": "2024-03-07 16:04:36-08:00"
+    },
+    {
+        "file": "jsonSchema.ts",
+        "line": 119,
+        "comment": "\t// Array",
+        "comment_time": "2024-11-20 00:16:44+01:00",
+        "last_code_change_time": "2024-03-07 16:04:36-08:00"
+    },
+    {
+        "file": "baseWatcher.ts",
+        "line": 25,
+        "comment": "\tprivate readonly allCorrelatedWatchRequests = new Map<number /* correlation ID */, IWatchRequestWithCorrelation>();",
+        "comment_time": "2024-03-13 17:43:01+01:00",
+        "last_code_change_time": "2024-03-08 16:58:47+01:00"
+    },
+    {
+        "file": "baseWatcher.ts",
+        "line": 32,
+        "comment": "\tprivate readonly correlatedWatchRequests = new Map<number /* request ID */, IWatchRequestWithCorrelation>();",
+        "comment_time": "2024-09-16 12:24:34+02:00",
+        "last_code_change_time": "2024-03-08 16:58:47+01:00"
+    },
+    {
+        "file": "baseWatcher.ts",
+        "line": 33,
+        "comment": "\tprivate readonly nonCorrelatedWatchRequests = new Map<number /* request ID */, IUniversalWatchRequest>();",
+        "comment_time": "2024-09-16 12:24:34+02:00",
+        "last_code_change_time": "2024-03-28 12:09:15+01:00"
+    },
+    {
+        "file": "nodejsWatcherLib.ts",
+        "line": 172,
+        "comment": "\t\t\t\t\tthis.onFileChange({ resource, type: change.type, cId: this.request.correlationId }, true /* skip excludes/includes (file is explicitly watched) */);",
+        "comment_time": "2024-04-16 14:26:04-07:00",
+        "last_code_change_time": "2024-03-28 12:09:15+01:00"
+    },
+    {
+        "file": "quickInputTree.ts",
+        "line": 427,
+        "comment": "\t\t// Icon",
+        "comment_time": "2024-03-19 13:58:03-07:00",
+        "last_code_change_time": "2024-03-18 20:47:49-07:00"
+    },
+    {
+        "file": "annotations.ts",
+        "line": 33,
+        "comment": "\t\t\t\t// Since this is inside a codeblock, it needs to be merged into the previous markdown content.",
+        "comment_time": "2024-04-12 15:39:31-07:00",
+        "last_code_change_time": "2024-03-19 14:54:08-07:00"
+    },
+    {
+        "file": "mainThreadTerminalShellIntegration.ts",
+        "line": 53,
+        "comment": "\t\t// onDidChangeTerminalShellIntegration via cwd",
+        "comment_time": "2024-03-21 07:07:27-07:00",
+        "last_code_change_time": "2024-03-21 06:57:33-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 56,
+        "comment": "\t\t\t// new Promise<void>(r => {",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:30:29-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 57,
+        "comment": "\t\t\t// \t(async () => {",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 58,
+        "comment": "\t\t\t// \t\tfor await (const d of e.createDataStream()) {",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 59,
+        "comment": "\t\t\t// \t\t\tconsole.log('data2', d);",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 60,
+        "comment": "\t\t\t// \t\t}",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 61,
+        "comment": "\t\t\t// \t})();",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 62,
+        "comment": "\t\t\t// });",
+        "comment_time": "2024-03-21 06:41:20-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 79,
+        "comment": "\t\t// \tconsole.log('after executeCommand(\\\"echo hello\\\")');",
+        "comment_time": "2024-03-28 10:36:12-07:00",
+        "last_code_change_time": "2024-03-20 15:30:29-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 65,
+        "comment": "\t\t// \t// \t\tfor await (const d of e.read()) {",
+        "comment_time": "2024-04-12 08:34:37-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 70,
+        "comment": "\t\t// \tfor await (const d of e.execution.read()) {",
+        "comment_time": "2024-04-12 08:34:37-07:00",
+        "last_code_change_time": "2024-03-20 18:39:42-07:00"
+    },
+    {
+        "file": "extHostTerminalShellIntegration.ts",
+        "line": 65,
+        "comment": "\t\t// \t// \t\tfor await (const d of e.execution.read()) {",
+        "comment_time": "2024-04-12 08:35:26-07:00",
+        "last_code_change_time": "2024-03-20 15:01:58-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 94,
+        "comment": "\t// TODO: Support drawing multiple fonts and sizes",
+        "comment_time": "2024-03-24 06:30:25-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 95,
+        "comment": "\t// TODO: Should pull in the font size from config instead of random dom node",
+        "comment_time": "2024-03-24 06:30:25-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 195,
+        "comment": "\t// TODO: Does this even need to happen when measure text is used?",
+        "comment_time": "2024-05-08 19:21:36-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 84,
+        "comment": "\t\t// this._ctx.font = `${fontSize}px ${style.fontFamily}`;",
+        "comment_time": "2024-05-08 22:14:42-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 17,
+        "comment": "\t// TODO: Expose all page glyphs - the glyphs will need a textureId association",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 49,
+        "comment": "\t/**",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 51,
+        "comment": "\t * relative to the scratch page. The idea is the main pages are drawn to and uploaded to the GPU",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 52,
+        "comment": "\t * much less frequently so as to not drop frames.",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 53,
+        "comment": "\t */",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 21,
+        "comment": "\t// public get glyphs(): IterableIterator<ITextureAtlasGlyph> {",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 22,
+        "comment": "\t// \treturn this._pages.glyphs;",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-31 07:15:57-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 23,
+        "comment": "\t// }",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-23 17:59:14-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 30,
+        "comment": "\t// get source(): OffscreenCanvas {",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-31 07:15:57-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 31,
+        "comment": "\t// \treturn this._pages.source;",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-31 07:15:57-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 32,
+        "comment": "\t// }",
+        "comment_time": "2024-08-15 10:54:26-07:00",
+        "last_code_change_time": "2024-03-31 07:29:02-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 89,
+        "comment": "\t\t// Try get the glyph, overflowing to a new page if necessary",
+        "comment_time": "2024-08-21 09:23:38-07:00",
+        "last_code_change_time": "2024-08-21 06:59:53-07:00"
+    },
+    {
+        "file": "textureAtlas.ts",
+        "line": 71,
+        "comment": "\t\t// TODO: This currently means the first slab is for 0x0 glyphs and is wasted",
+        "comment_time": "2024-08-23 15:54:42-07:00",
+        "last_code_change_time": "2024-08-20 13:22:03-07:00"
+    },
+    {
+        "file": "gpuViewLayer.ts",
+        "line": 502,
+        "comment": "\t\t\t\t//       Even better would be a grid for standard sized lines (~120?) and then another buffer that handles larger lines in a slower but more dynamic way",
+        "comment_time": "2024-03-26 07:40:52-07:00",
+        "last_code_change_time": "2024-03-26 06:55:55-07:00"
+    },
+    {
+        "file": "gpuViewLayer.ts",
+        "line": 275,
+        "comment": "\t\t\t// TODO: Reuse buffer instead of reconstructing each time",
+        "comment_time": "2024-08-21 09:44:18-07:00",
+        "last_code_change_time": "2024-08-17 05:55:41-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 42,
+        "comment": "\t\t// TODO: Prefer putImageData as it doesn't do blending or scaling",
+        "comment_time": "2024-03-26 06:55:55-07:00",
+        "last_code_change_time": "2024-03-26 06:17:46-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 194,
+        "comment": "\t\tconst slabW = 64 << (Math.floor(getActiveWindow().devicePixelRatio) - 1); // this._canvas.width / 8;",
+        "comment_time": "2024-05-13 12:34:51+09:00",
+        "last_code_change_time": "2024-05-13 12:10:03+09:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 195,
+        "comment": "\t\tconst slabH = slabW; // this._canvas.height / 8;",
+        "comment_time": "2024-05-13 12:34:51+09:00",
+        "last_code_change_time": "2024-05-13 12:10:03+09:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 174,
+        "comment": "\t\t// const nearestXPixels = Math.max(1, Math.floor(dpr));",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-13 12:10:03+09:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 168,
+        "comment": "\t\t// const dpr = getActiveWindow().devicePixelRatio;",
+        "comment_time": "2024-07-08 11:29:26-07:00",
+        "last_code_change_time": "2024-05-15 20:15:27+10:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 508,
+        "comment": "// #endregion",
+        "comment_time": "2024-08-13 06:50:01-07:00",
+        "last_code_change_time": "2024-05-24 08:12:54+09:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 20,
+        "comment": "/**",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 21,
+        "comment": " * The shelf allocator is a simple allocator that places glyphs in rows, starting a new row when the",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 22,
+        "comment": " * current row is full. Due to its simplicity, it can waste space but it is very fast.",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 23,
+        "comment": " */",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 146,
+        "comment": "/**",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 147,
+        "comment": " * The slab allocator is a more complex allocator that places glyphs in square slabs of a fixed",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 148,
+        "comment": " * size. Slabs are defined by a small range of glyphs sizes they can house, this places like-sized",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 149,
+        "comment": " * glyphs in the same slab which reduces wasted space.",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 150,
+        "comment": " *",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 151,
+        "comment": " * Slabs also may contain \"unused\" regions on the left and bottom depending on the size of the",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 152,
+        "comment": " * glyphs they include. This space is used to place very thin or short glyphs, which would otherwise",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 153,
+        "comment": " * waste a lot of space in their own slab.",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 154,
+        "comment": " */",
+        "comment_time": "2024-08-13 07:06:23-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "textureAtlasAllocator.ts",
+        "line": 49,
+        "comment": "\t\t// Finalize and increment row if it doesn't fix horizontally",
+        "comment_time": "2024-08-14 10:31:42-07:00",
+        "last_code_change_time": "2024-08-13 06:50:01-07:00"
+    },
+    {
+        "file": "coverageProvider.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "debounce.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "memoize.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "metadata.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "snapshot.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "sourceUtils.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "testOutputScanner.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "vscodeTestRunner.ts",
+        "line": 4,
+        "comment": " *--------------------------------------------------------------------------------------------*/",
+        "comment_time": "2024-04-10 12:03:56+02:00",
+        "last_code_change_time": "2024-03-28 09:08:23-07:00"
+    },
+    {
+        "file": "optimize.ts",
+        "line": 346,
+        "comment": "\t\t\t\tbanner: entryPoint.name === 'vs/workbench/workbench.web.main' ? undefined : banner, // TODO@esm remove line when we stop supporting web-amd-esm-bridge",
+        "comment_time": "2024-09-02 12:09:12-07:00",
+        "last_code_change_time": "2024-08-14 14:49:26+02:00"
+    },
+    {
+        "file": "debugExtensionHostAction.ts",
+        "line": 108,
+        "comment": "\t\t\t\t// eslint-disable-next-line local/code-no-dangerous-type-assertions",
+        "comment_time": "2024-10-02 17:22:33-07:00",
+        "last_code_change_time": "2024-09-04 12:37:07-07:00"
+    },
+    {
+        "file": "equals.ts",
+        "line": 10,
+        "comment": "/**",
+        "comment_time": "2024-06-04 16:17:50+02:00",
+        "last_code_change_time": "2024-04-02 09:30:59-07:00"
+    },
+    {
+        "file": "hoverDelegate2.ts",
+        "line": 14,
+        "comment": "/**",
+        "comment_time": "2024-04-03 06:13:48-07:00",
+        "last_code_change_time": "2024-04-03 06:05:35-07:00"
+    },
+    {
+        "file": "hoverDelegate2.ts",
+        "line": 15,
+        "comment": " * Sets the hover delegate for use **only in the `base/` layer**.",
+        "comment_time": "2024-04-03 06:13:48-07:00",
+        "last_code_change_time": "2024-04-03 06:05:35-07:00"
+    },
+    {
+        "file": "hoverDelegate2.ts",
+        "line": 16,
+        "comment": " */",
+        "comment_time": "2024-04-03 06:13:48-07:00",
+        "last_code_change_time": "2024-04-03 06:05:35-07:00"
+    },
+    {
+        "file": "chatParticipantContribTypes.ts",
+        "line": 13,
+        "comment": "\tdisambiguation?: { category: string; categoryName?: string /** Deprecated */; description: string; examples: string[] }[];",
+        "comment_time": "2024-09-05 18:27:47+02:00",
+        "last_code_change_time": "2024-04-07 21:06:43-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 152,
+        "comment": "\t\t\t// Ghost text in pwsh only appears to happen on the cursor line",
+        "comment_time": "2024-04-18 11:20:41-07:00",
+        "last_code_change_time": "2024-04-18 11:16:36-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 22,
+        "comment": "/**",
+        "comment_time": "2024-04-19 09:12:55-07:00",
+        "last_code_change_time": "2024-04-17 15:38:12-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 23,
+        "comment": " * A model of the prompt input state using shell integration and analyzing the terminal buffer. This",
+        "comment_time": "2024-04-19 09:12:55-07:00",
+        "last_code_change_time": "2024-04-17 15:38:12-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 24,
+        "comment": " * may not be 100% accurate but provides a best guess.",
+        "comment_time": "2024-04-19 09:12:55-07:00",
+        "last_code_change_time": "2024-04-17 15:38:12-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 25,
+        "comment": " */",
+        "comment_time": "2024-04-19 09:12:55-07:00",
+        "last_code_change_time": "2024-04-17 15:38:12-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 43,
+        "comment": "\t/**",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 44,
+        "comment": "\t * The full prompt input include ghost text.",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 45,
+        "comment": "\t */",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 51,
+        "comment": "\t/**",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 52,
+        "comment": "\t * The index of the cursor in {@link value}.",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "promptInputModel.ts",
+        "line": 53,
+        "comment": "\t */",
+        "comment_time": "2024-07-31 09:04:12-07:00",
+        "last_code_change_time": "2024-04-19 11:30:40-07:00"
+    },
+    {
+        "file": "chatInputCompletions.ts",
+        "line": 98,
+        "comment": "\t\t\t\tif (!widget || !widget.viewModel || widget.location !== ChatAgentLocation.Panel /* TODO@jrieken - enable when agents are adopted*/) {",
+        "comment_time": "2024-05-17 12:48:17-07:00",
+        "last_code_change_time": "2024-05-08 18:33:58-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 44,
+        "comment": "\t\t// const offset = {",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 45,
+        "comment": "\t\t// \tx: textMetrics.actualBoundingBoxLeft,",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 46,
+        "comment": "\t\t// \ty: textMetrics.actualBoundingBoxAscent",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 47,
+        "comment": "\t\t// };",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 48,
+        "comment": "\t\t// const size = {",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 49,
+        "comment": "\t\t// \tw: textMetrics.actualBoundingBoxRight + textMetrics.actualBoundingBoxLeft,",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 50,
+        "comment": "\t\t// \ty: textMetrics.actualBoundingBoxDescent + textMetrics.actualBoundingBoxAscent,",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 51,
+        "comment": "\t\t// \twInt: Math.ceil(textMetrics.actualBoundingBoxRight + textMetrics.actualBoundingBoxLeft),",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 52,
+        "comment": "\t\t// \tyInt: Math.ceil(textMetrics.actualBoundingBoxDescent + textMetrics.actualBoundingBoxAscent),",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 53,
+        "comment": "\t\t// };",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 54,
+        "comment": "\t\t// console.log(`${chars}_${fg}`, textMetrics, boundingBox, originX, originY, { width: boundingBox.right - boundingBox.left, height: boundingBox.bottom - boundingBox.top });",
+        "comment_time": "2024-05-13 14:22:11+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 38,
+        "comment": "\t\t// TODO: This might actually be slower",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 64,
+        "comment": "\t\t// const result2: IRasterizedGlyph = {",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 65,
+        "comment": "\t\t// \tsource: this._canvas,",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 66,
+        "comment": "\t\t// \tboundingBox: {",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 67,
+        "comment": "\t\t// \t\tleft: Math.floor(originX - textMetrics.actualBoundingBoxLeft),",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 68,
+        "comment": "\t\t// \t\tright: Math.ceil(originX + textMetrics.actualBoundingBoxRight),",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 69,
+        "comment": "\t\t// \t\ttop: Math.floor(originY - textMetrics.actualBoundingBoxAscent),",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 70,
+        "comment": "\t\t// \t\tbottom: Math.ceil(originY + textMetrics.actualBoundingBoxDescent),",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 71,
+        "comment": "\t\t// \t},",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 72,
+        "comment": "\t\t// \toriginOffset: {",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 73,
+        "comment": "\t\t// \t\tx: Math.floor(boundingBox.left - originX),",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 74,
+        "comment": "\t\t// \t\ty: Math.floor(boundingBox.top - originY)",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 75,
+        "comment": "\t\t// \t}",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 95,
+        "comment": "\t\t// if (JSON.stringify(result2.originOffset) !== JSON.stringify(result.originOffset)) {",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 96,
+        "comment": "\t\t// \tdebugger;",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 97,
+        "comment": "\t\t// }",
+        "comment_time": "2024-05-24 08:12:54+09:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 51,
+        "comment": "\t\t// TODO: Support workbench.fontAliasing",
+        "comment_time": "2024-08-16 06:50:37-07:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 74,
+        "comment": "\t\t// TODO: Support FontStyle.Strikethrough and FontStyle.Underline text decorations, these",
+        "comment_time": "2024-08-16 09:51:37-07:00",
+        "last_code_change_time": "2024-08-12 11:11:43-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 75,
+        "comment": "\t\t//       need to be drawn manually to the canvas. See xterm.js for \"dodging\" the text for",
+        "comment_time": "2024-08-16 09:51:37-07:00",
+        "last_code_change_time": "2024-08-12 11:11:43-07:00"
+    },
+    {
+        "file": "glyphRasterizer.ts",
+        "line": 76,
+        "comment": "\t\t//       underlines.",
+        "comment_time": "2024-08-16 09:51:37-07:00",
+        "last_code_change_time": "2024-08-12 11:11:43-07:00"
+    },
+    {
+        "file": "textureAtlasPage.ts",
+        "line": 94,
+        "comment": "\t\t// TODO: Standardize usage stats and make them loggable",
+        "comment_time": "2024-08-15 08:18:13-07:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "textureAtlasPage.ts",
+        "line": 107,
+        "comment": "\t\t// Update page version and it's tracked used area",
+        "comment_time": "2024-08-21 08:49:04-07:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "textureAtlasPage.ts",
+        "line": 86,
+        "comment": "\t\t\t// TODO: undefined here can mean the glyph was too large for a slab on the page, this",
+        "comment_time": "2024-11-04 07:09:27-08:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "textureAtlasPage.ts",
+        "line": 87,
+        "comment": "\t\t\t// can lead to big problems if we don't handle it properly https://github.com/microsoft/vscode/issues/232984",
+        "comment_time": "2024-11-04 07:09:27-08:00",
+        "last_code_change_time": "2024-05-08 22:14:42-07:00"
+    },
+    {
+        "file": "replEditor.ts",
+        "line": 7,
+        "comment": "// eslint-disable-next-line local/code-translation-remind",
+        "comment_time": "2024-07-05 12:26:44+02:00",
+        "last_code_change_time": "2024-06-14 15:12:29-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 93,
+        "comment": "\t\t// Some participant in extHostChatAgents calls invokeTool, goes to extHostLMTools",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 94,
+        "comment": "\t\t// mainThreadLMTools invokes the tool, which calls back to extHostLMTools",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 95,
+        "comment": "\t\t// The tool requests permission",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 96,
+        "comment": "\t\t// The tool in extHostLMTools calls for permission back to mainThreadLMTools",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 97,
+        "comment": "\t\t// And back to extHostLMTools, and back to the participant in extHostChatAgents",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "extHostLanguageModelTools.ts",
+        "line": 98,
+        "comment": "\t\t// Is there a tool call ID to identify the call?",
+        "comment_time": "2024-09-11 22:16:17+02:00",
+        "last_code_change_time": "2024-08-22 09:41:31-07:00"
+    },
+    {
+        "file": "scmHistory.ts",
+        "line": 78,
+        "comment": "\t// Find the history item in the input swimlanes",
+        "comment_time": "2024-06-21 13:00:13+02:00",
+        "last_code_change_time": "2024-06-19 19:45:06+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 18,
+        "comment": "// TODO@bpasero in order to inline `product.json`, more work is",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 19,
+        "comment": "// needed to ensure that we cover all cases where modifications",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 20,
+        "comment": "// are done to the product configuration during build. There are",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 21,
+        "comment": "// at least 2 more changes that kick in very late:",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 22,
+        "comment": "// - a `darwinUniversalAssetId` is added in`create-universal-app.ts`",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 23,
+        "comment": "// - a `target` is added in `gulpfile.vscode.win32.js`",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 24,
+        "comment": "// const productJsonMarkerId = 'BUILD_INSERT_PRODUCT_CONFIGURATION';",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 38,
+        "comment": "\t\t\t// const productMarker = `${productJsonMarkerId}:\"${productJsonMarkerId}\"`; // this needs to be the format after esbuild has processed the file (e.g. double quotes)",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 39,
+        "comment": "\t\t\t// if (content.includes(productMarker)) {",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 40,
+        "comment": "\t\t\t// \tcontent = content.replace(productMarker, JSON.stringify(JSON.parse(ctx.productJsonFn())).slice(1, -1) /* trim braces */);",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 41,
+        "comment": "\t\t\t// \tmarkerFound = true;",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "inlineMeta.ts",
+        "line": 42,
+        "comment": "\t\t\t// }",
+        "comment_time": "2024-07-08 16:42:25+02:00",
+        "last_code_change_time": "2024-07-04 07:59:10+02:00"
+    },
+    {
+        "file": "treeSitterParserService.ts",
+        "line": 207,
+        "comment": "\t\t} while (!tree && !this._newEdits); // exit if there a new edits, as anhy parsing done while there are new edits is throw away work",
+        "comment_time": "2024-08-22 22:02:38+02:00",
+        "last_code_change_time": "2024-07-29 11:31:28+02:00"
+    },
+    {
+        "file": "ata.ts",
+        "line": 27,
+        "comment": "\t\t\t// Read accesses to node_modules",
+        "comment_time": "2024-08-02 14:21:22-07:00",
+        "last_code_change_time": "2024-07-23 15:12:34-07:00"
+    },
+    {
+        "file": "inlineChatCurrentLine.ts",
+        "line": 119,
+        "comment": "\t\t\t// keybinding: {",
+        "comment_time": "2024-08-22 17:52:30+02:00",
+        "last_code_change_time": "2024-08-13 10:42:41+02:00"
+    },
+    {
+        "file": "inlineChatCurrentLine.ts",
+        "line": 120,
+        "comment": "\t\t\t// \twhen: CTX_INLINE_CHAT_EXPANSION,",
+        "comment_time": "2024-08-22 17:52:30+02:00",
+        "last_code_change_time": "2024-08-13 10:42:41+02:00"
+    },
+    {
+        "file": "inlineChatCurrentLine.ts",
+        "line": 121,
+        "comment": "\t\t\t// \tweight: KeybindingWeight.EditorContrib,",
+        "comment_time": "2024-08-22 17:52:30+02:00",
+        "last_code_change_time": "2024-08-13 10:42:41+02:00"
+    },
+    {
+        "file": "inlineChatCurrentLine.ts",
+        "line": 122,
+        "comment": "\t\t\t// \tprimary: KeyCode.Tab",
+        "comment_time": "2024-08-22 17:52:30+02:00",
+        "last_code_change_time": "2024-08-13 10:42:41+02:00"
+    },
+    {
+        "file": "inlineChatCurrentLine.ts",
+        "line": 123,
+        "comment": "\t\t\t// }",
+        "comment_time": "2024-08-22 17:52:30+02:00",
+        "last_code_change_time": "2024-08-13 10:42:41+02:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 21,
+        "comment": "\t/** The x coordinate of the glyph on the texture atlas page. */",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 23,
+        "comment": "\t/** The y coordinate of the glyph on the texture atlas page. */",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 25,
+        "comment": "\t/** The width of the glyph in pixels. */",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 27,
+        "comment": "\t/** The height of the glyph in pixels. */",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 36,
+        "comment": " * A simple bounding box in a 2D plane.",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "atlas.ts",
+        "line": 37,
+        "comment": " */",
+        "comment_time": "2024-08-20 12:36:51-07:00",
+        "last_code_change_time": "2024-08-15 06:02:49-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 36,
+        "comment": "\t/**",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 37,
+        "comment": "\t * Fires when the buffer is modified.",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 38,
+        "comment": "\t */",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 49,
+        "comment": "/**",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 50,
+        "comment": " * An entry in an {@link ObjectCollectionBuffer}. Property values on the entry can be changed and",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 51,
+        "comment": " * their values will be updated automatically in the buffer.",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "objectCollectionBuffer.ts",
+        "line": 52,
+        "comment": " */",
+        "comment_time": "2024-08-19 12:31:48-07:00",
+        "last_code_change_time": "2024-08-18 14:13:25-07:00"
+    },
+    {
+        "file": "fullFileRenderStrategy.ts",
+        "line": 149,
+        "comment": "\t\t// TODO: Only update on scroll change",
+        "comment_time": "2024-09-16 12:09:47-07:00",
+        "last_code_change_time": "2024-08-21 09:32:41-07:00"
+    },
+    {
+        "file": "fullFileRenderStrategy.ts",
+        "line": 153,
+        "comment": "\t\t// TODO: Add scroll left",
+        "comment_time": "2024-09-16 12:09:47-07:00",
+        "last_code_change_time": "2024-08-21 09:32:41-07:00"
+    },
+    {
+        "file": "viewLinesGpu.ts",
+        "line": 34,
+        "comment": "/**",
+        "comment_time": "2024-09-10 12:22:25-07:00",
+        "last_code_change_time": "2024-08-22 15:42:09+02:00"
+    },
+    {
+        "file": "viewLinesGpu.ts",
+        "line": 35,
+        "comment": " * The GPU implementation of the ViewLines part.",
+        "comment_time": "2024-09-10 12:22:25-07:00",
+        "last_code_change_time": "2024-08-22 15:42:09+02:00"
+    },
+    {
+        "file": "viewLinesGpu.ts",
+        "line": 36,
+        "comment": " */",
+        "comment_time": "2024-09-10 12:22:25-07:00",
+        "last_code_change_time": "2024-08-22 15:42:09+02:00"
+    },
+    {
+        "file": "viewLinesGpu.ts",
+        "line": 71,
+        "comment": "\t\t\t/*const dims = */this._viewGpuContext.canvasDevicePixelDimensions.read(reader);",
+        "comment_time": "2024-09-11 11:03:55-07:00",
+        "last_code_change_time": "2024-08-22 09:32:01-07:00"
+    },
+    {
+        "file": "scmHistoryViewPane.ts",
+        "line": 1147,
+        "comment": "\t\t\t\t\t\t\t\t// If the history item remote revision has changed, but it does not matches the",
+        "comment_time": "2024-09-10 11:17:57+02:00",
+        "last_code_change_time": "2024-09-09 12:02:31+02:00"
+    },
+    {
+        "file": "scmHistoryViewPane.ts",
+        "line": 1148,
+        "comment": "\t\t\t\t\t\t\t\t// history item revision, then a Fetch operation was performed. This can be the",
+        "comment_time": "2024-09-10 11:17:57+02:00",
+        "last_code_change_time": "2024-09-09 18:10:48+02:00"
+    },
+    {
+        "file": "scmHistoryViewPane.ts",
+        "line": 1149,
+        "comment": "\t\t\t\t\t\t\t\t// result of a user action (Fetch) or a background action (Auto Fetch). If the",
+        "comment_time": "2024-09-10 11:17:57+02:00",
+        "last_code_change_time": "2024-09-09 18:10:48+02:00"
+    },
+    {
+        "file": "scmHistoryViewPane.ts",
+        "line": 1150,
+        "comment": "\t\t\t\t\t\t\t\t// tree is scrolled to the top, we can safely refresh the tree.",
+        "comment_time": "2024-09-10 11:17:57+02:00",
+        "last_code_change_time": "2024-09-09 18:10:48+02:00"
+    },
+    {
+        "file": "scmHistoryViewPane.ts",
+        "line": 388,
+        "comment": "\t\t\t\t// If needed skip badges without a color",
+        "comment_time": "2024-09-28 01:13:28+02:00",
+        "last_code_change_time": "2024-09-25 16:18:56+02:00"
+    },
+    {
+        "file": "notebookMulticursor.ts",
+        "line": 520,
+        "comment": "\t\t\t\treturn; // should not happen",
+        "comment_time": "2024-11-01 09:28:30-07:00",
+        "last_code_change_time": "2024-08-24 21:00:22-07:00"
+    },
+    {
+        "file": "chatEditingService.ts",
+        "line": 244,
+        "comment": "\t\t\t\t\t// ensure editor is open asap",
+        "comment_time": "2024-10-15 16:00:52+02:00",
+        "last_code_change_time": "2024-10-11 14:34:41+02:00"
+    },
+    {
+        "file": "npmMain.ts",
+        "line": 29,
+        "comment": "\t\t\t// }",
+        "comment_time": "2024-09-17 17:02:29-07:00",
+        "last_code_change_time": "2024-09-17 12:46:46-07:00"
+    },
+    {
+        "file": "terminalSuggestionService.ts",
+        "line": 48,
+        "comment": "// TODO: Make this generic; pwsh native one should implement this",
+        "comment_time": "2024-10-31 12:57:19-05:00",
+        "last_code_change_time": "2024-09-17 14:31:21-07:00"
+    },
+    {
+        "file": "processExplorer.ts",
+        "line": 11,
+        "comment": "\tconst bootstrapWindow: IBootstrapWindow = (window as any).MonacoBootstrapWindow; // defined by bootstrap-window.ts",
+        "comment_time": "2024-09-27 17:04:43+02:00",
+        "last_code_change_time": "2024-09-27 15:39:15+02:00"
+    },
+    {
+        "file": "issueReporter.ts",
+        "line": 11,
+        "comment": "\tconst bootstrapWindow: IBootstrapWindow = (window as any).MonacoBootstrapWindow; // defined by bootstrap-window.ts",
+        "comment_time": "2024-09-27 17:04:43+02:00",
+        "last_code_change_time": "2024-09-27 15:39:15+02:00"
+    },
+    {
+        "file": "chatEditingActions.ts",
+        "line": 316,
+        "comment": "\t\t\t\t// when: ContextKeyExpr.and(CONTEXT_CHAT_LOCATION.isEqualTo(ChatAgentLocation.EditingSession), CONTEXT_RESPONSE, ContextKeyExpr.notIn(CONTEXT_ITEM_ID.key, CONTEXT_LAST_ITEM_ID.key))",
+        "comment_time": "2024-10-15 12:21:09-07:00",
+        "last_code_change_time": "2024-10-15 20:03:50+02:00"
+    },
+    {
+        "file": "screenshot.ts",
+        "line": 35,
+        "comment": "// TODO: Improve names",
+        "comment_time": "2024-10-14 10:43:40-07:00",
+        "last_code_change_time": "2024-10-11 14:39:13-07:00"
+    },
+    {
+        "file": "chatViewsWelcome.ts",
+        "line": 20,
+        "comment": "\tprogress?: string; // TODO@bpasero remove me if not used anymore",
+        "comment_time": "2024-11-06 22:13:38+01:00",
+        "last_code_change_time": "2024-10-12 18:55:37-07:00"
+    },
+    {
+        "file": "chatEditingModifiedFileEntry.ts",
+        "line": 400,
+        "comment": "\t\t\t\t// save the file after discarding so that the dirty indicator goes away",
+        "comment_time": "2024-11-08 11:55:09+01:00",
+        "last_code_change_time": "2024-10-24 16:22:33+02:00"
+    },
+    {
+        "file": "chatEditingModifiedFileEntry.ts",
+        "line": 401,
+        "comment": "\t\t\t\t// and so that an intermediate saved state gets reverted",
+        "comment_time": "2024-11-08 11:55:09+01:00",
+        "last_code_change_time": "2024-10-24 16:22:33+02:00"
+    }
+]

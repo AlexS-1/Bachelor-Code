@@ -1,0 +1,3603 @@
+{
+    ".DS_Store": [],
+    "file.json": [],
+    "GitVisualisation.pdf": [],
+    "GitVisualisation_Issues-Test.png": [],
+    "main.py": [
+        {
+            "commit": "16a01cf914066656381d461f822ba3cccc2a3171",
+            "timestamp": "2024-10-22T15:10:44+02:00",
+            "author": "alexander.schranner",
+            "commit_message": "Inital commit with code to visualise basic metrics of example repository",
+            "additions": 245,
+            "deletions": 0,
+            "change_type": "ADD",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            98,
+                            99,
+                            100,
+                            101,
+                            102
+                        ],
+                        "comments": {
+                            "3": "# from pydriller import Repository",
+                            "4": "# import numpy as np",
+                            "5": "# import requests",
+                            "6": "# import json",
+                            "7": "# from flask import Response",
+                            "8": "#",
+                            "9": "# commits_monthly = list()",
+                            "10": "# curr_month = 0",
+                            "11": "# curr_year = 0",
+                            "12": "# i = 0",
+                            "13": "# month_del = 0",
+                            "14": "# month_add = 0",
+                            "15": "# month_commits = 0",
+                            "16": "# filecounter = 0",
+                            "17": "#",
+                            "18": "#",
+                            "19": "# for commit in Repository('https://github.com/dani-garcia/vaultwarden').traverse_commits():",
+                            "20": "# #for commit in Repository('~/Developer/Ecogenium/Atava').traverse_commits():",
+                            "21": "#     if (commit.committer_date.month != curr_month):",
+                            "22": "#         label = str(curr_month) + \"-\" + str(curr_year)",
+                            "23": "#         commits_monthly.append([label, filecounter, month_commits, month_add, month_del])",
+                            "24": "#         curr_month = commit.committer_date.month",
+                            "25": "#         curr_year = commit.committer_date.year",
+                            "26": "#         i += 1",
+                            "27": "#         filecounter = 0",
+                            "28": "#         month_del = 0",
+                            "29": "#         month_add = 0",
+                            "30": "#         month_commits = 0",
+                            "31": "#",
+                            "32": "#     month_commits += 1",
+                            "33": "#     for file in commit.modified_files:",
+                            "34": "#         month_add += file.added_lines",
+                            "35": "#         month_del += file.deleted_lines",
+                            "36": "#         filecounter += 1",
+                            "37": "#",
+                            "38": "# commits = []",
+                            "39": "# additions = []",
+                            "40": "# deletions = []",
+                            "41": "# files = []",
+                            "42": "# loc = []",
+                            "43": "# issues = []",
+                            "44": "#",
+                            "45": "# for i in range(0, len(commits_monthly)):",
+                            "46": "#     commits.append(commits_monthly[i][1])",
+                            "47": "#     files.append(commits_monthly[i][2])",
+                            "48": "#     additions.append(commits_monthly[i][3])",
+                            "49": "#     deletions.append(commits_monthly[i][4])",
+                            "50": "#     if (i == 0):",
+                            "51": "#         loc.append(additions[i] - deletions[i])",
+                            "52": "#     else:",
+                            "53": "#         loc.append(loc[i-1] + additions[i] - deletions[i])",
+                            "54": "#",
+                            "55": "# api_url = \"https://api.github.com/repos/dani-garcia/vaultwarden/issues\"",
+                            "56": "# for i in range (1, 50):",
+                            "57": "#     params = {",
+                            "58": "#         \"state\": \"all\",",
+                            "59": "#         \"direction\": \"asc\",",
+                            "60": "#         \"per_page\": 100,",
+                            "61": "#         \"page\" : i",
+                            "62": "#     }",
+                            "63": "#     response = requests.get(api_url, params=params)",
+                            "64": "#     issues_response = response.json()",
+                            "65": "#     for issue in issues_response:",
+                            "66": "#         issue_data = []",
+                            "67": "#         issue_data.append(issue['number'])",
+                            "68": "#         issue_data.append(issue['created_at'])",
+                            "69": "#         issue_data.append(issue['closed_at'])",
+                            "70": "#         issues.append(issue_data)",
+                            "71": "#",
+                            "72": "# m = 0",
+                            "73": "# issues_monthly = [0]",
+                            "74": "# for i in range(len(issues)):",
+                            "75": "#     if (issues[i][1][2:5] != issues[i+1][1][2:5]):",
+                            "76": "#         m += 1",
+                            "77": "#         issues_monthly.append(0)",
+                            "78": "#     issues_monthly[m] += 1",
+                            "79": "#",
+                            "80": "# fig, ax1 = plt.subplots()",
+                            "81": "# ax1.plot(additions, color='g', label='Additions')",
+                            "82": "# ax1.plot(deletions, color='r', label='Deletions')",
+                            "83": "# ax1.plot(loc, color='0', label='LOC')",
+                            "84": "# ax1.tick_params(axis='y', labelcolor='0.5')",
+                            "85": "#",
+                            "86": "# ax2 = ax1.twinx()",
+                            "87": "# ax2.plot(commits, color='y', label='Commits')",
+                            "88": "# ax2.plot(files, color='b', label='Files')",
+                            "89": "# ax2.plot(issues_monthly, color='0.3', label='Created Issues')",
+                            "90": "# ax2.tick_params(axis='y', labelcolor='0.8')",
+                            "91": "#",
+                            "92": "# fig.tight_layout()",
+                            "93": "# ax1.legend()",
+                            "94": "# ax2.legend()",
+                            "95": "# plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                            "96": "# plt.show()",
+                            "97": "#"
+                        },
+                        "lines": [
+                            "import matplotlib.pyplot as plt",
+                            "from pydriller import Repository",
+                            "import requests",
+                            "",
+                            "def analyze_commit_data(repo_url):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            104,
+                            105,
+                            106,
+                            107,
+                            108,
+                            109,
+                            110,
+                            111
+                        ],
+                        "comments": {
+                            "103": "    # Initialize tracking variables"
+                        },
+                        "lines": [
+                            "    monthly_commit_data = []",
+                            "    current_month = 0",
+                            "    current_year = 0",
+                            "    monthly_additions = 0",
+                            "    monthly_deletions = 0",
+                            "    monthly_commit_count = 0",
+                            "    modified_file_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            113
+                        ],
+                        "comments": {
+                            "112": "    # Traverse through all commits in the repository"
+                        },
+                        "lines": [
+                            "    for commit in Repository(repo_url).traverse_commits():"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            115,
+                            116,
+                            117
+                        ],
+                        "comments": {
+                            "114": "        # If we encounter a new month, save the previous month's data"
+                        },
+                        "lines": [
+                            "        if commit.committer_date.month != current_month:",
+                            "            label = f\"{current_month}-{current_year}\"",
+                            "            monthly_commit_data.append([label, monthly_commit_count, modified_file_count, monthly_additions, monthly_deletions])"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            119,
+                            120,
+                            121,
+                            122,
+                            123,
+                            124,
+                            125
+                        ],
+                        "comments": {
+                            "118": "            # Reset counters for the new month"
+                        },
+                        "lines": [
+                            "            current_month = commit.committer_date.month",
+                            "            current_year = commit.committer_date.year",
+                            "            monthly_additions = 0",
+                            "            monthly_deletions = 0",
+                            "            monthly_commit_count = 0",
+                            "            modified_file_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            127,
+                            128,
+                            129,
+                            130,
+                            131,
+                            132,
+                            133,
+                            134,
+                            135,
+                            136,
+                            137,
+                            138
+                        ],
+                        "comments": {
+                            "126": "        # Update current month's data"
+                        },
+                        "lines": [
+                            "        monthly_commit_count += 1",
+                            "        for file in commit.modified_files:",
+                            "            monthly_additions += file.added_lines",
+                            "            monthly_deletions += file.deleted_lines",
+                            "            modified_file_count += 1",
+                            "",
+                            "    return monthly_commit_data",
+                            "",
+                            "def analyze_issues_data(repo_url, max_pages):",
+                            "    issues_data = []",
+                            "    api_url = f\"https://api.github.com/repos/{repo_url}/issues\"",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            140,
+                            141,
+                            142,
+                            143,
+                            144,
+                            145,
+                            146,
+                            147,
+                            148,
+                            149,
+                            150,
+                            151,
+                            152
+                        ],
+                        "comments": {
+                            "139": "    # Fetch issues data from GitHub using pagination"
+                        },
+                        "lines": [
+                            "    for page in range(1, max_pages + 1):",
+                            "        params = {",
+                            "            \"state\": \"all\",",
+                            "            \"direction\": \"asc\",",
+                            "            \"per_page\": 100,",
+                            "            \"page\": page",
+                            "        }",
+                            "        response = requests.get(api_url, params=params)",
+                            "        if response.status_code != 200:",
+                            "            print(f\"Failed to fetch issues data. Status code: {response.status_code}\")",
+                            "            break",
+                            "",
+                            "        issues_response = response.json()"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            154,
+                            155,
+                            156
+                        ],
+                        "comments": {
+                            "153": "        # Stop if no more issues are returned"
+                        },
+                        "lines": [
+                            "        if not issues_response:",
+                            "            break",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            158,
+                            159,
+                            160,
+                            161,
+                            162,
+                            163,
+                            164,
+                            165,
+                            166,
+                            167
+                        ],
+                        "comments": {
+                            "157": "        # Extract necessary issue data"
+                        },
+                        "lines": [
+                            "        for issue in issues_response:",
+                            "            issues_data.append([issue['number'], issue['created_at'], issue['closed_at']])",
+                            "",
+                            "    return issues_data",
+                            "",
+                            "def count_issues_monthly(issues_data):",
+                            "    issues_per_month = [0,0,0,0]",
+                            "    current_month = issues_data[0][1][5:7] if issues_data else None",
+                            "    monthly_issue_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            169,
+                            170,
+                            171,
+                            172,
+                            173,
+                            174,
+                            175,
+                            176,
+                            177,
+                            178
+                        ],
+                        "comments": {
+                            "168": "    # Count issues per month"
+                        },
+                        "lines": [
+                            "    for i in range(len(issues_data) - 1):",
+                            "        issue_month = issues_data[i][1][5:7]",
+                            "        next_issue_month = issues_data[i + 1][1][5:7]",
+                            "        if issue_month != next_issue_month:",
+                            "            issues_per_month.append(monthly_issue_count)",
+                            "            print(\"mic: \", monthly_issue_count, issues_data[i][1][2:7])",
+                            "            monthly_issue_count = 0",
+                            "            current_month = next_issue_month",
+                            "        monthly_issue_count += 1",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            180,
+                            181,
+                            182,
+                            183
+                        ],
+                        "comments": {
+                            "179": "    # Add the last month's count"
+                        },
+                        "lines": [
+                            "    issues_per_month.append(monthly_issue_count)",
+                            "    return issues_per_month",
+                            "",
+                            "def calculate_loc(monthly_commit_data):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            185,
+                            186,
+                            187,
+                            188,
+                            189,
+                            190,
+                            191,
+                            192,
+                            193,
+                            194,
+                            195,
+                            196
+                        ],
+                        "comments": {
+                            "184": "    # Calculate lines of code (LOC) changes over time"
+                        },
+                        "lines": [
+                            "    loc_over_time = []",
+                            "    total_loc = 0",
+                            "",
+                            "    for month_data in monthly_commit_data:",
+                            "        additions = month_data[3]",
+                            "        deletions = month_data[4]",
+                            "        total_loc += additions - deletions",
+                            "        loc_over_time.append(total_loc)",
+                            "",
+                            "    return loc_over_time",
+                            "",
+                            "def plot_data(monthly_commit_data, loc_over_time, issues_per_month):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            198,
+                            199,
+                            200,
+                            201,
+                            202,
+                            203,
+                            204,
+                            205,
+                            206,
+                            207,
+                            208,
+                            209,
+                            210
+                        ],
+                        "comments": {
+                            "197": "    # Extract data for plotting"
+                        },
+                        "lines": [
+                            "    monthly_labels = [data[0] for data in monthly_commit_data]",
+                            "    monthly_commits = [data[1] for data in monthly_commit_data]",
+                            "    modified_files = [data[2] for data in monthly_commit_data]",
+                            "    monthly_additions = [data[3] for data in monthly_commit_data]",
+                            "    monthly_deletions = [data[4] for data in monthly_commit_data]",
+                            "",
+                            "    for i in range(len(monthly_labels)):",
+                            "        label = monthly_labels[i].split('-')",
+                            "        if (len(label[0]) == 1):",
+                            "            label[0] = \"0\" + label[0]",
+                            "        label[1] = label[1][2:]",
+                            "        monthly_labels[i] = label[1] + \"-\" + label[0]",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            212,
+                            213
+                        ],
+                        "comments": {
+                            "211": "    # Plotting"
+                        },
+                        "lines": [
+                            "    fig, ax1 = plt.subplots()",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            215,
+                            216,
+                            217,
+                            218,
+                            219
+                        ],
+                        "comments": {
+                            "214": "    # Plot lines for additions, deletions, and LOC"
+                        },
+                        "lines": [
+                            "    ax1.plot(monthly_labels, monthly_additions, color='g', label='Additions')",
+                            "    ax1.plot(monthly_labels, monthly_deletions, color='r', label='Deletions')",
+                            "    ax1.plot(monthly_labels, loc_over_time, color='k', label='LOC')",
+                            "    ax1.tick_params(axis='y', labelcolor='black')",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            221,
+                            222,
+                            223,
+                            224,
+                            225,
+                            226
+                        ],
+                        "comments": {
+                            "220": "    # Secondary Y-axis for commits, modified files, and issues"
+                        },
+                        "lines": [
+                            "    ax2 = ax1.twinx()",
+                            "    ax2.plot(monthly_labels, monthly_commits, color='y', label='Commits')",
+                            "    ax2.plot(monthly_labels, modified_files, color='b', label='Modified Files')",
+                            "    ax2.plot(monthly_labels[:len(issues_per_month)], issues_per_month, color='grey', label='Created Issues')",
+                            "    ax2.tick_params(axis='y', labelcolor='grey')",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            228,
+                            229,
+                            230,
+                            231,
+                            232,
+                            233,
+                            234,
+                            235,
+                            236,
+                            237,
+                            238,
+                            239,
+                            240,
+                            241,
+                            242,
+                            243,
+                            244,
+                            245
+                        ],
+                        "comments": {
+                            "227": "    # Finalize and show the plot"
+                        },
+                        "lines": [
+                            "    fig.tight_layout()",
+                            "    ax1.legend(loc='upper left')",
+                            "    ax2.legend(loc='upper right')",
+                            "    plt.xticks(rotation=45)",
+                            "    plt.title(\"Repository Analysis\")",
+                            "    plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                            "    plt.show()",
+                            "",
+                            "def main():",
+                            "    repo_url = 'dani-garcia/vaultwarden'",
+                            "    monthly_commit_data = analyze_commit_data(f'https://github.com/{repo_url}')",
+                            "    issues_data = analyze_issues_data(repo_url, 50)",
+                            "    issues_per_month = count_issues_monthly(issues_data)",
+                            "    loc_over_time = calculate_loc(monthly_commit_data)",
+                            "    plot_data(monthly_commit_data, loc_over_time, issues_per_month)",
+                            "",
+                            "if __name__ == \"__main__\":",
+                            "    main()"
+                        ]
+                    }
+                ],
+                "deleted": []
+            },
+            "comment_added_diff": {
+                "3": "# from pydriller import Repository",
+                "4": "# import numpy as np",
+                "5": "# import requests",
+                "6": "# import json",
+                "7": "# from flask import Response",
+                "8": "#",
+                "9": "# commits_monthly = list()",
+                "10": "# curr_month = 0",
+                "11": "# curr_year = 0",
+                "12": "# i = 0",
+                "13": "# month_del = 0",
+                "14": "# month_add = 0",
+                "15": "# month_commits = 0",
+                "16": "# filecounter = 0",
+                "17": "#",
+                "18": "#",
+                "19": "# for commit in Repository('https://github.com/dani-garcia/vaultwarden').traverse_commits():",
+                "20": "# #for commit in Repository('~/Developer/Ecogenium/Atava').traverse_commits():",
+                "21": "#     if (commit.committer_date.month != curr_month):",
+                "22": "#         label = str(curr_month) + \"-\" + str(curr_year)",
+                "23": "#         commits_monthly.append([label, filecounter, month_commits, month_add, month_del])",
+                "24": "#         curr_month = commit.committer_date.month",
+                "25": "#         curr_year = commit.committer_date.year",
+                "26": "#         i += 1",
+                "27": "#         filecounter = 0",
+                "28": "#         month_del = 0",
+                "29": "#         month_add = 0",
+                "30": "#         month_commits = 0",
+                "31": "#",
+                "32": "#     month_commits += 1",
+                "33": "#     for file in commit.modified_files:",
+                "34": "#         month_add += file.added_lines",
+                "35": "#         month_del += file.deleted_lines",
+                "36": "#         filecounter += 1",
+                "37": "#",
+                "38": "# commits = []",
+                "39": "# additions = []",
+                "40": "# deletions = []",
+                "41": "# files = []",
+                "42": "# loc = []",
+                "43": "# issues = []",
+                "44": "#",
+                "45": "# for i in range(0, len(commits_monthly)):",
+                "46": "#     commits.append(commits_monthly[i][1])",
+                "47": "#     files.append(commits_monthly[i][2])",
+                "48": "#     additions.append(commits_monthly[i][3])",
+                "49": "#     deletions.append(commits_monthly[i][4])",
+                "50": "#     if (i == 0):",
+                "51": "#         loc.append(additions[i] - deletions[i])",
+                "52": "#     else:",
+                "53": "#         loc.append(loc[i-1] + additions[i] - deletions[i])",
+                "54": "#",
+                "55": "# api_url = \"https://api.github.com/repos/dani-garcia/vaultwarden/issues\"",
+                "56": "# for i in range (1, 50):",
+                "57": "#     params = {",
+                "58": "#         \"state\": \"all\",",
+                "59": "#         \"direction\": \"asc\",",
+                "60": "#         \"per_page\": 100,",
+                "61": "#         \"page\" : i",
+                "62": "#     }",
+                "63": "#     response = requests.get(api_url, params=params)",
+                "64": "#     issues_response = response.json()",
+                "65": "#     for issue in issues_response:",
+                "66": "#         issue_data = []",
+                "67": "#         issue_data.append(issue['number'])",
+                "68": "#         issue_data.append(issue['created_at'])",
+                "69": "#         issue_data.append(issue['closed_at'])",
+                "70": "#         issues.append(issue_data)",
+                "71": "#",
+                "72": "# m = 0",
+                "73": "# issues_monthly = [0]",
+                "74": "# for i in range(len(issues)):",
+                "75": "#     if (issues[i][1][2:5] != issues[i+1][1][2:5]):",
+                "76": "#         m += 1",
+                "77": "#         issues_monthly.append(0)",
+                "78": "#     issues_monthly[m] += 1",
+                "79": "#",
+                "80": "# fig, ax1 = plt.subplots()",
+                "81": "# ax1.plot(additions, color='g', label='Additions')",
+                "82": "# ax1.plot(deletions, color='r', label='Deletions')",
+                "83": "# ax1.plot(loc, color='0', label='LOC')",
+                "84": "# ax1.tick_params(axis='y', labelcolor='0.5')",
+                "85": "#",
+                "86": "# ax2 = ax1.twinx()",
+                "87": "# ax2.plot(commits, color='y', label='Commits')",
+                "88": "# ax2.plot(files, color='b', label='Files')",
+                "89": "# ax2.plot(issues_monthly, color='0.3', label='Created Issues')",
+                "90": "# ax2.tick_params(axis='y', labelcolor='0.8')",
+                "91": "#",
+                "92": "# fig.tight_layout()",
+                "93": "# ax1.legend()",
+                "94": "# ax2.legend()",
+                "95": "# plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                "96": "# plt.show()",
+                "97": "#",
+                "103": "    # Initialize tracking variables",
+                "112": "    # Traverse through all commits in the repository",
+                "114": "        # If we encounter a new month, save the previous month's data",
+                "118": "            # Reset counters for the new month",
+                "126": "        # Update current month's data",
+                "139": "    # Fetch issues data from GitHub using pagination",
+                "153": "        # Stop if no more issues are returned",
+                "157": "        # Extract necessary issue data",
+                "168": "    # Count issues per month",
+                "179": "    # Add the last month's count",
+                "184": "    # Calculate lines of code (LOC) changes over time",
+                "197": "    # Extract data for plotting",
+                "211": "    # Plotting",
+                "214": "    # Plot lines for additions, deletions, and LOC",
+                "220": "    # Secondary Y-axis for commits, modified files, and issues",
+                "227": "    # Finalize and show the plot"
+            },
+            "comment_deleted_diff": {},
+            "comment_modified_diff": {}
+        },
+        {
+            "commit": "1061293a43b0788f9db921ae6fc61734ccdf1b8d",
+            "timestamp": "2024-11-16T19:39:45+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Streamlined repo to include first comment extraction for now",
+            "additions": 0,
+            "deletions": 245,
+            "change_type": "DELETE",
+            "diff": {
+                "added": [],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            98,
+                            99,
+                            100,
+                            101,
+                            102
+                        ],
+                        "comments": {
+                            "3": "# from pydriller import Repository",
+                            "4": "# import numpy as np",
+                            "5": "# import requests",
+                            "6": "# import json",
+                            "7": "# from flask import Response",
+                            "8": "#",
+                            "9": "# commits_monthly = list()",
+                            "10": "# curr_month = 0",
+                            "11": "# curr_year = 0",
+                            "12": "# i = 0",
+                            "13": "# month_del = 0",
+                            "14": "# month_add = 0",
+                            "15": "# month_commits = 0",
+                            "16": "# filecounter = 0",
+                            "17": "#",
+                            "18": "#",
+                            "19": "# for commit in Repository('https://github.com/dani-garcia/vaultwarden').traverse_commits():",
+                            "20": "# #for commit in Repository('~/Developer/Ecogenium/Atava').traverse_commits():",
+                            "21": "#     if (commit.committer_date.month != curr_month):",
+                            "22": "#         label = str(curr_month) + \"-\" + str(curr_year)",
+                            "23": "#         commits_monthly.append([label, filecounter, month_commits, month_add, month_del])",
+                            "24": "#         curr_month = commit.committer_date.month",
+                            "25": "#         curr_year = commit.committer_date.year",
+                            "26": "#         i += 1",
+                            "27": "#         filecounter = 0",
+                            "28": "#         month_del = 0",
+                            "29": "#         month_add = 0",
+                            "30": "#         month_commits = 0",
+                            "31": "#",
+                            "32": "#     month_commits += 1",
+                            "33": "#     for file in commit.modified_files:",
+                            "34": "#         month_add += file.added_lines",
+                            "35": "#         month_del += file.deleted_lines",
+                            "36": "#         filecounter += 1",
+                            "37": "#",
+                            "38": "# commits = []",
+                            "39": "# additions = []",
+                            "40": "# deletions = []",
+                            "41": "# files = []",
+                            "42": "# loc = []",
+                            "43": "# issues = []",
+                            "44": "#",
+                            "45": "# for i in range(0, len(commits_monthly)):",
+                            "46": "#     commits.append(commits_monthly[i][1])",
+                            "47": "#     files.append(commits_monthly[i][2])",
+                            "48": "#     additions.append(commits_monthly[i][3])",
+                            "49": "#     deletions.append(commits_monthly[i][4])",
+                            "50": "#     if (i == 0):",
+                            "51": "#         loc.append(additions[i] - deletions[i])",
+                            "52": "#     else:",
+                            "53": "#         loc.append(loc[i-1] + additions[i] - deletions[i])",
+                            "54": "#",
+                            "55": "# api_url = \"https://api.github.com/repos/dani-garcia/vaultwarden/issues\"",
+                            "56": "# for i in range (1, 50):",
+                            "57": "#     params = {",
+                            "58": "#         \"state\": \"all\",",
+                            "59": "#         \"direction\": \"asc\",",
+                            "60": "#         \"per_page\": 100,",
+                            "61": "#         \"page\" : i",
+                            "62": "#     }",
+                            "63": "#     response = requests.get(api_url, params=params)",
+                            "64": "#     issues_response = response.json()",
+                            "65": "#     for issue in issues_response:",
+                            "66": "#         issue_data = []",
+                            "67": "#         issue_data.append(issue['number'])",
+                            "68": "#         issue_data.append(issue['created_at'])",
+                            "69": "#         issue_data.append(issue['closed_at'])",
+                            "70": "#         issues.append(issue_data)",
+                            "71": "#",
+                            "72": "# m = 0",
+                            "73": "# issues_monthly = [0]",
+                            "74": "# for i in range(len(issues)):",
+                            "75": "#     if (issues[i][1][2:5] != issues[i+1][1][2:5]):",
+                            "76": "#         m += 1",
+                            "77": "#         issues_monthly.append(0)",
+                            "78": "#     issues_monthly[m] += 1",
+                            "79": "#",
+                            "80": "# fig, ax1 = plt.subplots()",
+                            "81": "# ax1.plot(additions, color='g', label='Additions')",
+                            "82": "# ax1.plot(deletions, color='r', label='Deletions')",
+                            "83": "# ax1.plot(loc, color='0', label='LOC')",
+                            "84": "# ax1.tick_params(axis='y', labelcolor='0.5')",
+                            "85": "#",
+                            "86": "# ax2 = ax1.twinx()",
+                            "87": "# ax2.plot(commits, color='y', label='Commits')",
+                            "88": "# ax2.plot(files, color='b', label='Files')",
+                            "89": "# ax2.plot(issues_monthly, color='0.3', label='Created Issues')",
+                            "90": "# ax2.tick_params(axis='y', labelcolor='0.8')",
+                            "91": "#",
+                            "92": "# fig.tight_layout()",
+                            "93": "# ax1.legend()",
+                            "94": "# ax2.legend()",
+                            "95": "# plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                            "96": "# plt.show()",
+                            "97": "#"
+                        },
+                        "lines": [
+                            "import matplotlib.pyplot as plt",
+                            "from pydriller import Repository",
+                            "import requests",
+                            "",
+                            "def analyze_commit_data(repo_url):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            104,
+                            105,
+                            106,
+                            107,
+                            108,
+                            109,
+                            110,
+                            111
+                        ],
+                        "comments": {
+                            "103": "    # Initialize tracking variables"
+                        },
+                        "lines": [
+                            "    monthly_commit_data = []",
+                            "    current_month = 0",
+                            "    current_year = 0",
+                            "    monthly_additions = 0",
+                            "    monthly_deletions = 0",
+                            "    monthly_commit_count = 0",
+                            "    modified_file_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            113
+                        ],
+                        "comments": {
+                            "112": "    # Traverse through all commits in the repository"
+                        },
+                        "lines": [
+                            "    for commit in Repository(repo_url).traverse_commits():"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            115,
+                            116,
+                            117
+                        ],
+                        "comments": {
+                            "114": "        # If we encounter a new month, save the previous month's data"
+                        },
+                        "lines": [
+                            "        if commit.committer_date.month != current_month:",
+                            "            label = f\"{current_month}-{current_year}\"",
+                            "            monthly_commit_data.append([label, monthly_commit_count, modified_file_count, monthly_additions, monthly_deletions])"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            119,
+                            120,
+                            121,
+                            122,
+                            123,
+                            124,
+                            125
+                        ],
+                        "comments": {
+                            "118": "            # Reset counters for the new month"
+                        },
+                        "lines": [
+                            "            current_month = commit.committer_date.month",
+                            "            current_year = commit.committer_date.year",
+                            "            monthly_additions = 0",
+                            "            monthly_deletions = 0",
+                            "            monthly_commit_count = 0",
+                            "            modified_file_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            127,
+                            128,
+                            129,
+                            130,
+                            131,
+                            132,
+                            133,
+                            134,
+                            135,
+                            136,
+                            137,
+                            138
+                        ],
+                        "comments": {
+                            "126": "        # Update current month's data"
+                        },
+                        "lines": [
+                            "        monthly_commit_count += 1",
+                            "        for file in commit.modified_files:",
+                            "            monthly_additions += file.added_lines",
+                            "            monthly_deletions += file.deleted_lines",
+                            "            modified_file_count += 1",
+                            "",
+                            "    return monthly_commit_data",
+                            "",
+                            "def analyze_issues_data(repo_url, max_pages):",
+                            "    issues_data = []",
+                            "    api_url = f\"https://api.github.com/repos/{repo_url}/issues\"",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            140,
+                            141,
+                            142,
+                            143,
+                            144,
+                            145,
+                            146,
+                            147,
+                            148,
+                            149,
+                            150,
+                            151,
+                            152
+                        ],
+                        "comments": {
+                            "139": "    # Fetch issues data from GitHub using pagination"
+                        },
+                        "lines": [
+                            "    for page in range(1, max_pages + 1):",
+                            "        params = {",
+                            "            \"state\": \"all\",",
+                            "            \"direction\": \"asc\",",
+                            "            \"per_page\": 100,",
+                            "            \"page\": page",
+                            "        }",
+                            "        response = requests.get(api_url, params=params)",
+                            "        if response.status_code != 200:",
+                            "            print(f\"Failed to fetch issues data. Status code: {response.status_code}\")",
+                            "            break",
+                            "",
+                            "        issues_response = response.json()"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            154,
+                            155,
+                            156
+                        ],
+                        "comments": {
+                            "153": "        # Stop if no more issues are returned"
+                        },
+                        "lines": [
+                            "        if not issues_response:",
+                            "            break",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            158,
+                            159,
+                            160,
+                            161,
+                            162,
+                            163,
+                            164,
+                            165,
+                            166,
+                            167
+                        ],
+                        "comments": {
+                            "157": "        # Extract necessary issue data"
+                        },
+                        "lines": [
+                            "        for issue in issues_response:",
+                            "            issues_data.append([issue['number'], issue['created_at'], issue['closed_at']])",
+                            "",
+                            "    return issues_data",
+                            "",
+                            "def count_issues_monthly(issues_data):",
+                            "    issues_per_month = [0,0,0,0]",
+                            "    current_month = issues_data[0][1][5:7] if issues_data else None",
+                            "    monthly_issue_count = 0",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            169,
+                            170,
+                            171,
+                            172,
+                            173,
+                            174,
+                            175,
+                            176,
+                            177,
+                            178
+                        ],
+                        "comments": {
+                            "168": "    # Count issues per month"
+                        },
+                        "lines": [
+                            "    for i in range(len(issues_data) - 1):",
+                            "        issue_month = issues_data[i][1][5:7]",
+                            "        next_issue_month = issues_data[i + 1][1][5:7]",
+                            "        if issue_month != next_issue_month:",
+                            "            issues_per_month.append(monthly_issue_count)",
+                            "            print(\"mic: \", monthly_issue_count, issues_data[i][1][2:7])",
+                            "            monthly_issue_count = 0",
+                            "            current_month = next_issue_month",
+                            "        monthly_issue_count += 1",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            180,
+                            181,
+                            182,
+                            183
+                        ],
+                        "comments": {
+                            "179": "    # Add the last month's count"
+                        },
+                        "lines": [
+                            "    issues_per_month.append(monthly_issue_count)",
+                            "    return issues_per_month",
+                            "",
+                            "def calculate_loc(monthly_commit_data):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            185,
+                            186,
+                            187,
+                            188,
+                            189,
+                            190,
+                            191,
+                            192,
+                            193,
+                            194,
+                            195,
+                            196
+                        ],
+                        "comments": {
+                            "184": "    # Calculate lines of code (LOC) changes over time"
+                        },
+                        "lines": [
+                            "    loc_over_time = []",
+                            "    total_loc = 0",
+                            "",
+                            "    for month_data in monthly_commit_data:",
+                            "        additions = month_data[3]",
+                            "        deletions = month_data[4]",
+                            "        total_loc += additions - deletions",
+                            "        loc_over_time.append(total_loc)",
+                            "",
+                            "    return loc_over_time",
+                            "",
+                            "def plot_data(monthly_commit_data, loc_over_time, issues_per_month):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            198,
+                            199,
+                            200,
+                            201,
+                            202,
+                            203,
+                            204,
+                            205,
+                            206,
+                            207,
+                            208,
+                            209,
+                            210
+                        ],
+                        "comments": {
+                            "197": "    # Extract data for plotting"
+                        },
+                        "lines": [
+                            "    monthly_labels = [data[0] for data in monthly_commit_data]",
+                            "    monthly_commits = [data[1] for data in monthly_commit_data]",
+                            "    modified_files = [data[2] for data in monthly_commit_data]",
+                            "    monthly_additions = [data[3] for data in monthly_commit_data]",
+                            "    monthly_deletions = [data[4] for data in monthly_commit_data]",
+                            "",
+                            "    for i in range(len(monthly_labels)):",
+                            "        label = monthly_labels[i].split('-')",
+                            "        if (len(label[0]) == 1):",
+                            "            label[0] = \"0\" + label[0]",
+                            "        label[1] = label[1][2:]",
+                            "        monthly_labels[i] = label[1] + \"-\" + label[0]",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            212,
+                            213
+                        ],
+                        "comments": {
+                            "211": "    # Plotting"
+                        },
+                        "lines": [
+                            "    fig, ax1 = plt.subplots()",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            215,
+                            216,
+                            217,
+                            218,
+                            219
+                        ],
+                        "comments": {
+                            "214": "    # Plot lines for additions, deletions, and LOC"
+                        },
+                        "lines": [
+                            "    ax1.plot(monthly_labels, monthly_additions, color='g', label='Additions')",
+                            "    ax1.plot(monthly_labels, monthly_deletions, color='r', label='Deletions')",
+                            "    ax1.plot(monthly_labels, loc_over_time, color='k', label='LOC')",
+                            "    ax1.tick_params(axis='y', labelcolor='black')",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            221,
+                            222,
+                            223,
+                            224,
+                            225,
+                            226
+                        ],
+                        "comments": {
+                            "220": "    # Secondary Y-axis for commits, modified files, and issues"
+                        },
+                        "lines": [
+                            "    ax2 = ax1.twinx()",
+                            "    ax2.plot(monthly_labels, monthly_commits, color='y', label='Commits')",
+                            "    ax2.plot(monthly_labels, modified_files, color='b', label='Modified Files')",
+                            "    ax2.plot(monthly_labels[:len(issues_per_month)], issues_per_month, color='grey', label='Created Issues')",
+                            "    ax2.tick_params(axis='y', labelcolor='grey')",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            228,
+                            229,
+                            230,
+                            231,
+                            232,
+                            233,
+                            234,
+                            235,
+                            236,
+                            237,
+                            238,
+                            239,
+                            240,
+                            241,
+                            242,
+                            243,
+                            244,
+                            245
+                        ],
+                        "comments": {
+                            "227": "    # Finalize and show the plot"
+                        },
+                        "lines": [
+                            "    fig.tight_layout()",
+                            "    ax1.legend(loc='upper left')",
+                            "    ax2.legend(loc='upper right')",
+                            "    plt.xticks(rotation=45)",
+                            "    plt.title(\"Repository Analysis\")",
+                            "    plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                            "    plt.show()",
+                            "",
+                            "def main():",
+                            "    repo_url = 'dani-garcia/vaultwarden'",
+                            "    monthly_commit_data = analyze_commit_data(f'https://github.com/{repo_url}')",
+                            "    issues_data = analyze_issues_data(repo_url, 50)",
+                            "    issues_per_month = count_issues_monthly(issues_data)",
+                            "    loc_over_time = calculate_loc(monthly_commit_data)",
+                            "    plot_data(monthly_commit_data, loc_over_time, issues_per_month)",
+                            "",
+                            "if __name__ == \"__main__\":",
+                            "    main()"
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {},
+            "comment_deleted_diff": {
+                "3": "# from pydriller import Repository",
+                "4": "# import numpy as np",
+                "5": "# import requests",
+                "6": "# import json",
+                "7": "# from flask import Response",
+                "8": "#",
+                "9": "# commits_monthly = list()",
+                "10": "# curr_month = 0",
+                "11": "# curr_year = 0",
+                "12": "# i = 0",
+                "13": "# month_del = 0",
+                "14": "# month_add = 0",
+                "15": "# month_commits = 0",
+                "16": "# filecounter = 0",
+                "17": "#",
+                "18": "#",
+                "19": "# for commit in Repository('https://github.com/dani-garcia/vaultwarden').traverse_commits():",
+                "20": "# #for commit in Repository('~/Developer/Ecogenium/Atava').traverse_commits():",
+                "21": "#     if (commit.committer_date.month != curr_month):",
+                "22": "#         label = str(curr_month) + \"-\" + str(curr_year)",
+                "23": "#         commits_monthly.append([label, filecounter, month_commits, month_add, month_del])",
+                "24": "#         curr_month = commit.committer_date.month",
+                "25": "#         curr_year = commit.committer_date.year",
+                "26": "#         i += 1",
+                "27": "#         filecounter = 0",
+                "28": "#         month_del = 0",
+                "29": "#         month_add = 0",
+                "30": "#         month_commits = 0",
+                "31": "#",
+                "32": "#     month_commits += 1",
+                "33": "#     for file in commit.modified_files:",
+                "34": "#         month_add += file.added_lines",
+                "35": "#         month_del += file.deleted_lines",
+                "36": "#         filecounter += 1",
+                "37": "#",
+                "38": "# commits = []",
+                "39": "# additions = []",
+                "40": "# deletions = []",
+                "41": "# files = []",
+                "42": "# loc = []",
+                "43": "# issues = []",
+                "44": "#",
+                "45": "# for i in range(0, len(commits_monthly)):",
+                "46": "#     commits.append(commits_monthly[i][1])",
+                "47": "#     files.append(commits_monthly[i][2])",
+                "48": "#     additions.append(commits_monthly[i][3])",
+                "49": "#     deletions.append(commits_monthly[i][4])",
+                "50": "#     if (i == 0):",
+                "51": "#         loc.append(additions[i] - deletions[i])",
+                "52": "#     else:",
+                "53": "#         loc.append(loc[i-1] + additions[i] - deletions[i])",
+                "54": "#",
+                "55": "# api_url = \"https://api.github.com/repos/dani-garcia/vaultwarden/issues\"",
+                "56": "# for i in range (1, 50):",
+                "57": "#     params = {",
+                "58": "#         \"state\": \"all\",",
+                "59": "#         \"direction\": \"asc\",",
+                "60": "#         \"per_page\": 100,",
+                "61": "#         \"page\" : i",
+                "62": "#     }",
+                "63": "#     response = requests.get(api_url, params=params)",
+                "64": "#     issues_response = response.json()",
+                "65": "#     for issue in issues_response:",
+                "66": "#         issue_data = []",
+                "67": "#         issue_data.append(issue['number'])",
+                "68": "#         issue_data.append(issue['created_at'])",
+                "69": "#         issue_data.append(issue['closed_at'])",
+                "70": "#         issues.append(issue_data)",
+                "71": "#",
+                "72": "# m = 0",
+                "73": "# issues_monthly = [0]",
+                "74": "# for i in range(len(issues)):",
+                "75": "#     if (issues[i][1][2:5] != issues[i+1][1][2:5]):",
+                "76": "#         m += 1",
+                "77": "#         issues_monthly.append(0)",
+                "78": "#     issues_monthly[m] += 1",
+                "79": "#",
+                "80": "# fig, ax1 = plt.subplots()",
+                "81": "# ax1.plot(additions, color='g', label='Additions')",
+                "82": "# ax1.plot(deletions, color='r', label='Deletions')",
+                "83": "# ax1.plot(loc, color='0', label='LOC')",
+                "84": "# ax1.tick_params(axis='y', labelcolor='0.5')",
+                "85": "#",
+                "86": "# ax2 = ax1.twinx()",
+                "87": "# ax2.plot(commits, color='y', label='Commits')",
+                "88": "# ax2.plot(files, color='b', label='Files')",
+                "89": "# ax2.plot(issues_monthly, color='0.3', label='Created Issues')",
+                "90": "# ax2.tick_params(axis='y', labelcolor='0.8')",
+                "91": "#",
+                "92": "# fig.tight_layout()",
+                "93": "# ax1.legend()",
+                "94": "# ax2.legend()",
+                "95": "# plt.savefig(\"GitVisualisation.pdf\", format=\"pdf\")",
+                "96": "# plt.show()",
+                "97": "#",
+                "103": "    # Initialize tracking variables",
+                "112": "    # Traverse through all commits in the repository",
+                "114": "        # If we encounter a new month, save the previous month's data",
+                "118": "            # Reset counters for the new month",
+                "126": "        # Update current month's data",
+                "139": "    # Fetch issues data from GitHub using pagination",
+                "153": "        # Stop if no more issues are returned",
+                "157": "        # Extract necessary issue data",
+                "168": "    # Count issues per month",
+                "179": "    # Add the last month's count",
+                "184": "    # Calculate lines of code (LOC) changes over time",
+                "197": "    # Extract data for plotting",
+                "211": "    # Plotting",
+                "214": "    # Plot lines for additions, deletions, and LOC",
+                "220": "    # Secondary Y-axis for commits, modified files, and issues",
+                "227": "    # Finalize and show the plot"
+            },
+            "comment_modified_diff": {}
+        }
+    ],
+    "commits_data.xes": [],
+    "AcceptingPetriNet.pdf": [],
+    "PetriNet.pdf": [],
+    "XESConversion.py": [
+        {
+            "commit": "a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e",
+            "timestamp": "2024-10-24T15:08:06+02:00",
+            "author": "alexander.schranner",
+            "commit_message": "Added XESConversion.py for using ProM Inductive Miner to generate PetriNets",
+            "additions": 125,
+            "deletions": 0,
+            "change_type": "ADD",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            9,
+                            10
+                        ],
+                        "comments": {
+                            "8": "    # This will hold the data for each file and its changes across commits"
+                        },
+                        "lines": [
+                            "    commits_data = []",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            12,
+                            13,
+                            14,
+                            15,
+                            16,
+                            17,
+                            18
+                        ],
+                        "comments": {
+                            "11": "    # Traverse through the commits in the repository"
+                        },
+                        "lines": [
+                            "    for commit in Repository(repo_url).traverse_commits():",
+                            "        commit_data = {",
+                            "            \"timestamp\": commit.committer_date.isoformat(),",
+                            "            \"author\": commit.author.name,",
+                            "            \"files\": []",
+                            "        }",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            20,
+                            21,
+                            22,
+                            23,
+                            24,
+                            25,
+                            26,
+                            27,
+                            28
+                        ],
+                        "comments": {
+                            "19": "        # Analyze each file modified in the commit"
+                        },
+                        "lines": [
+                            "        for modified_file in commit.modified_files:",
+                            "            file_data = {",
+                            "                \"filename\": modified_file.filename,",
+                            "                \"additions\": modified_file.added_lines,",
+                            "                \"deletions\": modified_file.deleted_lines,",
+                            "                \"change_type\": modified_file.change_type.name,",
+                            "                \"commit_message\": commit.msg",
+                            "            }",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            30,
+                            31,
+                            32,
+                            33,
+                            34,
+                            35,
+                            36,
+                            37,
+                            38
+                        ],
+                        "comments": {
+                            "29": "            # Use commit message keywords to determine activity type"
+                        },
+                        "lines": [
+                            "            if \"bug\" in commit.msg.lower() or \"fix\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Bug Fix\"",
+                            "            elif \"feature\" in commit.msg.lower() or \"add\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Feature Development\"",
+                            "            elif \"refactor\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Refactoring\"",
+                            "            else:",
+                            "                file_data[\"activity\"] = \"Other\"",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            40,
+                            41,
+                            42,
+                            43
+                        ],
+                        "comments": {
+                            "39": "            # Generate effect/meaning keywords based on the commit message and type of changes"
+                        },
+                        "lines": [
+                            "            file_data[\"effect_keywords\"] = extract_keywords(commit.msg, modified_file)",
+                            "",
+                            "            commit_data[\"files\"].append(file_data)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            45,
+                            46,
+                            47,
+                            48,
+                            49
+                        ],
+                        "comments": {
+                            "44": "        # Store the processed commit data"
+                        },
+                        "lines": [
+                            "        commits_data.append(commit_data)",
+                            "",
+                            "    return commits_data",
+                            "",
+                            "def extract_keywords(commit_message, modified_file):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            52,
+                            53,
+                            54,
+                            55,
+                            56,
+                            57,
+                            58,
+                            59,
+                            60,
+                            61,
+                            62,
+                            63,
+                            64
+                        ],
+                        "comments": {
+                            "50": "    # This function can use NLP techniques or simple keyword extraction",
+                            "51": "    # Here, a simplified approach is used: basic keywords based on the commit message"
+                        },
+                        "lines": [
+                            "    keywords = []",
+                            "    if \"performance\" in commit_message.lower():",
+                            "        keywords.append(\"performance\")",
+                            "    if \"security\" in commit_message.lower():",
+                            "        keywords.append(\"security\")",
+                            "    if modified_file.added_lines > modified_file.deleted_lines:",
+                            "        keywords.append(\"expansion\")",
+                            "    else:",
+                            "        keywords.append(\"optimization\")",
+                            "",
+                            "    return keywords",
+                            "",
+                            "def save_to_json(commits_data, filename):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            66,
+                            67,
+                            68,
+                            69,
+                            70,
+                            71
+                        ],
+                        "comments": {
+                            "65": "    # Save the processed commit data to a JSON file"
+                        },
+                        "lines": [
+                            "    with open(filename, 'w') as json_file:",
+                            "        json.dump(commits_data, json_file, indent=4)",
+                            "",
+                            "",
+                            "",
+                            "def create_xes_log(commits_data):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            73,
+                            74
+                        ],
+                        "comments": {
+                            "72": "    # Create a new EventLog object"
+                        },
+                        "lines": [
+                            "    log = EventLog()",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            76
+                        ],
+                        "comments": {
+                            "75": "    # Iterate over each commit entry in the data"
+                        },
+                        "lines": [
+                            "    for commit_data in commits_data:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            78
+                        ],
+                        "comments": {
+                            "77": "        # For each file affected in the commit, create a trace"
+                        },
+                        "lines": [
+                            "        for file_data in commit_data['files']:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            80,
+                            81,
+                            82,
+                            83,
+                            84,
+                            85,
+                            86,
+                            87
+                        ],
+                        "comments": {
+                            "79": "            # Check if a trace for this file already exists, if not, create one"
+                        },
+                        "lines": [
+                            "            trace_name = file_data['filename']",
+                            "            trace = next((t for t in log if t.attributes.get(\"concept:name\") == trace_name), None)",
+                            "",
+                            "            if trace is None:",
+                            "                trace = Trace()",
+                            "                trace.attributes[\"concept:name\"] = trace_name",
+                            "                log.append(trace)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            89,
+                            90,
+                            91,
+                            92,
+                            93
+                        ],
+                        "comments": {
+                            "88": "            # Create an event for the current commit affecting this file"
+                        },
+                        "lines": [
+                            "            event = Event()",
+                            "            event[\"concept:name\"] = file_data['activity']",
+                            "            event[\"time:timestamp\"] = commit_data['timestamp']",
+                            "            event[\"org:resource\"] = commit_data['author']",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            95,
+                            96,
+                            97,
+                            98,
+                            99,
+                            100
+                        ],
+                        "comments": {
+                            "94": "            # Add custom attributes for the event"
+                        },
+                        "lines": [
+                            "            event[\"additions\"] = file_data['additions']",
+                            "            event[\"deletions\"] = file_data['deletions']",
+                            "            event[\"change_type\"] = file_data['change_type']",
+                            "            event[\"commit_message\"] = file_data['commit_message']",
+                            "            event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            102,
+                            103,
+                            104,
+                            105,
+                            106
+                        ],
+                        "comments": {
+                            "101": "            # Append the event to the trace"
+                        },
+                        "lines": [
+                            "            trace.append(event)",
+                            "",
+                            "    return log",
+                            "",
+                            "def save_xes_log(log, filename):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            108,
+                            109,
+                            110
+                        ],
+                        "comments": {
+                            "107": "    # Export the log to an XES file"
+                        },
+                        "lines": [
+                            "    xes_exporter.apply(log, filename)",
+                            "",
+                            "if __name__ == \"__main__\":"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            112,
+                            113,
+                            114
+                        ],
+                        "comments": {
+                            "111": "    repo_url = \"https://github.com/dani-garcia/vaultwarden\"  # Example repository URL"
+                        },
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url)",
+                            "    save_to_json(commits_data, \"commits_data.json\")",
+                            "    print(\"Commit data has been saved to commits_data.json\")"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            116,
+                            117,
+                            118
+                        ],
+                        "comments": {
+                            "115": "     # Load the previously saved commit data JSON file"
+                        },
+                        "lines": [
+                            "    with open(\"commits_data.json\", \"r\") as json_file:",
+                            "        commits_data = json.load(json_file)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            120,
+                            121
+                        ],
+                        "comments": {
+                            "119": "    # Create the XES log from the commit data"
+                        },
+                        "lines": [
+                            "    xes_log = create_xes_log(commits_data)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            123,
+                            124,
+                            125
+                        ],
+                        "comments": {
+                            "122": "    # Save the XES log to a file"
+                        },
+                        "lines": [
+                            "    save_xes_log(xes_log, \"commits_data.xes\")",
+                            "",
+                            "    print(\"XES log has been saved to commits_data.xes\")"
+                        ]
+                    }
+                ],
+                "deleted": []
+            },
+            "comment_added_diff": {
+                "8": "    # This will hold the data for each file and its changes across commits",
+                "11": "    # Traverse through the commits in the repository",
+                "19": "        # Analyze each file modified in the commit",
+                "29": "            # Use commit message keywords to determine activity type",
+                "39": "            # Generate effect/meaning keywords based on the commit message and type of changes",
+                "44": "        # Store the processed commit data",
+                "50": "    # This function can use NLP techniques or simple keyword extraction",
+                "51": "    # Here, a simplified approach is used: basic keywords based on the commit message",
+                "65": "    # Save the processed commit data to a JSON file",
+                "72": "    # Create a new EventLog object",
+                "75": "    # Iterate over each commit entry in the data",
+                "77": "        # For each file affected in the commit, create a trace",
+                "79": "            # Check if a trace for this file already exists, if not, create one",
+                "88": "            # Create an event for the current commit affecting this file",
+                "94": "            # Add custom attributes for the event",
+                "101": "            # Append the event to the trace",
+                "107": "    # Export the log to an XES file",
+                "111": "    repo_url = \"https://github.com/dani-garcia/vaultwarden\"  # Example repository URL",
+                "115": "     # Load the previously saved commit data JSON file",
+                "119": "    # Create the XES log from the commit data",
+                "122": "    # Save the XES log to a file"
+            },
+            "comment_deleted_diff": {},
+            "comment_modified_diff": {}
+        },
+        {
+            "commit": "1061293a43b0788f9db921ae6fc61734ccdf1b8d",
+            "timestamp": "2024-11-16T19:39:45+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Streamlined repo to include first comment extraction for now",
+            "additions": 72,
+            "deletions": 51,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            13,
+                            14
+                        ],
+                        "comments": {
+                            "12": "    # Analysis range"
+                        },
+                        "lines": [
+                            "    dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)",
+                            "    dt2 = datetime.datetime(2023, 10, 8, 17, 59, 0)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            18,
+                            19,
+                            20,
+                            21
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    for commit in Repository(repo_url,",
+                            "    only_modifications_with_file_types=[f\".{language_file_extension}\"],",
+                            "    since=dt1,",
+                            "    to=dt2).traverse_commits():"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            25,
+                            26,
+                            27,
+                            28,
+                            29,
+                            30,
+                            31,
+                            32,
+                            33,
+                            34,
+                            35,
+                            36,
+                            37,
+                            38,
+                            39,
+                            40,
+                            41,
+                            42,
+                            43,
+                            44,
+                            45,
+                            46,
+                            47,
+                            48,
+                            49,
+                            50,
+                            51
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            if modified_file.filename not in files_data:",
+                            "                files_data[modified_file.filename] = []",
+                            "            if len(modified_file.filename.split(\".\")) == 2 and modified_file.filename.split(\".\")[1] == language_file_extension:",
+                            "                file_data = {",
+                            "                    \"commit\": commit.hash,",
+                            "                    \"timestamp\": commit.committer_date.isoformat(),",
+                            "                    \"author\": commit.author.name,",
+                            "                    \"commit_message\": commit.msg,",
+                            "                    \"additions\": modified_file.added_lines,",
+                            "                    \"deletions\": modified_file.deleted_lines,",
+                            "                    \"change_type\": modified_file.change_type.name,",
+                            "                    \"diff\": modified_file.diff",
+                            "                }",
+                            "                diff_added = {}",
+                            "                diff_deleted = {}",
+                            "                diff_modified = {}",
+                            "                for line in modified_file.diff_parsed[\"added\"]:",
+                            "                    if line[1].find(comment_symbol) != -1:",
+                            "                        diff_added[line[0]] = line[1]",
+                            "                file_data[\"comment_added_diff\"] = diff_added",
+                            "                for line in modified_file.diff_parsed[\"deleted\"]:",
+                            "                    if line[1].find(comment_symbol) != -1:",
+                            "                        diff_deleted[line[0]] = line[1]",
+                            "                    if line[0] in diff_added.keys():",
+                            "                        diff_modified[line[0]] = line[1]",
+                            "                file_data[\"comment_deleted_diff\"] = diff_deleted",
+                            "                file_data[\"comment_modified_diff\"] = diff_modified"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            56,
+                            57,
+                            58
+                        ],
+                        "comments": {
+                            "52": "                # Generate keywords based on the commit message and type of changes",
+                            "53": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+                            "54": "                # Extract type of commit from commit message",
+                            "55": "                # file_data[\"activity\"] = extract_activity(commit.msg)"
+                        },
+                        "lines": [
+                            "                if len(diff_added) + len(diff_deleted) != 0:",
+                            "                    files_data[modified_file.filename].append(file_data)",
+                            "    return files_data"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            74
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def extract_activity(commit_message):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            76,
+                            77,
+                            78,
+                            79,
+                            80,
+                            81,
+                            82,
+                            83,
+                            84,
+                            85,
+                            86
+                        ],
+                        "comments": {
+                            "75": "    # Use commit message keywords to determine activity type"
+                        },
+                        "lines": [
+                            "    activity = \"\"",
+                            "    if \"bug\" in commit.msg.lower() or \"fix\" in commit.msg.lower():",
+                            "        activity = \"Bug Fix\"",
+                            "    elif \"feature\" in commit.msg.lower() or \"add\" in commit.msg.lower():",
+                            "        activity = \"Feature Development\"",
+                            "    elif \"refactor\" in commit.msg.lower():",
+                            "        activity = \"Refactoring\"",
+                            "    else:",
+                            "        activity = \"Other\"",
+                            "    return activity",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            92
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def create_xes_log(data):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            97
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    for file in data:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            120,
+                            121
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                            "            event[\"diff\"] = file_data[\"diff\"]"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            138,
+                            139
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                            "       commits_data = json.load(json_file)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            145
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    save_xes_log(xes_log, \"Data/commits_data.xes\")"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            12,
+                            13,
+                            14,
+                            15,
+                            16,
+                            17
+                        ],
+                        "comments": {
+                            "11": "    # Traverse through the commits in the repository"
+                        },
+                        "lines": [
+                            "    for commit in Repository(repo_url).traverse_commits():",
+                            "        commit_data = {",
+                            "            \"timestamp\": commit.committer_date.isoformat(),",
+                            "            \"author\": commit.author.name,",
+                            "            \"files\": []",
+                            "        }"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            21,
+                            22,
+                            23,
+                            24,
+                            25,
+                            26,
+                            27,
+                            28
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            file_data = {",
+                            "                \"filename\": modified_file.filename,",
+                            "                \"additions\": modified_file.added_lines,",
+                            "                \"deletions\": modified_file.deleted_lines,",
+                            "                \"change_type\": modified_file.change_type.name,",
+                            "                \"commit_message\": commit.msg",
+                            "            }",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            30,
+                            31,
+                            32,
+                            33,
+                            34,
+                            35,
+                            36,
+                            37,
+                            38
+                        ],
+                        "comments": {
+                            "29": "            # Use commit message keywords to determine activity type"
+                        },
+                        "lines": [
+                            "            if \"bug\" in commit.msg.lower() or \"fix\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Bug Fix\"",
+                            "            elif \"feature\" in commit.msg.lower() or \"add\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Feature Development\"",
+                            "            elif \"refactor\" in commit.msg.lower():",
+                            "                file_data[\"activity\"] = \"Refactoring\"",
+                            "            else:",
+                            "                file_data[\"activity\"] = \"Other\"",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            40,
+                            41,
+                            42,
+                            43
+                        ],
+                        "comments": {
+                            "39": "            # Generate effect/meaning keywords based on the commit message and type of changes"
+                        },
+                        "lines": [
+                            "            file_data[\"effect_keywords\"] = extract_keywords(commit.msg, modified_file)",
+                            "",
+                            "            commit_data[\"files\"].append(file_data)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            45,
+                            46,
+                            47
+                        ],
+                        "comments": {
+                            "44": "        # Store the processed commit data"
+                        },
+                        "lines": [
+                            "        commits_data.append(commit_data)",
+                            "",
+                            "    return commits_data"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            61
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            69,
+                            70,
+                            71
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "",
+                            "",
+                            "def create_xes_log(commits_data):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            76
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    for commit_data in commits_data:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            99
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            112,
+                            113,
+                            114
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url)",
+                            "    save_to_json(commits_data, \"commits_data.json\")",
+                            "    print(\"Commit data has been saved to commits_data.json\")"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            116,
+                            117
+                        ],
+                        "comments": {
+                            "115": "     # Load the previously saved commit data JSON file"
+                        },
+                        "lines": [
+                            "    with open(\"commits_data.json\", \"r\") as json_file:",
+                            "        commits_data = json.load(json_file)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            123,
+                            124
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    save_xes_log(xes_log, \"commits_data.xes\")",
+                            ""
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "12": "    # Analysis range",
+                "16": "    # Traverse through the commits in the repository",
+                "17": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
+                "24": "            # only store file data for Rust files",
+                "52": "                # Generate keywords based on the commit message and type of changes",
+                "53": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+                "54": "                # Extract type of commit from commit message",
+                "55": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
+                "75": "    # Use commit message keywords to determine activity type",
+                "120": "            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                "133": "    repo_url = \"https://github.com/numpy/numpy\"  # Example repository URL",
+                "134": "    # commits_data = analyze_commits(repo_url, \"#\", \"py\")",
+                "135": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
+                "136": "    # print(\"Commit data has been saved to commits_data.json\")",
+                "137": "    # Load the previously saved commit data JSON file"
+            },
+            "comment_deleted_diff": {
+                "11": "    # Traverse through the commits in the repository",
+                "29": "            # Use commit message keywords to determine activity type",
+                "39": "            # Generate effect/meaning keywords based on the commit message and type of changes",
+                "44": "        # Store the processed commit data",
+                "111": "    repo_url = \"https://github.com/dani-garcia/vaultwarden\"  # Example repository URL",
+                "115": "     # Load the previously saved commit data JSON file"
+            },
+            "comment_modified_diff": {}
+        },
+        {
+            "commit": "f73512c4aa778287e31d18e9d218502acf7479ee",
+            "timestamp": "2024-11-16T20:51:56+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Adding first draft to convert JSON to XES",
+            "additions": 26,
+            "deletions": 29,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            99,
+                            100,
+                            101,
+                            102
+                        ],
+                        "comments": {
+                            "98": "        # Create a trace for the file"
+                        },
+                        "lines": [
+                            "        trace = Trace()",
+                            "        trace.attributes[\"file\"] = file",
+                            "",
+                            "        for commit in commits:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            105,
+                            106,
+                            107,
+                            108,
+                            109,
+                            110,
+                            111,
+                            112,
+                            113,
+                            114,
+                            115,
+                            116
+                        ],
+                        "comments": {
+                            "103": "            # Extract event attributes"
+                        },
+                        "lines": [
+                            "            event[\"timestamp\"] = commit.get(\"timestamp\")",
+                            "            event[\"author\"] = commit.get(\"author\")",
+                            "            event[\"change_type\"] = commit.get(\"change_type\")",
+                            "            event[\"commit_message\"] = commit.get(\"commit_message\")",
+                            "            event[\"additions\"] = commit.get(\"additions\")",
+                            "            event[\"deletions\"] = commit.get(\"deletions\")",
+                            "            event[\"diff\"] = commit.get(\"diff\")",
+                            "            if commit.get(\"comment_added_diff\"):",
+                            "                event[\"comment_change\"] = \"True\"",
+                            "            else:",
+                            "                event[\"comment_change\"] = \"False\"",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "117": "            # Add the event to the trace"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [
+                            121,
+                            122
+                        ],
+                        "comments": {
+                            "120": "        # Add the trace to the log"
+                        },
+                        "lines": [
+                            "        log.append(trace)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            131,
+                            132,
+                            133
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url, \"#\", \"py\")",
+                            "    save_to_json(commits_data, \"Data/commits_data.json\")",
+                            "    print(\"Commit data has been saved to commits_data.json\")"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            99
+                        ],
+                        "comments": {
+                            "98": "        # For each file affected in the commit, create a trace"
+                        },
+                        "lines": [
+                            "        for file_data in commit_data['files']:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            101,
+                            102,
+                            103,
+                            104,
+                            105,
+                            106,
+                            107,
+                            108
+                        ],
+                        "comments": {
+                            "100": "            # Check if a trace for this file already exists, if not, create one"
+                        },
+                        "lines": [
+                            "            trace_name = file_data['filename']",
+                            "            trace = next((t for t in log if t.attributes.get(\"concept:name\") == trace_name), None)",
+                            "",
+                            "            if trace is None:",
+                            "                trace = Trace()",
+                            "                trace.attributes[\"concept:name\"] = trace_name",
+                            "                log.append(trace)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            111,
+                            112,
+                            113,
+                            114
+                        ],
+                        "comments": {
+                            "109": "            # Create an event for the current commit affecting this file"
+                        },
+                        "lines": [
+                            "            event[\"concept:name\"] = file_data['activity']",
+                            "            event[\"time:timestamp\"] = commit_data['timestamp']",
+                            "            event[\"org:resource\"] = commit_data['author']",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            116,
+                            117,
+                            118,
+                            119,
+                            120,
+                            121,
+                            122
+                        ],
+                        "comments": {
+                            "115": "            # Add custom attributes for the event"
+                        },
+                        "lines": [
+                            "            event[\"additions\"] = file_data['additions']",
+                            "            event[\"deletions\"] = file_data['deletions']",
+                            "            event[\"change_type\"] = file_data['change_type']",
+                            "            event[\"commit_message\"] = file_data['commit_message']",
+                            "            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                            "            event[\"diff\"] = file_data[\"diff\"]",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "123": "            # Append the event to the trace"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "134": "    # commits_data = analyze_commits(repo_url, \"#\", \"py\")",
+                            "135": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
+                            "136": "    # print(\"Commit data has been saved to commits_data.json\")"
+                        },
+                        "lines": []
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "98": "        # Create a trace for the file",
+                "103": "            # Extract event attributes",
+                "117": "            # Add the event to the trace",
+                "120": "        # Add the trace to the log",
+                "131": "    commits_data = analyze_commits(repo_url, \"#\", \"py\")"
+            },
+            "comment_deleted_diff": {
+                "98": "        # For each file affected in the commit, create a trace",
+                "100": "            # Check if a trace for this file already exists, if not, create one",
+                "109": "            # Create an event for the current commit affecting this file",
+                "115": "            # Add custom attributes for the event",
+                "120": "            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                "123": "            # Append the event to the trace",
+                "134": "    # commits_data = analyze_commits(repo_url, \"#\", \"py\")",
+                "135": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
+                "136": "    # print(\"Commit data has been saved to commits_data.json\")"
+            },
+            "comment_modified_diff": {
+                "98": "        # For each file affected in the commit, create a trace",
+                "120": "            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])"
+            }
+        },
+        {
+            "commit": "1277d634d38557e2d5981481fd55f1753da2314b",
+            "timestamp": "2024-11-17T16:33:10+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Fixed issue where added comments would appear under modified",
+            "additions": 4,
+            "deletions": 4,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            131
+                        ],
+                        "comments": {
+                            "130": "    repo_url = \"https://github.com/espressif/arduino-esp32\"  # Example repository URL"
+                        },
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url, \"// \", \"cpp\")"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            131
+                        ],
+                        "comments": {
+                            "130": "    repo_url = \"https://github.com/numpy/numpy\"  # Example repository URL"
+                        },
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url, \"#\", \"py\")"
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "130": "    repo_url = \"https://github.com/espressif/arduino-esp32\"  # Example repository URL"
+            },
+            "comment_deleted_diff": {
+                "130": "    repo_url = \"https://github.com/numpy/numpy\"  # Example repository URL",
+                "131": "    commits_data = analyze_commits(repo_url, \"#\", \"py\")"
+            },
+            "comment_modified_diff": {
+                "130": "    repo_url = \"https://github.com/numpy/numpy\"  # Example repository URL"
+            }
+        },
+        {
+            "commit": "a8af330e0eb1c2574ba424b69e0958c938502a67",
+            "timestamp": "2024-11-18T10:51:21+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Added functionality to group lines in diff into blocks",
+            "additions": 54,
+            "deletions": 13,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            14
+                        ],
+                        "comments": {
+                            "13": "    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)"
+                        },
+                        "lines": [
+                            "    dt2 = datetime.datetime(2020, 10, 8, 17, 59, 0)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            36
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    \"diff\": modified_file.diff_parsed"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            43
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                        print(int(line[0]))"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            88,
+                            89,
+                            90,
+                            91,
+                            92,
+                            93,
+                            94,
+                            95
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def analyze_diff(commits_data, type):",
+                            "    for file, commits in commits_data.items():",
+                            "        if len(file) > 0:",
+                            "            for commit in commits:",
+                            "                diff_edited = []",
+                            "                for i in range(len(commit[\"diff\"][type])):",
+                            "                    if commit[\"diff\"][type][i][1].find(\"// \") == -1:",
+                            "                        if len(diff_edited) > 0:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            97,
+                            98,
+                            99,
+                            100
+                        ],
+                        "comments": {
+                            "96": "                            # In case of no comment add lines to existing dict if line number directly follows"
+                        },
+                        "lines": [
+                            "                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                            "                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
+                            "                                diff_edited[-1][\"lines\"].append(commit[\"diff\"][type][i][1])",
+                            "                            else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            102,
+                            103,
+                            104,
+                            105,
+                            106,
+                            107
+                        ],
+                        "comments": {
+                            "101": "                                # or create new one"
+                        },
+                        "lines": [
+                            "                                diff_edited.append({",
+                            "                                    \"line_numbers\": [commit[\"diff\"][type][i][0]],",
+                            "                                    \"comments\": [],",
+                            "                                    \"lines\": [commit[\"diff\"][type][i][1]]})",
+                            "                    else:",
+                            "                        if len(diff_edited) > 0:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            109,
+                            110,
+                            111,
+                            112
+                        ],
+                        "comments": {
+                            "108": "                            # In case of comment add them to existing dict if they directly follow"
+                        },
+                        "lines": [
+                            "                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                            "                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
+                            "                                diff_edited[-1][\"comments\"].append(commit[\"diff\"][type][i][1])",
+                            "                        else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            114,
+                            115,
+                            116,
+                            117,
+                            118,
+                            119,
+                            120,
+                            121
+                        ],
+                        "comments": {
+                            "113": "                            # or create new one"
+                        },
+                        "lines": [
+                            "                            diff_edited.append({",
+                            "                                \"line_numbers\": [commit[\"diff\"][type][i][0]],",
+                            "                                \"comments\": [commit[\"diff\"][type][i][1]],",
+                            "                                \"lines\": []})",
+                            "                commit[\"diff\"][type] = diff_edited",
+                            "    return commits_data",
+                            "",
+                            "def save_to_json(commits_data, path):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            123
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    with open(path, 'w') as json_file:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            125
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    print(\"Commit data has been saved to \", path)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            164
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def save_to_xes(log, path):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            166,
+                            167
+                        ],
+                        "comments": {
+                            "165": "    # Create the XES log from the commit data"
+                        },
+                        "lines": [
+                            "    xes_log = create_xes_log(log)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            169,
+                            170,
+                            171
+                        ],
+                        "comments": {
+                            "168": "    # Save the XES log to a file"
+                        },
+                        "lines": [
+                            "    save_xes_log(xes_log, path)",
+                            "    print(\"XES log has been saved to \", path)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            179,
+                            180,
+                            181,
+                            182
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    analyzed_data = analyze_diff(commits_data, \"added\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                            "    analyzed_data = analyze_diff(commits_data, \"deleted\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "134": "    # Load the previously saved commit data JSON file"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [
+                            139
+                        ],
+                        "comments": {
+                            "138": "    # Create the XES log from the commit data"
+                        },
+                        "lines": [
+                            "    xes_log = create_xes_log(commits_data)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            142,
+                            143
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    save_xes_log(xes_log, \"Data/commits_data.xes\")",
+                            "    print(\"XES log has been saved to commits_data.xes\")"
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "13": "    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)",
+                "20": "    # since=dt1,",
+                "96": "                            # In case of no comment add lines to existing dict if line number directly follows",
+                "101": "                                # or create new one",
+                "108": "                            # In case of comment add them to existing dict if they directly follow",
+                "113": "                            # or create new one",
+                "165": "    # Create the XES log from the commit data",
+                "168": "    # Save the XES log to a file",
+                "176": "    # save_to_xes(commits_data, \"Data/commits_data.xes\")"
+            },
+            "comment_deleted_diff": {
+                "134": "    # Load the previously saved commit data JSON file",
+                "138": "    # Create the XES log from the commit data",
+                "141": "    # Save the XES log to a file"
+            },
+            "comment_modified_diff": {}
+        },
+        {
+            "commit": "3bffee0480ea6e1007c2b96cafa58305afd4a9f2",
+            "timestamp": "2024-11-18T15:19:19+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Added functionality to sort out comments made to an earlier commit",
+            "additions": 63,
+            "deletions": 17,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [
+                            14
+                        ],
+                        "comments": {
+                            "13": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)"
+                        },
+                        "lines": [
+                            "    dt2 = datetime(2022, 10, 8, 17, 59, 0)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            87
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def pretty_diff(commits_data, type):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            120,
+                            121,
+                            122,
+                            123
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def analyze_diffs(data):",
+                            "    analysis_results = []",
+                            "",
+                            "    for file, commits in data.items():"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            125,
+                            126,
+                            127,
+                            128,
+                            129,
+                            130
+                        ],
+                        "comments": {
+                            "124": "        # Store last modified timestamps for each line"
+                        },
+                        "lines": [
+                            "        last_modified = {}",
+                            "",
+                            "        for commit in commits:",
+                            "            print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                            "            commit_time = datetime.fromisoformat(commit[\"timestamp\"])",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            132,
+                            133,
+                            134,
+                            135,
+                            136,
+                            137,
+                            138
+                        ],
+                        "comments": {
+                            "131": "            # Track modified lines"
+                        },
+                        "lines": [
+                            "            for block in commit[\"diff\"][\"added\"]:",
+                            "                for line in block[\"line_numbers\"]:",
+                            "                    line_number = line",
+                            "                    last_modified[line_number] = commit_time",
+                            "",
+                            "            print(last_modified)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            140,
+                            141,
+                            142
+                        ],
+                        "comments": {
+                            "139": "            # Compare with comments"
+                        },
+                        "lines": [
+                            "            for line in commit[\"comment_added_diff\"]:",
+                            "                comment_time = datetime.fromisoformat(commit[\"timestamp\"])",
+                            "                last_modified_lines = list(last_modified.keys())"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            144
+                        ],
+                        "comments": {
+                            "143": "                # print(\"Check if \", line, \" is in keys \", last_modified_lines)"
+                        },
+                        "lines": [
+                            "                if int(line) in last_modified_lines:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            146,
+                            147,
+                            148,
+                            149,
+                            150,
+                            151,
+                            152,
+                            153
+                        ],
+                        "comments": {
+                            "145": "                    # print(\"Check if \", comment_time, \" is larger than \", last_modified[int(line)])"
+                        },
+                        "lines": [
+                            "                    if(comment_time > last_modified[int(line)]):",
+                            "                        analysis_results.append({",
+                            "                            \"file\": file,",
+                            "                            \"line\": int(line),",
+                            "                            \"comment\": commit[\"comment_added_diff\"][line],",
+                            "                            \"comment_time\": str(comment_time),",
+                            "                            \"last_code_change_time\": str(last_modified[int(line)])",
+                            "                        })"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            156,
+                            157,
+                            158
+                        ],
+                        "comments": {
+                            "154": "            # print(\"Finsihed with commit\")",
+                            "155": "            # print(\"Current state analysis results: \", analysis_results, \"\\n\")"
+                        },
+                        "lines": [
+                            "",
+                            "    return analysis_results",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            163
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    print(\"Data has been saved to\", path)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            208
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    print(\"XES log has been saved to\", path)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            221
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            223,
+                            224,
+                            225,
+                            226,
+                            227,
+                            228,
+                            229,
+                            230
+                        ],
+                        "comments": {
+                            "222": "    # Test case"
+                        },
+                        "lines": [
+                            "    with open(\"Exports/analyzed_data.json\", \"r\") as json_file:",
+                            "        data = json.load(json_file)",
+                            "    print(\"\\n\")",
+                            "    analyzed_data = analyze_diffs(data)",
+                            "    for result in analyzed_data:",
+                            "        print(f\"In {result['file']}, line {result['line']} was commented on {result['comment_time']} \"",
+                            "            f\"after being changed on {result['last_code_change_time']}.\")",
+                            "    save_to_json(analyzed_data, \"Exports/analysis_results.json\")"
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            14
+                        ],
+                        "comments": {
+                            "13": "    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)"
+                        },
+                        "lines": [
+                            "    dt2 = datetime.datetime(2020, 10, 8, 17, 59, 0)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            43
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                        print(int(line[0]))"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            88
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def analyze_diff(commits_data, type):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            125
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    print(\"Commit data has been saved to \", path)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            170
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    print(\"XES log has been saved to \", path)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            174,
+                            175
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    commits_data = analyze_commits(repo_url, \"// \", \"cpp\")",
+                            "    save_to_json(commits_data, \"Data/commits_data.json\")"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            177,
+                            178,
+                            179,
+                            180,
+                            181,
+                            182,
+                            183,
+                            184
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                            "       commits_data = json.load(json_file)",
+                            "    analyzed_data = analyze_diff(commits_data, \"added\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                            "    analyzed_data = analyze_diff(commits_data, \"deleted\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                            "",
+                            ""
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "13": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+                "124": "        # Store last modified timestamps for each line",
+                "131": "            # Track modified lines",
+                "139": "            # Compare with comments",
+                "143": "                # print(\"Check if \", line, \" is in keys \", last_modified_lines)",
+                "145": "                    # print(\"Check if \", comment_time, \" is larger than \", last_modified[int(line)])",
+                "154": "            # print(\"Finsihed with commit\")",
+                "155": "            # print(\"Current state analysis results: \", analysis_results, \"\\n\")",
+                "212": "    # commits_data = analyze_commits(repo_url, \"// \", \"cpp\")",
+                "213": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
+                "215": "    # with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                "216": "      #  commits_data = json.load(json_file)",
+                "217": "    # analyzed_data = pretty_diff(commits_data, \"added\")",
+                "218": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                "219": "    # analyzed_data = pretty_diff(commits_data, \"deleted\")",
+                "220": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                "222": "    # Test case"
+            },
+            "comment_deleted_diff": {
+                "13": "    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)"
+            },
+            "comment_modified_diff": {
+                "13": "    # dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)"
+            }
+        },
+        {
+            "commit": "e226da877d3d9f98cab4990bb1fbaa02e6adbb7b",
+            "timestamp": "2024-11-19T15:32:58+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Made comment extraction more exact by only filtering out comments that were added without changing the corresponding code block and tried .js files also finds comments more reliably now",
+            "additions": 50,
+            "deletions": 46,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "100": "                            # else:",
+                            "101": "                            #     diff_edited.append({",
+                            "102": "                            #         \"line_numbers\": [],",
+                            "103": "                            #         \"comments\": {curr_line: curr_content},",
+                            "104": "                            #         \"lines\": []})"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [
+                            111,
+                            112
+                        ],
+                        "comments": {
+                            "106": "                        #     if i < 5:",
+                            "107": "                        #     # or create new one",
+                            "108": "                        #         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)"
+                        },
+                        "lines": [
+                            "                                \"line_numbers\": [],",
+                            "                                \"comments\": {curr_line: curr_content},"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            114,
+                            115
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    else:",
+                            "                        if len(diff_edited) > 0:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            117,
+                            118,
+                            119,
+                            120
+                        ],
+                        "comments": {
+                            "116": "                            # In case of no comment add lines to existing dict if line number directly follows"
+                        },
+                        "lines": [
+                            "                            if len(diff_edited[-1][\"line_numbers\"]) == 0 or curr_line == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                            "                                diff_edited[-1][\"line_numbers\"].append(curr_line)",
+                            "                                diff_edited[-1][\"lines\"].append(curr_content)",
+                            "                            else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            122,
+                            123,
+                            124,
+                            125
+                        ],
+                        "comments": {
+                            "121": "                                # or create new one"
+                        },
+                        "lines": [
+                            "                                diff_edited.append({",
+                            "                                    \"line_numbers\": [curr_line],",
+                            "                                    \"comments\": {},",
+                            "                                    \"lines\": [curr_content]})"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            153,
+                            154,
+                            155,
+                            156,
+                            157,
+                            158,
+                            159,
+                            160,
+                            161,
+                            162
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    for block in commit[\"diff\"][\"added\"]:",
+                            "                        if line in block[\"comments\"] and len(block[\"line_numbers\"]) == 0:",
+                            "                            if(comment_time > last_modified[int(line)]):",
+                            "                                analysis_results.append({",
+                            "                                    \"file\": file,",
+                            "                                    \"line\": int(line),",
+                            "                                    \"comment\": commit[\"comment_added_diff\"][line],",
+                            "                                    \"comment_time\": str(comment_time),",
+                            "                                    \"last_code_change_time\": str(last_modified[int(line)])",
+                            "                                })"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            222,
+                            223,
+                            224,
+                            225,
+                            226,
+                            227
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                            "       commits_data = json.load(json_file)",
+                            "    analyzed_data = pretty_diff(commits_data, \"added\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                            "    analyzed_data = pretty_diff(commits_data, \"deleted\")",
+                            "    save_to_json(analyzed_data, \"Exports/analyzed_data.json\")"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            232,
+                            233
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    analyzed_data = analyze_diffs(data)",
+                            ""
+                        ]
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            96,
+                            97,
+                            98,
+                            99
+                        ],
+                        "comments": {
+                            "95": "                            # In case of no comment add lines to existing dict if line number directly follows"
+                        },
+                        "lines": [
+                            "                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                            "                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
+                            "                                diff_edited[-1][\"lines\"].append(commit[\"diff\"][type][i][1])",
+                            "                            else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            101,
+                            102,
+                            103,
+                            104,
+                            105
+                        ],
+                        "comments": {
+                            "100": "                                # or create new one"
+                        },
+                        "lines": [
+                            "                                diff_edited.append({",
+                            "                                    \"line_numbers\": [commit[\"diff\"][type][i][0]],",
+                            "                                    \"comments\": [],",
+                            "                                    \"lines\": [commit[\"diff\"][type][i][1]]})",
+                            "                    else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            108,
+                            109,
+                            110
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                            "                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
+                            "                                diff_edited[-1][\"comments\"].append(commit[\"diff\"][type][i][1])"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            114,
+                            115
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                                \"line_numbers\": [commit[\"diff\"][type][i][0]],",
+                            "                                \"comments\": [commit[\"diff\"][type][i][1]],"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            128
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            print(\"Starting to analyse commit: \", commit[\"commit\"])"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            137
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "            print(last_modified)"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            146,
+                            147,
+                            148,
+                            149,
+                            150,
+                            151,
+                            152,
+                            153
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    if(comment_time > last_modified[int(line)]):",
+                            "                        analysis_results.append({",
+                            "                            \"file\": file,",
+                            "                            \"line\": int(line),",
+                            "                            \"comment\": commit[\"comment_added_diff\"][line],",
+                            "                            \"comment_time\": str(comment_time),",
+                            "                            \"last_code_change_time\": str(last_modified[int(line)])",
+                            "                        })"
+                        ]
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "154": "            # print(\"Finsihed with commit\")",
+                            "155": "            # print(\"Current state analysis results: \", analysis_results, \"\\n\")"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "211": "    repo_url = \"https://github.com/espressif/arduino-esp32\"  # Example repository URL",
+                            "212": "    # commits_data = analyze_commits(repo_url, \"// \", \"cpp\")"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [
+                            225,
+                            226,
+                            227,
+                            228,
+                            229
+                        ],
+                        "comments": {
+                            "215": "    # with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                            "216": "      #  commits_data = json.load(json_file)",
+                            "217": "    # analyzed_data = pretty_diff(commits_data, \"added\")",
+                            "218": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                            "219": "    # analyzed_data = pretty_diff(commits_data, \"deleted\")",
+                            "220": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")"
+                        },
+                        "lines": [
+                            "    print(\"\\n\")",
+                            "    analyzed_data = analyze_diffs(data)",
+                            "    for result in analyzed_data:",
+                            "        print(f\"In {result['file']}, line {result['line']} was commented on {result['comment_time']} \"",
+                            "            f\"after being changed on {result['last_code_change_time']}.\")"
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "100": "                            # else:",
+                "101": "                            #     diff_edited.append({",
+                "102": "                            #         \"line_numbers\": [],",
+                "103": "                            #         \"comments\": {curr_line: curr_content},",
+                "104": "                            #         \"lines\": []})",
+                "106": "                        #     if i < 5:",
+                "107": "                        #     # or create new one",
+                "108": "                        #         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)",
+                "116": "                            # In case of no comment add lines to existing dict if line number directly follows",
+                "121": "                                # or create new one",
+                "137": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                "146": "            # print(last_modified)",
+                "218": "    repo_url = \"https://github.com/nodejs/node\"  # Example repository URL",
+                "219": "    # commits_data = analyze_commits(repo_url, \"//\", \"js\")"
+            },
+            "comment_deleted_diff": {
+                "95": "                            # In case of no comment add lines to existing dict if line number directly follows",
+                "100": "                                # or create new one",
+                "143": "                # print(\"Check if \", line, \" is in keys \", last_modified_lines)",
+                "145": "                    # print(\"Check if \", comment_time, \" is larger than \", last_modified[int(line)])",
+                "154": "            # print(\"Finsihed with commit\")",
+                "155": "            # print(\"Current state analysis results: \", analysis_results, \"\\n\")",
+                "211": "    repo_url = \"https://github.com/espressif/arduino-esp32\"  # Example repository URL",
+                "212": "    # commits_data = analyze_commits(repo_url, \"// \", \"cpp\")",
+                "215": "    # with open(\"Data/commits_data.json\", \"r\") as json_file:",
+                "216": "      #  commits_data = json.load(json_file)",
+                "217": "    # analyzed_data = pretty_diff(commits_data, \"added\")",
+                "218": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                "219": "    # analyzed_data = pretty_diff(commits_data, \"deleted\")",
+                "220": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")"
+            },
+            "comment_modified_diff": {
+                "100": "                                # or create new one",
+                "218": "    # save_to_json(analyzed_data, \"Exports/analyzed_data.json\")",
+                "219": "    # analyzed_data = pretty_diff(commits_data, \"deleted\")"
+            }
+        },
+        {
+            "commit": "367493d87df2ab980b261f32c54beb20f1bc5c4e",
+            "timestamp": "2024-11-19T17:09:41+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Added functionality for multi-line comments",
+            "additions": 42,
+            "deletions": 23,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            14,
+                            15
+                        ],
+                        "comments": {
+                            "12": "    # Analysis range",
+                            "13": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)"
+                        },
+                        "lines": [
+                            "    dt2 = datetime(2010, 10, 8, 17, 59, 0)",
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            42
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    if line[1].find(comment_symbol) != -1:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            46
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    if line[1].find(comment_symbol) != -1:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            87
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "def pretty_diff(commits_data, type):"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            95
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    if curr_content.find(\"//\") == 0 or curr_content.find(\"// \") != -1:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            125
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                                    \"lines\": [curr_content]})"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            224
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    analyzed_data = pretty_diff(commits_data, \"added\")"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            226
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "    analyzed_data = pretty_diff(commits_data, \"deleted\")"
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {},
+            "comment_deleted_diff": {
+                "12": "    # Analysis range",
+                "13": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+                "20": "    # since=dt1,",
+                "100": "                            # else:",
+                "101": "                            #     diff_edited.append({",
+                "102": "                            #         \"line_numbers\": [],",
+                "103": "                            #         \"comments\": {curr_line: curr_content},",
+                "104": "                            #         \"lines\": []})",
+                "106": "                        #     if i < 5:",
+                "107": "                        #     # or create new one",
+                "108": "                        #         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)",
+                "219": "    # commits_data = analyze_commits(repo_url, \"//\", \"js\")",
+                "220": "    # save_to_json(commits_data, \"Data/commits_data.json\")"
+            },
+            "comment_modified_diff": {}
+        },
+        {
+            "commit": "bdfb1cc02e0a08cad8109e142080e326cd09f189",
+            "timestamp": "2024-11-19T17:28:53+01:00",
+            "author": "alexander.schranner",
+            "commit_message": "Refactoring and commenting",
+            "additions": 12,
+            "deletions": 18,
+            "change_type": "MODIFY",
+            "diff": {
+                "added": [
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "40": "                # For added diff ispect lines filter out comments"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "51": "                # For deleted diff ispect lines filter out comments"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "77": "    # Determine basic keywords based on the commit message"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "112": "                # Set current line for each analysis"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "116": "                    # In case of a starting multiline comment start adding future lines without comment symbol"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "119": "                    # In case of comment add them to existing dict if they directly follow"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "125": "                    # or create new one"
+                        },
+                        "lines": []
+                    },
+                    {
+                        "line_numbers": [
+                            131
+                        ],
+                        "comments": {
+                            "130": "                    # In case of no comment add lines to existing dict if line number directly follows"
+                        },
+                        "lines": [
+                            "                    else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            141
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                                    \"lines\": [curr_content]})"
+                        ]
+                    },
+                    {
+                        "line_numbers": [],
+                        "comments": {
+                            "142": "                    # Disable multiline comments when symbol found"
+                        },
+                        "lines": []
+                    }
+                ],
+                "deleted": [
+                    {
+                        "line_numbers": [
+                            11
+                        ],
+                        "comments": {
+                            "9": "    # This will hold the data for each file and its changes across commits"
+                        },
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            116,
+                            117
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    if curr_content == \"/*<replacement>*/\":",
+                            "                        print()"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            131
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                    else:"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            142
+                        ],
+                        "comments": {},
+                        "lines": [
+                            "                                    \"lines\": [curr_content]})"
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            154
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            158
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            164
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            166
+                        ],
+                        "comments": {
+                            "165": "            # print(last_modified)"
+                        },
+                        "lines": [
+                            ""
+                        ]
+                    },
+                    {
+                        "line_numbers": [
+                            182
+                        ],
+                        "comments": {},
+                        "lines": [
+                            ""
+                        ]
+                    }
+                ]
+            },
+            "comment_added_diff": {
+                "40": "                # For added diff ispect lines filter out comments",
+                "51": "                # For deleted diff ispect lines filter out comments",
+                "77": "    # Determine basic keywords based on the commit message",
+                "112": "                # Set current line for each analysis",
+                "116": "                    # In case of a starting multiline comment start adding future lines without comment symbol",
+                "119": "                    # In case of comment add them to existing dict if they directly follow",
+                "125": "                    # or create new one",
+                "130": "                    # In case of no comment add lines to existing dict if line number directly follows",
+                "137": "                    # Or create new one",
+                "142": "                    # Disable multiline comments when symbol found"
+            },
+            "comment_deleted_diff": {
+                "9": "    # This will hold the data for each file and its changes across commits",
+                "77": "    # This function can use NLP techniques or simple keyword extraction",
+                "78": "    # Here, a simplified approach is used: basic keywords based on the commit message",
+                "122": "                            # In case of comment add them to existing dict if they directly follow",
+                "126": "                            # or create new one",
+                "133": "                            # In case of no comment add lines to existing dict if line number directly follows",
+                "138": "                                # or create new one",
+                "165": "            # print(last_modified)"
+            },
+            "comment_modified_diff": {
+                "77": "    # This function can use NLP techniques or simple keyword extraction"
+            }
+        }
+    ],
+    "commits_data.json": [],
+    "FileType_PetriNet.pdf": [],
+    "View.pdf": [],
+    "analyzed_data.json": [],
+    "analysis_results.json": [],
+    "test_data.json": []
+}

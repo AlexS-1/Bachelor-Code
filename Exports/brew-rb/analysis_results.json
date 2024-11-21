@@ -1,0 +1,1948 @@
+[
+    {
+        "file": "formula.rb",
+        "line": 786,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-22 21:16:49+02:00"
+    },
+    {
+        "file": "formula.rb",
+        "line": 1016,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-22 21:16:49+02:00"
+    },
+    {
+        "file": "formula.rb",
+        "line": 3557,
+        "comment": "    # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-22 21:16:49+02:00"
+    },
+    {
+        "file": "formula.rb",
+        "line": 3594,
+        "comment": "    # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-22 21:16:49+02:00"
+    },
+    {
+        "file": "formula.rb",
+        "line": 1972,
+        "comment": "  # @api public",
+        "comment_time": "2024-10-17 11:40:20-04:00",
+        "last_code_change_time": "2024-05-01 11:35:20+02:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 870,
+        "comment": "      # Only include renames:",
+        "comment_time": "2024-03-09 10:27:22-08:00",
+        "last_code_change_time": "2024-03-03 20:51:09-05:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 871,
+        "comment": "      # + `homebrew/cask/water-buffalo`",
+        "comment_time": "2024-03-09 10:27:22-08:00",
+        "last_code_change_time": "2024-03-03 20:51:09-05:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 872,
+        "comment": "      # - `homebrew/cask`",
+        "comment_time": "2024-03-09 10:27:22-08:00",
+        "last_code_change_time": "2024-03-03 20:51:09-05:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 55,
+        "comment": "  # @api public",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-04-01 11:43:52-07:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 80,
+        "comment": "  # @api public",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-03-01 04:05:15+01:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 733,
+        "comment": "  # Check whether the given path would present a {Formula} file in this {Tap}.",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-03-04 16:49:33+01:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 782,
+        "comment": "  # Path to the directory of all alias files for this {Tap}.",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-02-13 06:03:10+01:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 789,
+        "comment": "  # An array of all alias files of this {Tap}.",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-02-13 06:03:10+01:00"
+    },
+    {
+        "file": "tap.rb",
+        "line": 78,
+        "comment": "  # Get a {Tap} from its path or a path inside of it.",
+        "comment_time": "2024-04-23 02:07:42+02:00",
+        "last_code_change_time": "2024-03-01 04:05:15+01:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 136,
+        "comment": "  # This is a cache that is intentionally mutable",
+        "comment_time": "2023-12-16 11:57:06+00:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 137,
+        "comment": "  # rubocop:disable Style/MutableConstant",
+        "comment_time": "2023-12-16 11:57:06+00:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 141,
+        "comment": "  # rubocop:enable Style/MutableConstant",
+        "comment_time": "2023-12-16 11:57:06+00:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 9,
+        "comment": "  # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 11,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 13,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 17,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 19,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 29,
+        "comment": "  # Returns the receiver if it's present, otherwise returns `nil`.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 33,
+        "comment": "  # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 35,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 36,
+        "comment": "  # state   = params[:state]   if params[:state].present?",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 37,
+        "comment": "  # country = params[:country] if params[:country].present?",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 38,
+        "comment": "  # region  = state || country || 'US'",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 39,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 41,
+        "comment": "  # can be simplified to",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 43,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 44,
+        "comment": "  # region = params[:state].presence || params[:country].presence || 'US'",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 45,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 53,
+        "comment": "  # `nil` is blank:",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 55,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 56,
+        "comment": "  # nil.blank? # => true",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 57,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 66,
+        "comment": "  # `false` is blank:",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 68,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 69,
+        "comment": "  # false.blank? # => true",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 70,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 79,
+        "comment": "  # `true` is not blank:",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 81,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 83,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 9,
+        "comment": "      # NOTE: Auto-correction for this cop is unsafe because `' '.empty?` returns `false`,",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 11,
+        "comment": "      #       if the receiver is a non-empty blank string.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 13,
+        "comment": "      # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 09:33:42-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 15,
+        "comment": "      # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-26 10:05:14-08:00"
+    },
+    {
+        "file": "blank.rb",
+        "line": 17,
+        "comment": "      # foo.nil? || foo.empty?",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 223,
+        "comment": "    def debug_name_of(child) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 228,
+        "comment": "    def offset_of(child) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 235,
+        "comment": "    def do_write(io) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 5,
+        "comment": "  # Equal to `self[1]`.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 9,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 10,
+        "comment": "  # %w( a b c d e ).second # => \"b\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 16,
+        "comment": "  # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 18,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 19,
+        "comment": "  # %w( a b c d e ).third # => \"c\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 23,
+        "comment": "  # Equal to `self[3]`.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 28,
+        "comment": "  # %w( a b c d e ).fourth # => \"d\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 47,
+        "comment": "  # [].to_sentence                      # => \"\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 50,
+        "comment": "  # ['one', 'two', 'three'].to_sentence # => \"one, two and three\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 51,
+        "comment": "  # ['one', 'two'].to_sentence(two_words_connector: '-')",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 52,
+        "comment": "  # # => \"one-two\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 53,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 86,
+        "comment": "  # @param [String] words_connector The sign or word used to join all but the last",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 87,
+        "comment": "  #   element in arrays with three or more elements (default: `\", \"`).",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 88,
+        "comment": "  # @param [String] last_word_connector The sign or word used to join the last element",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 89,
+        "comment": "  #   in arrays with three or more elements (default: `\" and \"`).",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 90,
+        "comment": "  # @param [String] two_words_connector The sign or word used to join the elements",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "array.rb",
+        "line": 91,
+        "comment": "  #   in arrays with two elements (default: `\" and \"`).",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "configuration.rb",
+        "line": 454,
+        "comment": "    ->(type) {MODULE_NAME.bind(type).call} # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "errors.rb",
+        "line": 7,
+        "comment": "# Copyright (c) 2009-2024 Simone Carletti <weppos@weppos.net>",
+        "comment_time": "2024-04-02 14:45:04+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "version.rb",
+        "line": 719,
+        "comment": "  # @api public",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-26 14:04:55+02:00"
+    },
+    {
+        "file": "base.rb",
+        "line": 51,
+        "comment": "      def register_subclasses # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "simple.rb",
+        "line": 28,
+        "comment": "      # Once 2.6 is well in the rear view mirror, we can replace this.",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "simple.rb",
+        "line": 29,
+        "comment": "      # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "simple.rb",
+        "line": 31,
+        "comment": "      # rubocop:enable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 8,
+        "comment": "#",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 9,
+        "comment": "# @api internal",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 139,
+        "comment": "# @api internal",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 53,
+        "comment": "#",
+        "comment_time": "2024-04-23 19:10:45+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 54,
+        "comment": "# @api internal",
+        "comment_time": "2024-04-23 19:10:45+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 70,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-12-16 20:01:47-05:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 99,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 110,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 128,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 167,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 178,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 189,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 200,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 211,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 240,
+        "comment": "    # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 19,
+        "comment": "  # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 114,
+        "comment": "  # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 134,
+        "comment": "  # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "exceptions.rb",
+        "line": 154,
+        "comment": "  # @!visibility private",
+        "comment_time": "2024-04-26 14:04:55+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "utils.rb",
+        "line": 7,
+        "comment": "      # rubocop:disable Style/CaseLikeIf",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "utils.rb",
+        "line": 71,
+        "comment": "          #       The `-h` and `-R` flags cannot be combined and behavior is",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "utils.rb",
+        "line": 73,
+        "comment": "          #       slash. This should do the right thing, but is fragile.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "utils.rb",
+        "line": 90,
+        "comment": "          #       before using `sudo` and `chown`.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 5,
+        "comment": "  # The negative of the {Enumerable#include?}. Returns `true` if the",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 13,
+        "comment": "  # ### Examples",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 15,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 16,
+        "comment": "  # [1, \"\", nil, 2, \" \", [], {}, false, true].compact_blank",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 18,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 20,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 23,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 27,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "enumerable.rb",
+        "line": 29,
+        "comment": "  # # => { b: 1, f: true }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:34:52-08:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 5,
+        "comment": "  # Returns a new hash with `self` and `other_hash` merged recursively.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 13,
+        "comment": "  # h1.deep_merge(h2) # => { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 19,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 20,
+        "comment": "  # h1 = { a: 100, b: 200, c: { c1: 100 } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 21,
+        "comment": "  # h2 = { b: 250, c: { c1: 200 } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 23,
+        "comment": "  # # => { a: 100, b: 450, c: { c1: 300 } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 24,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_merge.rb",
+        "line": 29,
+        "comment": "  # Same as {#deep_merge}, but modifies `self`.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:16-08:00"
+    },
+    {
+        "file": "deep_transform_values.rb",
+        "line": 9,
+        "comment": "  # @example",
+        "comment_time": "2024-03-17 20:53:58-07:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_transform_values.rb",
+        "line": 9,
+        "comment": "  # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_transform_values.rb",
+        "line": 14,
+        "comment": "  # hash.deep_transform_values{ |value| value.to_s.upcase }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "deep_transform_values.rb",
+        "line": 15,
+        "comment": "  # # => {person: {name: \"ROB\", age: \"28\"}}",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 105,
+        "comment": "      # We can't use `each_key` here because we're updating the hash in-place",
+        "comment_time": "2024-01-22 10:52:43-08:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 106,
+        "comment": "      object.keys.each do |key| # rubocop:disable Style/HashEachMethods",
+        "comment_time": "2024-01-22 10:52:43-08:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 5,
+        "comment": "  # Validates all keys in a hash match `*valid_keys`, raising",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 11,
+        "comment": "  #     { name: 'Rob', years: '28' }.assert_valid_keys(:name, :age)",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 12,
+        "comment": "  #     # => raises \"ArgumentError: Unknown key: :years. Valid keys are: :name, :age\"",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 13,
+        "comment": "  #     { name: 'Rob', age: '28' }.assert_valid_keys('name', 'age')",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 31,
+        "comment": "  #     hash = { person: { name: 'Rob', age: '28' } }",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 34,
+        "comment": "  #     # => {\"PERSON\"=>{\"NAME\"=>\"Rob\", \"AGE\"=>\"28\"}}",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 48,
+        "comment": "  #     hash.deep_stringify_keys",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 49,
+        "comment": "  #     # => {\"person\"=>{\"name\"=>\"Rob\", \"age\"=>\"28\"}}",
+        "comment_time": "2024-04-26 19:04:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 13,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 16,
+        "comment": "  # { name: 'Rob', age: '28' }.assert_valid_keys('name', 'age')",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 17,
+        "comment": "  # # => raises \"ArgumentError: Unknown key: :name. Valid keys are: 'name', 'age'\"",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 18,
+        "comment": "  # { name: 'Rob', age: '28' }.assert_valid_keys(:name, :age)   # => passes, raises nothing",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 19,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 37,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 38,
+        "comment": "  # hash = { person: { name: 'Rob', age: '28' } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 40,
+        "comment": "  # hash.deep_transform_keys{ |key| key.to_s.upcase }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 41,
+        "comment": "  # # => {\"PERSON\"=>{\"NAME\"=>\"Rob\", \"AGE\"=>\"28\"}}",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 54,
+        "comment": "  # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 60,
+        "comment": "  # # => {\"person\"=>{\"name\"=>\"Rob\", \"age\"=>\"28\"}}",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 70,
+        "comment": "  # they respond to `to_sym`. This includes the keys from the root hash",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 75,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 76,
+        "comment": "  # hash = { 'person' => { 'name' => 'Rob', 'age' => '28' } }",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 78,
+        "comment": "  # hash.deep_symbolize_keys",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 79,
+        "comment": "  # # => {:person=>{:name=>\"Rob\", :age=>\"28\"}}",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 80,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 90,
+        "comment": "  # to `to_sym`. This includes the keys from the root hash and from all",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-19 13:36:17-08:00"
+    },
+    {
+        "file": "keys.rb",
+        "line": 121,
+        "comment": "      # We can't use `each_key` here because we're updating the hash in-place.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 27,
+        "comment": "# rubocop:enable Layout/EmptyLines",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-22 10:52:43-08:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 40,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 41,
+        "comment": "  # method(:puts).duplicable? # => false",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 43,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 51,
+        "comment": "  # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-22 10:52:43-08:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 52,
+        "comment": "  # method(:puts).unbind.duplicable? # => false",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-22 10:52:43-08:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 53,
+        "comment": "  # method(:puts).unbind.dup         # => TypeError: allocator undefined for UnboundMethod",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-22 10:52:43-08:00"
+    },
+    {
+        "file": "duplicable.rb",
+        "line": 54,
+        "comment": "  # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-22 10:52:43-08:00"
+    },
+    {
+        "file": "uri.rb",
+        "line": 1542,
+        "comment": "        # String#split(delimiter, -1) uses the more strict splitting behavior",
+        "comment_time": "2024-06-21 15:56:57+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "uri.rb",
+        "line": 1542,
+        "comment": "        # String#split(delimiter, -1) uses the more strict splitting behavior",
+        "comment_time": "2024-06-21 15:57:12+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "base_primitive.rb",
+        "line": 212,
+        "comment": "      def do_read(io) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "dsl.rb",
+        "line": 327,
+        "comment": "      # odeprecated \"`discontinued?`\", \"`deprecated?` or `disabled?`\"",
+        "comment_time": "2023-12-16 20:01:46-05:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "dsl.rb",
+        "line": 292,
+        "comment": "    # @see DSL::Version",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "framework.rb",
+        "line": 54,
+        "comment": "    def do_read(io) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "framework.rb",
+        "line": 59,
+        "comment": "    def do_write(io) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "framework.rb",
+        "line": 64,
+        "comment": "    def do_num_bytes # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "name.rb",
+        "line": 16,
+        "comment": "    def self.included(base) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "primitive.rb",
+        "line": 76,
+        "comment": "    def respond_to?(symbol, include_private = false) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "primitive.rb",
+        "line": 80,
+        "comment": "    def method_missing(symbol, *args, &block) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "primitive.rb",
+        "line": 94,
+        "comment": "    def debug_name_of(child) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "uint8_array.rb",
+        "line": 52,
+        "comment": "    def sanitize_parameters!(obj_class, params) # :nodoc:",
+        "comment_time": "2024-02-16 17:25:37+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "warnings.rb",
+        "line": 12,
+        "comment": "      # FIXME: https://github.com/errata-ai/vale/issues/818",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "warnings.rb",
+        "line": 13,
+        "comment": "      # <!-- vale off -->",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "warnings.rb",
+        "line": 15,
+        "comment": "      # <!-- vale on -->",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 31,
+        "comment": "              # FIXME: remove once commands are all subclasses of `AbstractCommand`:",
+        "comment_time": "2024-03-20 10:36:19-07:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 15,
+        "comment": "      # FIXME: Enable cop again when https://github.com/sorbet/sorbet/issues/3532 is fixed.",
+        "comment_time": "2024-04-21 14:16:26-07:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 19,
+        "comment": "        #       to print the help page or a stack trace.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-21 14:16:25-07:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 170,
+        "comment": "          # odeprecated(",
+        "comment_time": "2024-08-13 13:03:48-07:00",
+        "last_code_change_time": "2024-04-21 14:16:25-07:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 171,
+        "comment": "          #   \"`brew #{@command_name}'. This command needs to be refactored, as it is written in a style that\",",
+        "comment_time": "2024-08-13 13:03:48-07:00",
+        "last_code_change_time": "2024-08-10 11:20:47-07:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 172,
+        "comment": "          #   \"inheritance from `Homebrew::AbstractCommand' ( see https://docs.brew.sh/External-Commands )\",",
+        "comment_time": "2024-08-13 13:03:48-07:00",
+        "last_code_change_time": "2024-08-10 11:20:47-07:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 173,
+        "comment": "          #   disable_for_developers: false,",
+        "comment_time": "2024-08-13 13:03:48-07:00",
+        "last_code_change_time": "2024-08-10 11:20:47-07:00"
+    },
+    {
+        "file": "parser.rb",
+        "line": 174,
+        "comment": "          # )",
+        "comment_time": "2024-08-13 13:03:48-07:00",
+        "last_code_change_time": "2024-08-10 11:20:47-07:00"
+    },
+    {
+        "file": "macho_file.rb",
+        "line": 430,
+        "comment": "    #  instance (by offset) of the requested path. Incompatible with :uniq.",
+        "comment_time": "2024-02-16 17:25:24+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "compatibility_patches.rb",
+        "line": 41,
+        "comment": "            if ::Kernel.instance_method(:respond_to?).bind(object).call(method_name, true) # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "class_utils.rb",
+        "line": 68,
+        "comment": "      mod.method(name) # Raises",
+        "comment_time": "2024-02-27 18:57:01+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "_methods.rb",
+        "line": 276,
+        "comment": "          original_method.bind(self).call(*args, &blk) # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "_methods.rb",
+        "line": 517,
+        "comment": "          old_included.bind(self).call(arg) # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-12-15 16:24:46+00:00"
+    },
+    {
+        "file": "_methods.rb",
+        "line": 525,
+        "comment": "          old_extended.bind(self).call(arg) # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-12-15 16:24:46+00:00"
+    },
+    {
+        "file": "_methods.rb",
+        "line": 533,
+        "comment": "          old_inherited.bind(self).call(arg) # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-12-15 16:24:46+00:00"
+    },
+    {
+        "file": "decl_builder.rb",
+        "line": 186,
+        "comment": "    # Declares valid type parameters which can be used with `T.type_parameter` in",
+        "comment_time": "2024-01-19 08:44:39+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "signature_validation.rb",
+        "line": 122,
+        "comment": "      # Therefore:",
+        "comment_time": "2023-12-15 16:24:46+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "signature_validation.rb",
+        "line": 123,
+        "comment": "      # Peaceful (mostly)",
+        "comment_time": "2023-12-15 16:24:46+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "has_lazily_specialized_methods.rb",
+        "line": 120,
+        "comment": "        source = \"# frozen_string_literal: true\\n\" + lazily_defined_methods.values.map(&:call).map(&:to_s).join(\"\\n\\n\")",
+        "comment_time": "2023-12-15 16:24:46+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "has_lazily_specialized_methods.rb",
+        "line": 120,
+        "comment": "        # rubocop:disable Style/StringConcatenation",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "has_lazily_specialized_methods.rb",
+        "line": 122,
+        "comment": "        # rubocop:enable Style/StringConcatenation",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "pretty_printable.rb",
+        "line": 58,
+        "comment": "    # NOTE: This is just to support Stripe's `PrettyPrintableModel` case, and not recommended to be overridden",
+        "comment_time": "2024-01-24 16:24:36+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "typed_enumerable.rb",
+        "line": 175,
+        "comment": "          Object.instance_method(:class).bind(obj).call # rubocop:disable Performance/BindCall",
+        "comment_time": "2024-02-11 15:27:59+00:00",
+        "last_code_change_time": "2023-11-30 06:09:56+00:00"
+    },
+    {
+        "file": "formulary.rb",
+        "line": 1022,
+        "comment": "  # @param alias_path will be used if the formula is found not to be",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-02-16 13:41:54+00:00"
+    },
+    {
+        "file": "formulary.rb",
+        "line": 1023,
+        "comment": "  #   installed and discarded if it is installed because the `alias_path` used",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-02-16 13:41:54+00:00"
+    },
+    {
+        "file": "python.rb",
+        "line": 153,
+        "comment": "      # @param python [String, Pathname] which interpreter to use (e.g. `\"python3\"`",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-03-03 14:44:22-05:00"
+    },
+    {
+        "file": "python.rb",
+        "line": 154,
+        "comment": "      #   or `\"python3.x\"`)",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-03-03 14:44:22-05:00"
+    },
+    {
+        "file": "python.rb",
+        "line": 214,
+        "comment": "      # on the formula and then installs the formula. An options hash may be",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-03 14:44:22-05:00"
+    },
+    {
+        "file": "software_spec.rb",
+        "line": 209,
+        "comment": "    # TODO: Remember to remove the delegate from `Formula`.",
+        "comment_time": "2024-02-12 23:46:18+01:00",
+        "last_code_change_time": "2023-12-07 23:42:13+00:00"
+    },
+    {
+        "file": "caskroom.rb",
+        "line": 55,
+        "comment": "    # @api internal",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2023-12-13 13:54:37+00:00"
+    },
+    {
+        "file": "contributions.rb",
+        "line": 127,
+        "comment": "        require \"csv\" # TODO: this will be removed from Ruby 3.4",
+        "comment_time": "2024-09-05 03:37:25+01:00",
+        "last_code_change_time": "2024-03-20 10:36:19-07:00"
+    },
+    {
+        "file": "install.rb",
+        "line": 22,
+        "comment": "    # which are linked by the GCC formula. We only use the versioned shared libraries",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-30 09:36:47-07:00"
+    },
+    {
+        "file": "formula_spec.rb",
+        "line": 111,
+        "comment": "          # TODO: improve this API before we ship internal API v3 to users",
+        "comment_time": "2024-02-28 10:49:36+00:00",
+        "last_code_change_time": "2024-02-27 20:55:16-08:00"
+    },
+    {
+        "file": "formula_spec.rb",
+        "line": 36,
+        "comment": "      # `Tap.tap_migration_oldnames` looks for renames in every",
+        "comment_time": "2024-03-09 10:27:22-08:00",
+        "last_code_change_time": "2024-02-27 20:55:16-08:00"
+    },
+    {
+        "file": "github.rb",
+        "line": 547,
+        "comment": "      # costs the same as any other query according to /rate_limit.",
+        "comment_time": "2024-05-13 14:30:06-07:00",
+        "last_code_change_time": "2024-03-15 21:27:05+00:00"
+    },
+    {
+        "file": "github.rb",
+        "line": 546,
+        "comment": "      # The rate limit of the search API under GraphQL is unclear as it",
+        "comment_time": "2024-05-13 14:57:08-07:00",
+        "last_code_change_time": "2024-03-15 21:27:05+00:00"
+    },
+    {
+        "file": "tests.rb",
+        "line": 149,
+        "comment": "          # ```",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-04-11 17:26:38+01:00"
+    },
+    {
+        "file": "tests.rb",
+        "line": 151,
+        "comment": "          # ```",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-22 09:33:28-07:00"
+    },
+    {
+        "file": "tap-new.rb",
+        "line": 64,
+        "comment": "        # <!-- vale on -->",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-22 09:33:28-07:00"
+    },
+    {
+        "file": "array_alphabetization.rb",
+        "line": 47,
+        "comment": "          # i.e. skip the opening and closing brackets of the array.",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-01-20 00:03:34+00:00"
+    },
+    {
+        "file": "attrable.rb",
+        "line": 4,
+        "comment": "# This module provides methods to define specialized attributes.",
+        "comment_time": "2024-10-14 19:50:09-07:00",
+        "last_code_change_time": "2023-12-28 11:46:27-08:00"
+    },
+    {
+        "file": "attrable.rb",
+        "line": 5,
+        "comment": "# Method stubs are generated by the {Tapioca::Compilers::Attrables} compiler.",
+        "comment_time": "2024-10-14 19:50:09-07:00",
+        "last_code_change_time": "2023-12-28 11:46:27-08:00"
+    },
+    {
+        "file": "attrable.rb",
+        "line": 6,
+        "comment": "# @note The compiler is fragile, and must be updated if the filename changes, if methods are added or removed,",
+        "comment_time": "2024-10-14 19:50:09-07:00",
+        "last_code_change_time": "2023-12-28 11:46:27-08:00"
+    },
+    {
+        "file": "attrable.rb",
+        "line": 7,
+        "comment": "#   or if a method's arity changes.",
+        "comment_time": "2024-10-14 19:50:09-07:00",
+        "last_code_change_time": "2023-12-28 11:46:27-08:00"
+    },
+    {
+        "file": "spec_helper.rb",
+        "line": 105,
+        "comment": "    # a real object. This is generally recommended and will default to",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-02-19 13:57:27+00:00"
+    },
+    {
+        "file": "extract.rb",
+        "line": 101,
+        "comment": "          # Search in the root directory of `repo` as well as recursively in all of its subdirectories.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-03-21 19:04:30-07:00"
+    },
+    {
+        "file": "extract.rb",
+        "line": 101,
+        "comment": "          # Search in the root directory of `repository` as well as recursively in all of its subdirectories.",
+        "comment_time": "2024-06-10 09:31:53+01:00",
+        "last_code_change_time": "2024-03-21 19:04:30-07:00"
+    },
+    {
+        "file": "tap_constants.rb",
+        "line": 42,
+        "comment": "# Match official taps' casks, e.g. `homebrew/cask/somecask`.",
+        "comment_time": "2024-05-02 16:59:33-04:00",
+        "last_code_change_time": "2024-02-22 18:24:57+01:00"
+    },
+    {
+        "file": "present.rb",
+        "line": 9,
+        "comment": "      # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "present.rb",
+        "line": 12,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "present.rb",
+        "line": 15,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 12:27:50-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 12,
+        "comment": "      #       For example, `[[1, 2], [3, nil]].reject { |first, second| second.blank? }` and",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 16,
+        "comment": "      #       And `compact_blank!` has different implementations for `Array`, `Hash`, and",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 22,
+        "comment": "      # ### Examples",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 24,
+        "comment": "      # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 31,
+        "comment": "      # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 37,
+        "comment": "      # collection.reject!(&:blank?)             # Same behavior as `ActionController::Parameters#compact_blank!`",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "compact_blank.rb",
+        "line": 16,
+        "comment": "      #       And `compact_blank!` has different implementations for `Array`, `Hash` and",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 13,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 16,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 19,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 22,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 25,
+        "comment": "      # # good",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 29,
+        "comment": "      # ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 42,
+        "comment": "      # # good",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 43,
+        "comment": "      # a.presence || b",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "presence.rb",
+        "line": 44,
+        "comment": "      # ```",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "safe_navigation_with_blank.rb",
+        "line": 14,
+        "comment": "      #       ```ruby",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "safe_navigation_with_blank.rb",
+        "line": 16,
+        "comment": "      #       foo.blank? #=> true",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "safe_navigation_with_blank.rb",
+        "line": 22,
+        "comment": "      # # bad",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "safe_navigation_with_blank.rb",
+        "line": 27,
+        "comment": "      # do_something if foo.blank?",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "negate_include.rb",
+        "line": 13,
+        "comment": "      # ### Example",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "negate_include.rb",
+        "line": 18,
+        "comment": "      # !hash.include?(:key)",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-01-26 15:03:59-08:00"
+    },
+    {
+        "file": "env_config.rb",
+        "line": 9,
+        "comment": "  # @api internal",
+        "comment_time": "2024-04-22 21:16:49+02:00",
+        "last_code_change_time": "2024-03-30 18:30:20+00:00"
+    },
+    {
+        "file": "cachable.rb",
+        "line": 38,
+        "comment": "    # NOTE: Classes that inherit from `Formula` are excluded since it's not",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-02-25 17:47:30-08:00"
+    },
+    {
+        "file": "cachable.rb",
+        "line": 39,
+        "comment": "    #       necessary to track and clear individual formula caches.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-02-25 17:47:30-08:00"
+    },
+    {
+        "file": "cachable.rb",
+        "line": 47,
+        "comment": "    # NOTE: Classes that inherit from `Formula` are excluded since it's not",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-02-25 17:47:30-08:00"
+    },
+    {
+        "file": "cachable.rb",
+        "line": 48,
+        "comment": "    #       necessary to track and clear individual formula caches.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-02-25 17:47:30-08:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 11,
+        "comment": "  # To generate method signatures for command args, run `brew typecheck --update`.",
+        "comment_time": "2024-03-15 12:51:03-07:00",
+        "last_code_change_time": "2024-03-15 12:46:05-07:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 12,
+        "comment": "  # - Subclasses no longer need to reference CLI::Parser directly.",
+        "comment_time": "2024-03-29 18:53:07-07:00",
+        "last_code_change_time": "2024-03-15 12:46:05-07:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 12,
+        "comment": "  # - Subclasses no longer need to reference `CLI::Parser` or parse args explicitly.",
+        "comment_time": "2024-03-30 16:16:52-07:00",
+        "last_code_change_time": "2024-03-15 12:46:05-07:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 12,
+        "comment": "  # - `args` is available as an instance method and thus does not need to be passed as an argument to helper methods.",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-15 12:46:05-07:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 18,
+        "comment": "  # @api public",
+        "comment_time": "2024-08-13 13:49:42-07:00",
+        "last_code_change_time": "2024-03-15 12:46:05-07:00"
+    },
+    {
+        "file": "abstract_command.rb",
+        "line": 69,
+        "comment": "    # @api public",
+        "comment_time": "2024-08-13 13:49:42-07:00",
+        "last_code_change_time": "2024-08-10 11:20:53-07:00"
+    },
+    {
+        "file": "update-test.rb",
+        "line": 119,
+        "comment": "          # Run `brew help` to install `portable-ruby` (if needed).",
+        "comment_time": "2024-05-01 11:35:21+02:00",
+        "last_code_change_time": "2024-03-22 09:33:28-07:00"
+    },
+    {
+        "file": "formula_auditor_spec.rb",
+        "line": 1241,
+        "comment": "      # We don't really test the formula text retrieval here",
+        "comment_time": "2024-05-04 22:14:55+01:00",
+        "last_code_change_time": "2024-03-30 11:29:34-07:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 11,
+        "comment": "    # @api private",
+        "comment_time": "2024-04-08 16:22:57-04:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 13,
+        "comment": "    # @api private",
+        "comment_time": "2024-04-08 16:22:57-04:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 16,
+        "comment": "    # @api private",
+        "comment_time": "2024-04-08 16:22:57-04:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 68,
+        "comment": "    # @api private",
+        "comment_time": "2024-04-08 16:22:57-04:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 29,
+        "comment": "      # NOTE: We disable HOMEBREW_VERIFY_ATTESTATIONS when installing `gh` itself,",
+        "comment_time": "2024-04-09 10:48:17-04:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 124,
+        "comment": "        # We don't pass in a signing worfklow for backfill signatures because",
+        "comment_time": "2024-04-30 10:10:43-04:00",
+        "last_code_change_time": "2024-04-11 16:44:57-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 122,
+        "comment": "        # We don't pass in a signing workflow for backfill signatures because",
+        "comment_time": "2024-04-30 10:51:11-04:00",
+        "last_code_change_time": "2024-04-11 16:44:57-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 123,
+        "comment": "        # some backfilled bottle signatures were signed from the 'backfill'",
+        "comment_time": "2024-04-30 10:51:11-04:00",
+        "last_code_change_time": "2024-04-11 16:44:57-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 124,
+        "comment": "        # branch, and others from 'main', so the signing workflow is slightly",
+        "comment_time": "2024-04-30 10:51:11-04:00",
+        "last_code_change_time": "2024-04-11 16:44:57-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 124,
+        "comment": "        # branch, and others from 'main' of trailofbits/homebrew-brew-verify",
+        "comment_time": "2024-04-30 10:52:36-04:00",
+        "last_code_change_time": "2024-04-11 16:44:57-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 42,
+        "comment": "      #       to prevent a cycle during bootstrapping. This can eventually be resolved",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 43,
+        "comment": "      #       by vendoring a pure-Ruby Sigstore verifier client.",
+        "comment_time": "2024-05-01 11:35:20+02:00",
+        "last_code_change_time": "2024-04-08 16:18:15-04:00"
+    },
+    {
+        "file": "attestation.rb",
+        "line": 121,
+        "comment": "      # fails without them, so this saves us an unnecessary subshell.",
+        "comment_time": "2024-07-18 12:06:37-04:00",
+        "last_code_change_time": "2024-06-06 11:23:03-04:00"
+    },
+    {
+        "file": "ld.rb",
+        "line": 24,
+        "comment": "        # https://github.com/Homebrew/brew/issues/17828",
+        "comment_time": "2024-09-17 01:03:34+08:00",
+        "last_code_change_time": "2024-09-16 20:26:35+08:00"
+    },
+    {
+        "file": "rmtree.rb",
+        "line": 12,
+        "comment": "    # create a RuboCop autocorrect instead soon.",
+        "comment_time": "2024-05-17 14:22:42+09:00",
+        "last_code_change_time": "2024-05-17 12:32:29+09:00"
+    },
+    {
+        "file": "rmtree.rb",
+        "line": 13,
+        "comment": "    # This is why monkeypatching is non-ideal (but right solution to get",
+        "comment_time": "2024-05-17 14:22:42+09:00",
+        "last_code_change_time": "2024-05-17 12:32:29+09:00"
+    },
+    {
+        "file": "rmtree.rb",
+        "line": 14,
+        "comment": "    # Ruby 3.3 over the line).",
+        "comment_time": "2024-05-17 14:22:42+09:00",
+        "last_code_change_time": "2024-05-17 12:32:29+09:00"
+    }
+]

@@ -1,0 +1,261 @@
+[
+    {
+        "file": "Constants.cs",
+        "line": 109,
+        "comment": "    /// <summary>",
+        "comment_time": "2024-01-25 16:57:57+10:00",
+        "last_code_change_time": "2024-01-17 12:33:35+00:00"
+    },
+    {
+        "file": "IUserService.cs",
+        "line": 97,
+        "comment": "    /// False if the Account Deprovisioning feature flag is disabled.",
+        "comment_time": "2024-10-17 16:06:32+01:00",
+        "last_code_change_time": "2024-09-11 11:29:57+01:00"
+    },
+    {
+        "file": "OrganizationUsersController.cs",
+        "line": 403,
+        "comment": "        // Authorization check:",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-04-29 11:02:06+10:00"
+    },
+    {
+        "file": "OrganizationUsersController.cs",
+        "line": 405,
+        "comment": "        // No error is thrown for this, we just don't update groups.",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-04-29 11:02:06+10:00"
+    },
+    {
+        "file": "OrganizationUsersController.cs",
+        "line": 411,
+        "comment": "        // Authorization check:",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-04-29 11:02:06+10:00"
+    },
+    {
+        "file": "GroupsControllerTests.cs",
+        "line": 31,
+        "comment": "        // Enable FC",
+        "comment_time": "2024-08-08 12:26:07-05:00",
+        "last_code_change_time": "2024-02-08 07:44:36-06:00"
+    },
+    {
+        "file": "GroupsControllerTests.cs",
+        "line": 74,
+        "comment": "        // Enable FC",
+        "comment_time": "2024-08-08 12:26:07-05:00",
+        "last_code_change_time": "2024-05-02 09:55:16+10:00"
+    },
+    {
+        "file": "IRotationValidator.cs",
+        "line": 15,
+        "comment": "    /// <summary>",
+        "comment_time": "2023-12-12 11:58:34-05:00",
+        "last_code_change_time": "2023-12-05 12:05:51-05:00"
+    },
+    {
+        "file": "GroupsController.cs",
+        "line": 189,
+        "comment": "        // Authorization check:",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-05-02 09:55:16+10:00"
+    },
+    {
+        "file": "GroupsController.cs",
+        "line": 190,
+        "comment": "        // If admins are not allowed access to all collections, you cannot add yourself to a group.",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-05-02 09:55:16+10:00"
+    },
+    {
+        "file": "GroupsController.cs",
+        "line": 191,
+        "comment": "        // No error is thrown for this, we just don't update groups.",
+        "comment_time": "2024-07-16 10:47:28+10:00",
+        "last_code_change_time": "2024-05-02 09:55:16+10:00"
+    },
+    {
+        "file": "BulkCollectionAuthorizationHandler.cs",
+        "line": 103,
+        "comment": "        // Owners, Admins, and users with CreateNewCollections permission can always create collections",
+        "comment_time": "2023-12-28 10:07:06+10:00",
+        "last_code_change_time": "2023-12-08 18:07:59+00:00"
+    },
+    {
+        "file": "BulkCollectionOperations.cs",
+        "line": 21,
+        "comment": "    /// Delete a collection",
+        "comment_time": "2024-05-01 10:06:24+10:00",
+        "last_code_change_time": "2023-12-08 18:07:59+00:00"
+    },
+    {
+        "file": "GroupAuthorizationHandler.cs",
+        "line": 69,
+        "comment": "        // Owners, Admins, and users with any of ManageGroups, ManageUsers, EditAnyCollection, DeleteAnyCollection, CreateNewCollections permissions can always read all groups",
+        "comment_time": "2023-12-28 10:07:06+10:00",
+        "last_code_change_time": "2023-12-08 18:07:59+00:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 36,
+        "comment": "        GlobalSettings globalSettings,",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 37,
+        "comment": "        IDataProtectorTokenFactory<DuoUserStateTokenable> tokenDataFactory)",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 64,
+        "comment": "        var state = _tokenDataFactory.Protect(new DuoUserStateTokenable(user));",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 90,
+        "comment": "        var parts = token.Split(\"|\");",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 91,
+        "comment": "        var authCode = parts[0];",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 92,
+        "comment": "        var state = parts[1];",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 93,
+        "comment": "",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 94,
+        "comment": "        _tokenDataFactory.TryUnprotect(state, out var tokenable);",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 95,
+        "comment": "        if (!tokenable.Valid || !tokenable.TokenIsValid(user))",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 101,
+        "comment": "        // their authCode with a victims credentials",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 102,
+        "comment": "        var res = await duoClient.ExchangeAuthorizationCodeFor2faResult(authCode, user.Email);",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "TemporaryDuoWebV4SDKService.cs",
+        "line": 120,
+        "comment": "        // Fetch Client name from header value since duo auth can be initiated from multiple clients and we want",
+        "comment_time": "2024-02-14 18:00:46-05:00",
+        "last_code_change_time": "2024-01-24 10:13:00-08:00"
+    },
+    {
+        "file": "IRegisterUserCommand.cs",
+        "line": 40,
+        "comment": "    /// <summary>",
+        "comment_time": "2024-09-12 19:39:10-04:00",
+        "last_code_change_time": "2024-07-02 17:03:36-04:00"
+    },
+    {
+        "file": "RegisterUserCommandTests.cs",
+        "line": 34,
+        "comment": "    // -----------------------------------------------------------------------------------------------",
+        "comment_time": "2024-10-23 18:06:24-04:00",
+        "last_code_change_time": "2024-07-02 17:03:36-04:00"
+    },
+    {
+        "file": "ResourceOwnerPasswordValidatorTests.cs",
+        "line": 42,
+        "comment": "        // Arrange",
+        "comment_time": "2024-10-10 17:26:17-07:00",
+        "last_code_change_time": "2024-09-05 11:17:15-07:00"
+    },
+    {
+        "file": "ResourceOwnerPasswordValidatorTests.cs",
+        "line": 61,
+        "comment": "        // Arrange",
+        "comment_time": "2024-10-10 17:26:17-07:00",
+        "last_code_change_time": "2024-09-05 11:17:15-07:00"
+    },
+    {
+        "file": "ResourceOwnerPasswordValidatorTests.cs",
+        "line": 96,
+        "comment": "    /// I would have liked to spy into the IUserService but by spying into the IUserService it",
+        "comment_time": "2024-10-10 17:26:17-07:00",
+        "last_code_change_time": "2024-09-05 11:17:15-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 44,
+        "comment": "    /// <summary>",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 45,
+        "comment": "    /// Save a device to the database. If the device is already known, it will be returned.",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 46,
+        "comment": "    /// </summary>",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 47,
+        "comment": "    /// <param name=\"user\">The user is assumed NOT null, still going to check though</param>",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 48,
+        "comment": "    /// <param name=\"request\">Duende Validated Request that contains the data to create the device object</param>",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    },
+    {
+        "file": "DeviceValidator.cs",
+        "line": 49,
+        "comment": "    /// <returns>Returns null if user or device is malformed; The existing device if already in DB; a new device login</returns>",
+        "comment_time": "2024-10-24 10:41:25-07:00",
+        "last_code_change_time": "2024-10-10 17:26:17-07:00"
+    }
+]

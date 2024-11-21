@@ -2,6 +2,7 @@ from pydriller import Repository
 import json
 import pm4py
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from pm4py.objects.log.obj import EventLog, Trace, Event
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
@@ -234,13 +235,13 @@ def save_to_xes(log, path):
     print("XES log has been saved to", path)
 
 if __name__ == "__main__":
-    repo_url = "https://github.com/AlexS-1/Bachelor-Code"  # Example repository URL
-    # commits_data = analyze_commits(repo_url, "py", datetime(2015,2,1), datetime.today(), "#")
-    # save_to_json(commits_data, "Data/commits_data.json")
+    repo_url = "https://github.com/apache/accumulo.git"  # Example repository URL
+    commits_data = analyze_commits(repo_url, "java", datetime.today() - relativedelta(years=1), datetime.today(), "//", ["/*", "*/"])
+    save_to_json(commits_data, "Data/commits_data.json")
     # save_to_xes(commits_data, "Data/commits_data.xes")
-    with open("Data/commits_data.json", "r") as json_file:
+    with open("Data/commits_data.json", "r") as json_file: 
        commits_data = json.load(json_file)
-    analyzed_data = pretty_diff(commits_data, "added", "#")
+    analyzed_data = pretty_diff(commits_data, "added", "//", ["/*", "*/"])
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
     analyzed_data = pretty_diff(commits_data, "deleted", "#")
     save_to_json(analyzed_data, "Exports/analyzed_data.json")
