@@ -20,8 +20,8 @@ def run_comment_lister(repo_path, jar_path, tag="-target=HEAD"):
 
 def filter_comments_by_time(commit_data, start_time, end_time):
     filtered_comments = []
-    commit_time = datetime.fromisoformat(commit_data["CommitTime"])
-    if start_time <= end_time:
+    commit_time = datetime.fromisoformat(commit_data["CommitTime"]).replace(tzinfo=None)
+    if start_time <= commit_time <= end_time:
         for filename, contents in commit_data["Files"].items():
             i = 0
             error = False
@@ -29,7 +29,7 @@ def filter_comments_by_time(commit_data, start_time, end_time):
                 try:
                     comment_data = {
                         "line": contents[str(i)]["Line"],
-                        "comment": contents[str(i)]["Text"]
+                        "comment": contents[str(i)]["Text"],
                     }
                 except KeyError as e:
                     error = True

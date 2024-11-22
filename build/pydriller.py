@@ -3,23 +3,25 @@ import json
 import pm4py
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from pm4py.objects.log.obj import EventLog, Trace, Event
-from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 
-def get_commits_data(repo_path, from_date, to_date):
+def get_commits_data(repo_path, from_date, to_date, file_types):
     files_data = {}
-    for commit in Repository(repo_path, since=from_date, to=to_date).traverse_commits():
-        for file in commit.modified_files:
-            if file not in files_data:
-                files_data[file.filename] = []
-            file_data = {
-                "commit": commit.hash,
-                "timestamp": commit.committer_date.isoformat(),
-                "author": commit.author.name,
-                "diff": file.diff_parsed
-            }
-            if len(file.diff_parsed) != 0:
-                files_data[file.filename].append(file_data)
+    for commit in Repository(   repo_path, 
+                                since=from_date, 
+                                to=to_date, 
+                                only_modifications_with_file_types=file_types).traverse_commits():
+            for file in commit.modified_files:
+                if file.filename not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
+                    files_data[file.filename] = []
+                if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
+                    file_data = {
+                        "commit": commit.hash,
+                        "timestamp": commit.committer_date.isoformat(),
+                        "author": commit.author.name,
+                        "diff": file.diff_parsed
+                    }
+                    if len(file.diff_parsed) != 0:
+                        files_data[file.filename].append(file_data)
     return files_data
 
 def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_symbol, multi_comment_symbols=[]):
@@ -198,73 +200,3 @@ def analyze_diffs(data):
                                     "last_code_change_time": str(last_modified[int(line)])
                                 })
     return analysis_results
-
-def save_to_json(commits_data, path):
-    # Save the processed commit data to a JSON file
-    with open(path, 'w') as json_file:
-        json.dump(commits_data, json_file, indent=4)
-    print("Data has been saved to", path)
-
-def create_xes_log(data):
-    # Create a new EventLog object
-    log = EventLog()
-
-    # Iterate over each commit entry in the data
-    for file, commits in data.items():
-        # Create a trace for the file
-        trace = Trace()
-        trace.attributes["file"] = file
-
-        for commit in commits:
-            # Extract event attributes
-            event = Event()
-            event["timestamp"] = commit.get("timestamp")
-            event["author"] = commit.get("author")
-            event["change_type"] = commit.get("change_type")
-            event["commit_message"] = commit.get("commit_message")
-            event["additions"] = commit.get("additions")
-            event["deletions"] = commit.get("deletions")
-            event["diff"] = commit.get("diff")
-            if commit.get("comment_added_diff"):
-                event["comment_change"] = "True"
-            else:
-                event["comment_change"] = "False"
-
-            # Add the event to the trace
-            trace.append(event)
-
-        # Add the trace to the log
-        log.append(trace)
-
-    return log
-
-def save_xes_log(log, filename):
-    # Export the log to an XES file
-    xes_exporter.apply(log, filename)
-
-def save_to_xes(log, path):
-    # Create the XES log from the commit data
-    xes_log = create_xes_log(log)
-
-    # Save the XES log to a file
-    save_xes_log(xes_log, path)
-    print("XES log has been saved to", path)
-
-if __name__ == "__main__":
-    repo_url = "https://github.com/apache/accumulo.git"  # Example repository URL
-    commits_data = analyze_commits(repo_url, "java", datetime.today() - relativedelta(years=1), datetime.today(), "//", ["/*", "*/"])
-    save_to_json(commits_data, "Data/commits_data.json")
-    # save_to_xes(commits_data, "Data/commits_data.xes")
-    with open("Data/commits_data.json", "r") as json_file: 
-       commits_data = json.load(json_file)
-    analyzed_data = pretty_diff(commits_data, "added", "//", ["/*", "*/"])
-    save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    analyzed_data = pretty_diff(commits_data, "deleted", "#")
-    save_to_json(analyzed_data, "Exports/analyzed_data.json")
-    
-    # Test case
-    with open("Exports/analyzed_data.json", "r") as json_file:
-        data = json.load(json_file)
-    analyzed_data = analyze_diffs(data)
-
-    save_to_json(analyzed_data, "Exports/analysis_results.json")
