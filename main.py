@@ -2,7 +2,7 @@
 from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
-from build.analysis import analyse_diff_comments
+from build.analysis import analyse_diff_comments, blockify_comments
 
 # Import packages
 import os
@@ -48,15 +48,19 @@ def main():
                 print(f"Failed to parse CommentLister output: {e}")
                 return
             # Filter comments by time
-            filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
-            commit["comments"] = filtered_comments
+            commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
+            if commit["commit"] == commit_hash:
+                commit["comments"] = filtered_comments
+            else:
+                print("mismatch in commit and comment data")
     # Save filtered comments on your system
     save_to_json(commits_data, "Data/filtered_commits_data.json")
     shutil.rmtree(clone_path)
     with open("Data/filtered_commits_data.json", "r") as json_file:
         data = json.load(json_file)
     analyse_diff_comments(data)
-    save_to_json(data, "Exports/filtered_comments_data.json")
+    blockify_comments(data)
+    save_to_json(data, "Exports/blockified_comments_data.json")
 
 if __name__ == "__main__":
     main()

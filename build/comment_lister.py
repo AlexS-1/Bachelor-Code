@@ -23,17 +23,35 @@ def filter_comments_by_time(commit_data, start_time, end_time):
     commit_time = datetime.fromisoformat(commit_data["CommitTime"]).replace(tzinfo=None)
     if start_time <= commit_time <= end_time:
         for filename, contents in commit_data["Files"].items():
-            i = 0
             error = False
+            i = 0
             while not error:
                 try:
-                    comment_data = {
-                        "line": contents[str(i)]["Line"],
-                        "comment": contents[str(i)]["Text"],
-                    }
+                    split_comment_lines = contents[str(i)]["Text"].split("\n")
+                    # print("Have to split comments:", split_comment_lines)
+                    if len(split_comment_lines) > 1:
+                        initial_line = contents[str(i)]["Line"]
+                        j = 0
+                        for comment in split_comment_lines:
+                            # Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum
+                            comment_data = {
+                                "line": initial_line + j,
+                                "comment": comment,
+                                "char_position_in_line": contents[str(i)]["CharPositionInLine"]
+                            }
+                            j += 1
+                            filtered_comments.append(comment_data)
+                    else:
+                        comment_data = {
+                            "line": contents[str(i)]["Line"],
+                            "comment": contents[str(i)]["Text"],
+                            "char_position_in_line": contents[str(i)]["CharPositionInLine"]
+                        }
+                        filtered_comments.append(comment_data)
                 except KeyError as e:
                     error = True
                 if not error:
-                    filtered_comments.append(comment_data)
-                i += 1
-    return filtered_comments
+                    i += 1
+    else:
+        print("Comments not in specified date range")
+    return commit_data["ObjectId"], filtered_comments

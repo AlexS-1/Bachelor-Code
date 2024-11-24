@@ -1984,111 +1984,181 @@
                 {
                     "line": 9,
                     "comment": "# This will hold the data for each file and its changes across commits",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 12,
                     "comment": "# Analysis range",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 16,
-                    "comment": "# Traverse through the commits in the repository\n# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "comment": "# Traverse through the commits in the repository",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 17,
+                    "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 22,
                     "comment": "# Analyze each file modified in the commit",
+                    "char_position_in_line": 8,
                     "edit": "deleted"
                 },
                 {
                     "line": 24,
                     "comment": "# only store file data for Rust files",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 52,
-                    "comment": "# Generate keywords based on the commit message and type of changes\n# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)\n# Extract type of commit from commit message\n# file_data[\"activity\"] = extract_activity(commit.msg)",
+                    "comment": "# Generate keywords based on the commit message and type of changes",
+                    "char_position_in_line": 16,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 53,
+                    "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+                    "char_position_in_line": 16,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 54,
+                    "comment": "# Extract type of commit from commit message",
+                    "char_position_in_line": 16,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 55,
+                    "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+                    "char_position_in_line": 16,
                     "edit": "deleted"
                 },
                 {
                     "line": 61,
-                    "comment": "# This function can use NLP techniques or simple keyword extraction\n# Here, a simplified approach is used: basic keywords based on the commit message",
+                    "comment": "# This function can use NLP techniques or simple keyword extraction",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 62,
+                    "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 75,
                     "comment": "# Use commit message keywords to determine activity type",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 88,
                     "comment": "# Save the processed commit data to a JSON file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 93,
                     "comment": "# Create a new EventLog object",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 96,
                     "comment": "# Iterate over each commit entry in the data",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 98,
                     "comment": "# For each file affected in the commit, create a trace",
+                    "char_position_in_line": 8,
                     "edit": "deleted"
                 },
                 {
                     "line": 100,
                     "comment": "# Check if a trace for this file already exists, if not, create one",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 109,
                     "comment": "# Create an event for the current commit affecting this file",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 115,
                     "comment": "# Add custom attributes for the event",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 120,
                     "comment": "#event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 123,
                     "comment": "# Append the event to the trace",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 129,
                     "comment": "# Export the log to an XES file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 133,
                     "comment": "# Example repository URL",
+                    "char_position_in_line": 49,
                     "edit": "deleted"
                 },
                 {
                     "line": 134,
-                    "comment": "# commits_data = analyze_commits(repo_url, \"#\", \"py\")\n# save_to_json(commits_data, \"Data/commits_data.json\")\n# print(\"Commit data has been saved to commits_data.json\")\n# Load the previously saved commit data JSON file",
+                    "comment": "# commits_data = analyze_commits(repo_url, \"#\", \"py\")",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 135,
+                    "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 136,
+                    "comment": "# print(\"Commit data has been saved to commits_data.json\")",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 137,
+                    "comment": "# Load the previously saved commit data JSON file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 141,
                     "comment": "# Create the XES log from the commit data",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 144,
                     "comment": "# Save the XES log to a file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 }
             ]
@@ -3112,41 +3182,55 @@
                 {
                     "line": 9,
                     "comment": "# This will hold the data for each file and its changes across commits",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 12,
                     "comment": "# Analysis range",
+                    "char_position_in_line": 4,
                     "edit": "modified"
                 },
                 {
                     "line": 16,
-                    "comment": "# Traverse through the commits in the repository\n# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "comment": "# Traverse through the commits in the repository",
+                    "char_position_in_line": 4,
+                    "edit": "modified"
+                },
+                {
+                    "line": 17,
+                    "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "char_position_in_line": 4,
                     "edit": "modified"
                 },
                 {
                     "line": 22,
                     "comment": "# Analyze each file modified in the commit",
+                    "char_position_in_line": 8,
                     "edit": "deleted"
                 },
                 {
                     "line": 24,
                     "comment": "# only store file data for Rust files",
+                    "char_position_in_line": 12,
                     "edit": "modified"
                 },
                 {
                     "line": 61,
-                    "comment": "# This function can use NLP techniques or simple keyword extraction\n# Here, a simplified approach is used: basic keywords based on the commit message",
+                    "comment": "# This function can use NLP techniques or simple keyword extraction",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 115,
                     "comment": "# Add custom attributes for the event",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 123,
                     "comment": "# Append the event to the trace",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 }
             ]
@@ -3385,26 +3469,31 @@
                 {
                     "line": 98,
                     "comment": "# Create a trace for the file",
+                    "char_position_in_line": 8,
                     "edit": "modified"
                 },
                 {
                     "line": 103,
                     "comment": "# Extract event attributes",
+                    "char_position_in_line": 12,
                     "edit": "modified"
                 },
                 {
                     "line": 117,
                     "comment": "# Add the event to the trace",
+                    "char_position_in_line": 12,
                     "edit": "modified"
                 },
                 {
                     "line": 120,
                     "comment": "# Add the trace to the log",
+                    "char_position_in_line": 8,
                     "edit": "modified"
                 },
                 {
                     "line": 134,
                     "comment": "# Load the previously saved commit data JSON file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 }
             ]
@@ -3455,6 +3544,7 @@
                 {
                     "line": 130,
                     "comment": "# Example repository URL",
+                    "char_position_in_line": 61,
                     "edit": "modified"
                 }
             ]
@@ -3739,18 +3829,27 @@
             },
             "comments": [
                 {
+                    "line": 13,
+                    "comment": "# dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)",
+                    "char_position_in_line": 4,
+                    "edit": "modified"
+                },
+                {
                     "line": 20,
                     "comment": "# since=dt1,",
+                    "char_position_in_line": 4,
                     "edit": "modified"
                 },
                 {
                     "line": 133,
                     "comment": "# Create a trace for the file",
+                    "char_position_in_line": 8,
                     "edit": "deleted"
                 },
                 {
                     "line": 138,
                     "comment": "# Extract event attributes",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 }
             ]
@@ -4085,7 +4184,14 @@
                     ]
                 ]
             },
-            "comments": []
+            "comments": [
+                {
+                    "line": 13,
+                    "comment": "# dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+                    "char_position_in_line": 4,
+                    "edit": "modified"
+                }
+            ]
         },
         {
             "commit": "e226da877d3d9f98cab4990bb1fbaa02e6adbb7b",
@@ -4485,46 +4591,91 @@
                 {
                     "line": 97,
                     "comment": "# In case of comment add them to existing dict if they directly follow",
+                    "char_position_in_line": 28,
                     "edit": "deleted"
                 },
                 {
                     "line": 100,
-                    "comment": "# else: \n#     diff_edited.append({\n#         \"line_numbers\": [],\n#         \"comments\": {curr_line: curr_content},\n#         \"lines\": []})",
+                    "comment": "# else: ",
+                    "char_position_in_line": 28,
+                    "edit": "modified"
+                },
+                {
+                    "line": 101,
+                    "comment": "#     diff_edited.append({",
+                    "char_position_in_line": 28,
+                    "edit": "modified"
+                },
+                {
+                    "line": 102,
+                    "comment": "#         \"line_numbers\": [],",
+                    "char_position_in_line": 28,
+                    "edit": "modified"
+                },
+                {
+                    "line": 103,
+                    "comment": "#         \"comments\": {curr_line: curr_content},",
+                    "char_position_in_line": 28,
+                    "edit": "modified"
+                },
+                {
+                    "line": 104,
+                    "comment": "#         \"lines\": []})",
+                    "char_position_in_line": 28,
+                    "edit": "modified"
+                },
+                {
+                    "line": 108,
+                    "comment": "#         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)",
+                    "char_position_in_line": 24,
                     "edit": "modified"
                 },
                 {
                     "line": 109,
                     "comment": "# or create new one",
+                    "char_position_in_line": 28,
                     "edit": "deleted"
                 },
                 {
                     "line": 137,
                     "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
                     "edit": "modified"
                 },
                 {
                     "line": 146,
                     "comment": "# print(last_modified)",
+                    "char_position_in_line": 12,
                     "edit": "modified"
                 },
                 {
                     "line": 148,
                     "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
                     "edit": "deleted"
                 },
                 {
                     "line": 218,
                     "comment": "# Example repository URL",
+                    "char_position_in_line": 49,
                     "edit": "modified"
                 },
                 {
                     "line": 219,
-                    "comment": "# commits_data = analyze_commits(repo_url, \"//\", \"js\")\n# save_to_json(commits_data, \"Data/commits_data.json\")\n# save_to_xes(commits_data, \"Data/commits_data.xes\")",
+                    "comment": "# commits_data = analyze_commits(repo_url, \"//\", \"js\")",
+                    "char_position_in_line": 4,
                     "edit": "modified"
+                },
+                {
+                    "line": 220,
+                    "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
                 },
                 {
                     "line": 229,
                     "comment": "# Test case",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 }
             ]
@@ -4802,12 +4953,20 @@
             "comments": [
                 {
                     "line": 12,
-                    "comment": "# Traverse through the commits in the repository\n# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "comment": "# Traverse through the commits in the repository",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
+                    "line": 13,
+                    "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 219,
                     "comment": "# Add the trace to the log",
+                    "char_position_in_line": 8,
                     "edit": "deleted"
                 }
             ]
@@ -4944,18 +5103,27 @@
             },
             "comments": [
                 {
+                    "line": 11,
+                    "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "char_position_in_line": 4,
+                    "edit": "deleted"
+                },
+                {
                     "line": 77,
                     "comment": "# Determine basic keywords based on the commit message",
+                    "char_position_in_line": 4,
                     "edit": "modified"
                 },
                 {
                     "line": 116,
                     "comment": "# In case of a starting multiline comment start adding future lines without comment symbol ",
+                    "char_position_in_line": 20,
                     "edit": "modified"
                 },
                 {
                     "line": 142,
                     "comment": "# Disable multiline comments when symbol found",
+                    "char_position_in_line": 20,
                     "edit": "modified"
                 }
             ]
@@ -5054,11 +5222,19 @@
                 {
                     "line": 232,
                     "comment": "# Save the XES log to a file",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 },
                 {
                     "line": 237,
                     "comment": "# Example repository URL",
+                    "char_position_in_line": 59,
+                    "edit": "modified"
+                },
+                {
+                    "line": 239,
+                    "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+                    "char_position_in_line": 4,
                     "edit": "modified"
                 }
             ]
@@ -5121,11 +5297,13 @@
                 {
                     "line": 238,
                     "comment": "# Example repository URL",
+                    "char_position_in_line": 57,
                     "edit": "modified"
                 },
                 {
                     "line": 241,
                     "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")",
+                    "char_position_in_line": 4,
                     "edit": "deleted"
                 }
             ]
