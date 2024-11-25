@@ -1,14 +1,14 @@
+from datetime import datetime
+
 def analyse_diff_comments(data):
     for file, commits in data.items():
         for commit in commits:
             no_change_comments = []
             for i in range(len(commit["comments"])):
-                for item in commit["diff"]["added"]:
-                    if commit["comments"][i]["line"] == item[0] :
-                        commit["comments"][i]["edit"] = "added"
-                        break
+                if commit["comments"][i]["line"] in list(commit["diff"]["added"].keys()):
+                    commit["comments"][i]["edit"] = "added"
                 continue
-                if commit["comments"][i]["line"] in [item[0] for item in commit["diff"]["deleted"]]:
+                if commit["comments"][i]["line"] in list(commit["diff"]["deleted"].keys()):
                     if "edit" in list(commit["comments"][i].keys()):
                         commit["comments"][i]["edit"] = "modified"
                         continue
@@ -25,60 +25,58 @@ def analyse_diff_comments(data):
 def check_inline_comments(data):
     return
 
+def blockify_comments2(data):
+    for file, commits in data.items():
+        for commit in commits:
+            block_diff = []
+            for block in commit["diff"]["block_diff"]:
+                block_dict = {}
+                for line in block:
+                    for item in commit["comments"]:
+                        if int(line) == item["line"]:
+                            comment_index = item["char_position_in_line"]
+                            break
+                        else:
+                            comment_index = -1
+                    line_info = {
+                        "content": commit["diff"]["added"][str(line)],
+                        "comment_index": comment_index
+                    }
+                    block_dict[line] = line_info
+                block_diff.append(block_dict)
+            commit["diff"]["block_diff"] = block_diff
+
 def blockify_comments(data):
     for file, commits in data.items():
         for commit in commits:
             blocks = []
-            for line in commit["diff"]["added"]:
-                # Add line to block, if line follows previous line of block
-                if len(blocks) > 0 and blocks[-1]["lines"][-1] + 1 == line[0]:
-                    break_outer = False
-                    comment = ""
-                    comment_position = -1
-                    edit = ""
-                    for item in commit["comments"]:
-                        if line[0] == item["line"]:
-                            comment = item["comment"]
-                            comment_position = item["char_position_in_line"]
-                            edit = item["edit"]
-                            # Except when line is comment following source code, create new block
-                            if blocks[-1]["comments"][-1] == "":
-                                block = {
-                                    "lines": [line[0]],
-                                    "contents": [line[1]],
-                                    "comments": [comment],
-                                    "comment_positions": [comment_position],
-                                    "edits": [edit]
-                                }
-                                blocks.append(block)
-                                break_outer = True
-                    if break_outer:   
-                        continue
-                    blocks[-1]["lines"].append(line[0])
-                    blocks[-1]["contents"].append(line[1])
-                    blocks[-1]["comments"].append(comment)
-                    blocks[-1]["comment_positions"].append(comment_position)
-                    blocks[-1]["edits"].append(edit)
-
-                # Create new block, otherwise
+            current_block = []
+            for line in list(commit["diff"]["added"].keys()):
+                if int(line) in get_comment_lines(commit["comments"]):
+                    if current_block and current_block[-1] not in get_comment_lines(commit["comments"]):
+                        blocks.append(current_block)
+                        current_block = []
+                    current_block.append(int(line))
                 else:
-                    comment = ""
-                    comment_position = -1
-                    edit = ""
-                    for item in commit["comments"]:
-                        if line[0] == item["line"]:
-                            comment = item["comment"]
-                            comment_position = item["char_position_in_line"]
-                            edit = item["edit"]
-                    block = {
-                        "lines": [line[0]],
-                        "contents": [line[1]],
-                        "comments": [comment],
-                        "comment_positions": [comment_position],
-                        "edits": [edit]
-                    }
-                    blocks.append(block)
+                    if current_block and int(line) != current_block[-1] + 1:
+                        blocks.append(current_block)
+                        current_block = []
+                    current_block.append(int(line))
+            if current_block:
+                blocks.append(current_block)
             commit["diff"]["block_diff"] = blocks
+
+def get_comment_lines(comments):
+    comment_lines = []
+    for comment in comments:
+        comment_lines.append(comment["line"])
+    return comment_lines
+
+def get_diff_lines(diff):
+    diff_lines = []
+    for line in diff:
+        diff_lines.append(line[0])
+    return diff_lines
 
 def extract_later_modified_comments(data): 
     analysis_results = []
@@ -89,21 +87,31 @@ def extract_later_modified_comments(data):
             # print("Starting to analyse commit: ", commit["commit"])
             commit_time = datetime.fromisoformat(commit["timestamp"])
             # Track modified lines
-            for line in commit["diff"]["added"]:
+            for line in list(commit["diff"]["added"].keys()):
                 last_modified[line] = commit_time
             # Compare with comments
             for line in commit["comments"]:
                 comment_time = datetime.fromisoformat(commit["timestamp"])
                 last_modified_lines = list(last_modified.keys())
-                if int(line) in last_modified_lines:
+                if str(line["line"]) in last_modified_lines:
                     for block in commit["diff"]["block_diff"]:
-                        if line in block["comments"] and len(block["lines"]) == 0:
-                            if(comment_time > last_modified[int(line)]):
+                        # Where there are comment changes and no source code changes in block
+                        if not is_code_in_block(block): # and block[line["line"]]["comment_index"] != -1:
+                            if(comment_time > last_modified[str(line["line"])]):
+                                for item in commit["comments"]:
+                                    if line["line"] == item["line"]:
+                                        comment = item["comment"]
+                                        break
                                 analysis_results.append({
                                     "file": file,
-                                    "line": int(line),
-                                    "comment": commit["comment_added_diff"][line],
+                                    "line": line["line"],
+                                    "comment": comment,
                                     "comment_time": str(comment_time),
-                                    "last_code_change_time": str(last_modified[int(line)])
+                                    "last_code_change_time": str(last_modified[str(line["line"])])
                                 })
     return analysis_results
+
+def is_code_in_block(block):
+    for line in list(block.keys()):
+        if block[line]["comment_index"] == -1:
+            return True 

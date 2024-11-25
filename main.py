@@ -2,7 +2,7 @@
 from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
-from build.analysis import analyse_diff_comments, blockify_comments
+from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments
 
 # Import packages
 import os
@@ -61,6 +61,13 @@ def main():
     analyse_diff_comments(data)
     blockify_comments(data)
     save_to_json(data, "Exports/blockified_comments_data.json")
-
+    with open("Exports/blockified_comments_data.json", "r") as json_file:
+        data = json.load(json_file)
+    blockify_comments2(data)
+    save_to_json(data, "Exports/blockified_comments2_data.json")
+    with open("Exports/blockified_comments2_data.json", "r") as json_file:
+        data = json.load(json_file)
+    d = extract_later_modified_comments(data)
+    save_to_json(d, "Exports/analysis_results.json")
 if __name__ == "__main__":
     main()

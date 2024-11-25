@@ -18,11 +18,23 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                         "commit": commit.hash,
                         "timestamp": commit.committer_date.isoformat(),
                         "author": commit.author.name,
-                        "diff": file.diff_parsed
+                        "diff": diff_to_dict(file.diff_parsed)
                     }
                     if len(file.diff_parsed) != 0:
                         files_data[file.filename].append(file_data)
     return files_data
+
+def diff_to_dict(diff):
+    dict_added = {}
+    for line in diff["added"]:
+        dict_added[line[0]] = line[1]
+    diff["added"] = dict_added
+    dict_deleted = {}
+    for line in diff["deleted"]:
+        dict_deleted[line[0]] = line[1]
+    diff["deleted"] = dict_deleted
+    return diff
+
 
 def analyze_commits(repo_url, language_file_extension, dt1, dt2, single_comment_symbol, multi_comment_symbols=[]):
     files_data = {}
