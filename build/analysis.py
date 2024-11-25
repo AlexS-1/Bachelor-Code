@@ -115,3 +115,25 @@ def is_code_in_block(block):
     for line in list(block.keys()):
         if block[line]["comment_index"] == -1:
             return True 
+
+def clean(data):
+    clean_data = []
+    for i in range(len(data)):
+        item = {
+            "file": data[i]["file"],
+            "line": data[i]["line"],
+            "comment": data[i]["comment"],
+            "comment_time": data[i]["comment_time"],
+            "last_code_change_time": data[i]["last_code_change_time"]
+        }
+        if len(data) > i + 1 and not is_equal(data[i], data[i+1]):
+            clean_data.append(item)
+    return clean_data
+
+def is_equal(d1,d2):
+    d1_k = list(d1.keys())
+    d2_k = list(d2.keys())
+    for i in d1_k:
+        if d1[i] != d2[i]:
+            return False
+    return True

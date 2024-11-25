@@ -2,7 +2,7 @@
 from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
-from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments
+from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean
 
 # Import packages
 import os
@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 
 def main():
     # Convert repo URL to path by cloning repo
-    repo_url = "https://github.com/AlexS-1/Bachelor-Code.git"
+    repo_url = "https://github.com/dani-garcia/vaultwarden"
 
     repo_name = os.path.basename(repo_url).replace(".git", "")
     temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
@@ -68,6 +68,10 @@ def main():
     with open("Exports/blockified_comments2_data.json", "r") as json_file:
         data = json.load(json_file)
     d = extract_later_modified_comments(data)
+    save_to_json(d, "Exports/analysis_results.json")
+    with open("Exports/analysis_results.json", "r") as json_file:
+        data = json.load(json_file)
+    d = clean(data)
     save_to_json(d, "Exports/analysis_results.json")
 if __name__ == "__main__":
     main()
