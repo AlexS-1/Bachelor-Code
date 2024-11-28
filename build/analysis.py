@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def analyse_diff_comments(data):
     for file, commits in data.items():
@@ -137,3 +137,14 @@ def is_equal(d1,d2):
         if d1[i] != d2[i]:
             return False
     return True
+
+def average_comment_update_time(data):
+    datetime_pairs = []
+    for file in data:
+        start = datetime.fromisoformat(file["last_code_change_time"])
+        end = datetime.fromisoformat(file["comment_time"])
+        datetime_pairs.append((start, end))
+    durations = [end - start for start, end in datetime_pairs]
+    total_duration = sum(durations, timedelta(0))
+    average_duration = total_duration / len(durations)
+    return average_duration
