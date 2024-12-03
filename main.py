@@ -3,6 +3,7 @@ from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
 from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time
+from build.xes_conversion import convert_json_to_xes
 
 # Import packages
 import os
@@ -74,6 +75,7 @@ def main():
     d = clean(data)
     save_to_json(d, "Exports/analysis_results.json")
     print("Average duration:", average_comment_update_time(d))
+    convert_json_to_xes(d, 'output.xes')
 
 if __name__ == "__main__":
     main()
