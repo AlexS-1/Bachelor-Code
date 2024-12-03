@@ -75,7 +75,7 @@ def main():
     d = clean(data)
     save_to_json(d, "Exports/analysis_results.json")
     print("Average duration:", average_comment_update_time(d))
-    convert_json_to_xes(d, 'output.xes')
+    convert_json_to_xes(d, 'Exports/output.xes')
 
 if __name__ == "__main__":
     main()
