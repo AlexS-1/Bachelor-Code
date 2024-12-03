@@ -64,7 +64,7 @@
       <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
       <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="54"/>
@@ -80,7 +80,7 @@
       <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
       <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="61"/>
@@ -208,7 +208,7 @@
       <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
       <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="55"/>
@@ -224,7 +224,7 @@
       <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
       <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="62"/>
@@ -304,7 +304,7 @@
       <string key="comment" value="# dt1 = datetime(2022, 10, 8, 17, 0, 0)"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="16"/>
@@ -328,7 +328,7 @@
       <string key="comment" value="# since=dt1,"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="22"/>
@@ -360,7 +360,7 @@
       <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="54"/>
@@ -376,7 +376,7 @@
       <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="61"/>
@@ -472,7 +472,7 @@
       <string key="comment" value="# save_to_json(commits_data, &quot;Data/commits_data.json&quot;)"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="221"/>
@@ -480,7 +480,7 @@
       <string key="comment" value="# save_to_xes(commits_data, &quot;Data/commits_data.xes&quot;)"/>
       <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
       <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="229"/>
@@ -536,7 +536,7 @@
       <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
       <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
       <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="70"/>
@@ -552,7 +552,7 @@
       <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
       <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
       <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="90"/>
@@ -576,7 +576,7 @@
       <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
       <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
       <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="157"/>
@@ -696,7 +696,7 @@
       <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
       <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
       <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="70"/>
@@ -712,7 +712,7 @@
       <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
       <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
       <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="77"/>
@@ -800,7 +800,7 @@
       <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
       <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
       <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-      <string key="comment_type" value="block"/>
+      <string key="comment_type" value="commented out"/>
     </event>
     <event>
       <string key="line" value="163"/>
@@ -891,6 +891,73 @@
       <string key="comment" value="# Filter comments by time"/>
       <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
       <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="53"/>
+      <string key="content" value="    # Save filtered comments on your system"/>
+      <string key="comment" value="# Save filtered comments on your system"/>
+      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
+      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="1"/>
+      <string key="content" value="# Import modules"/>
+      <string key="comment" value="# Import modules"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="8"/>
+      <string key="content" value="# Import packages"/>
+      <string key="comment" value="# Import packages"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="build/analysis.py"/>
+    <event>
+      <string key="line" value="87"/>
+      <string key="content" value="        # Store last modified timestamps for each line"/>
+      <string key="comment" value="# Store last modified timestamps for each line"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="90"/>
+      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
+      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+      <string key="comment_type" value="commented out"/>
+    </event>
+    <event>
+      <string key="line" value="92"/>
+      <string key="content" value="            # Track modified lines"/>
+      <string key="comment" value="# Track modified lines"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="95"/>
+      <string key="content" value="            # Compare with comments"/>
+      <string key="comment" value="# Compare with comments"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <string key="comment_type" value="block"/>
+    </event>
+    <event>
+      <string key="line" value="102"/>
+      <string key="content" value="                        # Where there are comment changes and no source code changes in block"/>
+      <string key="comment" value="# Where there are comment changes and no source code changes in block"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
       <string key="comment_type" value="block"/>
     </event>
   </trace>

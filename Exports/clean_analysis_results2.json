@@ -69,7 +69,7 @@
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -87,7 +87,7 @@
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -231,7 +231,7 @@
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -249,7 +249,7 @@
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -339,7 +339,7 @@
         "comment": "# dt1 = datetime(2022, 10, 8, 17, 0, 0)",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -366,7 +366,7 @@
         "comment": "# since=dt1,",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -402,7 +402,7 @@
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -420,7 +420,7 @@
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -528,7 +528,7 @@
         "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -537,7 +537,7 @@
         "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")",
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -600,7 +600,7 @@
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -618,7 +618,7 @@
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -645,7 +645,7 @@
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -780,7 +780,7 @@
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -798,7 +798,7 @@
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -897,7 +897,7 @@
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00",
-        "comment_type": "block"
+        "comment_type": "commented out"
     },
     {
         "file": "build/XESConversion.py",
@@ -996,6 +996,78 @@
         "comment": "# Filter comments by time",
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "main.py",
+        "line": 53,
+        "content": "    # Save filtered comments on your system",
+        "comment": "# Save filtered comments on your system",
+        "comment_time": "2024-11-23 21:32:59+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "main.py",
+        "line": 1,
+        "content": "# Import modules",
+        "comment": "# Import modules",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "main.py",
+        "line": 8,
+        "content": "# Import packages",
+        "comment": "# Import packages",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 87,
+        "content": "        # Store last modified timestamps for each line",
+        "comment": "# Store last modified timestamps for each line",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 90,
+        "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-25 02:54:47+01:00",
+        "comment_type": "commented out"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 92,
+        "content": "            # Track modified lines",
+        "comment": "# Track modified lines",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 95,
+        "content": "            # Compare with comments",
+        "comment": "# Compare with comments",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00",
+        "comment_type": "block"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 102,
+        "content": "                        # Where there are comment changes and no source code changes in block",
+        "comment": "# Where there are comment changes and no source code changes in block",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-25 02:54:47+01:00",
         "comment_type": "block"
     }
 ]

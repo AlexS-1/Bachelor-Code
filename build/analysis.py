@@ -134,7 +134,7 @@ def clean(data):
             "file": data[i]["file"],
             "line": data[i]["line"],
             "content": data[i]["content"], # Cheeky inline comment
-            "comment": data[i]["comment"],
+            "comment": data[i]["comment"], # Cheeky 2 inline comment
             "comment_time": data[i]["comment_time"],
             "last_code_change_time": data[i]["last_code_change_time"]
         }
@@ -165,42 +165,30 @@ def classify_comments(data):
     for comment in data:
         line = comment["content"]
         comment_type = ""
-
         # Tokenize the input code
         tokens = tokenize.generate_tokens(StringIO(line).readline)
         prev_token = None
-
         for token in tokens:
             token_type, token_string, start, end, line = token
-            
             if token_type == tokenize.COMMENT:
                 comment_text = token_string.lstrip("#").strip()
-
                 # Check if inline
                 if prev_token and prev_token.type != tokenize.NL:
                     comment_type = "inline"
-                
-                # Check for block comments (multi-line consecutive)
-                elif comment_text and comment_text[0].isalpha():
-                    comment_type = "block"
-
                 # Check for commented-out code (basic heuristic: looks like valid Python code)
                 elif is_potential_code(comment_text):
                     comment_type = "commented out"
-                
+                # Check for block comments (multi-line consecutive)
+                elif comment_text and comment_text[0].isalpha():
+                    comment_type = "block"
                 else:
                     comment_type = "normal annotation"
-
-
             elif token_type == tokenize.STRING:
                 # Check for docstring: string token at module, function, or class start
                 if prev_token and prev_token.type in {tokenize.DEDENT, tokenize.INDENT}:
                     comment_type = "documentation"
-
             prev_token = token
-
         comment["comment_type"] = comment_type
-        
     return data
 
 def is_potential_code(text):

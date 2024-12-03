@@ -886,5 +886,69 @@
         "comment": "# Filter comments by time",
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
+    },
+    {
+        "file": "main.py",
+        "line": 53,
+        "content": "    # Save filtered comments on your system",
+        "comment": "# Save filtered comments on your system",
+        "comment_time": "2024-11-23 21:32:59+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00"
+    },
+    {
+        "file": "main.py",
+        "line": 1,
+        "content": "# Import modules",
+        "comment": "# Import modules",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00"
+    },
+    {
+        "file": "main.py",
+        "line": 8,
+        "content": "# Import packages",
+        "comment": "# Import packages",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-21 21:30:11+01:00"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 87,
+        "content": "        # Store last modified timestamps for each line",
+        "comment": "# Store last modified timestamps for each line",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 90,
+        "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-25 02:54:47+01:00"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 92,
+        "content": "            # Track modified lines",
+        "comment": "# Track modified lines",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 95,
+        "content": "            # Compare with comments",
+        "comment": "# Compare with comments",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-24 18:37:49+01:00"
+    },
+    {
+        "file": "build/analysis.py",
+        "line": 102,
+        "content": "                        # Where there are comment changes and no source code changes in block",
+        "comment": "# Where there are comment changes and no source code changes in block",
+        "comment_time": "2024-12-04 00:35:22+01:00",
+        "last_code_change_time": "2024-11-25 02:54:47+01:00"
     }
 ]
