@@ -24,3 +24,9 @@ def save_to_xes(data, path):
         # Add the trace to the log
         log.append(trace)
     xes_exporter.apply(log, path)
+
+def list_to_dict(list):
+    dict = {}
+    for i in range(len(list)):
+        dict[i+1] = list[i]
+    return dict

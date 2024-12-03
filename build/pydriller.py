@@ -3,6 +3,7 @@ import json
 import pm4py
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from build.utils import list_to_dict
 
 def get_commits_data(repo_path, from_date, to_date, file_types):
     files_data = {}
@@ -11,17 +12,22 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                                 to=to_date, 
                                 only_modifications_with_file_types=file_types).traverse_commits():
             for file in commit.modified_files:
-                if file.filename not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
-                    files_data[file.filename] = []
+                if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
+                    files_data[file.new_path] = []
                 if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
+                    if file.source_code:
+                        source = list_to_dict(file.source_code.split("\n"))
+                    else:
+                        source = {}
                     file_data = {
                         "commit": commit.hash,
                         "timestamp": commit.committer_date.isoformat(),
                         "author": commit.author.name,
-                        "diff": diff_to_dict(file.diff_parsed)
+                        "diff": diff_to_dict(file.diff_parsed),
+                        "source_code": source
                     }
                     if len(file.diff_parsed) != 0:
-                        files_data[file.filename].append(file_data)
+                        files_data[file.new_path].append(file_data)
     return files_data
 
 def diff_to_dict(diff):

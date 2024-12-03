@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
+import tokenize
+from io import StringIO
 
 def analyse_diff_comments(data):
+    """ some test docstring """
     for file, commits in data.items():
         for commit in commits:
             no_change_comments = []
@@ -93,18 +96,26 @@ def extract_later_modified_comments(data):
             for line in commit["comments"]:
                 comment_time = datetime.fromisoformat(commit["timestamp"])
                 last_modified_lines = list(last_modified.keys())
-                if str(line["line"]) in last_modified_lines:
+                # TODO investigate why line is null
+                if line != "null" and str(line["line"]) in last_modified_lines:
                     for block in commit["diff"]["block_diff"]:
                         # Where there are comment changes and no source code changes in block
                         if not is_code_in_block(block): # and block[line["line"]]["comment_index"] != -1:
-                            if(comment_time > last_modified[str(line["line"])]):
+                            if comment_time > last_modified[str(line["line"])]:
                                 for item in commit["comments"]:
                                     if line["line"] == item["line"]:
                                         comment = item["comment"]
                                         break
+                                for commit2 in commits:
+                                    if datetime.fromisoformat(commit2["timestamp"]) == comment_time:
+                                        content = commit2["source_code"][str(line["line"])]
+                                        break
+                                    else:
+                                        content = "PROBLEM"
                                 analysis_results.append({
                                     "file": file,
                                     "line": line["line"],
+                                    "content": content,
                                     "comment": comment,
                                     "comment_time": str(comment_time),
                                     "last_code_change_time": str(last_modified[str(line["line"])])
@@ -122,6 +133,7 @@ def clean(data):
         item = {
             "file": data[i]["file"],
             "line": data[i]["line"],
+            "content": data[i]["content"], # Cheeky inline comment
             "comment": data[i]["comment"],
             "comment_time": data[i]["comment_time"],
             "last_code_change_time": data[i]["last_code_change_time"]
@@ -148,3 +160,52 @@ def average_comment_update_time(data):
     total_duration = sum(durations, timedelta(0))
     average_duration = total_duration / len(durations)
     return average_duration
+
+def classify_comments(data):
+    for comment in data:
+        line = comment["content"]
+        comment_type = ""
+
+        # Tokenize the input code
+        tokens = tokenize.generate_tokens(StringIO(line).readline)
+        prev_token = None
+
+        for token in tokens:
+            token_type, token_string, start, end, line = token
+            
+            if token_type == tokenize.COMMENT:
+                comment_text = token_string.lstrip("#").strip()
+
+                # Check if inline
+                if prev_token and prev_token.type != tokenize.NL:
+                    comment_type = "inline"
+                
+                # Check for block comments (multi-line consecutive)
+                elif comment_text and comment_text[0].isalpha():
+                    comment_type = "block"
+
+                # Check for commented-out code (basic heuristic: looks like valid Python code)
+                elif is_potential_code(comment_text):
+                    comment_type = "commented out"
+                
+                else:
+                    comment_type = "normal annotation"
+
+
+            elif token_type == tokenize.STRING:
+                # Check for docstring: string token at module, function, or class start
+                if prev_token and prev_token.type in {tokenize.DEDENT, tokenize.INDENT}:
+                    comment_type = "documentation"
+
+            prev_token = token
+
+        comment["comment_type"] = comment_type
+        
+    return data
+
+def is_potential_code(text):
+    try:
+        compile(text, "<string>", "exec")
+        return True
+    except SyntaxError:
+        return False

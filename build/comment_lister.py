@@ -19,10 +19,11 @@ def run_comment_lister(repo_path, jar_path, tag="-target=HEAD"):
         return None
 
 def filter_comments_by_time(commit_data, start_time, end_time):
-    filtered_comments = []
+    filtered_comments = {}
     commit_time = datetime.fromisoformat(commit_data["CommitTime"]).replace(tzinfo=None)
     if start_time <= commit_time <= end_time:
         for filename, contents in commit_data["Files"].items():
+            filtered_comments[filename] = []
             error = False
             i = 0
             while not error:
@@ -40,14 +41,14 @@ def filter_comments_by_time(commit_data, start_time, end_time):
                                 "char_position_in_line": contents[str(i)]["CharPositionInLine"]
                             }
                             j += 1
-                            filtered_comments.append(comment_data)
+                            filtered_comments[filename].append(comment_data)
                     else:
                         comment_data = {
                             "line": contents[str(i)]["Line"],
                             "comment": contents[str(i)]["Text"],
                             "char_position_in_line": contents[str(i)]["CharPositionInLine"]
                         }
-                        filtered_comments.append(comment_data)
+                        filtered_comments[filename].append(comment_data)
                 except KeyError as e:
                     error = True
                 if not error:
