@@ -8177,6 +8177,107 @@
                     ]
                 }
             ]
+        },
+        {
+            "commit": "76c0e457bfe78effef6b104d334eed6a7fa3e4e4",
+            "timestamp": "2024-12-04T23:01:11+01:00",
+            "author": "alexander.schranner",
+            "diff": {
+                "added": {
+                    "6": "from build.analysis import classify_comments",
+                    "32": "                    type = classify_comments(contents[str(i)][\"Text\"])",
+                    "43": "                                \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"],",
+                    "44": "                                \"type\": type",
+                    "52": "                            \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"],",
+                    "53": "                            \"type\": type"
+                },
+                "deleted": {
+                    "41": "                                \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"]",
+                    "49": "                            \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"]"
+                }
+            },
+            "source_code": {
+                "1": "import subprocess",
+                "2": "import json",
+                "3": "import os",
+                "4": "import shutil",
+                "5": "from datetime import datetime, timezone",
+                "6": "from build.analysis import classify_comments",
+                "7": "",
+                "8": "def run_comment_lister(repo_path, jar_path, tag=\"-target=HEAD\"):",
+                "9": "    try:",
+                "10": "        result = subprocess.run(",
+                "11": "            ['java', '-jar', jar_path, repo_path, tag],",
+                "12": "            stdout=subprocess.PIPE,",
+                "13": "            stderr=subprocess.PIPE,",
+                "14": "            text=True,",
+                "15": "            check=True",
+                "16": "        )",
+                "17": "        return result.stdout",
+                "18": "    except subprocess.CalledProcessError as e:",
+                "19": "        print(f\"Error running CommentLister: {e.stderr}\")",
+                "20": "        return None",
+                "21": "",
+                "22": "def filter_comments_by_time(commit_data, start_time, end_time):",
+                "23": "    filtered_comments = {}",
+                "24": "    commit_time = datetime.fromisoformat(commit_data[\"CommitTime\"]).replace(tzinfo=None)",
+                "25": "    if start_time <= commit_time <= end_time:",
+                "26": "        for filename, contents in commit_data[\"Files\"].items():",
+                "27": "            filtered_comments[filename] = []",
+                "28": "            error = False",
+                "29": "            i = 0",
+                "30": "            while not error:",
+                "31": "                try:",
+                "32": "                    type = classify_comments(contents[str(i)][\"Text\"])",
+                "33": "                    split_comment_lines = contents[str(i)][\"Text\"].split(\"\\n\")",
+                "34": "                    # print(\"Have to split comments:\", split_comment_lines)",
+                "35": "                    if len(split_comment_lines) > 1:",
+                "36": "                        initial_line = contents[str(i)][\"Line\"]",
+                "37": "                        j = 0",
+                "38": "                        for comment in split_comment_lines:",
+                "39": "                            # Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum",
+                "40": "                            comment_data = {",
+                "41": "                                \"line\": initial_line + j,",
+                "42": "                                \"comment\": comment,",
+                "43": "                                \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"],",
+                "44": "                                \"type\": type",
+                "45": "                            }",
+                "46": "                            j += 1",
+                "47": "                            filtered_comments[filename].append(comment_data)",
+                "48": "                    else:",
+                "49": "                        comment_data = {",
+                "50": "                            \"line\": contents[str(i)][\"Line\"],",
+                "51": "                            \"comment\": contents[str(i)][\"Text\"],",
+                "52": "                            \"char_position_in_line\": contents[str(i)][\"CharPositionInLine\"],",
+                "53": "                            \"type\": type",
+                "54": "                        }",
+                "55": "                        filtered_comments[filename].append(comment_data)",
+                "56": "                except KeyError as e:",
+                "57": "                    error = True",
+                "58": "                if not error:",
+                "59": "                    i += 1",
+                "60": "    else:",
+                "61": "        print(\"Comments not in specified date range\")",
+                "62": "    return commit_data[\"ObjectId\"], filtered_comments"
+            },
+            "comments": [
+                {
+                    "line": 34,
+                    "comment": "# print(\"Have to split comments:\", split_comment_lines)",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 39,
+                    "comment": "# Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum",
+                    "char_position_in_line": 28,
+                    "type": [
+                        "normal"
+                    ]
+                }
+            ]
         }
     ],
     "build/pydriller.py": [
@@ -12333,6 +12434,184 @@
                     ]
                 }
             ]
+        },
+        {
+            "commit": "76c0e457bfe78effef6b104d334eed6a7fa3e4e4",
+            "timestamp": "2024-12-04T23:01:11+01:00",
+            "author": "alexander.schranner",
+            "diff": {
+                "added": {
+                    "5": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
+                    "81": "    d = classify_content(data)"
+                },
+                "deleted": {
+                    "5": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments",
+                    "81": "    d = classify_comments(data)"
+                }
+            },
+            "source_code": {
+                "1": "# Import modules",
+                "2": "from build.pydriller import get_commits_data",
+                "3": "from build.comment_lister import run_comment_lister, filter_comments_by_time",
+                "4": "from build.utils import save_to_json",
+                "5": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
+                "6": "from build.xes_conversion import convert_json_to_xes",
+                "7": "",
+                "8": "# Import packages",
+                "9": "import os",
+                "10": "import json",
+                "11": "import subprocess",
+                "12": "import shutil",
+                "13": "from datetime import datetime, timezone",
+                "14": "",
+                "15": "def main():",
+                "16": "    # Convert repo URL to path by cloning repo",
+                "17": "    repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
+                "18": "",
+                "19": "    repo_name = os.path.basename(repo_url).replace(\".git\", \"\")",
+                "20": "    temp_dir = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp\"",
+                "21": "    clone_path = os.path.join(temp_dir, repo_name)",
+                "22": "",
+                "23": "    subprocess.run(['git', 'clone', repo_url, clone_path], check=True)",
+                "24": "",
+                "25": "    # # Paths",
+                "26": "    repo_path = clone_path",
+                "27": "    jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"",
+                "28": "    ",
+                "29": "    # # Setting different timeperiod",
+                "30": "    start_time = datetime.today().replace(year = datetime.today().year - 1, tzinfo=None, microsecond=0)",
+                "31": "    end_time = datetime.today().replace(microsecond=0)",
+                "32": "",
+                "33": "    file_types = [\".c\", \".c\", \".cc\", \".cp\", \".cpp\", \".cx\", \".cxx\", \".c+\", \".c++\", \".h\", \".hh\", \".hxx\", \".h+\", \".h++\", \".hp\", \".hpp\", \".java\", \".js\", \".cs\", \".py\", \".php\", \".rb\"]",
+                "34": "",
+                "35": "    commits_data = get_commits_data(repo_path, start_time, end_time, file_types)",
+                "36": "    save_to_json(commits_data, \"Data/commits_data.json\")",
+                "37": "    ",
+                "38": "    with open (\"Data/commits_data.json\", \"r\") as json_file:",
+                "39": "        commits_data = json.load(json_file)",
+                "40": "",
+                "41": "    for file, commits in commits_data.items():",
+                "42": "        for commit in commits:",
+                "43": "            tag = \"-target=\" + commit[\"commit\"]",
+                "44": "            output = run_comment_lister(repo_path, jar_path, tag)",
+                "45": "            # Parse output as JSON",
+                "46": "            try:",
+                "47": "                comment_data = json.loads(output)",
+                "48": "            except json.JSONDecodeError as e:",
+                "49": "                print(f\"Failed to parse CommentLister output: {e}\")",
+                "50": "                return",
+                "51": "            # Filter comments by time",
+                "52": "            commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)",
+                "53": "            if commit[\"commit\"] == commit_hash and file in filtered_comments.keys():",
+                "54": "                commit[\"comments\"] = filtered_comments[file]",
+                "55": "            else:",
+                "56": "                print(\"mismatch in commit and comment data or no comments in this commit for investigatet file\")",
+                "57": "                print(\"file could have been deleted\")",
+                "58": "                commit[\"comments\"] = {}",
+                "59": "    # Save filtered comments on your system",
+                "60": "    save_to_json(commits_data, \"Data/filtered_commits_data.json\")",
+                "61": "    shutil.rmtree(clone_path)",
+                "62": "    with open(\"Data/filtered_commits_data.json\", \"r\") as json_file:",
+                "63": "        data = json.load(json_file)",
+                "64": "    # analyse_diff_comments(data)",
+                "65": "    blockify_comments(data)",
+                "66": "    save_to_json(data, \"Exports/blockified_comments_data.json\")",
+                "67": "    with open(\"Exports/blockified_comments_data.json\", \"r\") as json_file:",
+                "68": "        data = json.load(json_file)",
+                "69": "    blockify_comments2(data)",
+                "70": "    save_to_json(data, \"Exports/blockified_comments2_data.json\")",
+                "71": "    with open(\"Exports/blockified_comments2_data.json\", \"r\") as json_file:",
+                "72": "        data = json.load(json_file)",
+                "73": "    d = extract_later_modified_comments(data)",
+                "74": "    save_to_json(d, \"Exports/analysis_results.json\")",
+                "75": "    with open(\"Exports/analysis_results.json\", \"r\") as json_file:",
+                "76": "        data = json.load(json_file)",
+                "77": "    d = clean(data)",
+                "78": "    save_to_json(d, \"Exports/clean_analysis_results.json\")",
+                "79": "    with open(\"Exports/clean_analysis_results.json\", \"r\") as json_file:",
+                "80": "        data = json.load(json_file)",
+                "81": "    d = classify_content(data)",
+                "82": "    save_to_json(d, \"Exports/clean_analysis_results2.json\")",
+                "83": "    print(\"Average duration:\", average_comment_update_time(d))",
+                "84": "    convert_json_to_xes(d, 'Exports/output.xes')",
+                "85": "",
+                "86": "if __name__ == \"__main__\":",
+                "87": "    main()"
+            },
+            "comments": [
+                {
+                    "line": 1,
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 8,
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 16,
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 25,
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 29,
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 45,
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 51,
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 59,
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 64,
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
+            ]
         }
     ],
     "build/utils.py": [
@@ -14446,6 +14725,396 @@
                     ]
                 }
             ]
+        },
+        {
+            "commit": "76c0e457bfe78effef6b104d334eed6a7fa3e4e4",
+            "timestamp": "2024-12-04T23:01:11+01:00",
+            "author": "alexander.schranner",
+            "diff": {
+                "added": {
+                    "8": "        for commit in commits: #inline-test-comment",
+                    "108": "                                        type = item[\"type\"]",
+                    "121": "                                    \"type\": type,",
+                    "140": "            \"type\": data[i][\"type\"],",
+                    "158": "    if data == None: return",
+                    "168": "def classify_comments(lines):",
+                    "169": "        line_types = []",
+                    "170": "        # Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "171": "        if is_potential_code(lines.lstrip(\"#\").strip()) and is_potential_code(lines.lstrip(\"\\\"\\\"\\\"\").strip()):",
+                    "172": "            line_types.append(\"commented-out\")",
+                    "173": "        # Check for block comments (multi-line consecutive)",
+                    "174": "        if lines.find(\"\\n\") != -1:",
+                    "175": "            line_types.append(\"block\")",
+                    "176": "        # Check if text has docstring format with \"\"\"\" somewhere",
+                    "177": "        if lines.find(\"\\\"\\\"\\\"\") != -1:",
+                    "178": "            line_types.append(\"docstring\")",
+                    "179": "        if len(line_types) == 0:",
+                    "180": "            line_types.append(\"normal\")",
+                    "181": "        return line_types",
+                    "188": "        return False",
+                    "189": "",
+                    "190": "def classify_content(data):",
+                    "191": "    for item in data:",
+                    "192": "        if \"normal\" in item[\"type\"]:",
+                    "193": "            line = item[\"content\"]",
+                    "194": "            if bool(line.split(\"#\")[0].strip()) and is_potential_code(line.split(\"#\")[0]):",
+                    "195": "                item[\"type\"].append(\"inline\")",
+                    "196": "    return data"
+                },
+                "deleted": {
+                    "8": "        for commit in commits:",
+                    "164": "def classify_comments(data):",
+                    "165": "    for comment in data:",
+                    "166": "        line = comment[\"content\"]",
+                    "167": "        comment_type = \"\"",
+                    "168": "        # Tokenize the input code",
+                    "169": "        tokens = tokenize.generate_tokens(StringIO(line).readline)",
+                    "170": "        prev_token = None",
+                    "171": "        for token in tokens:",
+                    "172": "            token_type, token_string, start, end, line = token",
+                    "173": "            if token_type == tokenize.COMMENT:",
+                    "174": "                comment_text = token_string.lstrip(\"#\").strip()",
+                    "175": "                # Check if inline",
+                    "176": "                if prev_token and prev_token.type != tokenize.NL:",
+                    "177": "                    comment_type = \"inline\"",
+                    "178": "                # Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "179": "                elif is_potential_code(comment_text):",
+                    "180": "                    comment_type = \"commented out\"",
+                    "181": "                # Check for block comments (multi-line consecutive)",
+                    "182": "                elif comment_text and comment_text[0].isalpha():",
+                    "183": "                    comment_type = \"block\"",
+                    "184": "                else:",
+                    "185": "                    comment_type = \"normal annotation\"",
+                    "186": "            elif token_type == tokenize.STRING:",
+                    "187": "                # Check for docstring: string token at module, function, or class start",
+                    "188": "                if prev_token and prev_token.type in {tokenize.DEDENT, tokenize.INDENT}:",
+                    "189": "                    comment_type = \"documentation\"",
+                    "190": "            prev_token = token",
+                    "191": "        comment[\"comment_type\"] = comment_type",
+                    "192": "    return data",
+                    "199": "        return False"
+                }
+            },
+            "source_code": {
+                "1": "from datetime import datetime, timedelta",
+                "2": "import tokenize",
+                "3": "from io import StringIO",
+                "4": "",
+                "5": "def analyse_diff_comments(data):",
+                "6": "    \"\"\" some test docstring \"\"\"",
+                "7": "    for file, commits in data.items():",
+                "8": "        for commit in commits: #inline-test-comment",
+                "9": "            no_change_comments = []",
+                "10": "            for i in range(len(commit[\"comments\"])):",
+                "11": "                if commit[\"comments\"][i][\"line\"] in list(commit[\"diff\"][\"added\"].keys()):",
+                "12": "                    commit[\"comments\"][i][\"edit\"] = \"added\"",
+                "13": "                continue",
+                "14": "                if commit[\"comments\"][i][\"line\"] in list(commit[\"diff\"][\"deleted\"].keys()):",
+                "15": "                    if \"edit\" in list(commit[\"comments\"][i].keys()):",
+                "16": "                        commit[\"comments\"][i][\"edit\"] = \"modified\"",
+                "17": "                        continue",
+                "18": "                    else:",
+                "19": "                        commit[\"comments\"][i][\"edit\"] = \"deleted\"",
+                "20": "                        continue",
+                "21": "                no_change_comments.append(i)",
+                "22": "            # Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                "23": "            shift = 0",
+                "24": "            for j in no_change_comments:",
+                "25": "                del commit[\"comments\"][j-shift]",
+                "26": "                shift += 1",
+                "27": "",
+                "28": "def check_inline_comments(data):",
+                "29": "    return",
+                "30": "",
+                "31": "def blockify_comments2(data):",
+                "32": "    for file, commits in data.items():",
+                "33": "        for commit in commits:",
+                "34": "            block_diff = []",
+                "35": "            for block in commit[\"diff\"][\"block_diff\"]:",
+                "36": "                block_dict = {}",
+                "37": "                for line in block:",
+                "38": "                    for item in commit[\"comments\"]:",
+                "39": "                        if int(line) == item[\"line\"]:",
+                "40": "                            comment_index = item[\"char_position_in_line\"]",
+                "41": "                            break",
+                "42": "                        else:",
+                "43": "                            comment_index = -1",
+                "44": "                    line_info = {",
+                "45": "                        \"content\": commit[\"diff\"][\"added\"][str(line)],",
+                "46": "                        \"comment_index\": comment_index",
+                "47": "                    }",
+                "48": "                    block_dict[line] = line_info",
+                "49": "                block_diff.append(block_dict)",
+                "50": "            commit[\"diff\"][\"block_diff\"] = block_diff",
+                "51": "",
+                "52": "def blockify_comments(data):",
+                "53": "    for file, commits in data.items():",
+                "54": "        for commit in commits:",
+                "55": "            blocks = []",
+                "56": "            current_block = []",
+                "57": "            for line in list(commit[\"diff\"][\"added\"].keys()):",
+                "58": "                if int(line) in get_comment_lines(commit[\"comments\"]):",
+                "59": "                    if current_block and current_block[-1] not in get_comment_lines(commit[\"comments\"]):",
+                "60": "                        blocks.append(current_block)",
+                "61": "                        current_block = []",
+                "62": "                    current_block.append(int(line))",
+                "63": "                else:",
+                "64": "                    if current_block and int(line) != current_block[-1] + 1:",
+                "65": "                        blocks.append(current_block)",
+                "66": "                        current_block = []",
+                "67": "                    current_block.append(int(line))",
+                "68": "            if current_block:",
+                "69": "                blocks.append(current_block)",
+                "70": "            commit[\"diff\"][\"block_diff\"] = blocks",
+                "71": "",
+                "72": "def get_comment_lines(comments):",
+                "73": "    comment_lines = []",
+                "74": "    for comment in comments:",
+                "75": "        comment_lines.append(comment[\"line\"])",
+                "76": "    return comment_lines",
+                "77": "",
+                "78": "def get_diff_lines(diff):",
+                "79": "    diff_lines = []",
+                "80": "    for line in diff:",
+                "81": "        diff_lines.append(line[0])",
+                "82": "    return diff_lines",
+                "83": "",
+                "84": "def extract_later_modified_comments(data): ",
+                "85": "    analysis_results = []",
+                "86": "    for file, commits in data.items():",
+                "87": "        # Store last modified timestamps for each line",
+                "88": "        last_modified = {}",
+                "89": "        for commit in commits:",
+                "90": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                "91": "            commit_time = datetime.fromisoformat(commit[\"timestamp\"])",
+                "92": "            # Track modified lines",
+                "93": "            for line in list(commit[\"diff\"][\"added\"].keys()):",
+                "94": "                last_modified[line] = commit_time",
+                "95": "            # Compare with comments",
+                "96": "            for line in commit[\"comments\"]:",
+                "97": "                comment_time = datetime.fromisoformat(commit[\"timestamp\"])",
+                "98": "                last_modified_lines = list(last_modified.keys())",
+                "99": "                # TODO investigate why line is null",
+                "100": "                if line != \"null\" and str(line[\"line\"]) in last_modified_lines:",
+                "101": "                    for block in commit[\"diff\"][\"block_diff\"]:",
+                "102": "                        # Where there are comment changes and no source code changes in block",
+                "103": "                        if not is_code_in_block(block): # and block[line[\"line\"]][\"comment_index\"] != -1:",
+                "104": "                            if comment_time > last_modified[str(line[\"line\"])]:",
+                "105": "                                for item in commit[\"comments\"]:",
+                "106": "                                    if line[\"line\"] == item[\"line\"]:",
+                "107": "                                        comment = item[\"comment\"]",
+                "108": "                                        type = item[\"type\"]",
+                "109": "                                        break",
+                "110": "                                for commit2 in commits:",
+                "111": "                                    if datetime.fromisoformat(commit2[\"timestamp\"]) == comment_time:",
+                "112": "                                        content = commit2[\"source_code\"][str(line[\"line\"])]",
+                "113": "                                        break",
+                "114": "                                    else:",
+                "115": "                                        content = \"PROBLEM\"",
+                "116": "                                analysis_results.append({",
+                "117": "                                    \"file\": file,",
+                "118": "                                    \"line\": line[\"line\"],",
+                "119": "                                    \"content\": content,",
+                "120": "                                    \"comment\": comment,",
+                "121": "                                    \"type\": type,",
+                "122": "                                    \"comment_time\": str(comment_time),",
+                "123": "                                    \"last_code_change_time\": str(last_modified[str(line[\"line\"])])",
+                "124": "                                })",
+                "125": "    return analysis_results",
+                "126": "",
+                "127": "def is_code_in_block(block):",
+                "128": "    for line in list(block.keys()):",
+                "129": "        if block[line][\"comment_index\"] == -1:",
+                "130": "            return True ",
+                "131": "",
+                "132": "def clean(data):",
+                "133": "    clean_data = []",
+                "134": "    for i in range(len(data)):",
+                "135": "        item = {",
+                "136": "            \"file\": data[i][\"file\"],",
+                "137": "            \"line\": data[i][\"line\"],",
+                "138": "            \"content\": data[i][\"content\"], # Cheeky inline comment",
+                "139": "            \"comment\": data[i][\"comment\"], # Cheeky 2 inline comment",
+                "140": "            \"type\": data[i][\"type\"],",
+                "141": "            \"comment_time\": data[i][\"comment_time\"],",
+                "142": "            \"last_code_change_time\": data[i][\"last_code_change_time\"]",
+                "143": "        }",
+                "144": "        if len(data) > i + 1 and not is_equal(data[i], data[i+1]):",
+                "145": "            clean_data.append(item)",
+                "146": "    return clean_data",
+                "147": "",
+                "148": "def is_equal(d1,d2):",
+                "149": "    d1_k = list(d1.keys())",
+                "150": "    d2_k = list(d2.keys())",
+                "151": "    for i in d1_k:",
+                "152": "        if d1[i] != d2[i]:",
+                "153": "            return False",
+                "154": "    return True",
+                "155": "",
+                "156": "def average_comment_update_time(data):",
+                "157": "    datetime_pairs = []",
+                "158": "    if data == None: return",
+                "159": "    for file in data:",
+                "160": "        start = datetime.fromisoformat(file[\"last_code_change_time\"])",
+                "161": "        end = datetime.fromisoformat(file[\"comment_time\"])",
+                "162": "        datetime_pairs.append((start, end))",
+                "163": "    durations = [end - start for start, end in datetime_pairs]",
+                "164": "    total_duration = sum(durations, timedelta(0))",
+                "165": "    average_duration = total_duration / len(durations)",
+                "166": "    return average_duration",
+                "167": "",
+                "168": "def classify_comments(lines):",
+                "169": "        line_types = []",
+                "170": "        # Check for commented-out code (basic heuristic: looks like valid Python code)",
+                "171": "        if is_potential_code(lines.lstrip(\"#\").strip()) and is_potential_code(lines.lstrip(\"\\\"\\\"\\\"\").strip()):",
+                "172": "            line_types.append(\"commented-out\")",
+                "173": "        # Check for block comments (multi-line consecutive)",
+                "174": "        if lines.find(\"\\n\") != -1:",
+                "175": "            line_types.append(\"block\")",
+                "176": "        # Check if text has docstring format with \"\"\"\" somewhere",
+                "177": "        if lines.find(\"\\\"\\\"\\\"\") != -1:",
+                "178": "            line_types.append(\"docstring\")",
+                "179": "        if len(line_types) == 0:",
+                "180": "            line_types.append(\"normal\")",
+                "181": "        return line_types",
+                "182": "",
+                "183": "def is_potential_code(text):",
+                "184": "    try:",
+                "185": "        compile(text, \"<string>\", \"exec\")",
+                "186": "        return True",
+                "187": "    except SyntaxError:",
+                "188": "        return False",
+                "189": "",
+                "190": "def classify_content(data):",
+                "191": "    for item in data:",
+                "192": "        if \"normal\" in item[\"type\"]:",
+                "193": "            line = item[\"content\"]",
+                "194": "            if bool(line.split(\"#\")[0].strip()) and is_potential_code(line.split(\"#\")[0]):",
+                "195": "                item[\"type\"].append(\"inline\")",
+                "196": "    return data"
+            },
+            "comments": [
+                {
+                    "line": 6,
+                    "comment": "\"\"\" some test docstring \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 8,
+                    "comment": "#inline-test-comment",
+                    "char_position_in_line": 31,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 22,
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 87,
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 90,
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 92,
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 95,
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 99,
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 102,
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 103,
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 138,
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                {
+                    "line": 139,
+                    "comment": "# Cheeky 2 inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                {
+                    "line": 170,
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 173,
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 176,
+                    "comment": "# Check if text has docstring format with \"\"\"\" somewhere",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "docstring"
+                    ]
+                }
+            ]
         }
     ],
     "build/xes_conversion.py": [
@@ -15167,6 +15836,299 @@
                 },
                 {
                     "line": 84,
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
+            ]
+        },
+        {
+            "commit": "76c0e457bfe78effef6b104d334eed6a7fa3e4e4",
+            "timestamp": "2024-12-04T23:01:11+01:00",
+            "author": "alexander.schranner",
+            "diff": {
+                "added": {
+                    "6": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
+                    "37": "    return source_code",
+                    "43": "end_time = datetime.today()",
+                    "55": "commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)",
+                    "57": "with open (\"Toy-Example/commits_data.json\", \"r\") as json_file:",
+                    "81": "with open(\"Toy-Example/filtered_commits_data.json\", \"r\") as json_file:",
+                    "100": "d = classify_content(data)"
+                },
+                "deleted": {
+                    "6": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments",
+                    "37": "",
+                    "38": "    return source_code",
+                    "44": "end_time = datetime(2024,12,4)",
+                    "56": "commits_data = get_commits_data(repo_path, start_time, end_time, file_types)",
+                    "58": "with open (\"Toy-Example/commits_data.json\", \"r\") as json_file:",
+                    "82": "with open(\"Data/filtered_commits_data.json\", \"r\") as json_file:",
+                    "101": "d = classify_comments(data)"
+                }
+            },
+            "source_code": {
+                "1": "from pydriller import Repository",
+                "2": "import json",
+                "3": "from build.pydriller import get_commits_data",
+                "4": "from build.comment_lister import run_comment_lister, filter_comments_by_time",
+                "5": "from build.utils import save_to_json",
+                "6": "from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
+                "7": "from build.xes_conversion import convert_json_to_xes",
+                "8": "from datetime import datetime, timezone",
+                "9": "import os",
+                "10": "import subprocess",
+                "11": "import shutil",
+                "12": "",
+                "13": "def get_source_code_from_tag(repo_path, tag_name, dt1, dt2):",
+                "14": "    \"\"\"",
+                "15": "    DOCSTRIING: Extracts the source code of a specific commit tagged in the repository.",
+                "16": "",
+                "17": "    :param repo_path: Path to the local Git repository.",
+                "18": "    :param tag_name: The name of the tag to fetch.",
+                "19": "    :return: A dictionary containing file paths and their contents at the given commit.",
+                "20": "    END DOCSTRING",
+                "21": "    \"\"\"",
+                "22": "    source_code = []",
+                "23": "",
+                "24": "    for commit in Repository(repo_path, since=dt1, to=dt2).traverse_commits():",
+                "25": "        print(f\"Processing commit: {commit.hash} tagged as {tag_name}\")",
+                "26": "        for modified_file in commit.modified_files:",
+                "27": "            # NORMAL Save the file path and its source code",
+                "28": "            if modified_file.source_code:",
+                "29": "                # BLOCK: Multiple lines",
+                "30": "                # of comment",
+                "31": "                if modified_file.filename.find(\".py\") != -1 and modified_file.filename.find(\".pyc\") == -1:",
+                "32": "                    comit = {",
+                "33": "                        commit.hash + \"---\" + modified_file.filename: list_to_dict(modified_file.source_code.split(\"\\n\")) #INLINE: identify each block of data",
+                "34": "                    }",
+                "35": "                    source_code.append(comit)",
+                "36": "                    # print(commit) #COMMENTED-OUT",
+                "37": "    return source_code  ",
+                "38": "",
+                "39": "# Example usage",
+                "40": "repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
+                "41": "tag_name = \"a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e\"",
+                "42": "start_time = datetime(2024,12,3)",
+                "43": "end_time = datetime.today()",
+                "44": "repo_name = os.path.basename(repo_url).replace(\".git\", \"\")",
+                "45": "temp_dir = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp\"",
+                "46": "clone_path = os.path.join(temp_dir, repo_name)",
+                "47": "",
+                "48": "subprocess.run(['git', 'clone', repo_url, clone_path], check=True)",
+                "49": "",
+                "50": "# # Paths",
+                "51": "repo_path = clone_path",
+                "52": "jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"",
+                "53": "file_types = [\".c\", \".c\", \".cc\", \".cp\", \".cpp\", \".cx\", \".cxx\", \".c+\", \".c++\", \".h\", \".hh\", \".hxx\", \".h+\", \".h++\", \".hp\", \".hpp\", \".java\", \".js\", \".cs\", \".py\", \".php\", \".rb\"]",
+                "54": "",
+                "55": "commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)",
+                "56": "save_to_json(commits_data, \"Toy-Example/commits_data.json\")",
+                "57": "with open (\"Toy-Example/commits_data.json\", \"r\") as json_file: ",
+                "58": "        commits_data = json.load(json_file)",
+                "59": "",
+                "60": "for file, commits in commits_data.items():",
+                "61": "    for commit in commits:",
+                "62": "        tag = \"-target=\" + commit[\"commit\"]",
+                "63": "        output = run_comment_lister(repo_path, jar_path, tag)",
+                "64": "        # Parse output as JSON",
+                "65": "        try:",
+                "66": "            comment_data = json.loads(output)",
+                "67": "        except json.JSONDecodeError as e:",
+                "68": "            print(f\"Failed to parse CommentLister output: {e}\")",
+                "69": "            break",
+                "70": "        # Filter comments by time",
+                "71": "        commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)",
+                "72": "        if commit[\"commit\"] == commit_hash and file in filtered_comments.keys():",
+                "73": "            commit[\"comments\"] = filtered_comments[file]",
+                "74": "        else:",
+                "75": "            print(\"mismatch in commit and comment data or no comments in this commit for investigatet file\")",
+                "76": "            print(\"file could have been deleted\")",
+                "77": "            commit[\"comments\"] = {}",
+                "78": "# Save filtered comments on your system",
+                "79": "save_to_json(commits_data, \"Toy-Example/filtered_commits_data.json\")",
+                "80": "shutil.rmtree(clone_path)",
+                "81": "with open(\"Toy-Example/filtered_commits_data.json\", \"r\") as json_file:",
+                "82": "    data = json.load(json_file)",
+                "83": "# analyse_diff_comments(data)",
+                "84": "blockify_comments(data)",
+                "85": "save_to_json(data, \"Toy-Example/blockified_comments_data.json\")",
+                "86": "with open(\"Toy-Example/blockified_comments_data.json\", \"r\") as json_file:",
+                "87": "    data = json.load(json_file)",
+                "88": "blockify_comments2(data)",
+                "89": "save_to_json(data, \"Toy-Example/blockified_comments2_data.json\")",
+                "90": "with open(\"Toy-Example/blockified_comments2_data.json\", \"r\") as json_file:",
+                "91": "    data = json.load(json_file)",
+                "92": "d = extract_later_modified_comments(data)",
+                "93": "save_to_json(d, \"Toy-Example/analysis_results.json\")",
+                "94": "with open(\"Toy-Example/analysis_results.json\", \"r\") as json_file:",
+                "95": "    data = json.load(json_file)",
+                "96": "d = clean(data)",
+                "97": "save_to_json(d, \"Toy-Example/clean_analysis_results.json\")",
+                "98": "with open(\"Toy-Example/clean_analysis_results.json\", \"r\") as json_file:",
+                "99": "    data = json.load(json_file)",
+                "100": "d = classify_content(data)",
+                "101": "save_to_json(d, \"Toy-Example/clean_analysis_results2.json\")",
+                "102": "print(\"Average duration:\", average_comment_update_time(d))",
+                "103": "convert_json_to_xes(d, 'Toy-Example/output.xes')"
+            },
+            "comments": [
+                {
+                    "line": 14,
+                    "comment": "\"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 15,
+                    "comment": "    DOCSTRIING: Extracts the source code of a specific commit tagged in the repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 16,
+                    "comment": "",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 17,
+                    "comment": "    :param repo_path: Path to the local Git repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 18,
+                    "comment": "    :param tag_name: The name of the tag to fetch.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 19,
+                    "comment": "    :return: A dictionary containing file paths and their contents at the given commit.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 20,
+                    "comment": "    END DOCSTRING",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 21,
+                    "comment": "    \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                {
+                    "line": 27,
+                    "comment": "# NORMAL Save the file path and its source code",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 29,
+                    "comment": "# BLOCK: Multiple lines",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                {
+                    "line": 30,
+                    "comment": "# of comment",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                {
+                    "line": 33,
+                    "comment": "#INLINE: identify each block of data",
+                    "char_position_in_line": 122,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 36,
+                    "comment": "# print(commit) #COMMENTED-OUT",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 39,
+                    "comment": "# Example usage",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 50,
+                    "comment": "# # Paths",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                {
+                    "line": 64,
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 70,
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 78,
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                {
+                    "line": 83,
                     "comment": "# analyse_diff_comments(data)",
                     "char_position_in_line": 0,
                     "type": [

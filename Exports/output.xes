@@ -964,9 +964,89 @@
       <string key="line" value="103"/>
       <string key="content" value="                        if not is_code_in_block(block): # and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
       <string key="comment" value="# and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
-      <string key="type" value="['normal']"/>
+      <string key="type" value="['inline']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
       <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="6"/>
+      <string key="content" value="    &quot;&quot;&quot; some test docstring &quot;&quot;&quot;"/>
+      <string key="comment" value="&quot;&quot;&quot; some test docstring &quot;&quot;&quot;"/>
+      <string key="type" value="['docstring']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="87"/>
+      <string key="content" value="        # Store last modified timestamps for each line"/>
+      <string key="comment" value="# Store last modified timestamps for each line"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="90"/>
+      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
+      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
+      <string key="type" value="['commented-out']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="92"/>
+      <string key="content" value="            # Track modified lines"/>
+      <string key="comment" value="# Track modified lines"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="95"/>
+      <string key="content" value="            # Compare with comments"/>
+      <string key="comment" value="# Compare with comments"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="99"/>
+      <string key="content" value="                # TODO investigate why line is null"/>
+      <string key="comment" value="# TODO investigate why line is null"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="102"/>
+      <string key="content" value="                        # Where there are comment changes and no source code changes in block"/>
+      <string key="comment" value="# Where there are comment changes and no source code changes in block"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="103"/>
+      <string key="content" value="                        if not is_code_in_block(block): # and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
+      <string key="comment" value="# and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
+      <string key="type" value="['inline']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="138"/>
+      <string key="content" value="            &quot;content&quot;: data[i][&quot;content&quot;], # Cheeky inline comment"/>
+      <string key="comment" value="# Cheeky inline comment"/>
+      <string key="type" value="['inline']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-25 11:26:40+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="139"/>
+      <string key="content" value="            &quot;comment&quot;: data[i][&quot;comment&quot;], # Cheeky 2 inline comment"/>
+      <string key="comment" value="# Cheeky 2 inline comment"/>
+      <string key="type" value="['inline']"/>
+      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
+      <date key="last_code_change_time" value="2024-11-28 10:16:59+01:00"/>
     </event>
   </trace>
   <trace>

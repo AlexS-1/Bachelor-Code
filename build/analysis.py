@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import tokenize
 from io import StringIO
+import re
 
 def analyse_diff_comments(data):
     """ some test docstring """
@@ -189,8 +190,8 @@ def is_potential_code(text):
 
 def classify_content(data):
     for item in data:
-        if "normal" in item["type"]:
+        if "normal" or "block" in item["type"]:
             line = item["content"]
-            if bool(line.split("#")[0].strip()) and is_potential_code(line.split("#")[0]):
-                item["type"].append("inline")
+            if line.find("#") != -1 and line.split("#")[0].strip() != "":
+                item["type"] = ["inline"]
     return data
