@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 from datetime import datetime, timezone
+from build.analysis import classify_comments
 
 def run_comment_lister(repo_path, jar_path, tag="-target=HEAD"):
     try:
@@ -28,6 +29,7 @@ def filter_comments_by_time(commit_data, start_time, end_time):
             i = 0
             while not error:
                 try:
+                    type = classify_comments(contents[str(i)]["Text"])
                     split_comment_lines = contents[str(i)]["Text"].split("\n")
                     # print("Have to split comments:", split_comment_lines)
                     if len(split_comment_lines) > 1:
@@ -38,7 +40,8 @@ def filter_comments_by_time(commit_data, start_time, end_time):
                             comment_data = {
                                 "line": initial_line + j,
                                 "comment": comment,
-                                "char_position_in_line": contents[str(i)]["CharPositionInLine"]
+                                "char_position_in_line": contents[str(i)]["CharPositionInLine"],
+                                "type": type
                             }
                             j += 1
                             filtered_comments[filename].append(comment_data)
@@ -46,7 +49,8 @@ def filter_comments_by_time(commit_data, start_time, end_time):
                         comment_data = {
                             "line": contents[str(i)]["Line"],
                             "comment": contents[str(i)]["Text"],
-                            "char_position_in_line": contents[str(i)]["CharPositionInLine"]
+                            "char_position_in_line": contents[str(i)]["CharPositionInLine"],
+                            "type": type
                         }
                         filtered_comments[filename].append(comment_data)
                 except KeyError as e:

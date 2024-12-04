@@ -4,6 +4,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -12,6 +15,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -20,6 +26,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -28,6 +37,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -36,6 +48,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -44,6 +59,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -52,6 +70,9 @@
         "line": 52,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -60,6 +81,9 @@
         "line": 53,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -68,6 +92,9 @@
         "line": 54,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -76,6 +103,9 @@
         "line": 55,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -84,6 +114,9 @@
         "line": 61,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -92,6 +125,9 @@
         "line": 62,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -100,6 +136,9 @@
         "line": 75,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -108,6 +147,9 @@
         "line": 88,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -116,6 +158,9 @@
         "line": 93,
         "content": "    # Create a new EventLog object",
         "comment": "# Create a new EventLog object",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -124,6 +169,9 @@
         "line": 96,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -132,6 +180,9 @@
         "line": 134,
         "content": "    # Load the previously saved commit data JSON file",
         "comment": "# Load the previously saved commit data JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -140,6 +191,9 @@
         "line": 138,
         "content": "    # Create the XES log from the commit data",
         "comment": "# Create the XES log from the commit data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-16 20:51:56+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -148,6 +202,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -156,6 +213,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -164,6 +224,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -172,6 +235,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -180,6 +246,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -188,6 +257,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -196,6 +268,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -204,6 +279,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -212,6 +290,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -220,6 +301,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -228,6 +312,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -236,6 +323,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -244,6 +334,9 @@
         "line": 53,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -252,6 +345,9 @@
         "line": 53,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -260,6 +356,9 @@
         "line": 54,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -268,6 +367,9 @@
         "line": 54,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -276,6 +378,9 @@
         "line": 55,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -284,6 +389,9 @@
         "line": 55,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -292,6 +400,9 @@
         "line": 56,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -300,6 +411,9 @@
         "line": 56,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -308,6 +422,9 @@
         "line": 62,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -316,6 +433,9 @@
         "line": 62,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -324,6 +444,9 @@
         "line": 63,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -332,6 +455,9 @@
         "line": 63,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -340,6 +466,9 @@
         "line": 76,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -348,6 +477,9 @@
         "line": 76,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -356,6 +488,9 @@
         "line": 122,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 20:51:56+01:00"
     },
@@ -364,6 +499,9 @@
         "line": 122,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 20:51:56+01:00"
     },
@@ -372,6 +510,9 @@
         "line": 131,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-17 16:33:10+01:00"
     },
@@ -380,6 +521,9 @@
         "line": 131,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-17 16:33:10+01:00"
     },
@@ -388,6 +532,9 @@
         "line": 133,
         "content": "        # Create a trace for the file",
         "comment": "# Create a trace for the file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 20:51:56+01:00"
     },
@@ -396,6 +543,9 @@
         "line": 133,
         "content": "        # Create a trace for the file",
         "comment": "# Create a trace for the file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 20:51:56+01:00"
     },
@@ -404,6 +554,9 @@
         "line": 138,
         "content": "            # Extract event attributes",
         "comment": "# Extract event attributes",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -412,6 +565,9 @@
         "line": 138,
         "content": "            # Extract event attributes",
         "comment": "# Extract event attributes",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-18 10:51:21+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -420,6 +576,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -428,6 +587,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -436,6 +598,9 @@
         "line": 9,
         "content": "    # This will hold the data for each file and its changes across commits",
         "comment": "# This will hold the data for each file and its changes across commits",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -444,6 +609,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -452,6 +620,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -460,6 +631,9 @@
         "line": 12,
         "content": "    # Analysis range",
         "comment": "# Analysis range",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -468,6 +642,9 @@
         "line": 13,
         "content": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)",
         "comment": "# dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -476,6 +653,9 @@
         "line": 13,
         "content": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)",
         "comment": "# dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -484,6 +664,9 @@
         "line": 13,
         "content": "    # dt1 = datetime(2022, 10, 8, 17, 0, 0)",
         "comment": "# dt1 = datetime(2022, 10, 8, 17, 0, 0)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -492,6 +675,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -500,6 +686,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -508,6 +697,9 @@
         "line": 16,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -516,6 +708,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -524,6 +719,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -532,6 +730,9 @@
         "line": 17,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -540,6 +741,9 @@
         "line": 20,
         "content": "    # since=dt1,",
         "comment": "# since=dt1,",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -548,6 +752,9 @@
         "line": 20,
         "content": "    # since=dt1,",
         "comment": "# since=dt1,",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -556,6 +763,9 @@
         "line": 20,
         "content": "    # since=dt1,",
         "comment": "# since=dt1,",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -564,6 +774,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -572,6 +785,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -580,6 +796,9 @@
         "line": 22,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -588,6 +807,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -596,6 +818,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -604,6 +829,9 @@
         "line": 24,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -612,6 +840,9 @@
         "line": 52,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -620,6 +851,9 @@
         "line": 52,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -628,6 +862,9 @@
         "line": 52,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -636,6 +873,9 @@
         "line": 53,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -644,6 +884,9 @@
         "line": 53,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -652,6 +895,9 @@
         "line": 53,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -660,6 +906,9 @@
         "line": 54,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -668,6 +917,9 @@
         "line": 54,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -676,6 +928,9 @@
         "line": 54,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -684,6 +939,9 @@
         "line": 55,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -692,6 +950,9 @@
         "line": 55,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -700,6 +961,9 @@
         "line": 55,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -708,6 +972,9 @@
         "line": 61,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -716,6 +983,9 @@
         "line": 61,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -724,6 +994,9 @@
         "line": 61,
         "content": "    # This function can use NLP techniques or simple keyword extraction",
         "comment": "# This function can use NLP techniques or simple keyword extraction",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -732,6 +1005,9 @@
         "line": 62,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -740,6 +1016,9 @@
         "line": 62,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -748,6 +1027,9 @@
         "line": 62,
         "content": "    # Here, a simplified approach is used: basic keywords based on the commit message",
         "comment": "# Here, a simplified approach is used: basic keywords based on the commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -756,6 +1038,9 @@
         "line": 75,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -764,6 +1049,9 @@
         "line": 75,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -772,6 +1060,9 @@
         "line": 75,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -780,6 +1071,9 @@
         "line": 97,
         "content": "                            # In case of comment add them to existing dict if they directly follow",
         "comment": "# In case of comment add them to existing dict if they directly follow",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -788,6 +1082,9 @@
         "line": 97,
         "content": "                            # In case of comment add them to existing dict if they directly follow",
         "comment": "# In case of comment add them to existing dict if they directly follow",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -796,6 +1093,9 @@
         "line": 97,
         "content": "                            # In case of comment add them to existing dict if they directly follow",
         "comment": "# In case of comment add them to existing dict if they directly follow",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -804,6 +1104,9 @@
         "line": 109,
         "content": "                            # or create new one",
         "comment": "# or create new one",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -812,6 +1115,9 @@
         "line": 109,
         "content": "                            # or create new one",
         "comment": "# or create new one",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -820,6 +1126,9 @@
         "line": 109,
         "content": "                            # or create new one",
         "comment": "# or create new one",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -828,6 +1137,9 @@
         "line": 133,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -836,6 +1148,9 @@
         "line": 133,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -844,6 +1159,9 @@
         "line": 133,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -852,6 +1170,9 @@
         "line": 140,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -860,6 +1181,9 @@
         "line": 140,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -868,6 +1192,9 @@
         "line": 140,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -876,6 +1203,9 @@
         "line": 148,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -884,6 +1214,9 @@
         "line": 148,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -892,6 +1225,9 @@
         "line": 148,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -900,6 +1236,9 @@
         "line": 167,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -908,6 +1247,9 @@
         "line": 167,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -916,6 +1258,9 @@
         "line": 167,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -924,6 +1269,9 @@
         "line": 176,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -932,6 +1280,9 @@
         "line": 176,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -940,6 +1291,9 @@
         "line": 176,
         "content": "    # Iterate over each commit entry in the data",
         "comment": "# Iterate over each commit entry in the data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -948,6 +1302,9 @@
         "line": 213,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -956,6 +1313,9 @@
         "line": 213,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -964,6 +1324,9 @@
         "line": 213,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -972,6 +1335,10 @@
         "line": 220,
         "content": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
         "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -980,6 +1347,10 @@
         "line": 220,
         "content": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
         "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -988,6 +1359,10 @@
         "line": 220,
         "content": "    # save_to_json(commits_data, \"Data/commits_data.json\")",
         "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -996,6 +1371,10 @@
         "line": 221,
         "content": "    # save_to_xes(commits_data, \"Data/commits_data.xes\")",
         "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1004,6 +1383,10 @@
         "line": 221,
         "content": "    # save_to_xes(commits_data, \"Data/commits_data.xes\")",
         "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1012,6 +1395,10 @@
         "line": 221,
         "content": "    # save_to_xes(commits_data, \"Data/commits_data.xes\")",
         "comment": "# save_to_xes(commits_data, \"Data/commits_data.xes\")",
+        "type": [
+            "commented-out",
+            "block"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1020,6 +1407,9 @@
         "line": 229,
         "content": "    # Test case",
         "comment": "# Test case",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1028,6 +1418,9 @@
         "line": 229,
         "content": "    # Test case",
         "comment": "# Test case",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1036,6 +1429,9 @@
         "line": 229,
         "content": "    # Test case",
         "comment": "# Test case",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 15:32:58+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1044,6 +1440,9 @@
         "line": 10,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -1052,6 +1451,9 @@
         "line": 10,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -1060,6 +1462,9 @@
         "line": 11,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1068,6 +1473,9 @@
         "line": 11,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1076,6 +1484,9 @@
         "line": 20,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 17:09:41+01:00"
     },
@@ -1084,6 +1495,9 @@
         "line": 20,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 17:09:41+01:00"
     },
@@ -1092,6 +1506,9 @@
         "line": 22,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1100,6 +1517,9 @@
         "line": 22,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1108,6 +1528,9 @@
         "line": 68,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1116,6 +1539,9 @@
         "line": 68,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1124,6 +1550,9 @@
         "line": 69,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1132,6 +1561,9 @@
         "line": 69,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1140,6 +1572,9 @@
         "line": 70,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1148,6 +1583,9 @@
         "line": 70,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1156,6 +1594,9 @@
         "line": 71,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1164,6 +1605,9 @@
         "line": 71,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1172,6 +1616,9 @@
         "line": 90,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1180,6 +1627,9 @@
         "line": 90,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1188,6 +1638,9 @@
         "line": 152,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1196,6 +1649,9 @@
         "line": 152,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1204,6 +1660,9 @@
         "line": 155,
         "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1212,6 +1671,9 @@
         "line": 155,
         "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1220,6 +1682,9 @@
         "line": 157,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1228,6 +1693,9 @@
         "line": 157,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1236,6 +1704,9 @@
         "line": 162,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1244,6 +1715,9 @@
         "line": 162,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1252,6 +1726,9 @@
         "line": 180,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1260,6 +1737,9 @@
         "line": 180,
         "content": "    # Save the processed commit data to a JSON file",
         "comment": "# Save the processed commit data to a JSON file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1268,6 +1748,9 @@
         "line": 213,
         "content": "        # Add the trace to the log",
         "comment": "# Add the trace to the log",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1276,6 +1759,9 @@
         "line": 213,
         "content": "        # Add the trace to the log",
         "comment": "# Add the trace to the log",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1284,6 +1770,9 @@
         "line": 219,
         "content": "    # Export the log to an XES file",
         "comment": "# Export the log to an XES file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1292,6 +1781,9 @@
         "line": 219,
         "content": "    # Export the log to an XES file",
         "comment": "# Export the log to an XES file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1300,6 +1792,9 @@
         "line": 223,
         "content": "    # Create the XES log from the commit data",
         "comment": "# Create the XES log from the commit data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1308,6 +1803,9 @@
         "line": 223,
         "content": "    # Create the XES log from the commit data",
         "comment": "# Create the XES log from the commit data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1316,6 +1814,9 @@
         "line": 226,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1324,6 +1825,9 @@
         "line": 226,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 17:28:53+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1332,6 +1836,9 @@
         "line": 10,
         "content": "    # Traverse through the commits in the repository",
         "comment": "# Traverse through the commits in the repository",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-16 19:39:45+01:00"
     },
@@ -1340,6 +1847,9 @@
         "line": 11,
         "content": "    # Only save commits, that contain at least one file of the format {language_file_extension}",
         "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1348,6 +1858,9 @@
         "line": 20,
         "content": "        # Analyze each file modified in the commit",
         "comment": "# Analyze each file modified in the commit",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:09:41+01:00"
     },
@@ -1356,6 +1869,9 @@
         "line": 22,
         "content": "            # only store file data for Rust files",
         "comment": "# only store file data for Rust files",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1364,6 +1880,9 @@
         "line": 40,
         "content": "                # For added diff ispect lines filter out comments",
         "comment": "# For added diff ispect lines filter out comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1372,6 +1891,9 @@
         "line": 51,
         "content": "                # For deleted diff ispect lines filter out comments",
         "comment": "# For deleted diff ispect lines filter out comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1380,6 +1902,9 @@
         "line": 68,
         "content": "                # Generate keywords based on the commit message and type of changes",
         "comment": "# Generate keywords based on the commit message and type of changes",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1388,6 +1913,9 @@
         "line": 69,
         "content": "                # file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
         "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1396,6 +1924,9 @@
         "line": 70,
         "content": "                # Extract type of commit from commit message",
         "comment": "# Extract type of commit from commit message",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1404,6 +1935,9 @@
         "line": 71,
         "content": "                # file_data[\"activity\"] = extract_activity(commit.msg)",
         "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+        "type": [
+            "block"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-10-24 15:08:06+02:00"
     },
@@ -1412,6 +1946,9 @@
         "line": 77,
         "content": "    # Determine basic keywords based on the commit message",
         "comment": "# Determine basic keywords based on the commit message",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1420,6 +1957,9 @@
         "line": 90,
         "content": "    # Use commit message keywords to determine activity type",
         "comment": "# Use commit message keywords to determine activity type",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1428,6 +1968,9 @@
         "line": 112,
         "content": "                # Set current line for each analysis",
         "comment": "# Set current line for each analysis",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1436,6 +1979,9 @@
         "line": 116,
         "content": "                    # In case of a starting multiline comment start adding future lines without comment symbol ",
         "comment": "# In case of a starting multiline comment start adding future lines without comment symbol ",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1444,6 +1990,9 @@
         "line": 119,
         "content": "                    # In case of comment add them to existing dict if they directly follow",
         "comment": "# In case of comment add them to existing dict if they directly follow",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1452,6 +2001,9 @@
         "line": 131,
         "content": "                    # or create new one",
         "comment": "# or create new one",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:28:53+01:00"
     },
@@ -1460,6 +2012,9 @@
         "line": 136,
         "content": "                    # In case of no comment add lines to existing dict if line number directly follows",
         "comment": "# In case of no comment add lines to existing dict if line number directly follows",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1468,6 +2023,9 @@
         "line": 143,
         "content": "                    # Or create new one",
         "comment": "# Or create new one",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 17:09:41+01:00"
     },
@@ -1476,6 +2034,9 @@
         "line": 148,
         "content": "                    # Disable multiline comments when symbol found",
         "comment": "# Disable multiline comments when symbol found",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1484,6 +2045,9 @@
         "line": 158,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1492,6 +2056,9 @@
         "line": 161,
         "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1500,6 +2067,9 @@
         "line": 163,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1508,6 +2078,9 @@
         "line": 168,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 10:51:21+01:00"
     },
@@ -1516,6 +2089,9 @@
         "line": 216,
         "content": "            # Add the event to the trace",
         "comment": "# Add the event to the trace",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1524,6 +2100,9 @@
         "line": 219,
         "content": "        # Add the trace to the log",
         "comment": "# Add the trace to the log",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1532,6 +2111,9 @@
         "line": 225,
         "content": "    # Export the log to an XES file",
         "comment": "# Export the log to an XES file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1540,6 +2122,9 @@
         "line": 229,
         "content": "    # Create the XES log from the commit data",
         "comment": "# Create the XES log from the commit data",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-18 15:19:19+01:00"
     },
@@ -1548,6 +2133,9 @@
         "line": 232,
         "content": "    # Save the XES log to a file",
         "comment": "# Save the XES log to a file",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-19 18:23:46+01:00",
         "last_code_change_time": "2024-11-19 15:32:58+01:00"
     },
@@ -1556,6 +2144,9 @@
         "line": 1,
         "content": "# Import modules",
         "comment": "# Import modules",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1564,6 +2155,9 @@
         "line": 7,
         "content": "# Import packages",
         "comment": "# Import packages",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1572,6 +2166,9 @@
         "line": 44,
         "content": "            # Parse output as JSON",
         "comment": "# Parse output as JSON",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1580,6 +2177,9 @@
         "line": 50,
         "content": "            # Filter comments by time",
         "comment": "# Filter comments by time",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1588,6 +2188,9 @@
         "line": 53,
         "content": "    # Save filtered comments on your system",
         "comment": "# Save filtered comments on your system",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-11-23 21:32:59+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1596,6 +2199,9 @@
         "line": 1,
         "content": "# Import modules",
         "comment": "# Import modules",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1604,6 +2210,9 @@
         "line": 8,
         "content": "# Import packages",
         "comment": "# Import packages",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-21 21:30:11+01:00"
     },
@@ -1612,6 +2221,9 @@
         "line": 87,
         "content": "        # Store last modified timestamps for each line",
         "comment": "# Store last modified timestamps for each line",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-24 18:37:49+01:00"
     },
@@ -1620,6 +2232,9 @@
         "line": 90,
         "content": "            # print(\"Starting to analyse commit: \", commit[\"commit\"])",
         "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+        "type": [
+            "commented-out"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-25 02:54:47+01:00"
     },
@@ -1628,6 +2243,9 @@
         "line": 92,
         "content": "            # Track modified lines",
         "comment": "# Track modified lines",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-24 18:37:49+01:00"
     },
@@ -1636,6 +2254,9 @@
         "line": 95,
         "content": "            # Compare with comments",
         "comment": "# Compare with comments",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-24 18:37:49+01:00"
     },
@@ -1644,6 +2265,9 @@
         "line": 102,
         "content": "                        # Where there are comment changes and no source code changes in block",
         "comment": "# Where there are comment changes and no source code changes in block",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-25 02:54:47+01:00"
     },
@@ -1652,7 +2276,82 @@
         "line": 103,
         "content": "                        if not is_code_in_block(block): # and block[line[\"line\"]][\"comment_index\"] != -1:",
         "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+        "type": [
+            "normal"
+        ],
         "comment_time": "2024-12-04 00:35:22+01:00",
         "last_code_change_time": "2024-11-25 02:54:47+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 14,
+        "content": "    \"\"\"",
+        "comment": "\"\"\"",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 16,
+        "content": "",
+        "comment": "",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 17,
+        "content": "    :param repo_path: Path to the local Git repository.",
+        "comment": "    :param repo_path: Path to the local Git repository.",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 18,
+        "content": "    :param tag_name: The name of the tag to fetch.",
+        "comment": "    :param tag_name: The name of the tag to fetch.",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 19,
+        "content": "    :return: A dictionary containing file paths and their contents at the given commit.",
+        "comment": "    :return: A dictionary containing file paths and their contents at the given commit.",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
+    },
+    {
+        "file": "test.py",
+        "line": 21,
+        "content": "    \"\"\"",
+        "comment": "    \"\"\"",
+        "type": [
+            "block",
+            "docstring"
+        ],
+        "comment_time": "2024-12-04 14:36:49+01:00",
+        "last_code_change_time": "2024-12-04 00:35:22+01:00"
     }
 ]

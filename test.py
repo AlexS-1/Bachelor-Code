@@ -3,7 +3,7 @@ import json
 from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
-from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments
+from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content
 from build.xes_conversion import convert_json_to_xes
 from datetime import datetime, timezone
 import os
@@ -34,14 +34,13 @@ def get_source_code_from_tag(repo_path, tag_name, dt1, dt2):
                     }
                     source_code.append(comit)
                     # print(commit) #COMMENTED-OUT
-
-    return source_code
+    return source_code  
 
 # Example usage
 repo_url = "https://github.com/AlexS-1/Bachelor-Code"
 tag_name = "a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e"
 start_time = datetime(2024,12,3)
-end_time = datetime(2024,12,4)
+end_time = datetime.today()
 repo_name = os.path.basename(repo_url).replace(".git", "")
 temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
 clone_path = os.path.join(temp_dir, repo_name)
@@ -53,9 +52,9 @@ repo_path = clone_path
 jar_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar"
 file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
 
-commits_data = get_commits_data(repo_path, start_time, end_time, file_types)
+commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)
 save_to_json(commits_data, "Toy-Example/commits_data.json")
-with open ("Toy-Example/commits_data.json", "r") as json_file:
+with open ("Toy-Example/commits_data.json", "r") as json_file: 
         commits_data = json.load(json_file)
 
 for file, commits in commits_data.items():
@@ -79,7 +78,7 @@ for file, commits in commits_data.items():
 # Save filtered comments on your system
 save_to_json(commits_data, "Toy-Example/filtered_commits_data.json")
 shutil.rmtree(clone_path)
-with open("Data/filtered_commits_data.json", "r") as json_file:
+with open("Toy-Example/filtered_commits_data.json", "r") as json_file:
     data = json.load(json_file)
 # analyse_diff_comments(data)
 blockify_comments(data)
@@ -98,7 +97,7 @@ d = clean(data)
 save_to_json(d, "Toy-Example/clean_analysis_results.json")
 with open("Toy-Example/clean_analysis_results.json", "r") as json_file:
     data = json.load(json_file)
-d = classify_comments(data)
+d = classify_content(data)
 save_to_json(d, "Toy-Example/clean_analysis_results2.json")
 print("Average duration:", average_comment_update_time(d))
 convert_json_to_xes(d, 'Toy-Example/output.xes')

@@ -2,7 +2,7 @@
 from build.pydriller import get_commits_data
 from build.comment_lister import run_comment_lister, filter_comments_by_time
 from build.utils import save_to_json
-from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments
+from build.analysis import analyse_diff_comments, blockify_comments, blockify_comments2, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content
 from build.xes_conversion import convert_json_to_xes
 
 # Import packages
@@ -78,7 +78,7 @@ def main():
     save_to_json(d, "Exports/clean_analysis_results.json")
     with open("Exports/clean_analysis_results.json", "r") as json_file:
         data = json.load(json_file)
-    d = classify_comments(data)
+    d = classify_content(data)
     save_to_json(d, "Exports/clean_analysis_results2.json")
     print("Average duration:", average_comment_update_time(d))
     convert_json_to_xes(d, 'Exports/output.xes')
