@@ -33,9 +33,9 @@ def main():
     file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
 
     commits_data = get_commits_data(repo_path, start_time, end_time, file_types)
-    save_to_json(commits_data, "Data/commits_data.json")
+    save_to_json(commits_data, "Data/code_data.json")
     
-    with open ("Data/commits_data.json", "r") as json_file:
+    with open ("Data/code_data.json", "r") as json_file:
         commits_data = json.load(json_file)
 
     for file, commits in commits_data.items():
@@ -53,15 +53,17 @@ def main():
             if commit["commit"] == commit_hash and file in filtered_comments.keys():
                 commit["comments"] = filtered_comments[file]
             else:
-                print("mismatch in commit and comment data or no comments in this commit for investigatet file")
-                print("file could have been deleted")
+                print("mismatch in commit and comment data")
+                print("No comments in this Commit", commit["commit"], "for investigate file", file)
                 commit["comments"] = {}
     # Save filtered comments on your system
-    save_to_json(commits_data, "Data/filtered_commits_data.json")
+    save_to_json(commits_data, "Data/code_data.json")
     shutil.rmtree(clone_path)
-    with open("Data/filtered_commits_data.json", "r") as json_file:
+
+    with open("Data/code_data.json", "r") as json_file:
         data = json.load(json_file)
-    # analyse_diff_comments(data)
+    analyse_diff_comments(data)
+    save_to_json(data, "Exports/diff_comments.json")
     blockify_comments(data)
     save_to_json(data, "Exports/blockified_comments_data.json")
     with open("Exports/blockified_comments_data.json", "r") as json_file:
@@ -84,4 +86,14 @@ def main():
     convert_json_to_xes(d, 'Exports/output.xes')
 
 if __name__ == "__main__":
-    main()
+    repo_url = "https://github.com/AlexS-1/Bachelor-Code"
+    repo_name = os.path.basename(repo_url).replace(".git", "")
+    temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
+    clone_path = os.path.join(temp_dir, repo_name)
+    jar_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar"
+    tag = "f73512c4aa778287e31d18e9d218502acf7479ee" # "1061293a43b0788f9db921ae6fc61734ccdf1b8d"
+    subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
+    data = run_comment_lister(clone_path, jar_path, tag)
+    shutil.rmtree(clone_path)
+    print("DATA: ", data)
+    # main()

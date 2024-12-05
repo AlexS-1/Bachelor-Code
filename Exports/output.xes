@@ -1,1052 +1,201 @@
 <?xml version="1.0" ?>
 <log xmlns="http://www.xes-standard.org/" xes.version="1.0" xes.features="nested-attributes">
   <trace>
-    <string key="concept:name" value="build/XESConversion.py"/>
+    <string key="concept:name" value="build/analysis.py"/>
     <event>
-      <string key="line" value="9"/>
-      <string key="content" value="    # This will hold the data for each file and its changes across commits"/>
-      <string key="comment" value="# This will hold the data for each file and its changes across commits"/>
+      <string key="line" value="19"/>
+      <string key="content" value="            # Ensure the gaps of deleted elements are artificially filled by increasing the shift"/>
+      <string key="comment" value="# Ensure the gaps of deleted elements are artificially filled by increasing the shift"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="12"/>
-      <string key="content" value="    # Analysis range"/>
-      <string key="comment" value="# Analysis range"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="16"/>
-      <string key="content" value="    # Traverse through the commits in the repository"/>
-      <string key="comment" value="# Traverse through the commits in the repository"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="17"/>
-      <string key="content" value="    # Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="comment" value="# Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="22"/>
-      <string key="content" value="        # Analyze each file modified in the commit"/>
-      <string key="comment" value="# Analyze each file modified in the commit"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="24"/>
-      <string key="content" value="            # only store file data for Rust files"/>
-      <string key="comment" value="# only store file data for Rust files"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="52"/>
-      <string key="content" value="                # Generate keywords based on the commit message and type of changes"/>
-      <string key="comment" value="# Generate keywords based on the commit message and type of changes"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="53"/>
-      <string key="content" value="                # file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="54"/>
-      <string key="content" value="                # Extract type of commit from commit message"/>
-      <string key="comment" value="# Extract type of commit from commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="55"/>
-      <string key="content" value="                # file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="61"/>
-      <string key="content" value="    # This function can use NLP techniques or simple keyword extraction"/>
-      <string key="comment" value="# This function can use NLP techniques or simple keyword extraction"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="62"/>
-      <string key="content" value="    # Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="comment" value="# Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="75"/>
-      <string key="content" value="    # Use commit message keywords to determine activity type"/>
-      <string key="comment" value="# Use commit message keywords to determine activity type"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="88"/>
-      <string key="content" value="    # Save the processed commit data to a JSON file"/>
-      <string key="comment" value="# Save the processed commit data to a JSON file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="93"/>
-      <string key="content" value="    # Create a new EventLog object"/>
-      <string key="comment" value="# Create a new EventLog object"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="96"/>
-      <string key="content" value="    # Iterate over each commit entry in the data"/>
-      <string key="comment" value="# Iterate over each commit entry in the data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="134"/>
-      <string key="content" value="    # Load the previously saved commit data JSON file"/>
-      <string key="comment" value="# Load the previously saved commit data JSON file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="138"/>
-      <string key="content" value="    # Create the XES log from the commit data"/>
-      <string key="comment" value="# Create the XES log from the commit data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-16 20:51:56+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="9"/>
-      <string key="content" value="    # This will hold the data for each file and its changes across commits"/>
-      <string key="comment" value="# This will hold the data for each file and its changes across commits"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="12"/>
-      <string key="content" value="    # Analysis range"/>
-      <string key="comment" value="# Analysis range"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="16"/>
-      <string key="content" value="    # Traverse through the commits in the repository"/>
-      <string key="comment" value="# Traverse through the commits in the repository"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="17"/>
-      <string key="content" value="    # Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="comment" value="# Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="22"/>
-      <string key="content" value="        # Analyze each file modified in the commit"/>
-      <string key="comment" value="# Analyze each file modified in the commit"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="24"/>
-      <string key="content" value="            # only store file data for Rust files"/>
-      <string key="comment" value="# only store file data for Rust files"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="53"/>
-      <string key="content" value="                # Generate keywords based on the commit message and type of changes"/>
-      <string key="comment" value="# Generate keywords based on the commit message and type of changes"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="54"/>
-      <string key="content" value="                # file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="55"/>
-      <string key="content" value="                # Extract type of commit from commit message"/>
-      <string key="comment" value="# Extract type of commit from commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="56"/>
-      <string key="content" value="                # file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="62"/>
-      <string key="content" value="    # This function can use NLP techniques or simple keyword extraction"/>
-      <string key="comment" value="# This function can use NLP techniques or simple keyword extraction"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="63"/>
-      <string key="content" value="    # Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="comment" value="# Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="76"/>
-      <string key="content" value="    # Use commit message keywords to determine activity type"/>
-      <string key="comment" value="# Use commit message keywords to determine activity type"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="122"/>
-      <string key="content" value="    # Save the processed commit data to a JSON file"/>
-      <string key="comment" value="# Save the processed commit data to a JSON file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 20:51:56+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="131"/>
-      <string key="content" value="    # Iterate over each commit entry in the data"/>
-      <string key="comment" value="# Iterate over each commit entry in the data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-17 16:33:10+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="133"/>
-      <string key="content" value="        # Create a trace for the file"/>
-      <string key="comment" value="# Create a trace for the file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 20:51:56+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="138"/>
-      <string key="content" value="            # Extract event attributes"/>
-      <string key="comment" value="# Extract event attributes"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-18 10:51:21+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="9"/>
-      <string key="content" value="    # This will hold the data for each file and its changes across commits"/>
-      <string key="comment" value="# This will hold the data for each file and its changes across commits"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="12"/>
-      <string key="content" value="    # Analysis range"/>
-      <string key="comment" value="# Analysis range"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="13"/>
-      <string key="content" value="    # dt1 = datetime(2022, 10, 8, 17, 0, 0)"/>
-      <string key="comment" value="# dt1 = datetime(2022, 10, 8, 17, 0, 0)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="16"/>
-      <string key="content" value="    # Traverse through the commits in the repository"/>
-      <string key="comment" value="# Traverse through the commits in the repository"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="17"/>
-      <string key="content" value="    # Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="comment" value="# Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="20"/>
-      <string key="content" value="    # since=dt1,"/>
-      <string key="comment" value="# since=dt1,"/>
-      <string key="type" value="['commented-out']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="22"/>
-      <string key="content" value="        # Analyze each file modified in the commit"/>
-      <string key="comment" value="# Analyze each file modified in the commit"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="24"/>
-      <string key="content" value="            # only store file data for Rust files"/>
-      <string key="comment" value="# only store file data for Rust files"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="52"/>
-      <string key="content" value="                # Generate keywords based on the commit message and type of changes"/>
-      <string key="comment" value="# Generate keywords based on the commit message and type of changes"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="53"/>
-      <string key="content" value="                # file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="54"/>
-      <string key="content" value="                # Extract type of commit from commit message"/>
-      <string key="comment" value="# Extract type of commit from commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="55"/>
-      <string key="content" value="                # file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="61"/>
-      <string key="content" value="    # This function can use NLP techniques or simple keyword extraction"/>
-      <string key="comment" value="# This function can use NLP techniques or simple keyword extraction"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="62"/>
-      <string key="content" value="    # Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="comment" value="# Here, a simplified approach is used: basic keywords based on the commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="75"/>
-      <string key="content" value="    # Use commit message keywords to determine activity type"/>
-      <string key="comment" value="# Use commit message keywords to determine activity type"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="97"/>
-      <string key="content" value="                            # In case of comment add them to existing dict if they directly follow"/>
-      <string key="comment" value="# In case of comment add them to existing dict if they directly follow"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="109"/>
-      <string key="content" value="                            # or create new one"/>
-      <string key="comment" value="# or create new one"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="133"/>
-      <string key="content" value="        # Store last modified timestamps for each line"/>
-      <string key="comment" value="# Store last modified timestamps for each line"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="140"/>
-      <string key="content" value="            # Track modified lines"/>
-      <string key="comment" value="# Track modified lines"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="148"/>
-      <string key="content" value="            # Compare with comments"/>
-      <string key="comment" value="# Compare with comments"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="167"/>
-      <string key="content" value="    # Save the processed commit data to a JSON file"/>
-      <string key="comment" value="# Save the processed commit data to a JSON file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="176"/>
-      <string key="content" value="    # Iterate over each commit entry in the data"/>
-      <string key="comment" value="# Iterate over each commit entry in the data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="213"/>
-      <string key="content" value="    # Save the XES log to a file"/>
-      <string key="comment" value="# Save the XES log to a file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="220"/>
-      <string key="content" value="    # save_to_json(commits_data, &quot;Data/commits_data.json&quot;)"/>
-      <string key="comment" value="# save_to_json(commits_data, &quot;Data/commits_data.json&quot;)"/>
-      <string key="type" value="['commented-out', 'block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="221"/>
-      <string key="content" value="    # save_to_xes(commits_data, &quot;Data/commits_data.xes&quot;)"/>
-      <string key="comment" value="# save_to_xes(commits_data, &quot;Data/commits_data.xes&quot;)"/>
-      <string key="type" value="['commented-out', 'block']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="229"/>
-      <string key="content" value="    # Test case"/>
-      <string key="comment" value="# Test case"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 15:32:58+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="10"/>
-      <string key="content" value="    # Traverse through the commits in the repository"/>
-      <string key="comment" value="# Traverse through the commits in the repository"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="11"/>
-      <string key="content" value="    # Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="comment" value="# Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="20"/>
-      <string key="content" value="        # Analyze each file modified in the commit"/>
-      <string key="comment" value="# Analyze each file modified in the commit"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:09:41+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="22"/>
-      <string key="content" value="            # only store file data for Rust files"/>
-      <string key="comment" value="# only store file data for Rust files"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="68"/>
-      <string key="content" value="                # Generate keywords based on the commit message and type of changes"/>
-      <string key="comment" value="# Generate keywords based on the commit message and type of changes"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="69"/>
-      <string key="content" value="                # file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="70"/>
-      <string key="content" value="                # Extract type of commit from commit message"/>
-      <string key="comment" value="# Extract type of commit from commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="71"/>
-      <string key="content" value="                # file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="90"/>
-      <string key="content" value="    # Use commit message keywords to determine activity type"/>
-      <string key="comment" value="# Use commit message keywords to determine activity type"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="152"/>
-      <string key="content" value="        # Store last modified timestamps for each line"/>
-      <string key="comment" value="# Store last modified timestamps for each line"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="155"/>
-      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="type" value="['commented-out']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="157"/>
-      <string key="content" value="            # Track modified lines"/>
-      <string key="comment" value="# Track modified lines"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="162"/>
-      <string key="content" value="            # Compare with comments"/>
-      <string key="comment" value="# Compare with comments"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="180"/>
-      <string key="content" value="    # Save the processed commit data to a JSON file"/>
-      <string key="comment" value="# Save the processed commit data to a JSON file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="213"/>
-      <string key="content" value="        # Add the trace to the log"/>
-      <string key="comment" value="# Add the trace to the log"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="219"/>
-      <string key="content" value="    # Export the log to an XES file"/>
-      <string key="comment" value="# Export the log to an XES file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="223"/>
-      <string key="content" value="    # Create the XES log from the commit data"/>
-      <string key="comment" value="# Create the XES log from the commit data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="226"/>
-      <string key="content" value="    # Save the XES log to a file"/>
-      <string key="comment" value="# Save the XES log to a file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 17:28:53+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="10"/>
-      <string key="content" value="    # Traverse through the commits in the repository"/>
-      <string key="comment" value="# Traverse through the commits in the repository"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-16 19:39:45+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="11"/>
-      <string key="content" value="    # Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="comment" value="# Only save commits, that contain at least one file of the format {language_file_extension}"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="20"/>
-      <string key="content" value="        # Analyze each file modified in the commit"/>
-      <string key="comment" value="# Analyze each file modified in the commit"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:09:41+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="22"/>
-      <string key="content" value="            # only store file data for Rust files"/>
-      <string key="comment" value="# only store file data for Rust files"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="40"/>
-      <string key="content" value="                # For added diff ispect lines filter out comments"/>
-      <string key="comment" value="# For added diff ispect lines filter out comments"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="51"/>
-      <string key="content" value="                # For deleted diff ispect lines filter out comments"/>
-      <string key="comment" value="# For deleted diff ispect lines filter out comments"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="68"/>
-      <string key="content" value="                # Generate keywords based on the commit message and type of changes"/>
-      <string key="comment" value="# Generate keywords based on the commit message and type of changes"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="69"/>
-      <string key="content" value="                # file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="comment" value="# file_data[&quot;keywords&quot;] = extract_keywords(commit.msg, modified_file)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="70"/>
-      <string key="content" value="                # Extract type of commit from commit message"/>
-      <string key="comment" value="# Extract type of commit from commit message"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="71"/>
-      <string key="content" value="                # file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="comment" value="# file_data[&quot;activity&quot;] = extract_activity(commit.msg)"/>
-      <string key="type" value="['block']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-10-24 15:08:06+02:00"/>
-    </event>
-    <event>
-      <string key="line" value="77"/>
-      <string key="content" value="    # Determine basic keywords based on the commit message"/>
-      <string key="comment" value="# Determine basic keywords based on the commit message"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="90"/>
-      <string key="content" value="    # Use commit message keywords to determine activity type"/>
-      <string key="comment" value="# Use commit message keywords to determine activity type"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="112"/>
-      <string key="content" value="                # Set current line for each analysis"/>
-      <string key="comment" value="# Set current line for each analysis"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="116"/>
-      <string key="content" value="                    # In case of a starting multiline comment start adding future lines without comment symbol "/>
-      <string key="comment" value="# In case of a starting multiline comment start adding future lines without comment symbol "/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="119"/>
-      <string key="content" value="                    # In case of comment add them to existing dict if they directly follow"/>
-      <string key="comment" value="# In case of comment add them to existing dict if they directly follow"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="131"/>
-      <string key="content" value="                    # or create new one"/>
-      <string key="comment" value="# or create new one"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:28:53+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="136"/>
-      <string key="content" value="                    # In case of no comment add lines to existing dict if line number directly follows"/>
-      <string key="comment" value="# In case of no comment add lines to existing dict if line number directly follows"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="143"/>
-      <string key="content" value="                    # Or create new one"/>
-      <string key="comment" value="# Or create new one"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 17:09:41+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="148"/>
-      <string key="content" value="                    # Disable multiline comments when symbol found"/>
-      <string key="comment" value="# Disable multiline comments when symbol found"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="158"/>
-      <string key="content" value="        # Store last modified timestamps for each line"/>
-      <string key="comment" value="# Store last modified timestamps for each line"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="161"/>
-      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="type" value="['commented-out']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="163"/>
-      <string key="content" value="            # Track modified lines"/>
-      <string key="comment" value="# Track modified lines"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="168"/>
-      <string key="content" value="            # Compare with comments"/>
-      <string key="comment" value="# Compare with comments"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 10:51:21+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="216"/>
-      <string key="content" value="            # Add the event to the trace"/>
-      <string key="comment" value="# Add the event to the trace"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="219"/>
-      <string key="content" value="        # Add the trace to the log"/>
-      <string key="comment" value="# Add the trace to the log"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="225"/>
-      <string key="content" value="    # Export the log to an XES file"/>
-      <string key="comment" value="# Export the log to an XES file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="229"/>
-      <string key="content" value="    # Create the XES log from the commit data"/>
-      <string key="comment" value="# Create the XES log from the commit data"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-18 15:19:19+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="232"/>
-      <string key="content" value="    # Save the XES log to a file"/>
-      <string key="comment" value="# Save the XES log to a file"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-19 18:23:46+01:00"/>
-      <date key="last_code_change_time" value="2024-11-19 15:32:58+01:00"/>
+      <date key="comment_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="last_code_change_time" value="2024-11-23 21:32:59+01:00"/>
     </event>
   </trace>
   <trace>
-    <string key="concept:name" value="main.py"/>
+    <string key="concept:name" value="build/xes_conversion.py"/>
     <event>
-      <string key="line" value="1"/>
-      <string key="content" value="# Import modules"/>
-      <string key="comment" value="# Import modules"/>
+      <string key="line" value="12"/>
+      <string key="content" value="                    commit[&quot;comments&quot;][i][&quot;edit&quot;] = &quot;added&quot;"/>
+      <string key="comment" value="# Group by file (caseID)"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="7"/>
-      <string key="content" value="# Import packages"/>
-      <string key="comment" value="# Import packages"/>
+      <string key="line" value="20"/>
+      <string key="content" value="                        continue"/>
+      <string key="comment" value="# Create traces (cases)"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="24"/>
+      <string key="content" value="            for j in no_change_comments:"/>
+      <string key="comment" value="# Add caseID as attribute"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="29"/>
+      <string key="content" value="    return"/>
+      <string key="comment" value="# Add events to the trace"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="33"/>
+      <string key="content" value="        for commit in commits:"/>
+      <string key="comment" value="# Add attributes for the event"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="35"/>
+      <string key="content" value="            for block in commit[&quot;diff&quot;][&quot;block_diff&quot;]:"/>
+      <string key="comment" value="# Skip the file as it's used as caseID"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="39"/>
+      <string key="content" value="                        if int(line) == item[&quot;line&quot;]:"/>
+      <string key="comment" value="# Use date type for time fields"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
       <string key="line" value="44"/>
-      <string key="content" value="            # Parse output as JSON"/>
-      <string key="comment" value="# Parse output as JSON"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="50"/>
-      <string key="content" value="            # Filter comments by time"/>
-      <string key="comment" value="# Filter comments by time"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="53"/>
-      <string key="content" value="    # Save filtered comments on your system"/>
-      <string key="comment" value="# Save filtered comments on your system"/>
-      <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-11-23 21:32:59+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="1"/>
-      <string key="content" value="# Import modules"/>
-      <string key="comment" value="# Import modules"/>
+      <string key="content" value="                    line_info = {"/>
+      <string key="comment" value="# Save the output"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="8"/>
-      <string key="content" value="# Import packages"/>
-      <string key="comment" value="# Import packages"/>
+      <string key="line" value="12"/>
+      <string key="content" value="                    commit[&quot;comments&quot;][i][&quot;edit&quot;] = &quot;added&quot;"/>
+      <string key="comment" value="# Group by file (caseID)"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-21 21:30:11+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
-  </trace>
-  <trace>
-    <string key="concept:name" value="build/analysis.py"/>
     <event>
-      <string key="line" value="87"/>
-      <string key="content" value="        # Store last modified timestamps for each line"/>
-      <string key="comment" value="# Store last modified timestamps for each line"/>
+      <string key="line" value="20"/>
+      <string key="content" value="                        continue"/>
+      <string key="comment" value="# Create traces (cases)"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="90"/>
-      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="type" value="['commented-out']"/>
-      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="92"/>
-      <string key="content" value="            # Track modified lines"/>
-      <string key="comment" value="# Track modified lines"/>
+      <string key="line" value="24"/>
+      <string key="content" value="            for j in no_change_comments:"/>
+      <string key="comment" value="# Add caseID as attribute"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="95"/>
-      <string key="content" value="            # Compare with comments"/>
-      <string key="comment" value="# Compare with comments"/>
+      <string key="line" value="29"/>
+      <string key="content" value="    return"/>
+      <string key="comment" value="# Add events to the trace"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="102"/>
-      <string key="content" value="                        # Where there are comment changes and no source code changes in block"/>
-      <string key="comment" value="# Where there are comment changes and no source code changes in block"/>
+      <string key="line" value="33"/>
+      <string key="content" value="        for commit in commits:"/>
+      <string key="comment" value="# Add attributes for the event"/>
       <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="103"/>
-      <string key="content" value="                        if not is_code_in_block(block): # and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
-      <string key="comment" value="# and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
-      <string key="type" value="['inline']"/>
+      <string key="line" value="35"/>
+      <string key="content" value="            for block in commit[&quot;diff&quot;][&quot;block_diff&quot;]:"/>
+      <string key="comment" value="# Skip the file as it's used as caseID"/>
+      <string key="type" value="['normal']"/>
       <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="6"/>
-      <string key="content" value="    &quot;&quot;&quot; some test docstring &quot;&quot;&quot;"/>
-      <string key="comment" value="&quot;&quot;&quot; some test docstring &quot;&quot;&quot;"/>
-      <string key="type" value="['docstring']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="87"/>
-      <string key="content" value="        # Store last modified timestamps for each line"/>
-      <string key="comment" value="# Store last modified timestamps for each line"/>
+      <string key="line" value="39"/>
+      <string key="content" value="                        if int(line) == item[&quot;line&quot;]:"/>
+      <string key="comment" value="# Use date type for time fields"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="90"/>
-      <string key="content" value="            # print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="comment" value="# print(&quot;Starting to analyse commit: &quot;, commit[&quot;commit&quot;])"/>
-      <string key="type" value="['commented-out']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
-    </event>
-    <event>
-      <string key="line" value="92"/>
-      <string key="content" value="            # Track modified lines"/>
-      <string key="comment" value="# Track modified lines"/>
+      <string key="line" value="12"/>
+      <string key="content" value="                    commit[&quot;comments&quot;][i][&quot;edit&quot;] = &quot;added&quot;"/>
+      <string key="comment" value="# Group by file (caseID)"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="95"/>
-      <string key="content" value="            # Compare with comments"/>
-      <string key="comment" value="# Compare with comments"/>
+      <string key="line" value="24"/>
+      <string key="content" value="            for j in no_change_comments:"/>
+      <string key="comment" value="# Add caseID as attribute"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-24 18:37:49+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="99"/>
-      <string key="content" value="                # TODO investigate why line is null"/>
-      <string key="comment" value="# TODO investigate why line is null"/>
+      <string key="line" value="29"/>
+      <string key="content" value="    return"/>
+      <string key="comment" value="# Add events to the trace"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="102"/>
-      <string key="content" value="                        # Where there are comment changes and no source code changes in block"/>
-      <string key="comment" value="# Where there are comment changes and no source code changes in block"/>
+      <string key="line" value="33"/>
+      <string key="content" value="        for commit in commits:"/>
+      <string key="comment" value="# Add attributes for the event"/>
       <string key="type" value="['normal']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="103"/>
-      <string key="content" value="                        if not is_code_in_block(block): # and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
-      <string key="comment" value="# and block[line[&quot;line&quot;]][&quot;comment_index&quot;] != -1:"/>
-      <string key="type" value="['inline']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 02:54:47+01:00"/>
+      <string key="line" value="35"/>
+      <string key="content" value="            for block in commit[&quot;diff&quot;][&quot;block_diff&quot;]:"/>
+      <string key="comment" value="# Skip the file as it's used as caseID"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="138"/>
-      <string key="content" value="            &quot;content&quot;: data[i][&quot;content&quot;], # Cheeky inline comment"/>
-      <string key="comment" value="# Cheeky inline comment"/>
-      <string key="type" value="['inline']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-25 11:26:40+01:00"/>
+      <string key="line" value="39"/>
+      <string key="content" value="                        if int(line) == item[&quot;line&quot;]:"/>
+      <string key="comment" value="# Use date type for time fields"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
     <event>
-      <string key="line" value="139"/>
-      <string key="content" value="            &quot;comment&quot;: data[i][&quot;comment&quot;], # Cheeky 2 inline comment"/>
-      <string key="comment" value="# Cheeky 2 inline comment"/>
-      <string key="type" value="['inline']"/>
-      <date key="comment_time" value="2024-12-04 23:01:11+01:00"/>
-      <date key="last_code_change_time" value="2024-11-28 10:16:59+01:00"/>
+      <string key="line" value="12"/>
+      <string key="content" value="                    commit[&quot;comments&quot;][i][&quot;edit&quot;] = &quot;added&quot;"/>
+      <string key="comment" value="# Group by file (caseID)"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
+    </event>
+    <event>
+      <string key="line" value="24"/>
+      <string key="content" value="            for j in no_change_comments:"/>
+      <string key="comment" value="# Add caseID as attribute"/>
+      <string key="type" value="['normal']"/>
+      <date key="comment_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-03 15:33:45+01:00"/>
     </event>
   </trace>
   <trace>
@@ -1065,7 +214,7 @@
       <string key="comment" value=""/>
       <string key="type" value="['block', 'docstring']"/>
       <date key="comment_time" value="2024-12-04 14:36:49+01:00"/>
-      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-04 00:55:39+01:00"/>
     </event>
     <event>
       <string key="line" value="17"/>
@@ -1073,7 +222,7 @@
       <string key="comment" value="    :param repo_path: Path to the local Git repository."/>
       <string key="type" value="['block', 'docstring']"/>
       <date key="comment_time" value="2024-12-04 14:36:49+01:00"/>
-      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-04 00:55:39+01:00"/>
     </event>
     <event>
       <string key="line" value="18"/>
@@ -1089,7 +238,7 @@
       <string key="comment" value="    :return: A dictionary containing file paths and their contents at the given commit."/>
       <string key="type" value="['block', 'docstring']"/>
       <date key="comment_time" value="2024-12-04 14:36:49+01:00"/>
-      <date key="last_code_change_time" value="2024-12-04 00:35:22+01:00"/>
+      <date key="last_code_change_time" value="2024-12-04 00:55:39+01:00"/>
     </event>
   </trace>
 </log>

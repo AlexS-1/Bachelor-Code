@@ -4,9 +4,8 @@ from io import StringIO
 import re
 
 def analyse_diff_comments(data):
-    """ some test docstring """
     for file, commits in data.items():
-        for commit in commits: #inline-test-comment
+        for commit in commits:
             no_change_comments = []
             for i in range(len(commit["comments"])):
                 if commit["comments"][i]["line"] in list(commit["diff"]["added"].keys()):
@@ -25,6 +24,7 @@ def analyse_diff_comments(data):
             for j in no_change_comments:
                 del commit["comments"][j-shift]
                 shift += 1
+    print("Finished")
 
 def check_inline_comments(data):
     return
@@ -36,12 +36,11 @@ def blockify_comments2(data):
             for block in commit["diff"]["block_diff"]:
                 block_dict = {}
                 for line in block:
+                    comment_index = -1
                     for item in commit["comments"]:
                         if int(line) == item["line"]:
                             comment_index = item["char_position_in_line"]
                             break
-                        else:
-                            comment_index = -1
                     line_info = {
                         "content": commit["diff"]["added"][str(line)],
                         "comment_index": comment_index

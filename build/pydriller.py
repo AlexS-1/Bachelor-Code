@@ -13,7 +13,12 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                                 only_modifications_with_file_types=file_types).traverse_commits():
             for file in commit.modified_files:
                 if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
-                    files_data[file.new_path] = []
+                    # Make sure filename ≠ None by checking if file was deleted and therefore setting ot old path instead
+                    if file.new_path == None:
+                        name = file.old_path
+                    else:
+                        name = file.new_path
+                    files_data[name] = []
                 if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
                     if file.source_code:
                         source = list_to_dict(file.source_code.split("\n"))
@@ -27,7 +32,7 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                         "source_code": source
                     }
                     if len(file.diff_parsed) != 0:
-                        files_data[file.new_path].append(file_data)
+                        files_data[name].append(file_data)
     return files_data
 
 def diff_to_dict(diff):
