@@ -28,12 +28,22 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                         "commit": commit.hash,
                         "timestamp": commit.committer_date.isoformat(),
                         "author": commit.author.name,
+                        "filename": file.new_path,
                         "diff": diff_to_dict(file.diff_parsed),
                         "source_code": source
                     }
                     if len(file.diff_parsed) != 0:
                         files_data[name].append(file_data)
     return files_data
+
+def order_commits_data(commit_data):
+    ordered_commits = {}
+    for commit_filename, _ in commit_data.items():
+        ordered_commits[commit_filename] = []
+    for commit_filename, commit_file_data in commit_data.items():
+        for commit in commit_file_data:
+            ordered_commits[commit["filename"]].append(commit)
+    return ordered_commits
 
 def diff_to_dict(diff):
     dict_added = {}

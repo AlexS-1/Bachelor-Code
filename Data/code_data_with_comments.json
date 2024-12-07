@@ -51,6 +51,15 @@
                 "18": "            for j in no_change_comments:",
                 "19": "                del commit[\"comments\"][j-shift]",
                 "20": "                shift += 1"
+            },
+            "comments": {
+                "16": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -269,6 +278,64 @@
                 "107": "                                    \"last_code_change_time\": str(last_modified[int(line)])",
                 "108": "                                })",
                 "109": "    return analysis_results"
+            },
+            "comments": {
+                "19": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "33": {
+                    "comment": "# Add line to block, if line follows previous line of block",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "44": {
+                    "comment": "# Except when line is comment following source code, create new block",
+                    "char_position_in_line": 28,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "63": {
+                    "comment": "# Create new block, otherwise",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "86": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "89": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "91": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "94": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -530,6 +597,57 @@
                 "115": "    for line in list(block.keys()):",
                 "116": "        if block[line][\"comment_index\"] == -1:",
                 "117": "            return True "
+            },
+            "comments": {
+                "19": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "84": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "89": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "92": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "98": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -707,6 +825,57 @@
                 "137": "        if d1[i] != d2[i]:",
                 "138": "            return False",
                 "139": "    return True"
+            },
+            "comments": {
+                "19": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "84": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "89": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "92": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "98": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -886,6 +1055,57 @@
                 "148": "    total_duration = sum(durations, timedelta(0))",
                 "149": "    average_duration = total_duration / len(durations)",
                 "150": "    return average_duration"
+            },
+            "comments": {
+                "19": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "84": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "89": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "92": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "98": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -1178,6 +1398,113 @@
                 "209": "        return True",
                 "210": "    except SyntaxError:",
                 "211": "        return False"
+            },
+            "comments": {
+                "6": {
+                    "comment": "\"\"\" some test docstring \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "docstring"
+                    ]
+                },
+                "22": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "90": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "92": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "95": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "102": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "103": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "136": {
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "169": {
+                    "comment": "# Tokenize the input code",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "179": {
+                    "comment": "# Check if inline",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "183": {
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "187": {
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "196": {
+                    "comment": "# Check for docstring: string token at module, function, or class start",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -1411,6 +1738,120 @@
                 "197": "        return True",
                 "198": "    except SyntaxError:",
                 "199": "        return False"
+            },
+            "comments": {
+                "6": {
+                    "comment": "\"\"\" some test docstring \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "docstring"
+                    ]
+                },
+                "22": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "90": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "92": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "95": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "102": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "103": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "136": {
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "137": {
+                    "comment": "# Cheeky 2 inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "168": {
+                    "comment": "# Tokenize the input code",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "175": {
+                    "comment": "# Check if inline",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "178": {
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "181": {
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "187": {
+                    "comment": "# Check for docstring: string token at module, function, or class start",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -1680,6 +2121,113 @@
                 "194": "            if bool(line.split(\"#\")[0].strip()) and is_potential_code(line.split(\"#\")[0]):",
                 "195": "                item[\"type\"].append(\"inline\")",
                 "196": "    return data"
+            },
+            "comments": {
+                "6": {
+                    "comment": "\"\"\" some test docstring \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "docstring"
+                    ]
+                },
+                "8": {
+                    "comment": "#inline-test-comment",
+                    "char_position_in_line": 31,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "22": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "90": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "92": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "95": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "102": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "103": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "138": {
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "139": {
+                    "comment": "# Cheeky 2 inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "170": {
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "173": {
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "176": {
+                    "comment": "# Check if text has docstring format with \"\"\"\" somewhere",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "docstring"
+                    ]
+                }
             }
         },
         {
@@ -1898,6 +2446,113 @@
                 "195": "            if line.find(\"#\") != -1 and line.split(\"#\")[0].strip() != \"\":",
                 "196": "                item[\"type\"] = [\"inline\"]",
                 "197": "    return data"
+            },
+            "comments": {
+                "7": {
+                    "comment": "\"\"\" some test docstring \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "docstring"
+                    ]
+                },
+                "9": {
+                    "comment": "#inline-test-comment",
+                    "char_position_in_line": 31,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "23": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "88": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "91": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "93": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "96": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "100": {
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "103": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "104": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "139": {
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "140": {
+                    "comment": "# Cheeky 2 inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "171": {
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "174": {
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "177": {
+                    "comment": "# Check if text has docstring format with \"\"\"\" somewhere",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "docstring"
+                    ]
+                }
             }
         },
         {
@@ -2115,6 +2770,99 @@
                 "194": "            if line.find(\"#\") != -1 and line.split(\"#\")[0].strip() != \"\":",
                 "195": "                item[\"type\"] = [\"inline\"]",
                 "196": "    return data"
+            },
+            "comments": {
+                "22": {
+                    "comment": "# Ensure the gaps of deleted elements are artificially filled by increasing the shift",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "87": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "90": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "92": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "95": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# TODO investigate why line is null",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "102": {
+                    "comment": "# Where there are comment changes and no source code changes in block",
+                    "char_position_in_line": 24,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "103": {
+                    "comment": "# and block[line[\"line\"]][\"comment_index\"] != -1:",
+                    "char_position_in_line": 56,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "138": {
+                    "comment": "# Cheeky inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "139": {
+                    "comment": "# Cheeky 2 inline comment",
+                    "char_position_in_line": 43,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "170": {
+                    "comment": "# Check for commented-out code (basic heuristic: looks like valid Python code)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "173": {
+                    "comment": "# Check for block comments (multi-line consecutive)",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "176": {
+                    "comment": "# Check if text has docstring format with \"\"\"\" somewhere",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "docstring"
+                    ]
+                }
             }
         }
     ],
@@ -2217,6 +2965,64 @@
                 "60": "",
                 "61": "if __name__ == \"__main__\":",
                 "62": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "7": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "15": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "28": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "53": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2309,6 +3115,64 @@
                 "64": "",
                 "65": "if __name__ == \"__main__\":",
                 "66": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "7": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "15": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "28": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "56": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2407,6 +3271,64 @@
                 "71": "    save_to_json(d, \"Exports/analysis_results.json\")",
                 "72": "if __name__ == \"__main__\":",
                 "73": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "7": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "15": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "28": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "56": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2506,6 +3428,64 @@
                 "75": "    save_to_json(d, \"Exports/analysis_results.json\")",
                 "76": "if __name__ == \"__main__\":",
                 "77": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "7": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "15": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "28": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "56": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2603,6 +3583,64 @@
                 "77": "",
                 "78": "if __name__ == \"__main__\":",
                 "79": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "7": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "15": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "28": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "56": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2699,6 +3737,64 @@
                 "79": "",
                 "80": "if __name__ == \"__main__\":",
                 "81": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "25": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "57": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2796,6 +3892,64 @@
                 "79": "",
                 "80": "if __name__ == \"__main__\":",
                 "81": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "25": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "57": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -2981,6 +4135,336 @@
                 "85": "",
                 "86": "if __name__ == \"__main__\":",
                 "87": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# # Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "17": {
+                    "comment": "# repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "19": {
+                    "comment": "# repo_name = os.path.basename(repo_url).replace(\".git\", \"\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "20": {
+                    "comment": "# temp_dir = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "21": {
+                    "comment": "# clone_path = os.path.join(temp_dir, repo_name)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "23": {
+                    "comment": "# subprocess.run(['git', 'clone', repo_url, clone_path], check=True)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "25": {
+                    "comment": "# # # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "26": {
+                    "comment": "# repo_path = clone_path",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "27": {
+                    "comment": "# jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "30": {
+                    "comment": "# start_time = datetime.today().replace(year = datetime.today().year - 1, tzinfo=None, microsecond=0)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "31": {
+                    "comment": "# end_time = datetime.today().replace(microsecond=0)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "33": {
+                    "comment": "# file_types = [\".c\", \".c\", \".cc\", \".cp\", \".cpp\", \".cx\", \".cxx\", \".c+\", \".c++\", \".h\", \".hh\", \".hxx\", \".h+\", \".h++\", \".hp\", \".hpp\", \".java\", \".js\", \".cs\", \".py\", \".php\", \".rb\"]",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "35": {
+                    "comment": "# commits_data = get_commits_data(repo_path, start_time, end_time, file_types)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "36": {
+                    "comment": "# save_to_json(commits_data, \"Data/commits_data.json\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out",
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "38": {
+                    "comment": "# with open (\"Data/commits_data.json\", \"r\") as json_file:",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "39": {
+                    "comment": "#     commits_data = json.load(json_file)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "41": {
+                    "comment": "# for file, commits in commits_data.items():",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "42": {
+                    "comment": "#     for commit in commits:",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "43": {
+                    "comment": "#         tag = \"-target=\" + commit[\"commit\"]",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "44": {
+                    "comment": "#         output = run_comment_lister(repo_path, jar_path, tag)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "#         # Parse output as JSON",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "46": {
+                    "comment": "#         try:",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "47": {
+                    "comment": "#             comment_data = json.loads(output)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "48": {
+                    "comment": "#         except json.JSONDecodeError as e:",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "49": {
+                    "comment": "#             print(f\"Failed to parse CommentLister output: {e}\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "50": {
+                    "comment": "#             return",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "51": {
+                    "comment": "#         # Filter comments by time",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "52": {
+                    "comment": "#         commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "53": {
+                    "comment": "#         if commit[\"commit\"] == commit_hash and file in filtered_comments.keys():",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "54": {
+                    "comment": "#             commit[\"comments\"] = filtered_comments[file]",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "55": {
+                    "comment": "#         else:",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "56": {
+                    "comment": "#             print(\"mismatch in commit and comment data or no comments in this commit for investigatet file\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "57": {
+                    "comment": "#             print(\"file could have been deleted\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "58": {
+                    "comment": "#             commit[\"comments\"] = {}",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "59": {
+                    "comment": "# # Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "60": {
+                    "comment": "# save_to_json(commits_data, \"Data/filtered_commits_data.json\")",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "61": {
+                    "comment": "# shutil.rmtree(clone_path)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "64": {
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         },
         {
@@ -3158,6 +4642,71 @@
                 "85": "",
                 "86": "if __name__ == \"__main__\":",
                 "87": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "25": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "59": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "64": {
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         },
         {
@@ -3263,6 +4812,71 @@
                 "85": "",
                 "86": "if __name__ == \"__main__\":",
                 "87": "    main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "25": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "59": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "64": {
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         },
         {
@@ -3404,6 +5018,78 @@
                 "97": "    shutil.rmtree(clone_path)",
                 "98": "    print(\"DATA: \", data)",
                 "99": "    # main()"
+            },
+            "comments": {
+                "1": {
+                    "comment": "# Import modules",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "8": {
+                    "comment": "# Import packages",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "16": {
+                    "comment": "# Convert repo URL to path by cloning repo",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "25": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "29": {
+                    "comment": "# # Setting different timeperiod",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "45": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "59": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "94": {
+                    "comment": "# \"1061293a43b0788f9db921ae6fc61734ccdf1b8d\"",
+                    "char_position_in_line": 53,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "99": {
+                    "comment": "# main()",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         }
     ],
@@ -3511,6 +5197,22 @@
                 "55": "    else:",
                 "56": "        print(\"Comments not in specified date range\")",
                 "57": "    return commit_data[\"ObjectId\"], filtered_comments"
+            },
+            "comments": {
+                "31": {
+                    "comment": "# print(\"Have to split comments:\", split_comment_lines)",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "36": {
+                    "comment": "# Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum",
+                    "char_position_in_line": 28,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -3590,6 +5292,22 @@
                 "56": "    else:",
                 "57": "        print(\"Comments not in specified date range\")",
                 "58": "    return commit_data[\"ObjectId\"], filtered_comments"
+            },
+            "comments": {
+                "32": {
+                    "comment": "# print(\"Have to split comments:\", split_comment_lines)",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "37": {
+                    "comment": "# Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum",
+                    "char_position_in_line": 28,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -3674,6 +5392,22 @@
                 "60": "    else:",
                 "61": "        print(\"Comments not in specified date range\")",
                 "62": "    return commit_data[\"ObjectId\"], filtered_comments"
+            },
+            "comments": {
+                "34": {
+                    "comment": "# print(\"Have to split comments:\", split_comment_lines)",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "39": {
+                    "comment": "# Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum",
+                    "char_position_in_line": 28,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         }
     ],
@@ -3918,6 +5652,171 @@
                 "212": "                                    \"last_code_change_time\": str(last_modified[int(line)])",
                 "213": "                                })",
                 "214": "    return analysis_results"
+            },
+            "comments": {
+                "41": {
+                    "comment": "# Traverse through the commits in the repository",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "42": {
+                    "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "51": {
+                    "comment": "# Analyze each file modified in the commit",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "53": {
+                    "comment": "# only store file data for Rust files",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "71": {
+                    "comment": "# For added diff ispect lines filter out comments",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "82": {
+                    "comment": "# For deleted diff ispect lines filter out comments",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "99": {
+                    "comment": "# Generate keywords based on the commit message and type of changes",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "100": {
+                    "comment": "# file_data[\"keywords\"] = extract_keywords(commit.msg, modified_file)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "101": {
+                    "comment": "# Extract type of commit from commit message",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "102": {
+                    "comment": "# file_data[\"activity\"] = extract_activity(commit.msg)",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block",
+                        "commented-out"
+                    ]
+                },
+                "108": {
+                    "comment": "# Determine basic keywords based on the commit message",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "121": {
+                    "comment": "# Use commit message keywords to determine activity type",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "143": {
+                    "comment": "# Set current line for each analysis",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "147": {
+                    "comment": "# In case of a starting multiline comment start adding future lines without comment symbol ",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "150": {
+                    "comment": "# In case of comment add them to existing dict if they directly follow",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "162": {
+                    "comment": "# or create new one",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "167": {
+                    "comment": "# In case of no comment add lines to existing dict if line number directly follows",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "174": {
+                    "comment": "# Or create new one",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "179": {
+                    "comment": "# Disable multiline comments when symbol found",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "189": {
+                    "comment": "# Store last modified timestamps for each line",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "192": {
+                    "comment": "# print(\"Starting to analyse commit: \", commit[\"commit\"])",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "194": {
+                    "comment": "# Track modified lines",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "199": {
+                    "comment": "# Compare with comments",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -4148,6 +6047,22 @@
                 "60": "    else:",
                 "61": "        activity = \"Other\"",
                 "62": "    return activity"
+            },
+            "comments": {
+                "39": {
+                    "comment": "# Determine basic keywords based on the commit message",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "52": {
+                    "comment": "# Use commit message keywords to determine activity type",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -4244,6 +6159,22 @@
                 "66": "    else:",
                 "67": "        activity = \"Other\"",
                 "68": "    return activity"
+            },
+            "comments": {
+                "45": {
+                    "comment": "# Determine basic keywords based on the commit message",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "58": {
+                    "comment": "# Use commit message keywords to determine activity type",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -4340,6 +6271,29 @@
                 "71": "    else:",
                 "72": "        activity = \"Other\"",
                 "73": "    return activity"
+            },
+            "comments": {
+                "16": {
+                    "comment": "# Make sure filename \u2260 None by checking if file was deleted and therefore setting ot old path instead",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# Determine basic keywords based on the commit message",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "63": {
+                    "comment": "# Use commit message keywords to determine activity type",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         }
     ],
@@ -4353,7 +6307,8 @@
                 "added": {},
                 "deleted": {}
             },
-            "source_code": {}
+            "source_code": {},
+            "comments": {}
         },
         {
             "commit": "39a855de8da8bde2a00bb031978e8a5bda2178ac",
@@ -4461,6 +6416,71 @@
                 "46": "    with open(output_file, 'w', encoding='utf-8') as f:",
                 "47": "        f.write(xml_str)",
                 "48": ""
+            },
+            "comments": {
+                "6": {
+                    "comment": "# Create the root XES element",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "12": {
+                    "comment": "# Group by file (caseID)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "20": {
+                    "comment": "# Create traces (cases)",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# Add caseID as attribute",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "29": {
+                    "comment": "# Add events to the trace",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "33": {
+                    "comment": "# Add attributes for the event",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "35": {
+                    "comment": "# Skip the file as it's used as caseID",
+                    "char_position_in_line": 35,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "39": {
+                    "comment": "# Use date type for time fields",
+                    "char_position_in_line": 40,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "44": {
+                    "comment": "# Save the output",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         }
     ],
@@ -4517,6 +6537,43 @@
                 "30": "    for i in range(len(list)):",
                 "31": "        dict[i+1] = list[i]",
                 "32": "    return dict"
+            },
+            "comments": {
+                "11": {
+                    "comment": "# Iterate over each element in the data",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "13": {
+                    "comment": "# Create a trace for the file",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "17": {
+                    "comment": "# Extract event attributes",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "22": {
+                    "comment": "# Add the event to the trace",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "24": {
+                    "comment": "# Add the trace to the log",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         }
     ],
@@ -4603,6 +6660,79 @@
                 "34": "source_code = get_source_code_from_tag(repo_path, tag_name, dt1, dt2)",
                 "35": "save_to_json(source_code, \"Tests/exports.json\")",
                 "36": ""
+            },
+            "comments": {
+                "7": {
+                    "comment": "\"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "8": {
+                    "comment": "    Extracts the source code of a specific commit tagged in the repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "9": {
+                    "comment": "",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring",
+                        "commented-out"
+                    ]
+                },
+                "10": {
+                    "comment": "    :param repo_path: Path to the local Git repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "11": {
+                    "comment": "    :param tag_name: The name of the tag to fetch.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "12": {
+                    "comment": "    :return: A dictionary containing file paths and their contents at the given commit.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "13": {
+                    "comment": "    \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "19": {
+                    "comment": "# Save the file path and its source code",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "29": {
+                    "comment": "# Example usage",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                }
             }
         },
         {
@@ -4810,6 +6940,150 @@
                 "102": "save_to_json(d, \"Toy-Example/clean_analysis_results2.json\")",
                 "103": "print(\"Average duration:\", average_comment_update_time(d))",
                 "104": "convert_json_to_xes(d, 'Toy-Example/output.xes')"
+            },
+            "comments": {
+                "14": {
+                    "comment": "\"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "15": {
+                    "comment": "    DOCSTRIING: Extracts the source code of a specific commit tagged in the repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "16": {
+                    "comment": "",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring",
+                        "commented-out"
+                    ]
+                },
+                "17": {
+                    "comment": "    :param repo_path: Path to the local Git repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "18": {
+                    "comment": "    :param tag_name: The name of the tag to fetch.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "19": {
+                    "comment": "    :return: A dictionary containing file paths and their contents at the given commit.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "20": {
+                    "comment": "    END DOCSTRING",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "21": {
+                    "comment": "    \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "27": {
+                    "comment": "# NORMAL Save the file path and its source code",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "29": {
+                    "comment": "# BLOCK: Multiple lines",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "30": {
+                    "comment": "# of comment",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "33": {
+                    "comment": "#INLINE: identify each block of data",
+                    "char_position_in_line": 122,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "36": {
+                    "comment": "# print(commit) #COMMENTED-OUT",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "40": {
+                    "comment": "# Example usage",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "51": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "65": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "71": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "79": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "84": {
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         },
         {
@@ -4942,6 +7216,150 @@
                 "101": "save_to_json(d, \"Toy-Example/clean_analysis_results2.json\")",
                 "102": "print(\"Average duration:\", average_comment_update_time(d))",
                 "103": "convert_json_to_xes(d, 'Toy-Example/output.xes')"
+            },
+            "comments": {
+                "14": {
+                    "comment": "\"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "15": {
+                    "comment": "    DOCSTRIING: Extracts the source code of a specific commit tagged in the repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "16": {
+                    "comment": "",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring",
+                        "commented-out"
+                    ]
+                },
+                "17": {
+                    "comment": "    :param repo_path: Path to the local Git repository.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "18": {
+                    "comment": "    :param tag_name: The name of the tag to fetch.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "19": {
+                    "comment": "    :return: A dictionary containing file paths and their contents at the given commit.",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "20": {
+                    "comment": "    END DOCSTRING",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "21": {
+                    "comment": "    \"\"\"",
+                    "char_position_in_line": 4,
+                    "type": [
+                        "block",
+                        "docstring"
+                    ]
+                },
+                "27": {
+                    "comment": "# NORMAL Save the file path and its source code",
+                    "char_position_in_line": 12,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "29": {
+                    "comment": "# BLOCK: Multiple lines",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "30": {
+                    "comment": "# of comment",
+                    "char_position_in_line": 16,
+                    "type": [
+                        "block"
+                    ]
+                },
+                "33": {
+                    "comment": "#INLINE: identify each block of data",
+                    "char_position_in_line": 122,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "36": {
+                    "comment": "# print(commit) #COMMENTED-OUT",
+                    "char_position_in_line": 20,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "39": {
+                    "comment": "# Example usage",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "50": {
+                    "comment": "# # Paths",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                },
+                "64": {
+                    "comment": "# Parse output as JSON",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "70": {
+                    "comment": "# Filter comments by time",
+                    "char_position_in_line": 8,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "78": {
+                    "comment": "# Save filtered comments on your system",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "normal"
+                    ]
+                },
+                "83": {
+                    "comment": "# analyse_diff_comments(data)",
+                    "char_position_in_line": 0,
+                    "type": [
+                        "commented-out"
+                    ]
+                }
             }
         }
     ]

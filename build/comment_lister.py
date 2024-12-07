@@ -3,7 +3,7 @@ import json
 import os
 import shutil
 from datetime import datetime, timezone
-from build.analysis import classify_comments
+from build.analysis import classify_comments, classify_content
 
 def run_comment_lister(repo_path, jar_path, tag="-target=HEAD"):
     try:
@@ -24,7 +24,7 @@ def filter_comments_by_time(commit_data, start_time, end_time):
     commit_time = datetime.fromisoformat(commit_data["CommitTime"]).replace(tzinfo=None)
     if start_time <= commit_time <= end_time:
         for filename, contents in commit_data["Files"].items():
-            filtered_comments[filename] = []
+            filtered_comments[filename] = {}
             error = False
             i = 0
             while not error:
@@ -38,21 +38,19 @@ def filter_comments_by_time(commit_data, start_time, end_time):
                         for comment in split_comment_lines:
                             # Assumption: All multi line comments are formatted in one block, i.e. vertically in one collum
                             comment_data = {
-                                "line": initial_line + j,
                                 "comment": comment,
                                 "char_position_in_line": contents[str(i)]["CharPositionInLine"],
-                                "type": type
+                                "type": type + classify_content(comment)
                             }
+                            filtered_comments[filename][initial_line + j] = comment_data
                             j += 1
-                            filtered_comments[filename].append(comment_data)
                     else:
                         comment_data = {
-                            "line": contents[str(i)]["Line"],
                             "comment": contents[str(i)]["Text"],
                             "char_position_in_line": contents[str(i)]["CharPositionInLine"],
                             "type": type
                         }
-                        filtered_comments[filename].append(comment_data)
+                        filtered_comments[filename][contents[str(i)]["Line"]] = comment_data
                 except KeyError as e:
                     error = True
                 if not error:
