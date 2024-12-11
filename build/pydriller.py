@@ -1,83 +1,103 @@
-from pydriller import Repository
 import json
-import pm4py
-from datetime import datetime
+from datetime import date, datetime
+
+from httpx import get
 from dateutil.relativedelta import relativedelta
+from pydriller import Repository
+
+from build.comment_lister import get_comment_data
+from build.extraction import diff_to_dict, filter_comments_by_time
 from build.utils import list_to_dict
 
-def get_commits_data(repo_path, from_date, to_date, file_types):
+_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Bachelor-Code"
+
+def get_commits_data(repo_path, from_date, to_date, file_types): 
     files_data = {}
     for commit in Repository(   repo_path, 
                                 since=from_date, 
                                 to=to_date, 
                                 only_modifications_with_file_types=file_types).traverse_commits():
-            for file in commit.modified_files:
-                if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
-                    # Make sure filename ≠ None by checking if file was deleted and therefore setting ot old path instead
-                    if file.new_path == None:
-                        name = file.old_path
-                    else:
-                        name = file.new_path
-                    files_data[name] = []
-                if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types:
-                    if file.source_code:
-                        source = list_to_dict(file.source_code.split("\n"))
-                    else:
-                        source = {}
-                    file_data = {
-                        "commit": commit.hash,
-                        "timestamp": commit.committer_date.isoformat(),
-                        "author": commit.author.name,
-                        "filename": file.new_path,
-                        "diff": diff_to_dict(file.diff_parsed),
-                        "source_code": source
-                    }
-                    if len(file.diff_parsed) != 0:
-                        files_data[name].append(file_data)
+        for file in commit.modified_files:
+            if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
+                files_data[file.new_path] = []
+            if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
+                if file.source_code:
+                    source = list_to_dict(file.source_code.split("\n"))
+                else:
+                    source = {}
+                if file.source_code_before:
+                    source_old = list_to_dict(file.source_code_before.split("\n"))
+                else:
+                    source_old = {}
+                file_data = {
+                    "commit": commit.hash,
+                    "timestamp": commit.committer_date.isoformat(),
+                    "author": commit.author.name,
+                    "filename": file.new_path,
+                    "diff": diff_to_dict(file.diff_parsed),
+                    "source_code": source,
+                    "source_code_old": source_old
+                }
+                if len(file.diff_parsed) != 0:
+                    files_data[file.new_path].append(file_data)
     return files_data
 
-def order_commits_data(commit_data):
-    ordered_commits = {}
-    for commit_filename, _ in commit_data.items():
-        ordered_commits[commit_filename] = []
-    for commit_filename, commit_file_data in commit_data.items():
-        for commit in commit_file_data:
-            ordered_commits[commit["filename"]].append(commit)
-    return ordered_commits
+def get_parent_commit(commit_hash, file, repo_path=_repo_path):
+    for commit in Repository(repo_path).traverse_commits():
+        if commit.hash == commit_hash:
+            parent = None
+            while file not in get_files_in_commit(repo_path, commit.parents[0]):
+                parent = get_parent_commit(commit.parents[0], file, repo_path)
+                if parent is not None:
+                    return parent
+            return commit.parents[0]
+    return None
 
-def diff_to_dict(diff):
-    dict_added = {}
-    for line in diff["added"]:
-        dict_added[line[0]] = line[1]
-    diff["added"] = dict_added
-    dict_deleted = {}
-    for line in diff["deleted"]:
-        dict_deleted[line[0]] = line[1]
-    diff["deleted"] = dict_deleted
-    return diff
+def get_files_in_commit(repo_path, commit_hash):
+    files = []
+    for commit in Repository(repo_path, single=commit_hash).traverse_commits():
+        for file in commit.modified_files:
+            if file.new_path not in files:
+                files.append(file.new_path)
+    return files
 
-def extract_keywords(commit_message, modified_file):
-    # Determine basic keywords based on the commit message
-    keywords = []
-    if "performance" in commit_message.lower():
-        keywords.append("performance")
-    if "security" in commit_message.lower():
-        keywords.append("security")
-    if modified_file.added_lines > modified_file.deleted_lines:
-        keywords.append("expansion")
-    else:
-        keywords.append("optimization")
-    return keywords
-
-def extract_activity(commit_message):
-    # Use commit message keywords to determine activity type
-    activity = ""
-    if "bug" in commit.msg.lower() or "fix" in commit.msg.lower():
-        activity = "Bug Fix"
-    elif "feature" in commit.msg.lower() or "add" in commit.msg.lower():
-        activity = "Feature Development"
-    elif "refactor" in commit.msg.lower():
-        activity = "Refactoring"
-    else:
-        activity = "Other"
-    return activity
+def get_commit_data(commit_hash, filename, repo_path=_repo_path, old=False):
+    for commit in Repository(repo_path, single=commit_hash).traverse_commits():
+        for file in commit.modified_files:
+            if file.new_path == filename:
+                if old:
+                    if file.change_type.name == 'ADD':
+                        source_code_old = {}
+                        comments = "comments_old"
+                    else:
+                        source_code_old = list_to_dict(file.source_code_before.split("\n"))
+                        comments = "comments"
+                    data = {
+                    "commit": commit.hash,
+                    "timestamp": commit.committer_date.isoformat(),
+                    "author": commit.author.name,
+                    "filename":file.new_path,
+                    "source_code_old": source_code_old
+                    }
+                else:
+                    data = {
+                    "commit": commit.hash,
+                    "timestamp": commit.committer_date.isoformat(),
+                    "author": commit.author.name,
+                    "filename":file.new_path,
+                    "source_code": list_to_dict(file.source_code.split("\n"))
+                    }
+                output = get_comment_data(repo_path, "-target=" + commit.hash)
+                try:
+                    comment_data = json.loads(output)
+                except json.JSONDecodeError as e:
+                    raise Exception(f"Failed to parse CommentLister output: {e}")
+                # Filter comments by time
+                commit_hash, filtered_comments = filter_comments_by_time(comment_data, datetime.fromisoformat(commit.committer_date.isoformat()).replace(tzinfo=None), datetime.fromisoformat(commit.committer_date.isoformat()).replace(tzinfo=None))
+                if data["commit"] == commit_hash and file.new_path in filtered_comments.keys():
+                    data[comments] = filtered_comments[file.new_path]
+                else:
+                    print("No comments in this Commit", data["commit"], "for investigate file", file.new_path)
+                    data[comments] = {}
+                return {file.new_path: [data]}
+    return None

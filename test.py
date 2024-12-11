@@ -1,14 +1,20 @@
-from pydriller import Repository
 import json
-from build.pydriller import get_commits_data
-from build.comment_lister import run_comment_lister, filter_comments_by_time
-from build.utils import save_to_json
-from build.analysis import analyse_diff_comments, blockify_diff, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content
-from build.xes_conversion import convert_json_to_xes
-from datetime import datetime, timezone
 import os
-import subprocess
+import re
 import shutil
+import subprocess
+from datetime import datetime, timezone
+
+from pydriller import Repository
+
+from build.analysis import (analyse_diff_comments, average_comment_update_time,
+                            blockify_diff, classify_comments, classify_content,
+                            clean, extract_later_modified_comments)
+from build.comment_lister import filter_comments_by_time, get_comment_data
+from build.pydriller import get_commits_data
+from build.utils import save_to_json
+from build.xes_conversion import convert_json_to_xes
+
 
 def get_source_code_from_tag(repo_path, tag_name, dt1, dt2):
     """
@@ -37,49 +43,49 @@ def get_source_code_from_tag(repo_path, tag_name, dt1, dt2):
     return source_code  
 
 # Example usage
-repo_url = "https://github.com/AlexS-1/Bachelor-Code"
-tag_name = "a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e"
-start_time = datetime(2024,12,3)
-end_time = datetime.today()
-repo_name = os.path.basename(repo_url).replace(".git", "")
-temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
-clone_path = os.path.join(temp_dir, repo_name)
+# repo_url = "https://github.com/AlexS-1/Bachelor-Code"
+# tag_name = "a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e"
+# start_time = datetime(2024,12,3)
+# end_time = datetime.today()
+# repo_name = os.path.basename(repo_url).replace(".git", "")
+# temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
+# clone_path = os.path.join(temp_dir, repo_name)
 
-subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
+# subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
 
 # # Paths
-repo_path = clone_path
-jar_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar"
-file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
+# repo_path = clone_path
+# jar_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar"
+# file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
 
-commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)
-save_to_json(commits_data, "Toy-Example/commits_data.json")
-with open ("Toy-Example/commits_data.json", "r") as json_file: 
-        commits_data = json.load(json_file)
+# commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)
+# save_to_json(commits_data, "Toy-Example/commits_data.json")
+# with open ("Toy-Example/commits_data.json", "r") as json_file: 
+#         commits_data = json.load(json_file)
 
-for file, commits in commits_data.items():
-    for commit in commits:
-        tag = "-target=" + commit["commit"]
-        output = run_comment_lister(repo_path, jar_path, tag)
-        # Parse output as JSON
-        try:
-            comment_data = json.loads(output)
-            if file.find("pydriller") != -1:
-                save_to_json(commit["source_code"], f"Toy-Example/{commit["commit"]}_code.json")
-                save_to_json(comment_data, f"Toy-Example/{commit["commit"]}_comments.json")
-                if commit["commit"] == "e20d03792161ba1b90725e6912b40275f06bf2da": break
-        except json.JSONDecodeError as e:
-            print(f"Failed to parse CommentLister output: {e}")
-            break
-        # Filter comments by time
-        commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
-        if commit["commit"] == commit_hash and file in filtered_comments.keys():
-            commit["comments"] = filtered_comments[file]
-        else:
-            print("mismatch in commit and comment data or no comments in this commit for investigatet file")
-            print("file could have been deleted")
-            commit["comments"] = {}
-shutil.rmtree(clone_path)
+# for file, commits in commits_data.items():
+#     for commit in commits:
+#         tag = "-target=" + commit["commit"]
+#         output = get_comment_data(repo_path, jar_path, tag)
+#         # Parse output as JSON
+#         try:
+#             comment_data = json.loads(output)
+#             if file.find("pydriller") != -1:
+#                 save_to_json(commit["source_code"], f"Toy-Example/{commit["commit"]}_code.json")
+#                 save_to_json(comment_data, f"Toy-Example/{commit["commit"]}_comments.json")
+#                 if commit["commit"] == "e20d03792161ba1b90725e6912b40275f06bf2da": break
+#         except json.JSONDecodeError as e:
+#             print(f"Failed to parse CommentLister output: {e}")
+#             break
+#         # Filter comments by time
+#         commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
+#         if commit["commit"] == commit_hash and file in filtered_comments.keys():
+#             commit["comments"] = filtered_comments[file]
+#         else:
+#             print("mismatch in commit and comment data or no comments in this commit for investigatet file")
+#             print("file could have been deleted")
+#             commit["comments"] = {}
+# shutil.rmtree(clone_path)
 # # Save filtered comments on your system
 # save_to_json(commits_data, "Toy-Example/filtered_commits_data.json")
 # shutil.rmtree(clone_path)
@@ -106,3 +112,27 @@ shutil.rmtree(clone_path)
 # save_to_json(d, "Toy-Example/clean_analysis_results2.json")
 # print("Average duration:", average_comment_update_time(d))
 # convert_json_to_xes(d, 'Toy-Example/output.xes')
+
+from pydriller import Repository
+
+from build.utils import clone_ropositoriy
+
+repo_url = "https://github.com/AlexS-1/Bachelor-Code"
+repo_path = clone_ropositoriy(repo_url)
+comment_data = get_comment_data(repo_path, "-target=f73512c4aa778287e31d18e9d218502acf7479ee")
+
+def detect_renames(repo_path):
+    renames = {}
+    for commit in Repository(repo_path).traverse_commits():
+        for modification in commit.modified_files:
+            if (modification.change_type.name == 'DELETE' or modification.change_type.name == 'RENAME') and modification.filename.endswith('.py'):
+                old_path = modification.old_path
+                new_path = modification.new_path
+                print(modification.change_type.value, old_path, "-> ", new_path)
+                renames[new_path] = old_path
+    return renames
+
+# Example usage
+renames = detect_renames(repo_path)
+print(renames)
+shutil.rmtree(repo_path)
