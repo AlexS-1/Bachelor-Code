@@ -9,7 +9,7 @@ from build.comment_lister import get_comment_data
 from build.extraction import diff_to_dict, filter_comments_by_time
 from build.utils import list_to_dict
 
-_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Bachelor-Code"
+_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Toy-Example"
 
 def get_commits_data(repo_path, from_date, to_date, file_types): 
     files_data = {}

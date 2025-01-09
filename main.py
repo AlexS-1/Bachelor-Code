@@ -14,7 +14,7 @@ from build.utils import clone_ropositoriy, save_to_json
 
 def main():
     # Convert repo URL to path by cloning repo to temporary dictionary
-    repo_url = "https://github.com/AlexS-1/Bachelor-Code"
+    repo_url = "https://github.com/AlexS-1/Toy-Example"
     
     # Setting different timeperiod
     start_time = datetime.today().replace(tzinfo=None, microsecond=0) - timedelta(days=365)

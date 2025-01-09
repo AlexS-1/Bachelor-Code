@@ -164,7 +164,8 @@ def _code_changed(block_new, blocks_old):
                         actual_code_new = [line for line in block_new["code_lines"] if line not in block_new["comment_lines"]]
                     else:
                         actual_code_new = block_new["code_lines"]
-                    # Compare content of code lines and return if different, else code_changed returns False
+                    # Compare content of code lines and return if different, else code_changed returns False 
+                    # TODO Indent less as now for first found line already return?
                     for code_line_old, code_line_new in zip(actual_code_old, actual_code_new):
                         if block_old["code_lines"][code_line_old] != block_new["code_lines"][code_line_new]:
                             return actual_code_old != actual_code_new, block_old["metadata"]["code_last_modified"]
@@ -201,5 +202,8 @@ def average_comment_update_time(data):
         datetime_pairs.append((start, end))
     durations = [end - start for start, end in datetime_pairs]
     total_duration = sum(durations, timedelta(0))
-    average_duration = total_duration / len(durations)
-    return average_duration
+    if durations != []:
+        average_duration = total_duration / len(durations)
+        return average_duration
+    else:
+        return 0
