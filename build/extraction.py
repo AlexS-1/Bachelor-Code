@@ -1,4 +1,7 @@
 from datetime import datetime
+from fileinput import filename
+
+from matplotlib import table
 from build.analysis import classify_content
 from build.classification import classify_comments
 
@@ -102,17 +105,49 @@ def blockify_code_data(data, old=False):
             blocks = []
             current_block = {}
             for line_number, content in commit[source_code].items():
-                if comments in list(commit.keys()) and line_number in list(commit[comments].keys()):
-                    if current_block != {} and list(current_block["code_lines"].keys())[-1] not in list(commit[comments].keys()):
+                if content.find("def ") != -1:
+                    if current_block != {}:
                         blocks.append(current_block)
                         current_block = {}
                     current_block.setdefault("code_lines", {})[line_number] = content
-                    current_block.setdefault("comment_lines", {})[line_number] = commit[comments][line_number]
+                    if line_number in list(commit[comments].keys()):
+                        current_block.setdefault("comment_lines", {})[line_number] = commit[comments][line_number]
                 else:
                     current_block.setdefault("code_lines", {})[line_number] = content
+                    if line_number in list(commit[comments].keys()):
+                        current_block.setdefault("comment_lines", {})[line_number] = commit[comments][line_number]
+
+                # if comments in list(commit.keys()) and line_number in list(commit[comments].keys()):
+                #     if current_block != {} and list(current_block["code_lines"].keys())[-1] not in list(commit[comments].keys()):
+                #         blocks.append(current_block)
+                #         current_block = {}
+                #     current_block.setdefault("code_lines", {})[line_number] = content
+                #     current_block.setdefault("comment_lines", {})[line_number] = commit[comments][line_number]
+                # else:
+                #     current_block.setdefault("code_lines", {})[line_number] = content
+
             if current_block != {}:
                 blocks.append(current_block)
             commit[source_code] = blocks
+
+def make_table(data):
+    table = []
+    for filename, commits in data.items():
+        for commit in commits:
+            for block in commit["source_code"]:
+                if list(block["code_lines"].values())[0].find("def ") != -1:
+                    method_name = list(block["code_lines"].values())[0].split("def ")[1].split("(")[0]
+                else:
+                    method_name = "Not a Method"
+                try:
+                    comments = block["comment_lines"]
+                    comment_lines = len(list(comments.keys()))
+                except KeyError:
+                    comments = ""
+                    comment_lines = 0
+                line = [method_name, commit["commit"], commit["author"], commit["timestamp"], filename, block["code_lines"], comments, len(list(block["code_lines"].keys())), comment_lines]
+                table.append(line)
+    return table
 
 def blockify_diff(data, type):
     for file, commits in data.items():

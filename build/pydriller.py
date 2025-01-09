@@ -9,7 +9,7 @@ from build.comment_lister import get_comment_data
 from build.extraction import diff_to_dict, filter_comments_by_time
 from build.utils import list_to_dict
 
-_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Toy-Example"
+_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Bachelor-Code"
 
 def get_commits_data(repo_path, from_date, to_date, file_types): 
     files_data = {}
@@ -36,7 +36,7 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                     "filename": file.new_path,
                     "diff": diff_to_dict(file.diff_parsed),
                     "source_code": source,
-                    "source_code_old": source_old
+                    # "source_code_old": source_old
                 }
                 if len(file.diff_parsed) != 0:
                     files_data[file.new_path].append(file_data)

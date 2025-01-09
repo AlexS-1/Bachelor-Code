@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 import subprocess
@@ -28,6 +29,13 @@ def save_to_xes(data, path):
         # Add the trace to the log
         log.append(trace)
     xes_exporter.apply(log, path)
+
+def save_to_csv(data, path):
+    with open (path, 'w') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(["Method Name", "Commit Hash", "Author", "Timestamp", "Filename", "Code Lines", "Comment Lines", "Code Line Count", "Comment Line Count"])
+        for row in data:
+            writer.writerow(row)
 
 def list_to_dict(list):
     dict = {}
