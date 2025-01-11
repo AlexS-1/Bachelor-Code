@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from tkinter import NO
+from tkinter import NO    
+import pandas as pd
 
 from httpx import get
 
@@ -21,16 +22,16 @@ def analyse_diff_comments(data):
                     else:
                         commit["comments"][line]["edit"] = "deleted"
                         continue
-            for line in list(commit["comments_old"].keys()):
-                if line in list(commit["diff"]["added"].keys()):
-                    commit["comments_old"][line]["edit"] = "added"
-                if line in list(commit["diff"]["deleted"].keys()):
-                    if "edit" in list(commit["comments_old"][line].keys()):
-                        commit["comments_old"][line]["edit"] = "modified"
-                        continue
-                    else:
-                        commit["comments_old"][line]["edit"] = "deleted"
-                        continue
+            # for line in list(commit["comments_old"].keys()):
+            #     if line in list(commit["diff"]["added"].keys()):
+            #         commit["comments_old"][line]["edit"] = "added"
+            #     if line in list(commit["diff"]["deleted"].keys()):
+            #         if "edit" in list(commit["comments_old"][line].keys()):
+            #             commit["comments_old"][line]["edit"] = "modified"
+            #             continue
+            #         else:
+            #             commit["comments_old"][line]["edit"] = "deleted"
+            #             continue
 
 def set_metadata_for_block(data):
     for file, commits in data.items():
@@ -81,54 +82,54 @@ def set_metadata_for_block(data):
                 previous_commit += 1
 
             # Repeat process for old source_code
-            for block in commits[commit]["source_code_old"]:
-                blockified_source_code_old = None # Initialize variable as otherwise not reachable throughout the different if statements
-                # Determine wether block was newly created
-                if commit == previous_commit_old:
-                    commit_hash_old = get_parent_commit(commits[commit]["commit"], file)
-                    commit_data_old = get_commit_data(commit_hash_old, file, old=True)
-                    if commit_data_old[file][0]["source_code_old"] == {}:
-                        created = True
-                        creation_timestamp = commit_data_old[file][previous_commit_old]["timestamp"]
-                    else:
-                        blockify_code_data(commit_data_old, old=True)
-                        created, creation_timestamp = _block_created(block, commit_data_old[file][previous_commit_old]["source_code_old"])
-                else:
-                    blockified_source_code_old = commits[previous_commit_old]["source_code_old"]
-                    created, creation_timestamp = _block_created(block, blockified_source_code_old)
-                    if created: 
-                        creation_timestamp = commits[previous_commit]["timestamp"]
-                # Analyse block for code changes to previous block (block that includes the same line)
-                if creation_timestamp != commits[previous_commit]["timestamp"] and blockified_source_code_old != None:
-                    changed, change_time = _code_changed(block, blockified_source_code_old)
-                    code_last_modified = change_time
-                else: 
-                    changed = True
-                    code_last_modified = commits[previous_commit]["timestamp"]
-                # Analyse block for comment changes to previous block (block that includes the same line)
-                if "comment_lines" in list(block.keys()):
-                    for line in list(list(block["comment_lines"].keys())):
-                        if line in list(commits[previous_commit_old]["diff"]["added"].keys()):
-                            comment_last_modified = commits[previous_commit_old]["timestamp"]
-                            break
-                        else:
-                            if created:
-                                comment_last_modified = commits[previous_commit_old]["timestamp"]
-                            elif _comment_changed(block, blockified_source_code_old) == "mismatching comments":
-                                comment_last_modified = _comment_changed(block, blockified_source_code_old)
-                            else:
-                                comment_last_modified = commits[previous_commit_old]["timestamp"]
-                else: 
-                    comment_last_modified = "has_no_comments"
-                block["metadata"] = {
-                    "file": file,
-                    "commit": commits[commit]["commit"],
-                    "creation_timestamp": creation_timestamp,
-                    "code_last_modified": code_last_modified,
-                    "comment_last_modified": comment_last_modified
-                }
-            if commit != 0:
-                previous_commit_old += 1
+            # for block in commits[commit]["source_code_old"]:
+            #     blockified_source_code_old = None # Initialize variable as otherwise not reachable throughout the different if statements
+            #     # Determine wether block was newly created
+            #     if commit == previous_commit_old:
+            #         commit_hash_old = get_parent_commit(commits[commit]["commit"], file)
+            #         commit_data_old = get_commit_data(commit_hash_old, file, old=True)
+            #         if commit_data_old[file][0]["source_code_old"] == {}:
+            #             created = True
+            #             creation_timestamp = commit_data_old[file][previous_commit_old]["timestamp"]
+            #         else:
+            #             blockify_code_data(commit_data_old, old=True)
+            #             created, creation_timestamp = _block_created(block, commit_data_old[file][previous_commit_old]["source_code_old"])
+            #     else:
+            #         blockified_source_code_old = commits[previous_commit_old]["source_code_old"]
+            #         created, creation_timestamp = _block_created(block, blockified_source_code_old)
+            #         if created: 
+            #             creation_timestamp = commits[previous_commit]["timestamp"]
+            #     # Analyse block for code changes to previous block (block that includes the same line)
+            #     if creation_timestamp != commits[previous_commit]["timestamp"] and blockified_source_code_old != None:
+            #         changed, change_time = _code_changed(block, blockified_source_code_old)
+            #         code_last_modified = change_time
+            #     else: 
+            #         changed = True
+            #         code_last_modified = commits[previous_commit]["timestamp"]
+            #     # Analyse block for comment changes to previous block (block that includes the same line)
+            #     if "comment_lines" in list(block.keys()):
+            #         for line in list(list(block["comment_lines"].keys())):
+            #             if line in list(commits[previous_commit_old]["diff"]["added"].keys()):
+            #                 comment_last_modified = commits[previous_commit_old]["timestamp"]
+            #                 break
+            #             else:
+            #                 if created:
+            #                     comment_last_modified = commits[previous_commit_old]["timestamp"]
+            #                 elif _comment_changed(block, blockified_source_code_old) == "mismatching comments":
+            #                     comment_last_modified = _comment_changed(block, blockified_source_code_old)
+            #                 else:
+            #                     comment_last_modified = commits[previous_commit_old]["timestamp"]
+            #     else: 
+            #         comment_last_modified = "has_no_comments"
+            #     block["metadata"] = {
+            #         "file": file,
+            #         "commit": commits[commit]["commit"],
+            #         "creation_timestamp": creation_timestamp,
+            #         "code_last_modified": code_last_modified,
+            #         "comment_last_modified": comment_last_modified
+            #     }
+            # if commit != 0:
+            #     previous_commit_old += 1
             
             # TODO Temporaryily disabled for testing purposes
             # del commits[commit]["diff"]
@@ -207,3 +208,45 @@ def average_comment_update_time(data):
         return average_duration
     else:
         return 0
+
+def process_csv_and_create_event_log(input_csv, output_csv):
+    # Step 1: Read the CSV file
+    data = pd.read_csv(input_csv)
+    
+    # Step 2: Sort the data by method name and filename
+    data_sorted = data.sort_values(by=["Method Name", "Filename"])
+
+    # Step 3: Calculate differences and generate events
+    event_log = []
+    
+    for i in range(len(data_sorted) - 1):
+        current_row = data_sorted.iloc[i]
+        next_row = data_sorted.iloc[i + 1]
+
+        # Check if the method and file are the same
+        if current_row["Method Name"] == next_row["Method Name"] and current_row["Filename"] == next_row["Filename"]:
+            # Compare fields to determine the type of change
+            if current_row["Code Lines"] != next_row["Code Lines"]:
+                event_type = "Method Modified"
+            else:
+                continue
+        else:
+            event_type = "Method Added"
+
+        # Append the event to the log
+        event_log.append({
+            "Case ID": current_row["Method Name"],
+            "Activity": event_type,
+            "Timestamp": current_row["Timestamp"],
+            "Filename": current_row["Filename"],
+            "Details": f"Change from {current_row['Code Line Count']} to {next_row['Code Line Count']} LOC"
+        })
+
+    # Step 4: Convert event log to a DataFrame
+    event_log_df = pd.DataFrame(event_log)
+
+    # Step 5: Save the event log to a CSV file
+    event_log_df.to_csv(output_csv, index=False)
+
+
+  

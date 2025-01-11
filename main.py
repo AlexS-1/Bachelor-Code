@@ -3,7 +3,7 @@ import shutil
 from datetime import datetime, timedelta
 
 from build.analysis import (analyse_diff_comments, average_comment_update_time,
-                            blockify_code_data, classify_content,
+                            blockify_code_data, classify_content, process_csv_and_create_event_log,
                             set_metadata_for_block)
 from build.comment_lister import get_comment_data
 from build.extraction import (blockify_diff, classify_content,
@@ -33,17 +33,20 @@ def main():
     # save_to_json(code_data, "Data/code_data_with_comments.json")
     # shutil.rmtree(repo_path)
 
-    # Extract code changes and comment changes from code_data
-    with open("Data/code_data_with_comments.json", "r") as json_file:
-        code_data = json.load(json_file)
-    analyse_diff_comments(code_data)
-    blockify_code_data(code_data, old=False)
-    # blockify_code_data(code_data, old=True)
-    # set_metadata_for_block(code_data)
-    # blockify_diff(code_data, "added")
-    # blockify_diff(code_data, "deleted")
-    save_to_json(code_data, "Data/blockified_code_data_with_comments.json")
-    save_to_csv(make_table(code_data), "Exports/commit_data.csv")
+    # # Extract code changes and comment changes from code_data
+    # with open("Data/code_data_with_comments.json", "r") as json_file:
+    #     code_data = json.load(json_file)
+    # analyse_diff_comments(code_data)
+    # blockify_code_data(code_data, old=False)
+    # # blockify_code_data(code_data, old=True)
+    # # set_metadata_for_block(code_data)
+    # # blockify_diff(code_data, "added")
+    # # blockify_diff(code_data, "deleted")
+    # save_to_json(code_data, "Data/blockified_code_data_with_comments.json")
+    # save_to_csv(make_table(code_data), "Exports/commit_data.csv")
+
+    # Usage
+    process_csv_and_create_event_log("Exports/commit_data.csv", "Exports/event_log.csv")
 
     # Extract blocks with either outdated or updated comments
     # comment_data = extract_later_modified_comments(code_data)
@@ -57,32 +60,32 @@ def main():
 def add_comments_to_code(code_data, repo_path, start_time, end_time):
     # Add comments to the code data using CommentLister
     for file, commits in code_data.items():
-        previous_commit = get_parent_commit(commits[0]["commit"], file, repo_path)
-        if previous_commit is None:
-            raise Exception("Failed to get parent commit")
+        # previous_commit = get_parent_commit(commits[0]["commit"], file, repo_path)
+        # if previous_commit is None:
+        #     raise Exception("Failed to get parent commit")
         for commit in commits:
             tag = "-target=" + commit["commit"]
             output = get_comment_data(repo_path, tag)
-            output_old = get_comment_data(repo_path, "-target=" + previous_commit)
+            # output_old = get_comment_data(repo_path, "-target=" + previous_commit)
             # Parse output as JSON
             try:
                 comment_data = json.loads(output)
-                comment_data_old = json.loads(output_old)
+                # comment_data_old = json.loads(output_old)
             except json.JSONDecodeError as e:
                 raise Exception(f"Failed to parse CommentLister output: {e}")
             # Filter comments by time
             commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
-            commit_hash_old, filtered_comments_old = filter_comments_by_time(comment_data_old, start_time, end_time)
+            # commit_hash_old, filtered_comments_old = filter_comments_by_time(comment_data_old, start_time, end_time)
             if commit["commit"] == commit_hash and file in filtered_comments.keys():
                 commit["comments"] = filtered_comments[file]
             else:
                 print("No comments in this Commit", commit["commit"], "for investigate file", file)
                 commit["comments"] = {}
-            if previous_commit == commit_hash_old and file in filtered_comments_old.keys():
-                commit["comments_old"] = filtered_comments_old[file]
-            else:
-                print("No comments in this commit's parents", commit["commit"], "for investigate file", file)
-                commit["comments_old"] = {}
+            # if previous_commit == commit_hash_old and file in filtered_comments_old.keys():
+                # commit["comments_old"] = filtered_comments_old[file]
+            # else:
+            #     print("No comments in this commit's parents", commit["commit"], "for investigate file", file)
+            #     commit["comments_old"] = {}
             previous_commit = commit["commit"]
 
 if __name__ == "__main__":
