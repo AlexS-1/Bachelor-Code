@@ -1,208 +1,125 @@
 Case ID,Activity,Timestamp,Filename,Details
-Not a Method,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 7 to 7 LOC
-Not a Method,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 7 to 8 LOC
+Not a Method,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 7 to 7 LOC
+Not a Method,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 7 to 8 LOC
 Not a Method,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 8 to 2 LOC
-Not a Method,Method Modified,2024-11-25T11:26:40+01:00,build/analysis.py,Change from 2 to 2 LOC
+Not a Method,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 2 to 2 LOC
 Not a Method,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 2 to 4 LOC
-Not a Method,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 4 to 5 LOC
-Not a Method,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 5 to 10 LOC
-Not a Method,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 10 to 6 LOC
-Not a Method,Method Modified,2024-12-04T00:35:22+01:00,build/comment_lister.py,Change from 6 to 7 LOC
+Not a Method,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 4 to 5 LOC
+Not a Method,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 5 to 10 LOC
+Not a Method,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 10 to 7 LOC
 Not a Method,Method Modified,2024-12-04T23:01:11+01:00,build/comment_lister.py,Change from 7 to 7 LOC
-Not a Method,Method Modified,2024-12-07T15:31:01+01:00,build/comment_lister.py,Change from 7 to 2 LOC
-Not a Method,Method Added,2024-12-11T12:54:20+01:00,build/comment_lister.py,Change from 2 to 6 LOC
-Not a Method,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 6 to 7 LOC
-Not a Method,Method Modified,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 7 to 13 LOC
-Not a Method,Method Modified,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 13 to 13 LOC
-Not a Method,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 13 to 4 LOC
-Not a Method,Method Modified,2024-12-04T00:35:22+01:00,build/utils.py,Change from 4 to 8 LOC
-Not a Method,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 8 to 4 LOC
-Not a Method,Method Added,2024-12-03T15:33:45+01:00,build/xes_conversion.py,Change from 4 to 12 LOC
+Not a Method,Method Modified,2024-12-07T15:31:01+01:00,build/comment_lister.py,Change from 7 to 7 LOC
+Not a Method,Method Added,2024-12-11T12:54:20+01:00,build/comment_lister.py,Change from 7 to 8 LOC
+Not a Method,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 8 to 7 LOC
+Not a Method,Method Modified,2024-12-04T00:35:22+01:00,build/pydriller.py,Change from 7 to 12 LOC
+Not a Method,Method Modified,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 12 to 13 LOC
+Not a Method,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 13 to 10 LOC
+Not a Method,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 10 to 12 LOC
 Not a Method,Method Modified,2024-11-22T16:53:22+01:00,main.py,Change from 12 to 13 LOC
 Not a Method,Method Modified,2024-11-23T21:32:59+01:00,main.py,Change from 13 to 13 LOC
 Not a Method,Method Modified,2024-11-24T18:37:49+01:00,main.py,Change from 13 to 13 LOC
 Not a Method,Method Modified,2024-11-25T02:54:47+01:00,main.py,Change from 13 to 13 LOC
 Not a Method,Method Modified,2024-11-25T11:26:40+01:00,main.py,Change from 13 to 13 LOC
 Not a Method,Method Modified,2024-11-28T10:16:59+01:00,main.py,Change from 13 to 14 LOC
-Not a Method,Method Modified,2024-12-03T15:46:08+01:00,main.py,Change from 14 to 14 LOC
-Not a Method,Method Modified,2024-12-04T00:55:39+01:00,main.py,Change from 14 to 14 LOC
-Not a Method,Method Modified,2024-12-05T23:05:58+01:00,main.py,Change from 14 to 14 LOC
+Not a Method,Method Modified,2024-12-03T15:33:45+01:00,main.py,Change from 14 to 14 LOC
+Not a Method,Method Modified,2024-12-04T00:35:22+01:00,main.py,Change from 14 to 14 LOC
+Not a Method,Method Modified,2024-12-04T23:01:11+01:00,main.py,Change from 14 to 14 LOC
 Not a Method,Method Modified,2024-12-07T15:31:01+01:00,main.py,Change from 14 to 14 LOC
-Not a Method,Method Added,2025-01-09T12:48:21+01:00,main.py,Change from 14 to 12 LOC
+Not a Method,Method Added,2024-12-11T12:54:20+01:00,main.py,Change from 14 to 12 LOC
 Not a Method,Method Modified,2024-12-04T14:36:49+01:00,test.py,Change from 12 to 12 LOC
 Not a Method,Method Modified,2024-12-04T23:01:11+01:00,test.py,Change from 12 to 12 LOC
-Not a Method,Method Modified,2024-12-07T15:31:01+01:00,test.py,Change from 12 to 18 LOC
-Not a Method,Method Added,2024-12-11T12:54:20+01:00,test.py,Change from 18 to 14 LOC
-_block_created,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 14 to 23 LOC
+Not a Method,Method Modified,2024-12-07T15:31:01+01:00,test.py,Change from 12 to 24 LOC
+Not a Method,Method Added,2024-12-11T12:54:20+01:00,test.py,Change from 24 to 23 LOC
 _code_changed,Method Modified,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 23 to 24 LOC
 _code_changed,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 24 to 14 LOC
-_comment_changed,Method Modified,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 14 to 14 LOC
-_comment_changed,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 14 to 33 LOC
-add_comments_to_code,Method Added,2025-01-09T12:48:21+01:00,main.py,Change from 33 to 24 LOC
-analyse_diff_comments,Method Modified,2024-11-24T18:37:49+01:00,build/analysis.py,Change from 24 to 22 LOC
-analyse_diff_comments,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 22 to 23 LOC
-analyse_diff_comments,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 23 to 23 LOC
-analyse_diff_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 23 to 23 LOC
-analyse_diff_comments,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 23 to 23 LOC
-analyse_diff_comments,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 23 to 22 LOC
-analyse_diff_comments,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 22 to 24 LOC
-analyse_diff_comments,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 24 to 52 LOC
-analyze_commits,Method Modified,2024-11-16T20:51:56+01:00,build/XESConversion.py,Change from 52 to 52 LOC
+_comment_changed,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 14 to 33 LOC
+add_comments_to_code,Method Added,2024-12-11T12:54:20+01:00,main.py,Change from 33 to 23 LOC
+analyse_diff_comments,Method Modified,2024-11-24T18:37:49+01:00,build/analysis.py,Change from 23 to 24 LOC
+analyse_diff_comments,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 24 to 23 LOC
+analyse_diff_comments,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 23 to 23 LOC
+analyse_diff_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 23 to 24 LOC
+analyse_diff_comments,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 24 to 23 LOC
+analyse_diff_comments,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 23 to 26 LOC
+analyse_diff_comments,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 26 to 56 LOC
+analyze_commits,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 56 to 52 LOC
 analyze_commits,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 52 to 53 LOC
-analyze_commits,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 53 to 52 LOC
-analyze_commits,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 52 to 52 LOC
-analyze_commits,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 52 to 68 LOC
-analyze_commits,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 68 to 68 LOC
-analyze_commits,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 68 to 68 LOC
-analyze_commits,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 68 to 68 LOC
-analyze_commits,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 68 to 68 LOC
-analyze_commits,Method Added,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 68 to 33 LOC
-analyze_diff,Method Added,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 33 to 39 LOC
-analyze_diffs,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 39 to 37 LOC
-analyze_diffs,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 37 to 37 LOC
-analyze_diffs,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 37 to 31 LOC
-analyze_diffs,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 31 to 31 LOC
-analyze_diffs,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 31 to 31 LOC
-analyze_diffs,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 31 to 30 LOC
-analyze_diffs,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 30 to 30 LOC
-analyze_diffs,Method Added,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 30 to 10 LOC
-average_comment_update_time,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 10 to 11 LOC
-average_comment_update_time,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 11 to 12 LOC
-average_comment_update_time,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 12 to 12 LOC
-average_comment_update_time,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 12 to 12 LOC
-average_comment_update_time,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 12 to 12 LOC
-average_comment_update_time,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 12 to 11 LOC
-average_comment_update_time,Method Modified,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 11 to 14 LOC
-average_comment_update_time,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 14 to 18 LOC
-blockify_code_data,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 18 to 55 LOC
-blockify_comments,Method Modified,2024-11-24T18:37:49+01:00,build/analysis.py,Change from 55 to 20 LOC
-blockify_comments,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 20 to 20 LOC
-blockify_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 20 to 20 LOC
-blockify_comments,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 20 to 20 LOC
-blockify_comments,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 20 to 21 LOC
-blockify_comments2,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 21 to 21 LOC
-blockify_comments2,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 21 to 21 LOC
-blockify_comments2,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 21 to 20 LOC
-blockify_comments2,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 20 to 20 LOC
-blockify_diff,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 20 to 3 LOC
-check_inline_comments,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 3 to 3 LOC
-check_inline_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 3 to 3 LOC
-check_inline_comments,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 3 to 42 LOC
-classify_comments,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 42 to 30 LOC
-classify_comments,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 30 to 15 LOC
-classify_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 15 to 15 LOC
-classify_comments,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 15 to 15 LOC
-classify_comments,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 15 to 15 LOC
-classify_comments,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 15 to 7 LOC
-classify_content,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 7 to 7 LOC
+analyze_commits,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 53 to 53 LOC
+analyze_commits,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 53 to 52 LOC
+analyze_commits,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 52 to 72 LOC
+analyze_commits,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 72 to 70 LOC
+analyze_commits,Method Added,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 70 to 68 LOC
+analyze_commits,Method Added,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 68 to 33 LOC
+analyze_diff,Method Added,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 33 to 39 LOC
+analyze_diffs,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 39 to 39 LOC
+analyze_diffs,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 39 to 37 LOC
+analyze_diffs,Method Added,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 37 to 30 LOC
+analyze_diffs,Method Added,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 30 to 10 LOC
+average_comment_update_time,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 10 to 12 LOC
+average_comment_update_time,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 12 to 11 LOC
+average_comment_update_time,Method Modified,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 11 to 11 LOC
+average_comment_update_time,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 11 to 51 LOC
+blockify_code_data,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 51 to 35 LOC
+blockify_comments,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 35 to 30 LOC
+blockify_comments,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 30 to 20 LOC
+blockify_comments,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 20 to 22 LOC
+blockify_comments2,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 22 to 20 LOC
+blockify_comments2,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 20 to 54 LOC
+blockify_diff,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 54 to 3 LOC
+check_inline_comments,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 3 to 44 LOC
+classify_comments,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 44 to 30 LOC
+classify_comments,Method Added,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 30 to 7 LOC
 classify_content,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 7 to 7 LOC
-classify_content,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 7 to 7 LOC
-classify_content,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 7 to 14 LOC
-clean,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 14 to 15 LOC
+classify_content,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 7 to 15 LOC
 clean,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 15 to 15 LOC
 clean,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 15 to 16 LOC
 clean,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 16 to 16 LOC
-clean,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 16 to 16 LOC
-clean,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 16 to 16 LOC
-clean,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 16 to 5 LOC
-clone_ropositoriy,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 5 to 44 LOC
-convert_json_to_xes,Method Added,2024-12-03T15:33:45+01:00,build/xes_conversion.py,Change from 44 to 36 LOC
-create_xes_log,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 36 to 33 LOC
-create_xes_log,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 33 to 33 LOC
-create_xes_log,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 33 to 15 LOC
-detect_renames,Method Added,2024-12-11T12:54:20+01:00,test.py,Change from 15 to 12 LOC
-diff_to_dict,Method Modified,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 12 to 11 LOC
-diff_to_dict,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 11 to 11 LOC
-diff_to_dict,Method Modified,2024-12-04T00:35:22+01:00,build/pydriller.py,Change from 11 to 11 LOC
-diff_to_dict,Method Modified,2024-12-05T23:05:58+01:00,build/pydriller.py,Change from 11 to 11 LOC
-diff_to_dict,Method Added,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 11 to 13 LOC
-extract_activity,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_activity,Method Modified,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 13 to 12 LOC
+clean,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 16 to 16 LOC
+clean,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 16 to 2 LOC
+create_xes_log,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 2 to 36 LOC
+create_xes_log,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 36 to 39 LOC
+create_xes_log,Method Added,2024-11-16T20:51:56+01:00,build/XESConversion.py,Change from 39 to 12 LOC
+diff_to_dict,Method Modified,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 12 to 12 LOC
+diff_to_dict,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 12 to 11 LOC
+diff_to_dict,Method Added,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 11 to 13 LOC
+extract_activity,Method Added,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 13 to 12 LOC
 extract_activity,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 12 to 12 LOC
-extract_activity,Method Modified,2024-12-04T00:35:22+01:00,build/pydriller.py,Change from 12 to 12 LOC
-extract_activity,Method Modified,2024-12-05T23:05:58+01:00,build/pydriller.py,Change from 12 to 12 LOC
-extract_activity,Method Added,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 12 to 14 LOC
-extract_keywords,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 14 to 14 LOC
-extract_keywords,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 14 to 14 LOC
-extract_keywords,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 14 to 14 LOC
-extract_keywords,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 14 to 13 LOC
-extract_keywords,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_keywords,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 13 to 13 LOC
-extract_keywords,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_keywords,Method Modified,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_keywords,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_keywords,Method Modified,2024-12-04T00:35:22+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_keywords,Method Modified,2024-12-05T23:05:58+01:00,build/pydriller.py,Change from 13 to 13 LOC
-extract_keywords,Method Added,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 13 to 27 LOC
-extract_later_modified_comments,Method Modified,2024-11-24T18:37:49+01:00,build/analysis.py,Change from 27 to 33 LOC
-extract_later_modified_comments,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 33 to 41 LOC
-extract_later_modified_comments,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 41 to 43 LOC
+extract_activity,Method Added,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 12 to 15 LOC
+extract_keywords,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 15 to 14 LOC
+extract_keywords,Method Added,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 14 to 13 LOC
+extract_keywords,Method Added,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 13 to 32 LOC
+extract_later_modified_comments,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 32 to 41 LOC
+extract_later_modified_comments,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 41 to 43 LOC
 extract_later_modified_comments,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 43 to 43 LOC
-extract_later_modified_comments,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 43 to 43 LOC
-extract_later_modified_comments,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 43 to 42 LOC
-extract_later_modified_comments,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 42 to 19 LOC
+extract_later_modified_comments,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 43 to 14 LOC
+extract_later_modified_comments,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 14 to 19 LOC
 filter_comments_by_time,Method Modified,2024-11-22T16:53:22+01:00,build/comment_lister.py,Change from 19 to 37 LOC
 filter_comments_by_time,Method Modified,2024-11-24T18:37:49+01:00,build/comment_lister.py,Change from 37 to 38 LOC
 filter_comments_by_time,Method Modified,2024-12-04T00:35:22+01:00,build/comment_lister.py,Change from 38 to 41 LOC
-filter_comments_by_time,Method Modified,2024-12-04T23:01:11+01:00,build/comment_lister.py,Change from 41 to 39 LOC
-filter_comments_by_time,Method Added,2024-12-07T15:31:01+01:00,build/comment_lister.py,Change from 39 to 13 LOC
-get_comment_data,Method Added,2024-12-11T12:54:20+01:00,build/comment_lister.py,Change from 13 to 6 LOC
-get_comment_lines,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_comment_lines,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_comment_lines,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_comment_lines,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 6 to 40 LOC
-get_commit_data,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 40 to 20 LOC
+filter_comments_by_time,Method Modified,2024-12-04T23:01:11+01:00,build/comment_lister.py,Change from 41 to 42 LOC
+filter_comments_by_time,Method Added,2024-12-07T15:31:01+01:00,build/comment_lister.py,Change from 42 to 6 LOC
+get_comment_lines,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 6 to 6 LOC
+get_comment_lines,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 6 to 20 LOC
 get_commits_data,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 20 to 20 LOC
-get_commits_data,Method Modified,2024-11-28T10:16:59+01:00,build/pydriller.py,Change from 20 to 25 LOC
+get_commits_data,Method Modified,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 20 to 25 LOC
 get_commits_data,Method Modified,2024-12-04T00:35:22+01:00,build/pydriller.py,Change from 25 to 30 LOC
 get_commits_data,Method Modified,2024-12-05T23:05:58+01:00,build/pydriller.py,Change from 30 to 31 LOC
-get_commits_data,Method Modified,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 31 to 31 LOC
-get_commits_data,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 31 to 6 LOC
-get_diff_lines,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_diff_lines,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_diff_lines,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 6 to 6 LOC
-get_diff_lines,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 6 to 8 LOC
-get_files_in_commit,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 8 to 11 LOC
-get_parent_commit,Method Added,2025-01-09T12:48:21+01:00,build/pydriller.py,Change from 11 to 92 LOC
-get_source_code_from_tag,Method Modified,2024-12-04T14:36:49+01:00,test.py,Change from 92 to 91 LOC
-get_source_code_from_tag,Method Modified,2024-12-04T23:01:11+01:00,test.py,Change from 91 to 96 LOC
-get_source_code_from_tag,Method Modified,2024-12-07T15:31:01+01:00,test.py,Change from 96 to 105 LOC
-get_source_code_from_tag,Method Added,2024-12-11T12:54:20+01:00,test.py,Change from 105 to 4 LOC
-is_code_in_block,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 4 to 5 LOC
-is_code_in_block,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 5 to 5 LOC
-is_code_in_block,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 5 to 5 LOC
-is_code_in_block,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 5 to 5 LOC
-is_code_in_block,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 5 to 5 LOC
-is_code_in_block,Method Added,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 5 to 7 LOC
-is_equal,Method Modified,2024-11-25T11:26:40+01:00,build/analysis.py,Change from 7 to 8 LOC
-is_equal,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 8 to 8 LOC
-is_equal,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 8 to 8 LOC
-is_equal,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 8 to 8 LOC
-is_equal,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 8 to 8 LOC
-is_equal,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 8 to 8 LOC
-is_equal,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 8 to 6 LOC
-is_potential_code,Method Modified,2024-12-04T00:35:22+01:00,build/analysis.py,Change from 6 to 6 LOC
-is_potential_code,Method Modified,2024-12-04T00:55:39+01:00,build/analysis.py,Change from 6 to 7 LOC
-is_potential_code,Method Modified,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 7 to 7 LOC
-is_potential_code,Method Modified,2024-12-05T00:04:47+01:00,build/analysis.py,Change from 7 to 7 LOC
-is_potential_code,Method Modified,2024-12-05T23:05:58+01:00,build/analysis.py,Change from 7 to 7 LOC
-is_potential_code,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 7 to 5 LOC
-list_to_dict,Method Modified,2024-12-04T00:35:22+01:00,build/utils.py,Change from 5 to 6 LOC
-list_to_dict,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 6 to 52 LOC
-main,Method Modified,2024-11-22T16:53:22+01:00,main.py,Change from 52 to 49 LOC
-main,Method Modified,2024-11-23T21:32:59+01:00,main.py,Change from 49 to 53 LOC
+get_commits_data,Method Modified,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 31 to 2 LOC
+get_commits_data,Method Modified,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 2 to 31 LOC
+get_commits_data,Method Added,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 31 to 6 LOC
+get_diff_lines,Method Modified,2024-11-25T02:54:47+01:00,build/analysis.py,Change from 6 to 6 LOC
+get_diff_lines,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 6 to 35 LOC
+get_source_code_from_tag,Method Modified,2024-12-04T14:36:49+01:00,test.py,Change from 35 to 92 LOC
+get_source_code_from_tag,Method Modified,2024-12-04T23:01:11+01:00,test.py,Change from 92 to 95 LOC
+get_source_code_from_tag,Method Modified,2024-12-07T15:31:01+01:00,test.py,Change from 95 to 96 LOC
+get_source_code_from_tag,Method Added,2024-12-11T12:54:20+01:00,test.py,Change from 96 to 4 LOC
+is_code_in_block,Method Modified,2024-11-25T11:26:40+01:00,build/analysis.py,Change from 4 to 7 LOC
+is_code_in_block,Method Added,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 7 to 7 LOC
+is_equal,Method Modified,2024-11-28T10:16:59+01:00,build/analysis.py,Change from 7 to 8 LOC
+is_equal,Method Added,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 8 to 6 LOC
+is_potential_code,Method Added,2024-12-04T23:01:11+01:00,build/analysis.py,Change from 6 to 5 LOC
+list_to_dict,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 5 to 55 LOC
+main,Method Modified,2024-11-22T16:53:22+01:00,main.py,Change from 55 to 57 LOC
+main,Method Modified,2024-11-23T21:32:59+01:00,main.py,Change from 57 to 53 LOC
 main,Method Modified,2024-11-24T18:37:49+01:00,main.py,Change from 53 to 60 LOC
 main,Method Modified,2024-11-25T02:54:47+01:00,main.py,Change from 60 to 64 LOC
 main,Method Modified,2024-11-25T11:26:40+01:00,main.py,Change from 64 to 66 LOC
@@ -211,51 +128,28 @@ main,Method Modified,2024-12-03T15:33:45+01:00,main.py,Change from 67 to 67 LOC
 main,Method Modified,2024-12-03T15:46:08+01:00,main.py,Change from 67 to 73 LOC
 main,Method Modified,2024-12-04T00:35:22+01:00,main.py,Change from 73 to 73 LOC
 main,Method Modified,2024-12-04T00:55:39+01:00,main.py,Change from 73 to 73 LOC
-main,Method Modified,2024-12-04T23:01:11+01:00,main.py,Change from 73 to 85 LOC
-main,Method Modified,2024-12-05T23:05:58+01:00,main.py,Change from 85 to 68 LOC
-main,Method Modified,2024-12-07T15:31:01+01:00,main.py,Change from 68 to 43 LOC
-main,Method Modified,2024-12-11T12:54:20+01:00,main.py,Change from 43 to 43 LOC
-main,Method Added,2025-01-09T12:48:21+01:00,main.py,Change from 43 to 7 LOC
-only_code_in_block,Method Modified,2024-12-07T15:31:01+01:00,build/analysis.py,Change from 7 to 7 LOC
-only_code_in_block,Method Modified,2024-12-11T12:54:20+01:00,build/analysis.py,Change from 7 to 7 LOC
-only_code_in_block,Method Added,2025-01-09T12:48:21+01:00,build/analysis.py,Change from 7 to 9 LOC
-order_commits_data,Method Added,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 9 to 33 LOC
-pretty_diff,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 33 to 42 LOC
-pretty_diff,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 42 to 45 LOC
-pretty_diff,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 45 to 46 LOC
-pretty_diff,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 46 to 52 LOC
-pretty_diff,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 52 to 52 LOC
-pretty_diff,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 52 to 52 LOC
-pretty_diff,Method Modified,2024-11-22T16:53:22+01:00,build/pydriller.py,Change from 52 to 52 LOC
-pretty_diff,Method Added,2024-11-25T02:54:47+01:00,build/pydriller.py,Change from 52 to 14 LOC
-run_comment_lister,Method Modified,2024-12-04T00:35:22+01:00,build/comment_lister.py,Change from 14 to 14 LOC
-run_comment_lister,Method Added,2024-12-07T15:31:01+01:00,build/comment_lister.py,Change from 14 to 5 LOC
-save_to_json,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 5 to 6 LOC
+main,Method Modified,2024-12-04T23:01:11+01:00,main.py,Change from 73 to 75 LOC
+main,Method Modified,2024-12-05T23:05:58+01:00,main.py,Change from 75 to 76 LOC
+main,Method Modified,2024-12-07T15:31:01+01:00,main.py,Change from 76 to 15 LOC
+main,Method Modified,2024-12-11T12:54:20+01:00,main.py,Change from 15 to 67 LOC
+main,Method Modified,2024-12-11T12:54:20+01:00,main.py,Change from 67 to 43 LOC
+main,Method Added,2025-01-09T12:48:21+01:00,main.py,Change from 43 to 9 LOC
+order_commits_data,Method Modified,2024-12-07T15:31:01+01:00,build/pydriller.py,Change from 9 to 9 LOC
+order_commits_data,Method Added,2024-12-11T12:54:20+01:00,build/pydriller.py,Change from 9 to 52 LOC
+pretty_diff,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 52 to 53 LOC
+pretty_diff,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 53 to 49 LOC
+pretty_diff,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 49 to 52 LOC
+pretty_diff,Method Added,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 52 to 13 LOC
+run_comment_lister,Method Added,2024-12-11T12:54:20+01:00,build/comment_lister.py,Change from 13 to 33 LOC
+save_to_json,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 33 to 6 LOC
 save_to_json,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 6 to 6 LOC
-save_to_json,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 6 to 4 LOC
-save_to_json,Method Modified,2024-12-04T00:35:22+01:00,build/utils.py,Change from 4 to 4 LOC
-save_to_json,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 4 to 22 LOC
-save_to_xes,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 22 to 30 LOC
-save_to_xes,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 30 to 27 LOC
-save_to_xes,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 27 to 27 LOC
+save_to_json,Method Added,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 6 to 25 LOC
+save_to_xes,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 25 to 22 LOC
+save_to_xes,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 22 to 30 LOC
+save_to_xes,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 30 to 27 LOC
 save_to_xes,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 27 to 27 LOC
-save_to_xes,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 27 to 27 LOC
 save_to_xes,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 27 to 27 LOC
-save_to_xes,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 27 to 19 LOC
-save_to_xes,Method Modified,2024-12-04T00:35:22+01:00,build/utils.py,Change from 19 to 19 LOC
-save_to_xes,Method Added,2024-12-11T12:54:20+01:00,build/utils.py,Change from 19 to 20 LOC
-save_xes_log,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 20 to 20 LOC
+save_to_xes,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 27 to 18 LOC
+save_to_xes,Method Added,2024-12-04T00:35:22+01:00,build/utils.py,Change from 18 to 21 LOC
+save_xes_log,Method Modified,2024-11-16T19:39:45+01:00,build/XESConversion.py,Change from 21 to 20 LOC
 save_xes_log,Method Modified,2024-11-16T20:51:56+01:00,build/XESConversion.py,Change from 20 to 20 LOC
-save_xes_log,Method Modified,2024-11-17T16:33:10+01:00,build/XESConversion.py,Change from 20 to 4 LOC
-save_xes_log,Method Modified,2024-11-18T10:51:21+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Modified,2024-11-18T15:19:19+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Modified,2024-11-19T15:32:58+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Modified,2024-11-19T17:09:41+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Modified,2024-11-19T17:28:53+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Modified,2024-11-19T18:23:46+01:00,build/XESConversion.py,Change from 4 to 4 LOC
-save_xes_log,Method Added,2024-11-21T12:33:35+01:00,build/XESConversion.py,Change from 4 to 102 LOC
