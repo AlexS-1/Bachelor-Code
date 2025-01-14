@@ -12,9 +12,11 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
     for commit in Repository(   repo_path, 
                                 since=from_date, 
                                 to=to_date, 
+                                histogram_diff=True,
                                 only_modifications_with_file_types=file_types).traverse_commits():
         for file in commit.modified_files:
-            if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
+            # TODO Temporarily allow also other types of change_types
+            if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types: # and file.change_type.name == 'MODIFY':
                 files_data[file.new_path] = []
             if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
                 if file.source_code:

@@ -1,43 +1,81 @@
 from datetime import datetime, timedelta
+from numpy import add, sort
 import pandas as pd
 
-def _block_created(block_new, blocks_old):
-    old_sourcecode = []
-    for block in blocks_old:
-        old_sourcecode.extend(list((block["code_lines"].keys())))
-    start_line = list(block_new["code_lines"].keys())[0]
-    if start_line not in old_sourcecode:
-        return True, "CREATED"
-    else:
-        for block in blocks_old:
-            if start_line in list(block["code_lines"].keys()):
-                block_created = block["metadata"]["creation_timestamp"]
-                return False, block_created
-    raise Exception("ERROR: new block neither found in old blocks nor created")
+def analyse_blocks(data):
+    for _, commits in data.items():
+        for commit in commits:
+            for block in commit["source_code_blocks"]:
+                activities = []
+                if "def " in block["code_linesv4"][0]:
+                    if "--" in block["code_linesv4"][0]:
+                        old_part = block["code_linesv4"][0].split("--")[1]
+                        old_method_name = block["code_linesv4"][0].split("def ")[1].split("(")[0]
+                        old_parameters = block["code_linesv4"][0].split("(")[1].split(")")[0].split(",")
+                        if "++" in block["code_linesv4"][0]:
+                            new_part = block["code_linesv4"][0].split("++")[1]
+                            if "def " in new_part:
+                                new_method_name = new_part.split("def ")[1].split("(")[0]
+                                new_parameters = new_part.split("(")[1].split(")")[0].split(", ")
+                                for parameter in new_parameters:
+                                    if "=" in parameter:
+                                        new_parameters[new_parameters.index(parameter)] = parameter.split("=")[0]
+                            old_part = block["code_linesv4"][0].split("--")[1].split("++")[0]
+                            if "def " in old_part:
+                                old_method_name = old_part.split("def ")[1].split("(")[0]
+                                old_parameters = old_part.split("(")[1].split(")")[0].split(", ")
+                                for parameter in old_parameters:
+                                    if "=" in parameter:
+                                        old_parameters[old_parameters.index(parameter)] = parameter.split("=")[0]
+                    if new_method_name != old_method_name and len (old_method_name) > 0 and len(new_method_name) > 0:
+                        activities.append("Method Renamed")
+                    if len(old_parameters) < len(new_parameters):
+                        activities.append("Method Parameter Added")
+                    elif len(old_parameters) > len(new_parameters):
+                        activities.append("Method Parameter Deleted")
+                    elif (sort(old_parameters) == sort(new_parameters)).all() and old_parameters != new_parameters:
+                        activities.append("Method Parameter Order Changed")
+                    elif old_parameters != new_parameters:
+                        activities.append("Method Parameter Renamed")
+                    
+                    deletions = []
+                    additions = []
+                    for line in block["code_linesv4"][1:]:
+                        if "--" in line:
+                            deletions.append(True)
+                        if "++" in line:
+                            additions.append(True)
+                    
+                    if len(deletions) == len(block["code_linesv4"][1:]) and not True in additions:
+                        activities.append("Method Deleted")
+                    elif len(additions) == len(block["code_linesv4"][1:]) and not True in deletions:
+                        activities.append("Method Created")
+
+                elif "import " in block["code_linesv4"][0]:
+                    for line in block["code_linesv4"]:
+                        if "--" in block["code_linesv4"][0]:
+                            old_import = block["code_linesv4"][0].split("--")[1]
+                            if "++" in block["code_linesv4"][0]:
+                                new_import = block["code_linesv4"][0].split("++")[1]
+                                if new_import != old_import:
+                                    activities.append("Import Changed")
                 
-def _code_changed(block_new, blocks_old):
-    for block_old in blocks_old:
-        for line_old in list(block_old["code_lines"].keys()):
-            if line_old in list(block_new["code_lines"].keys()):
-                # Check if block has comments and if so, remove them from comparison
-                if "comment_lines" not in (list(block_old.keys()) or list(block_new.keys())):
-                    return list(block_old["code_lines"]) != list(block_new["code_lines"]), block_old["metadata"]["code_last_modified"]
-                else:
-                    if "comment_lines" in list(block_old.keys()):
-                        actual_code_old = [line for line in block_old["code_lines"] if line not in block_old["comment_lines"]]
-                    else:
-                        actual_code_old = block_old["code_lines"]
-                    if "comment_lines" in list(block_new.keys()):
-                        actual_code_new = [line for line in block_new["code_lines"] if line not in block_new["comment_lines"]]
-                    else:
-                        actual_code_new = block_new["code_lines"]
-                    # Compare content of code lines and return if different, else code_changed returns False 
-                    # TODO Indent less as now for first found line already return?
-                    for code_line_old, code_line_new in zip(actual_code_old, actual_code_new):
-                        if block_old["code_lines"][code_line_old] != block_new["code_lines"][code_line_new]:
-                            return actual_code_old != actual_code_new, block_old["metadata"]["code_last_modified"]
-                    return False, block_old["metadata"]["code_last_modified"]
-    raise Exception("ERROR: No line from block_new found in old_blocks")
+                else: 
+                    if "comment_lines" in list(block.keys()):
+                        added = False
+                        modified = False
+                        for _, comment_data in block["comment_lines"].items():
+                            if comment_data["edit"] == "modified":
+                                modified = True
+                            elif comment_data["edit"] == "added":
+                                added = True
+                        if added:
+                            activities.append("added")
+                        if modified:
+                            activities.append("modified")
+                        # TODO Check if comment was deleted
+                        
+                block["activities"] = activities
 
 def _comment_changed(block_new, old_blocks):
     matched_comments = []
@@ -85,28 +123,27 @@ def process_csv_and_create_event_log(input_csv, output_csv):
     # Step 3: Calculate differences and generate events
     event_log = []
     
-    for i in range(len(data_sorted) - 1):
+    for i in range(len(data_sorted)):
         current_row = data_sorted.iloc[i]
-        next_row = data_sorted.iloc[i + 1]
 
-        # Check if the method and file are the same
-        if current_row["Method Name"] == next_row["Method Name"] and current_row["Filename"] == next_row["Filename"]:
-            # Compare fields to determine the type of change
-            if current_row["Code Lines"] != next_row["Code Lines"]:
-                event_type = "Method Modified"
-            else:
-                continue
+        if len(current_row["Activities"][1:-1].split(", ")) > 1:
+            for activity in current_row["Activities"][1:-1].split(", "):
+                event_log.append({
+                    "Case ID": current_row["Method Name"],
+                    "Activity": activity,
+                    "Timestamp": current_row["Timestamp"],
+                    "Filename": current_row["Filename"],
+                    "Author": current_row["Author"],
+                })
         else:
-            event_type = "Method Added"
-
-        # Append the event to the log
-        event_log.append({
-            "Case ID": current_row["Method Name"],
-            "Activity": event_type,
-            "Timestamp": current_row["Timestamp"],
-            "Filename": current_row["Filename"],
-            "Details": f"Change from {current_row['Code Line Count']} to {next_row['Code Line Count']} LOC"
-        })
+            # Append the event to the log
+            event_log.append({
+                "Case ID": current_row["Method Name"],
+                "Activity": current_row["Activities"],
+                "Timestamp": current_row["Timestamp"],
+                "Filename": current_row["Filename"],
+                "Author": current_row["Author"],
+            })
 
     # Step 4: Convert event log to a DataFrame
     event_log_df = pd.DataFrame(event_log)

@@ -1,4 +1,5 @@
 {
+    "build/main.py": [],
     "build/XESConversion.py": [
         {
             "commit": "1061293a43b0788f9db921ae6fc61734ccdf1b8d",
@@ -15,28 +16,27 @@
                         "4 5  from pm4py.objects.log.obj import EventLog, Trace, Event",
                         "5 6  from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
                         "6 7  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
                         "7 8--def analyze_commits(repo_url):++def analyze_commits(repo_url, comment_symbol, language_file_extension):",
                         "8 9      # This will hold the data for each file and its changes across commits",
                         "9 10--    commits_data = []++    files_data = {}",
-                        "10 11  ",
-                        "11 12--    # Traverse through the commits in the repository++    # Analysis range",
-                        "12 13--    for commit in Repository(repo_url).traverse_commits():++    dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)",
-                        "13 14--        commit_data = {++    dt2 = datetime.datetime(2023, 10, 8, 17, 59, 0)",
-                        "14 15--            \"timestamp\": commit.committer_date.isoformat(),",
-                        "15 15--            \"author\": commit.author.name,",
-                        "16 15--            \"files\": []",
-                        "17 15--        }",
-                        "18 15  ",
-                        "19 16++    # Traverse through the commits in the repository",
-                        "19 17++    # Only save commits, that contain at least one file of the format {language_file_extension}",
-                        "19 18++    for commit in Repository(repo_url,",
-                        "19 19++    only_modifications_with_file_types=[f\".{language_file_extension}\"],",
-                        "19 20++    since=dt1,",
-                        "19 21++    to=dt2).traverse_commits():",
+                        "10 11++",
+                        "10 12++    # Analysis range",
+                        "10 13++    dt1 = datetime.datetime(2022, 10, 8, 17, 0, 0)",
+                        "10 14++    dt2 = datetime.datetime(2023, 10, 8, 17, 59, 0)",
+                        "10 15  ",
+                        "11 16      # Traverse through the commits in the repository",
+                        "12 17--    for commit in Repository(repo_url).traverse_commits():++    # Only save commits, that contain at least one file of the format {language_file_extension}",
+                        "13 18--        commit_data = {++    for commit in Repository(repo_url,",
+                        "14 19--            \"timestamp\": commit.committer_date.isoformat(),++    only_modifications_with_file_types=[f\".{language_file_extension}\"],",
+                        "15 20--            \"author\": commit.author.name,++    since=dt1,",
+                        "16 21--            \"files\": []++    to=dt2).traverse_commits():",
+                        "17 22--        }",
+                        "18 22--",
                         "19 22          # Analyze each file modified in the commit",
                         "20 23          for modified_file in commit.modified_files:",
                         "21 24--            file_data = {++            # only store file data for Rust files",
@@ -89,21 +89,21 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         },
                         "16": {
                             "comment": "# Traverse through the commits in the repository",
                             "type": [
                                 "block"
                             ],
-                            "edit": "added"
+                            "edit": "unedited"
                         },
                         "17": {
                             "comment": "# Only save commits, that contain at least one file of the format {language_file_extension}",
                             "type": [
                                 "block"
                             ],
-                            "edit": "added"
+                            "edit": "modifiedd"
                         },
                         "22": {
                             "comment": "# Analyze each file modified in the commit",
@@ -149,7 +149,10 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -184,7 +187,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -210,7 +216,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added",
+                        "Method Created"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -225,7 +235,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Deleted"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -323,7 +336,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -412,7 +428,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 }
             ]
         },
@@ -433,29 +452,38 @@
                         "98 98--        # For each file affected in the commit, create a trace++        # Create a trace for the file",
                         "99 99--        for file_data in commit_data['files']:++        trace = Trace()",
                         "100 100--            # Check if a trace for this file already exists, if not, create one++        trace.attributes[\"file\"] = file",
-                        "101 101--            trace_name = file_data['filename']++",
-                        "102 102--            trace = next((t for t in log if t.attributes.get(\"concept:name\") == trace_name), None)++        for commit in commits:",
-                        "103 103--++            # Extract event attributes",
-                        "104 104--            if trace is None:",
-                        "105 104--                trace = Trace()",
-                        "106 104--                trace.attributes[\"concept:name\"] = trace_name",
-                        "107 104--                log.append(trace)",
-                        "108 104--",
-                        "109 104--            # Create an event for the current commit affecting this file",
+                        "101 101--            trace_name = file_data['filename']",
+                        "102 101--            trace = next((t for t in log if t.attributes.get(\"concept:name\") == trace_name), None)",
+                        "103 101--",
+                        "104 101--            if trace is None:",
+                        "105 101--                trace = Trace()",
+                        "106 101--                trace.attributes[\"concept:name\"] = trace_name",
+                        "107 101--                log.append(trace)",
+                        "108 101  ",
+                        "109 102--            # Create an event for the current commit affecting this file++        for commit in commits:",
+                        "110 103++            # Extract event attributes",
                         "110 104              event = Event()",
                         "111 105--            event[\"concept:name\"] = file_data['activity']++            event[\"timestamp\"] = commit.get(\"timestamp\")",
                         "112 106--            event[\"time:timestamp\"] = commit_data['timestamp']++            event[\"author\"] = commit.get(\"author\")",
                         "113 107--            event[\"org:resource\"] = commit_data['author']++            event[\"change_type\"] = commit.get(\"change_type\")",
-                        "114 108--++            event[\"commit_message\"] = commit.get(\"commit_message\")",
-                        "115 109--            # Add custom attributes for the event++            event[\"additions\"] = commit.get(\"additions\")",
-                        "116 110--            event[\"additions\"] = file_data['additions']++            event[\"deletions\"] = commit.get(\"deletions\")",
-                        "117 111--            event[\"deletions\"] = file_data['deletions']++            event[\"diff\"] = commit.get(\"diff\")",
-                        "118 112--            event[\"change_type\"] = file_data['change_type']++            if commit.get(\"comment_added_diff\"):",
-                        "119 113--            event[\"commit_message\"] = file_data['commit_message']++                event[\"comment_change\"] = \"True\"",
-                        "120 114--            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])++            else:",
-                        "121 115--            event[\"diff\"] = file_data[\"diff\"]++                event[\"comment_change\"] = \"False\"",
-                        "122 116--++",
-                        "123 117--            # Append the event to the trace++            # Add the event to the trace",
+                        "114 108++            event[\"commit_message\"] = commit.get(\"commit_message\")",
+                        "114 109++            event[\"additions\"] = commit.get(\"additions\")",
+                        "114 110++            event[\"deletions\"] = commit.get(\"deletions\")",
+                        "114 111++            event[\"diff\"] = commit.get(\"diff\")",
+                        "114 112++            if commit.get(\"comment_added_diff\"):",
+                        "114 113++                event[\"comment_change\"] = \"True\"",
+                        "114 114++            else:",
+                        "114 115++                event[\"comment_change\"] = \"False\"",
+                        "114 116  ",
+                        "115 117--            # Add custom attributes for the event++            # Add the event to the trace",
+                        "116 118--            event[\"additions\"] = file_data['additions']",
+                        "117 118--            event[\"deletions\"] = file_data['deletions']",
+                        "118 118--            event[\"change_type\"] = file_data['change_type']",
+                        "119 118--            event[\"commit_message\"] = file_data['commit_message']",
+                        "120 118--            #event[\"effect_keywords\"] = ', '.join(file_data['effect_keywords'])",
+                        "121 118--            event[\"diff\"] = file_data[\"diff\"]",
+                        "122 118--",
+                        "123 118--            # Append the event to the trace",
                         "124 118              trace.append(event)",
                         "125 119  ",
                         "126 120++        # Add the trace to the log",
@@ -491,7 +519,7 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         },
                         "117": {
                             "comment": "# Add the event to the trace",
@@ -507,7 +535,10 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -570,7 +601,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 }
             ]
         },
@@ -708,7 +742,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -771,7 +808,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 }
             ]
         },
@@ -925,7 +965,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -992,7 +1035,12 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Renamed",
+                        "Method Created"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1011,7 +1059,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1072,7 +1124,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Renamed"
+                    ]
                 }
             ]
         },
@@ -1091,7 +1147,8 @@
                         "5 5  from pm4py.objects.log.obj import EventLog, Trace, Event",
                         "6 6  from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
                         "7 7  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -1237,7 +1294,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1304,7 +1365,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1400,7 +1464,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Created"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1419,7 +1487,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1548,7 +1619,10 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 }
             ]
         },
@@ -1701,7 +1775,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1712,48 +1789,50 @@
                         "91 91                  diff_edited = []",
                         "92 92                  for i in range(len(commit[\"diff\"][type])):",
                         "93 93--                    if commit[\"diff\"][type][i][1].find(\"// \") == -1:++                    curr_line = commit[\"diff\"][type][i][0]",
-                        "94 94--                        if len(diff_edited) > 0:++                    curr_content = commit[\"diff\"][type][i][1]",
-                        "95 95--                            # In case of no comment add lines to existing dict if line number directly follows++                    if curr_content.find(\"//\") == 0 or curr_content.find(\"// \") != -1:",
-                        "96 96--                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
-                        "97 96--                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
-                        "98 96--                                diff_edited[-1][\"lines\"].append(commit[\"diff\"][type][i][1])",
-                        "99 96--                            else:",
-                        "100 96--                                # or create new one",
-                        "101 96--                                diff_edited.append({",
-                        "102 96--                                    \"line_numbers\": [commit[\"diff\"][type][i][0]],",
-                        "103 96--                                    \"comments\": [],",
-                        "104 96--                                    \"lines\": [commit[\"diff\"][type][i][1]]})",
-                        "105 96--                    else:",
-                        "106 96                          if len(diff_edited) > 0:",
-                        "107 97                              # In case of comment add them to existing dict if they directly follow",
-                        "108 98--                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:++                            if len(diff_edited[-1][\"line_numbers\"]) == 0 or curr_line == diff_edited[-1][\"line_numbers\"][-1] + 1:",
-                        "109 99--                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])++                                diff_edited[-1][\"comments\"][curr_line] = curr_content",
-                        "110 100--                                diff_edited[-1][\"comments\"].append(commit[\"diff\"][type][i][1])++                            # else:",
-                        "111 101++                            #     diff_edited.append({",
-                        "111 102++                            #         \"line_numbers\": [],",
-                        "111 103++                            #         \"comments\": {curr_line: curr_content},",
-                        "111 104++                            #         \"lines\": []})",
-                        "111 105                          else:",
-                        "112 106++                        #     if i < 5:",
-                        "112 107++                        #     # or create new one",
-                        "112 108++                        #         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)",
-                        "112 109                              # or create new one",
-                        "113 110                              diff_edited.append({",
-                        "114 111--                                \"line_numbers\": [commit[\"diff\"][type][i][0]],++                                \"line_numbers\": [],",
-                        "115 112--                                \"comments\": [commit[\"diff\"][type][i][1]],++                                \"comments\": {curr_line: curr_content},",
-                        "116 113                                  \"lines\": []})",
-                        "117 114++                    else:",
-                        "117 115++                        if len(diff_edited) > 0:",
-                        "117 116++                            # In case of no comment add lines to existing dict if line number directly follows",
-                        "117 117++                            if len(diff_edited[-1][\"line_numbers\"]) == 0 or curr_line == diff_edited[-1][\"line_numbers\"][-1] + 1:",
-                        "117 118++                                diff_edited[-1][\"line_numbers\"].append(curr_line)",
-                        "117 119++                                diff_edited[-1][\"lines\"].append(curr_content)",
-                        "117 120++                            else:",
-                        "117 121++                                # or create new one",
-                        "117 122++                                diff_edited.append({",
-                        "117 123++                                    \"line_numbers\": [curr_line],",
-                        "117 124++                                    \"comments\": {},",
-                        "117 125++                                    \"lines\": [curr_content]})",
+                        "94 94++                    curr_content = commit[\"diff\"][type][i][1]",
+                        "94 95++                    if curr_content.find(\"//\") == 0 or curr_content.find(\"// \") != -1:",
+                        "94 96++                        if len(diff_edited) > 0:",
+                        "94 97++                            # In case of comment add them to existing dict if they directly follow",
+                        "94 98++                            if len(diff_edited[-1][\"line_numbers\"]) == 0 or curr_line == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                        "94 99++                                diff_edited[-1][\"comments\"][curr_line] = curr_content",
+                        "94 100++                            # else:",
+                        "94 101++                            #     diff_edited.append({",
+                        "94 102++                            #         \"line_numbers\": [],",
+                        "94 103++                            #         \"comments\": {curr_line: curr_content},",
+                        "94 104++                            #         \"lines\": []})",
+                        "94 105++                        else:",
+                        "94 106++                        #     if i < 5:",
+                        "94 107++                        #     # or create new one",
+                        "94 108++                        #         print(\"I: \", i, \"comment is first part of block: \", curr_line, \": \", curr_content)",
+                        "94 109++                            # or create new one",
+                        "94 110++                            diff_edited.append({",
+                        "94 111++                                \"line_numbers\": [],",
+                        "94 112++                                \"comments\": {curr_line: curr_content},",
+                        "94 113++                                \"lines\": []})",
+                        "94 114++                    else:",
+                        "94 115                          if len(diff_edited) > 0:",
+                        "95 116                              # In case of no comment add lines to existing dict if line number directly follows",
+                        "96 117--                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:++                            if len(diff_edited[-1][\"line_numbers\"]) == 0 or curr_line == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                        "97 118--                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])++                                diff_edited[-1][\"line_numbers\"].append(curr_line)",
+                        "98 119--                                diff_edited[-1][\"lines\"].append(commit[\"diff\"][type][i][1])++                                diff_edited[-1][\"lines\"].append(curr_content)",
+                        "99 120                              else:",
+                        "100 121                                  # or create new one",
+                        "101 122                                  diff_edited.append({",
+                        "102 123--                                    \"line_numbers\": [commit[\"diff\"][type][i][0]],++                                    \"line_numbers\": [curr_line],",
+                        "103 124--                                    \"comments\": [],++                                    \"comments\": {},",
+                        "104 125--                                    \"lines\": [commit[\"diff\"][type][i][1]]})++                                    \"lines\": [curr_content]})",
+                        "105 126--                    else:",
+                        "106 126--                        if len(diff_edited) > 0:",
+                        "107 126--                            # In case of comment add them to existing dict if they directly follow",
+                        "108 126--                            if commit[\"diff\"][type][i][0] == diff_edited[-1][\"line_numbers\"][-1] + 1:",
+                        "109 126--                                diff_edited[-1][\"line_numbers\"].append(commit[\"diff\"][type][i][0])",
+                        "110 126--                                diff_edited[-1][\"comments\"].append(commit[\"diff\"][type][i][1])",
+                        "111 126--                        else:",
+                        "112 126--                            # or create new one",
+                        "113 126--                            diff_edited.append({",
+                        "114 126--                                \"line_numbers\": [commit[\"diff\"][type][i][0]],",
+                        "115 126--                                \"comments\": [commit[\"diff\"][type][i][1]],",
+                        "116 126--                                \"lines\": []})",
                         "117 126                  commit[\"diff\"][type] = diff_edited",
                         "118 127      return commits_data",
                         "119 128  "
@@ -1764,14 +1843,14 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "unedited"
+                            "edit": "added"
                         },
                         "100": {
                             "comment": "# else: ",
                             "type": [
                                 "block"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         },
                         "101": {
                             "comment": "#     diff_edited.append({",
@@ -1829,23 +1908,26 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "unedited"
+                            "edit": "added"
                         },
                         "116": {
                             "comment": "# In case of no comment add lines to existing dict if line number directly follows",
                             "type": [
                                 "normal"
                             ],
-                            "edit": "added"
+                            "edit": "unedited"
                         },
                         "121": {
                             "comment": "# or create new one",
                             "type": [
                                 "normal"
                             ],
-                            "edit": "added"
+                            "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -1925,7 +2007,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2015,7 +2100,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 }
             ]
         },
@@ -2067,12 +2155,12 @@
                         "41 41++                following_multi_comment = False",
                         "41 42                  for line in modified_file.diff_parsed[\"added\"]:",
                         "42 43--                    if line[1].find(comment_symbol) != -1:++                    if line[1].find(single_comment_symbol) != -1 or following_multi_comment:",
-                        "43 44++                        diff_added[line[0]] = line[1]",
-                        "43 45++                    if multi_comments_enabled and line[1].find(multi_comment_symbols[0]) != -1:",
-                        "43 46++                        diff_added[line[0]] = line[1]",
-                        "43 47++                        following_multi_comment = True",
-                        "43 48++                    if multi_comments_enabled and line[1].find(multi_comment_symbols[1]) != -1:",
-                        "43 49                          diff_added[line[0]] = line[1]",
+                        "43 44                          diff_added[line[0]] = line[1]",
+                        "44 45++                    if multi_comments_enabled and line[1].find(multi_comment_symbols[0]) != -1:",
+                        "44 46++                        diff_added[line[0]] = line[1]",
+                        "44 47++                        following_multi_comment = True",
+                        "44 48++                    if multi_comments_enabled and line[1].find(multi_comment_symbols[1]) != -1:",
+                        "44 49++                        diff_added[line[0]] = line[1]",
                         "44 50++                        following_multi_comment = False",
                         "44 51                  file_data[\"comment_added_diff\"] = diff_added",
                         "45 52                  for line in modified_file.diff_parsed[\"deleted\"]:",
@@ -2166,7 +2254,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2253,7 +2344,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2323,7 +2417,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -2479,7 +2576,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2506,7 +2606,10 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2610,7 +2713,10 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2681,7 +2787,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -2796,7 +2905,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -2883,7 +2995,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -2903,7 +3018,8 @@
                         "5 6  from pm4py.objects.log.obj import EventLog, Trace, Event",
                         "6 7  from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
                         "7 8  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -2973,11 +3089,16 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         }
     ],
+    "null": [],
+    "build/__init__.py": [],
     "build/comment_lister.py": [
         {
             "commit": "1013981f1c0e06dc3def7ea036c0da903f2e38f6",
@@ -3006,6 +3127,9 @@
                         "37 37                      filtered_comments.append(comment_data)",
                         "38 38                  i += 1",
                         "39 39      return filtered_comments"
+                    ],
+                    "activities": [
+                        "Method Parameter Added"
                     ]
                 }
             ]
@@ -3071,7 +3195,10 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -3137,7 +3264,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -3156,7 +3286,8 @@
                         "5 5  from datetime import datetime, timezone",
                         "6 6++from build.analysis import classify_comments",
                         "6 7  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3217,7 +3348,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -3236,7 +3370,8 @@
                         "5 5  from datetime import datetime, timezone",
                         "6 6--from build.analysis import classify_comments++from build.analysis import classify_comments, classify_content",
                         "7 7  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3298,7 +3433,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -3317,7 +3455,8 @@
                         "5 2--from datetime import datetime, timezone",
                         "6 2--from build.analysis import classify_comments, classify_content",
                         "7 2  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3334,6 +3473,10 @@
                         "18 13      except subprocess.CalledProcessError as e:",
                         "19 14          print(f\"Error running CommentLister: {e.stderr}\")",
                         "20 15--        return None++        return None"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Order Changed"
                     ]
                 }
             ]
@@ -3356,7 +3499,8 @@
                         "6 6--from pm4py.objects.log.obj import EventLog, Trace, Event",
                         "7 6--from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
                         "8 6  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3380,6 +3524,9 @@
                         "23 24++                        files_data[file.filename].append(file_data)",
                         "23 25      return files_data",
                         "24 26  "
+                    ],
+                    "activities": [
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -3444,7 +3591,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -3476,6 +3626,9 @@
                         "24 24                          files_data[file.filename].append(file_data)",
                         "25 25      return files_data",
                         "26 26  "
+                    ],
+                    "activities": [
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -3492,6 +3645,10 @@
                         "27 36++    return diff",
                         "27 37++",
                         "27 38++"
+                    ],
+                    "activities": [
+                        "Method Parameter Added",
+                        "Method Created"
                     ]
                 }
             ]
@@ -3516,6 +3673,9 @@
                         "36 36      return diff",
                         "37 37  ",
                         "38 38--"
+                    ],
+                    "activities": [
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -3588,6 +3748,11 @@
                         "104 38--                    files_data[modified_file.filename].append(file_data)",
                         "105 38--    return files_data",
                         "106 38--"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted",
+                        "Method Deleted"
                     ]
                 },
                 {
@@ -3613,7 +3778,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         },
@@ -3632,7 +3801,8 @@
                         "5 5  from dateutil.relativedelta import relativedelta",
                         "6 6++from build.utils import list_to_dict",
                         "6 7  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3661,6 +3831,10 @@
                         "24 30--                        files_data[file.filename].append(file_data)++                        files_data[file.new_path].append(file_data)",
                         "25 31      return files_data",
                         "26 32  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
                     ]
                 }
             ]
@@ -3712,7 +3886,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         },
@@ -3764,7 +3942,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -3777,6 +3959,11 @@
                         "38 45++            ordered_commits[commit[\"filename\"]].append(commit)",
                         "38 46++    return ordered_commits",
                         "38 47++"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted",
+                        "Method Created"
                     ]
                 }
             ]
@@ -3801,12 +3988,16 @@
                         "6 9++from build.extraction import diff_to_dict, filter_comments_by_time",
                         "6 10  from build.utils import list_to_dict",
                         "7 11  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
                         "8 12--def get_commits_data(repo_path, from_date, to_date, file_types):++_repo_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Bachelor-Code\"",
                         "9 13++"
+                    ],
+                    "activities": [
+                        "Method Created"
                     ]
                 },
                 {
@@ -3842,7 +4033,8 @@
                         "36 42--                        files_data[name].append(file_data)++                    files_data[file.new_path].append(file_data)",
                         "37 43      return files_data",
                         "38 44  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -3854,55 +4046,73 @@
                         "44 50--        for commit in commit_file_data:++                parent = get_parent_commit(commit.parents[0], file, repo_path)",
                         "45 51--            ordered_commits[commit[\"filename\"]].append(commit)++                if parent is not None:",
                         "46 52--    return ordered_commits++                    return parent",
-                        "47 53--++            return commit.parents[0]"
+                        "47 53++            return commit.parents[0]",
+                        "47 54++    return None",
+                        "47 55  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "48 54--def diff_to_dict(diff):++    return None",
-                        "49 55--    dict_added = {}",
-                        "50 55--    for line in diff[\"added\"]:",
-                        "51 55--        dict_added[line[0]] = line[1]",
-                        "52 55--    diff[\"added\"] = dict_added",
-                        "53 55--    dict_deleted = {}",
-                        "54 55--    for line in diff[\"deleted\"]:",
-                        "55 55--        dict_deleted[line[0]] = line[1]",
-                        "56 55--    diff[\"deleted\"] = dict_deleted",
-                        "57 55--    return diff",
-                        "58 55  "
+                        "48 56--def diff_to_dict(diff):++def get_files_in_commit(repo_path, commit_hash):",
+                        "49 57--    dict_added = {}++    files = []",
+                        "50 58--    for line in diff[\"added\"]:++    for commit in Repository(repo_path, single=commit_hash).traverse_commits():",
+                        "51 59--        dict_added[line[0]] = line[1]++        for file in commit.modified_files:",
+                        "52 60--    diff[\"added\"] = dict_added++            if file.new_path not in files:",
+                        "53 61--    dict_deleted = {}++                files.append(file.new_path)",
+                        "54 62--    for line in diff[\"deleted\"]:++    return files",
+                        "55 63--        dict_deleted[line[0]] = line[1]",
+                        "56 63--    diff[\"deleted\"] = dict_deleted",
+                        "57 63--    return diff",
+                        "58 63  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "59 56--def extract_keywords(commit_message, modified_file):++def get_files_in_commit(repo_path, commit_hash):",
-                        "60 57--    # Determine basic keywords based on the commit message++    files = []",
-                        "61 58--    keywords = []++    for commit in Repository(repo_path, single=commit_hash).traverse_commits():",
-                        "62 59--    if \"performance\" in commit_message.lower():++        for file in commit.modified_files:",
-                        "63 60--        keywords.append(\"performance\")++            if file.new_path not in files:",
-                        "64 61--    if \"security\" in commit_message.lower():++                files.append(file.new_path)",
-                        "65 62--        keywords.append(\"security\")++    return files",
-                        "66 63--    if modified_file.added_lines > modified_file.deleted_lines:",
-                        "67 63--        keywords.append(\"expansion\")",
-                        "68 63--    else:",
-                        "69 63--        keywords.append(\"optimization\")",
-                        "70 63--    return keywords",
-                        "71 63  "
+                        "59 64--def extract_keywords(commit_message, modified_file):++def get_commit_data(commit_hash, filename, repo_path=_repo_path, old=False):",
+                        "60 65--    # Determine basic keywords based on the commit message++    for commit in Repository(repo_path, single=commit_hash).traverse_commits():",
+                        "61 66--    keywords = []++        for file in commit.modified_files:",
+                        "62 67--    if \"performance\" in commit_message.lower():++            if file.new_path == filename:",
+                        "63 68--        keywords.append(\"performance\")++                if old:",
+                        "64 69--    if \"security\" in commit_message.lower():++                    if file.change_type.name == 'ADD':",
+                        "65 70--        keywords.append(\"security\")++                        source_code_old = {}",
+                        "66 71--    if modified_file.added_lines > modified_file.deleted_lines:++                        comments = \"comments_old\"",
+                        "67 72--        keywords.append(\"expansion\")++                    else:",
+                        "68 73--    else:++                        source_code_old = list_to_dict(file.source_code_before.split(\"\\n\"))",
+                        "69 74--        keywords.append(\"optimization\")++                        comments = \"comments\"",
+                        "70 75--    return keywords++                    data = {",
+                        "71 76--++                    \"commit\": commit.hash,"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "72 64--def extract_activity(commit_message):++def get_commit_data(commit_hash, filename, repo_path=_repo_path, old=False):",
-                        "73 65--    # Use commit message keywords to determine activity type++    for commit in Repository(repo_path, single=commit_hash).traverse_commits():",
-                        "74 66--    activity = \"\"++        for file in commit.modified_files:",
-                        "75 67--    if \"bug\" in commit.msg.lower() or \"fix\" in commit.msg.lower():++            if file.new_path == filename:",
-                        "76 68--        activity = \"Bug Fix\"++                if old:",
-                        "77 69--    elif \"feature\" in commit.msg.lower() or \"add\" in commit.msg.lower():++                    if file.change_type.name == 'ADD':",
-                        "78 70--        activity = \"Feature Development\"++                        source_code_old = {}",
-                        "79 71--    elif \"refactor\" in commit.msg.lower():++                        comments = \"comments_old\"",
-                        "80 72--        activity = \"Refactoring\"++                    else:",
-                        "81 73--    else:++                        source_code_old = list_to_dict(file.source_code_before.split(\"\\n\"))",
-                        "82 74--        activity = \"Other\"++                        comments = \"comments\"",
-                        "83 75--    return activity++                    data = {"
+                        "72 77--def extract_activity(commit_message):++                    \"timestamp\": commit.committer_date.isoformat(),",
+                        "73 78--    # Use commit message keywords to determine activity type++                    \"author\": commit.author.name,",
+                        "74 79--    activity = \"\"++                    \"filename\":file.new_path,",
+                        "75 80--    if \"bug\" in commit.msg.lower() or \"fix\" in commit.msg.lower():++                    \"source_code_old\": source_code_old",
+                        "76 81--        activity = \"Bug Fix\"++                    }",
+                        "77 82--    elif \"feature\" in commit.msg.lower() or \"add\" in commit.msg.lower():++                else:",
+                        "78 83--        activity = \"Feature Development\"++                    data = {",
+                        "79 84--    elif \"refactor\" in commit.msg.lower():++                    \"commit\": commit.hash,",
+                        "80 85--        activity = \"Refactoring\"++                    \"timestamp\": commit.committer_date.isoformat(),",
+                        "81 86--    else:++                    \"author\": commit.author.name,",
+                        "82 87--        activity = \"Other\"++                    \"filename\":file.new_path,",
+                        "83 88--    return activity++                    \"source_code\": list_to_dict(file.source_code.split(\"\\n\"))"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 }
             ]
@@ -3928,7 +4138,8 @@
                         "11 11  ",
                         "12 12--_repo_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Bachelor-Code\"++_repo_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Toy-Example\"",
                         "13 13  "
-                    ]
+                    ],
+                    "activities": []
                 }
             ]
         }
@@ -3970,7 +4181,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4073,7 +4285,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4114,7 +4330,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4219,7 +4436,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4260,7 +4481,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4361,7 +4583,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4402,7 +4628,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4510,7 +4737,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4551,7 +4782,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4663,7 +4895,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4704,7 +4940,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4818,7 +5055,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -4860,7 +5101,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -4975,7 +5217,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5098,7 +5344,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5140,7 +5390,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -5520,7 +5771,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5656,7 +5911,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5698,7 +5957,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -5826,7 +6086,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5957,7 +6221,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -5999,7 +6267,8 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -6383,7 +6652,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -6408,33 +6681,35 @@
                         "11 2--import subprocess",
                         "12 2  import shutil",
                         "13 3--from datetime import datetime, timezone, timedelta++from datetime import datetime, timedelta",
-                        "14 4--"
-                    ]
+                        "14 4++",
+                        "14 5++from build.analysis import (analyse_diff_comments, average_comment_update_time,",
+                        "14 6++                            blockify_code_data, classify_content,",
+                        "14 7++                            set_metadata_for_block)",
+                        "14 8++from build.comment_lister import get_comment_data",
+                        "14 9++from build.extraction import (blockify_diff, classify_content,",
+                        "14 10++                              extract_later_modified_comments, filter_comments_by_time, order_commits_data)",
+                        "14 11++from build.pydriller import get_commits_data, get_parent_commit",
+                        "14 12++from build.utils import clone_ropositoriy, save_to_json",
+                        "14 13++",
+                        "14 14  "
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
-                        "15 4--def main():",
-                        "16 4--    # # Convert repo URL to path by cloning repo",
-                        "17 4--    # repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
-                        "18 4  ",
-                        "19 5--    # repo_name = os.path.basename(repo_url).replace(\".git\", \"\")++from build.analysis import (analyse_diff_comments, average_comment_update_time,",
-                        "20 6--    # temp_dir = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp\"++                            blockify_code_data, classify_content,",
-                        "21 7--    # clone_path = os.path.join(temp_dir, repo_name)++                            set_metadata_for_block)",
-                        "22 8++from build.comment_lister import get_comment_data",
-                        "22 9++from build.extraction import (blockify_diff, classify_content,",
-                        "22 10++                              extract_later_modified_comments, filter_comments_by_time, order_commits_data)",
-                        "22 11++from build.pydriller import get_commits_data, get_parent_commit",
-                        "22 12++from build.utils import clone_ropositoriy, save_to_json",
-                        "22 13  ",
-                        "23 14--    # subprocess.run(['git', 'clone', repo_url, clone_path], check=True)",
-                        "24 14  "
-                    ]
-                },
-                {
-                    "code_linesv4": [
-                        "25 15--    # # Paths++def main():",
-                        "26 16--    # repo_path = clone_path++    # Convert repo URL to path by cloning repo to temporary dictionary",
-                        "27 17--    # jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"++    repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
+                        "15 15  def main():",
+                        "16 16--    # # Convert repo URL to path by cloning repo++    # Convert repo URL to path by cloning repo to temporary dictionary",
+                        "17 17--    # repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"++    repo_url = \"https://github.com/AlexS-1/Bachelor-Code\"",
+                        "18 18--",
+                        "19 18--    # repo_name = os.path.basename(repo_url).replace(\".git\", \"\")",
+                        "20 18--    # temp_dir = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp\"",
+                        "21 18--    # clone_path = os.path.join(temp_dir, repo_name)",
+                        "22 18--",
+                        "23 18--    # subprocess.run(['git', 'clone', repo_url, clone_path], check=True)",
+                        "24 18--",
+                        "25 18--    # # Paths",
+                        "26 18--    # repo_path = clone_path",
+                        "27 18--    # jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"",
                         "28 18      ",
                         "29 19--    # # Setting different timeperiod++    # Setting different timeperiod",
                         "30 20--    # start_time = datetime.today().replace(tzinfo=None, microsecond=0) - timedelta(14)++    start_time = datetime.today().replace(tzinfo=None, microsecond=0) - timedelta(days=365)",
@@ -6557,7 +6832,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -6617,7 +6896,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -6730,7 +7013,120 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
+                }
+            ]
+        }
+    ],
+    "build/utils.py": [
+        {
+            "commit": "202468fb39d473251ab81eb3037227cf7af47344",
+            "timestamp": "2024-12-04T00:35:22+01:00",
+            "author": "alexander.schranner",
+            "filename": "build/utils.py",
+            "source_code_blocks": [
+                {
+                    "code_linesv4": [
+                        "9 9  def save_to_xes(data, path):",
+                        "10 10      log = EventLog()",
+                        "11 11      # Iterate over each element in the data",
+                        "12 12      for file, commits in data.items():",
+                        "13 13          # Create a trace for the file",
+                        "14 14          trace = Trace()",
+                        "15 15          trace.attributes[\"file\"] = file",
+                        "16 16          for commit in commits:",
+                        "17 17              # Extract event attributes",
+                        "18 18              event = Event()",
+                        "19 19              event[\"timestamp\"] = commit.get(\"timestamp\")",
+                        "20 20              event[\"author\"] = commit.get(\"author\")",
+                        "21 21              event[\"change_type\"] = commit.get(\"change_type\")",
+                        "22 22              # Add the event to the trace",
+                        "23 23              trace.append(event)",
+                        "24 24          # Add the trace to the log",
+                        "25 25          log.append(trace)",
+                        "26 26--    xes_exporter.apply(log, path)++    xes_exporter.apply(log, path)"
+                    ],
+                    "comment_lines": {
+                        "11": {
+                            "comment": "# Iterate over each element in the data",
+                            "type": [
+                                "normal"
+                            ],
+                            "edit": "unedited"
+                        },
+                        "13": {
+                            "comment": "# Create a trace for the file",
+                            "type": [
+                                "normal"
+                            ],
+                            "edit": "unedited"
+                        },
+                        "17": {
+                            "comment": "# Extract event attributes",
+                            "type": [
+                                "normal"
+                            ],
+                            "edit": "unedited"
+                        },
+                        "22": {
+                            "comment": "# Add the event to the trace",
+                            "type": [
+                                "normal"
+                            ],
+                            "edit": "unedited"
+                        },
+                        "24": {
+                            "comment": "# Add the trace to the log",
+                            "type": [
+                                "normal"
+                            ],
+                            "edit": "unedited"
+                        }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
+                }
+            ]
+        },
+        {
+            "commit": "c6c3ea5c48d609c94ffc5e79903f736b5630f3f2",
+            "timestamp": "2024-12-11T12:54:20+01:00",
+            "author": "alexander.schranner",
+            "filename": "build/utils.py",
+            "source_code_blocks": [
+                {
+                    "code_linesv4": [
+                        "1 1--from pm4py.objects.log.obj import EventLog, Trace, Event",
+                        "2 1--from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
+                        "3 1  import json",
+                        "4 2++import os",
+                        "4 3++import subprocess",
+                        "4 4++",
+                        "4 5++from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
+                        "4 6++from pm4py.objects.log.obj import Event, EventLog, Trace",
+                        "4 7++",
+                        "4 8  "
+                    ],
+                    "activities": []
+                },
+                {
+                    "code_linesv4": [
+                        "28 32  def list_to_dict(list):",
+                        "29 33      dict = {}",
+                        "30 34      for i in range(len(list)):",
+                        "31 35          dict[i+1] = list[i]",
+                        "32 36--    return dict++    return dict"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         }
@@ -6776,7 +7172,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -6790,7 +7190,8 @@
                     "code_linesv4": [
                         "1 1++from datetime import datetime",
                         "1 2++"
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -6827,60 +7228,80 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
-                },
-                {
-                    "code_linesv4": [
-                        "28 28--def blockify_comments(data):++def blockify_comments2(data):",
-                        "29 29      for file, commits in data.items():",
-                        "30 30          for commit in commits:",
-                        "31 31--            blocks = []++            block_diff = []",
-                        "32 32--            for line in commit[\"diff\"][\"added\"]:++            for block in commit[\"diff\"][\"block_diff\"]:",
-                        "33 33--                # Add line to block, if line follows previous line of block++                block_dict = {}",
-                        "34 34--                if len(blocks) > 0 and blocks[-1][\"lines\"][-1] + 1 == line[0]:++                for line in block:",
-                        "35 35--                    break_outer = False",
-                        "36 35--                    comment = \"\"",
-                        "37 35--                    comment_position = -1",
-                        "38 35--                    edit = \"\"",
-                        "39 35                      for item in commit[\"comments\"]:",
-                        "40 36--                        if line[0] == item[\"line\"]:++                        if int(line) == item[\"line\"]:",
-                        "41 37--                            comment = item[\"comment\"]++                            comment_index = item[\"char_position_in_line\"]",
-                        "42 38--                            comment_position = item[\"char_position_in_line\"]++                            break",
-                        "43 39--                            edit = item[\"edit\"]++                        else:",
-                        "44 40--                            # Except when line is comment following source code, create new block++                            comment_index = -1",
-                        "45 41--                            if blocks[-1][\"comments\"][-1] == \"\":++                    line_info = {",
-                        "46 42--                                block = {++                        \"content\": commit[\"diff\"][\"added\"][str(line)],",
-                        "47 43--                                    \"lines\": [line[0]],++                        \"comment_index\": comment_index",
-                        "48 44--                                    \"contents\": [line[1]],++                    }",
-                        "49 45--                                    \"comments\": [comment],++                    block_dict[line] = line_info",
-                        "50 46--                                    \"comment_positions\": [comment_position],++                block_diff.append(block_dict)",
-                        "51 47--                                    \"edits\": [edit]++            commit[\"diff\"][\"block_diff\"] = block_diff",
-                        "52 48--                                }",
-                        "53 48--                                blocks.append(block)",
-                        "54 48--                                break_outer = True",
-                        "55 48--                    if break_outer:",
-                        "56 48--                        continue",
-                        "57 48--                    blocks[-1][\"lines\"].append(line[0])",
-                        "58 48--                    blocks[-1][\"contents\"].append(line[1])",
-                        "59 48--                    blocks[-1][\"comments\"].append(comment)",
-                        "60 48--                    blocks[-1][\"comment_positions\"].append(comment_position)",
-                        "61 48--                    blocks[-1][\"edits\"].append(edit)",
-                        "62 48  "
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "63 49--                # Create new block, otherwise++def blockify_comments(data):",
-                        "64 50++    for file, commits in data.items():",
-                        "64 51++        for commit in commits:",
-                        "64 52++            blocks = []",
-                        "64 53++            current_block = []",
-                        "64 54++            for line in list(commit[\"diff\"][\"added\"].keys()):",
-                        "64 55++                if int(line) in get_comment_lines(commit[\"comments\"]):",
-                        "64 56++                    if current_block and current_block[-1] not in get_comment_lines(commit[\"comments\"]):",
-                        "64 57++                        blocks.append(current_block)",
-                        "64 58++                        current_block = []",
-                        "64 59++                    current_block.append(int(line))",
+                        "28 28++def blockify_comments2(data):",
+                        "28 29++    for file, commits in data.items():",
+                        "28 30++        for commit in commits:",
+                        "28 31++            block_diff = []",
+                        "28 32++            for block in commit[\"diff\"][\"block_diff\"]:",
+                        "28 33++                block_dict = {}",
+                        "28 34++                for line in block:",
+                        "28 35++                    for item in commit[\"comments\"]:",
+                        "28 36++                        if int(line) == item[\"line\"]:",
+                        "28 37++                            comment_index = item[\"char_position_in_line\"]",
+                        "28 38++                            break",
+                        "28 39++                        else:",
+                        "28 40++                            comment_index = -1",
+                        "28 41++                    line_info = {",
+                        "28 42++                        \"content\": commit[\"diff\"][\"added\"][str(line)],",
+                        "28 43++                        \"comment_index\": comment_index",
+                        "28 44++                    }",
+                        "28 45++                    block_dict[line] = line_info",
+                        "28 46++                block_diff.append(block_dict)",
+                        "28 47++            commit[\"diff\"][\"block_diff\"] = block_diff",
+                        "28 48++"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added",
+                        "Method Created"
+                    ]
+                },
+                {
+                    "code_linesv4": [
+                        "28 49  def blockify_comments(data):",
+                        "29 50      for file, commits in data.items():",
+                        "30 51          for commit in commits:",
+                        "31 52              blocks = []",
+                        "32 53--            for line in commit[\"diff\"][\"added\"]:++            current_block = []",
+                        "33 54--                # Add line to block, if line follows previous line of block++            for line in list(commit[\"diff\"][\"added\"].keys()):",
+                        "34 55--                if len(blocks) > 0 and blocks[-1][\"lines\"][-1] + 1 == line[0]:++                if int(line) in get_comment_lines(commit[\"comments\"]):",
+                        "35 56--                    break_outer = False++                    if current_block and current_block[-1] not in get_comment_lines(commit[\"comments\"]):",
+                        "36 57--                    comment = \"\"++                        blocks.append(current_block)",
+                        "37 58--                    comment_position = -1++                        current_block = []",
+                        "38 59--                    edit = \"\"++                    current_block.append(int(line))",
+                        "39 60--                    for item in commit[\"comments\"]:",
+                        "40 60--                        if line[0] == item[\"line\"]:",
+                        "41 60--                            comment = item[\"comment\"]",
+                        "42 60--                            comment_position = item[\"char_position_in_line\"]",
+                        "43 60--                            edit = item[\"edit\"]",
+                        "44 60--                            # Except when line is comment following source code, create new block",
+                        "45 60--                            if blocks[-1][\"comments\"][-1] == \"\":",
+                        "46 60--                                block = {",
+                        "47 60--                                    \"lines\": [line[0]],",
+                        "48 60--                                    \"contents\": [line[1]],",
+                        "49 60--                                    \"comments\": [comment],",
+                        "50 60--                                    \"comment_positions\": [comment_position],",
+                        "51 60--                                    \"edits\": [edit]",
+                        "52 60--                                }",
+                        "53 60--                                blocks.append(block)",
+                        "54 60--                                break_outer = True",
+                        "55 60--                    if break_outer:",
+                        "56 60--                        continue",
+                        "57 60--                    blocks[-1][\"lines\"].append(line[0])",
+                        "58 60--                    blocks[-1][\"contents\"].append(line[1])",
+                        "59 60--                    blocks[-1][\"comments\"].append(comment)",
+                        "60 60--                    blocks[-1][\"comment_positions\"].append(comment_position)",
+                        "61 60--                    blocks[-1][\"edits\"].append(edit)",
+                        "62 60--",
+                        "63 60--                # Create new block, otherwise",
                         "64 60                  else:",
                         "65 61--                    comment = \"\"++                    if current_block and int(line) != current_block[-1] + 1:",
                         "66 62--                    comment_position = -1++                        blocks.append(current_block)",
@@ -6900,6 +7321,10 @@
                         "80 67--                    blocks.append(block)",
                         "81 67              commit[\"diff\"][\"block_diff\"] = blocks",
                         "82 68  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -6910,6 +7335,11 @@
                         "83 72++        comment_lines.append(comment[\"line\"])",
                         "83 73++    return comment_lines",
                         "83 74++"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added",
+                        "Method Created"
                     ]
                 },
                 {
@@ -6920,6 +7350,11 @@
                         "83 78++        diff_lines.append(line[0])",
                         "83 79++    return diff_lines",
                         "83 80++"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added",
+                        "Method Created"
                     ]
                 },
                 {
@@ -7001,7 +7436,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -7017,6 +7456,10 @@
                         "115 115      for line in list(block.keys()):",
                         "116 116          if block[line][\"comment_index\"] == -1:",
                         "117 117--            return True++            return True"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 }
             ]
@@ -7031,6 +7474,10 @@
                     "code_linesv4": [
                         "1 1--from datetime import datetime++from datetime import datetime, timedelta",
                         "2 2  "
+                    ],
+                    "activities": [
+                        "Import Changed",
+                        "Import Changed"
                     ]
                 },
                 {
@@ -7042,6 +7489,10 @@
                         "137 137          if d1[i] != d2[i]:",
                         "138 138              return False",
                         "139 139--    return True++    return True"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 }
             ]
@@ -7058,7 +7509,8 @@
                         "2 2++import tokenize",
                         "2 3++from io import StringIO",
                         "2 4  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -7101,7 +7553,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7198,7 +7654,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7227,7 +7687,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7241,6 +7705,10 @@
                         "148 160      total_duration = sum(durations, timedelta(0))",
                         "149 161      average_duration = total_duration / len(durations)",
                         "150 162--    return average_duration++    return average_duration"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 }
             ]
@@ -7286,7 +7754,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7371,7 +7843,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 }
             ]
         },
@@ -7430,7 +7906,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7529,7 +8009,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7567,7 +8051,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7583,6 +8071,10 @@
                         "161 165      average_duration = total_duration / len(durations)",
                         "162 166      return average_duration",
                         "163 167  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -7640,7 +8132,10 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7650,6 +8145,9 @@
                         "197 186          return True",
                         "198 187      except SyntaxError:",
                         "199 188--        return False++        return False"
+                    ],
+                    "activities": [
+                        "Method Parameter Renamed"
                     ]
                 }
             ]
@@ -7667,7 +8165,8 @@
                         "3 3  from io import StringIO",
                         "4 4++import re",
                         "4 5  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -7678,6 +8177,9 @@
                         "194 195--            if bool(line.split(\"#\")[0].strip()) and is_potential_code(line.split(\"#\")[0]):++            if line.find(\"#\") != -1 and line.split(\"#\")[0].strip() != \"\":",
                         "195 196--                item[\"type\"].append(\"inline\")++                item[\"type\"] = [\"inline\"]",
                         "196 197      return data"
+                    ],
+                    "activities": [
+                        "Method Parameter Renamed"
                     ]
                 }
             ]
@@ -7723,7 +8225,10 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7749,6 +8254,9 @@
                         "50 49                  block_diff.append(block_dict)",
                         "51 50              commit[\"diff\"][\"block_diff\"] = block_diff",
                         "52 51  "
+                    ],
+                    "activities": [
+                        "Method Parameter Renamed"
                     ]
                 }
             ]
@@ -7793,81 +8301,112 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Parameter Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
                         "29 28--def check_inline_comments(data):++def blockify_code_data(data):",
                         "30 29--    return",
                         "31 29--"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Deleted"
                     ]
                 },
                 {
                     "code_linesv4": [
                         "32 29--def blockify_comments2(data):",
-                        "33 29      for file, commits in data.items():",
-                        "34 30          for commit in commits:",
-                        "35 31--            block_diff = []++            blocks = []",
-                        "36 32--            for block in commit[\"diff\"][\"block_diff\"]:++            current_block = {}",
-                        "37 33--                block_dict = {}++            for line_number, content in commit[\"source_code\"].items():",
-                        "38 34--                for line in block:++                if line_number in list(commit[\"comments\"].keys()):",
-                        "39 35--                    comment_index = -1++                    if current_block != {} and list(current_block[\"code_lines\"].keys())[-1] not in list(commit[\"comments\"].keys()):",
-                        "40 36--                    for item in commit[\"comments\"]:++                        blocks.append(current_block)",
-                        "41 37--                        if int(line) == item[\"line\"]:++                        current_block = {}",
-                        "42 38--                            comment_index = item[\"char_position_in_line\"]++                    current_block.setdefault(\"code_lines\", {})[line_number] = content",
-                        "43 39--                            break++                    current_block.setdefault(\"comment_lines\", {})[line_number] = commit[\"comments\"][line_number]",
-                        "44 40--                    line_info = {++                else:",
-                        "45 41--                        \"content\": commit[\"diff\"][\"added\"][str(line)],++                    current_block.setdefault(\"code_lines\", {})[line_number] = content",
-                        "46 42--                        \"comment_index\": comment_index++            if current_block != {}:",
-                        "47 43--                    }++                blocks.append(current_block)",
-                        "48 44--                    block_dict[line] = line_info++            commit[\"source_code\"] = blocks",
-                        "49 45--                block_diff.append(block_dict)",
-                        "50 45--            commit[\"diff\"][\"block_diff\"] = block_diff",
-                        "51 45  "
+                        "33 29--    for file, commits in data.items():",
+                        "34 29--        for commit in commits:",
+                        "35 29--            block_diff = []",
+                        "36 29--            for block in commit[\"diff\"][\"block_diff\"]:",
+                        "37 29--                block_dict = {}",
+                        "38 29--                for line in block:",
+                        "39 29--                    comment_index = -1",
+                        "40 29--                    for item in commit[\"comments\"]:",
+                        "41 29--                        if int(line) == item[\"line\"]:",
+                        "42 29--                            comment_index = item[\"char_position_in_line\"]",
+                        "43 29--                            break",
+                        "44 29--                    line_info = {",
+                        "45 29--                        \"content\": commit[\"diff\"][\"added\"][str(line)],",
+                        "46 29--                        \"comment_index\": comment_index",
+                        "47 29--                    }",
+                        "48 29--                    block_dict[line] = line_info",
+                        "49 29--                block_diff.append(block_dict)",
+                        "50 29--            commit[\"diff\"][\"block_diff\"] = block_diff",
+                        "51 29--"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Deleted"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "52 46--def blockify_comments(data):++def blockify_diff(data, type):",
-                        "53 47      for file, commits in data.items():",
-                        "54 48          for commit in commits:",
-                        "55 49              blocks = []",
-                        "56 50--            current_block = []++            current_block = {}",
-                        "57 51--            for line in list(commit[\"diff\"][\"added\"].keys()):++            for line_number, content in commit[\"diff\"][type].items():",
-                        "58 52--                if int(line) in get_comment_lines(commit[\"comments\"]):++                if line_number in list(commit[\"comments\"].keys()):",
-                        "59 53--                    if current_block and current_block[-1] not in get_comment_lines(commit[\"comments\"]):++                    if (current_block != {} and list(current_block.keys())[-1] not in list(commit[\"comments\"].keys())) or current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:",
-                        "60 54                          blocks.append(current_block)",
-                        "61 55--                        current_block = []++                        current_block = {}",
-                        "62 56--                    current_block.append(int(line))++                    current_block[line_number] = content",
-                        "63 57                  else:",
-                        "64 58--                    if current_block and int(line) != current_block[-1] + 1:++                    if current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:",
-                        "65 59                          blocks.append(current_block)",
-                        "66 60--                        current_block = []++                        current_block = {}",
-                        "67 61--                    current_block.append(int(line))++                    current_block[line_number] = content",
-                        "68 62--            if current_block:++            if current_block != {}:",
-                        "69 63                  blocks.append(current_block)",
-                        "70 64--            commit[\"diff\"][\"block_diff\"] = blocks++            commit[\"diff\"][type + \"-\" + \"block\"] = blocks",
-                        "71 65--"
+                        "52 29--def blockify_comments(data):",
+                        "53 29      for file, commits in data.items():",
+                        "54 30          for commit in commits:",
+                        "55 31              blocks = []",
+                        "56 32--            current_block = []++            current_block = {}",
+                        "57 33--            for line in list(commit[\"diff\"][\"added\"].keys()):++            for line_number, content in commit[\"source_code\"].items():",
+                        "58 34--                if int(line) in get_comment_lines(commit[\"comments\"]):++                if line_number in list(commit[\"comments\"].keys()):",
+                        "59 35--                    if current_block and current_block[-1] not in get_comment_lines(commit[\"comments\"]):++                    if current_block != {} and list(current_block[\"code_lines\"].keys())[-1] not in list(commit[\"comments\"].keys()):",
+                        "60 36                          blocks.append(current_block)",
+                        "61 37--                        current_block = []++                        current_block = {}",
+                        "62 38--                    current_block.append(int(line))++                    current_block.setdefault(\"code_lines\", {})[line_number] = content",
+                        "63 39++                    current_block.setdefault(\"comment_lines\", {})[line_number] = commit[\"comments\"][line_number]",
+                        "63 40                  else:",
+                        "64 41--                    if current_block and int(line) != current_block[-1] + 1:++                    current_block.setdefault(\"code_lines\", {})[line_number] = content",
+                        "65 42--                        blocks.append(current_block)++            if current_block != {}:",
+                        "66 43--                        current_block = []",
+                        "67 43--                    current_block.append(int(line))",
+                        "68 43--            if current_block:",
+                        "69 43                  blocks.append(current_block)",
+                        "70 44--            commit[\"diff\"][\"block_diff\"] = blocks++            commit[\"source_code\"] = blocks",
+                        "71 45  "
+                    ],
+                    "activities": [
+                        "Method Renamed"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "72 65--def get_comment_lines(comments):",
-                        "73 65--    comment_lines = []",
-                        "74 65--    for comment in comments:",
-                        "75 65--        comment_lines.append(comment[\"line\"])",
-                        "76 65--    return comment_lines",
-                        "77 65--"
+                        "72 46--def get_comment_lines(comments):++def blockify_diff(data, type):",
+                        "73 47--    comment_lines = []++    for file, commits in data.items():",
+                        "74 48--    for comment in comments:++        for commit in commits:",
+                        "75 49--        comment_lines.append(comment[\"line\"])++            blocks = []",
+                        "76 50--    return comment_lines++            current_block = {}",
+                        "77 51--++            for line_number, content in commit[\"diff\"][type].items():"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "78 65--def get_diff_lines(diff):",
-                        "79 65--    diff_lines = []",
-                        "80 65--    for line in diff:",
-                        "81 65--        diff_lines.append(line[0])",
-                        "82 65--    return diff_lines",
+                        "78 52--def get_diff_lines(diff):++                if line_number in list(commit[\"comments\"].keys()):",
+                        "79 53--    diff_lines = []++                    if (current_block != {} and list(current_block.keys())[-1] not in list(commit[\"comments\"].keys())) or current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:",
+                        "80 54--    for line in diff:++                        blocks.append(current_block)",
+                        "81 55--        diff_lines.append(line[0])++                        current_block = {}",
+                        "82 56--    return diff_lines++                    current_block[line_number] = content",
+                        "83 57++                else:",
+                        "83 58++                    if current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:",
+                        "83 59++                        blocks.append(current_block)",
+                        "83 60++                        current_block = {}",
+                        "83 61++                    current_block[line_number] = content",
+                        "83 62++            if current_block != {}:",
+                        "83 63++                blocks.append(current_block)",
+                        "83 64++            commit[\"diff\"][type + \"-\" + \"block\"] = blocks",
                         "83 65  "
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
                     ]
                 },
                 {
@@ -7897,22 +8436,25 @@
                         "106 88--                                    if line[\"line\"] == item[\"line\"]:++                                comment_type = commit[\"comments\"][line][\"type\"]",
                         "107 89--                                        comment = item[\"comment\"]++                                for comit in commits:",
                         "108 90--                                        type = item[\"type\"]++                                    if datetime.fromisoformat(comit[\"timestamp\"]) == comment_time:",
-                        "109 91--                                        break++                                        for block in commit[\"source_code\"]:",
-                        "110 92--                                for commit2 in commits:++                                            if line in list(block[\"code_lines\"].keys()):",
-                        "111 93--                                    if datetime.fromisoformat(commit2[\"timestamp\"]) == comment_time:++                                                content = block[\"code_lines\"][line]",
-                        "112 94--                                        content = commit2[\"source_code\"][str(line[\"line\"])]",
-                        "113 94                                          break",
-                        "114 95--                                    else:++                                if len(analysis_results) == 0 or (len(analysis_results) > 0 and analysis_results[-1][\"comment\"] != comment):",
-                        "115 96--                                        content = \"PROBLEM\"++                                    analysis_results.append({",
-                        "116 97--                                analysis_results.append({++                                        \"file\": file,",
-                        "117 98--                                    \"file\": file,++                                        \"line\": line,",
-                        "118 99--                                    \"line\": line[\"line\"],++                                        \"content\": content,",
-                        "119 100--                                    \"content\": content,++                                        \"comment\": comment,",
-                        "120 101--                                    \"comment\": comment,++                                        \"type\": comment_type,",
-                        "121 102--                                    \"type\": type,++                                        \"comment_time\": str(comment_time),",
-                        "122 103--                                    \"comment_time\": str(comment_time),++                                        \"last_code_change_time\": str(last_modified[line])",
-                        "123 104--                                    \"last_code_change_time\": str(last_modified[str(line[\"line\"])])++                                    })",
-                        "124 105--                                })++    del commit[\"comments\"]",
+                        "109 91++                                        for block in commit[\"source_code\"]:",
+                        "109 92++                                            if line in list(block[\"code_lines\"].keys()):",
+                        "109 93++                                                content = block[\"code_lines\"][line]",
+                        "109 94                                          break",
+                        "110 95--                                for commit2 in commits:++                                if len(analysis_results) == 0 or (len(analysis_results) > 0 and analysis_results[-1][\"comment\"] != comment):",
+                        "111 96--                                    if datetime.fromisoformat(commit2[\"timestamp\"]) == comment_time:++                                    analysis_results.append({",
+                        "112 97--                                        content = commit2[\"source_code\"][str(line[\"line\"])]++                                        \"file\": file,",
+                        "113 98--                                        break++                                        \"line\": line,",
+                        "114 99--                                    else:++                                        \"content\": content,",
+                        "115 100--                                        content = \"PROBLEM\"++                                        \"comment\": comment,",
+                        "116 101--                                analysis_results.append({++                                        \"type\": comment_type,",
+                        "117 102--                                    \"file\": file,++                                        \"comment_time\": str(comment_time),",
+                        "118 103--                                    \"line\": line[\"line\"],++                                        \"last_code_change_time\": str(last_modified[line])",
+                        "119 104--                                    \"content\": content,++                                    })",
+                        "120 105--                                    \"comment\": comment,++    del commit[\"comments\"]",
+                        "121 106--                                    \"type\": type,",
+                        "122 106--                                    \"comment_time\": str(comment_time),",
+                        "123 106--                                    \"last_code_change_time\": str(last_modified[str(line[\"line\"])])",
+                        "124 106--                                })",
                         "125 106      return analysis_results",
                         "126 107  "
                     ],
@@ -7967,7 +8509,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Added"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -7978,6 +8524,9 @@
                         "131 112++    except KeyError:",
                         "131 113++        return False",
                         "131 114  "
+                    ],
+                    "activities": [
+                        "Method Renamed"
                     ]
                 },
                 {
@@ -7998,6 +8547,9 @@
                         "145 128              clean_data.append(item)",
                         "146 129      return clean_data",
                         "147 130  "
+                    ],
+                    "activities": [
+                        "Method Renamed"
                     ]
                 },
                 {
@@ -8009,6 +8561,9 @@
                         "194 177--            if line.find(\"#\") != -1 and line.split(\"#\")[0].strip() != \"\":++    if is_potential_code(line.strip().lstrip(\"#\").strip()) and is_potential_code(line.strip().lstrip(\"\\\"\\\"\\\"\").strip()):",
                         "195 178--                item[\"type\"] = [\"inline\"]++        comment_types.append(\"commented-out\")",
                         "196 179--    return data++    return comment_types"
+                    ],
+                    "activities": [
+                        "Method Parameter Renamed"
                     ]
                 }
             ]
@@ -8031,7 +8586,8 @@
                         "5 8++from build.pydriller import get_commit_data, get_parent_commit",
                         "5 9++",
                         "5 10  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -8061,6 +8617,9 @@
                         "27 32++                        commit[\"comments_old\"][line][\"edit\"] = \"deleted\"",
                         "27 33++                        continue",
                         "27 34  "
+                    ],
+                    "activities": [
+                        "Method Parameter Renamed"
                     ]
                 },
                 {
@@ -8082,40 +8641,7 @@
                         "42 46--            if current_block != {}:++                if created:",
                         "43 47--                blocks.append(current_block)++                    creation_timestamp = commits[commit][\"timestamp\"]",
                         "44 48--            commit[\"source_code\"] = blocks++                # Analyse block for code changes to previous block (block that includes the same line)",
-                        "45 49++                if commit != previous_commit and creation_timestamp != commits[commit][\"timestamp\"]:",
-                        "45 50++                    changed, change_time = _code_changed(block, commits[previous_commit][\"source_code\"])",
-                        "45 51++                else:",
-                        "45 52++                    changed = True",
-                        "45 53++                if changed or creation_timestamp == commits[commit][\"timestamp\"]:",
-                        "45 54++                    code_last_modified = commits[commit][\"timestamp\"]",
-                        "45 55++                else:",
-                        "45 56++                    code_last_modified = change_time",
-                        "45 57++                # Analyse block for comment changes to previous block (block that includes the same line)",
-                        "45 58++                if \"comment_lines\" in list(block.keys()):",
-                        "45 59++                    for line in list(list(block[\"comment_lines\"].keys())):",
-                        "45 60++                        if line in list(commits[commit][\"diff\"][\"added\"].keys()):",
-                        "45 61++                            comment_last_modified = commits[commit][\"timestamp\"]",
-                        "45 62++                            break",
-                        "45 63++                        else:",
-                        "45 64++                            if commit != previous_commit:",
-                        "45 65++                                if _comment_changed(block, commits[previous_commit][\"source_code\"]) != \"mismatching comments\":",
-                        "45 66++                                    comment_last_modified = _comment_changed(block, commits[previous_commit][\"source_code\"])",
-                        "45 67++                                else:",
-                        "45 68++                                    comment_last_modified = commits[commit][\"timestamp\"]",
-                        "45 69++                            else:",
-                        "45 70++                                comment_last_modified = commits[commit][\"timestamp\"]",
-                        "45 71++                else:",
-                        "45 72++                    comment_last_modified = \"has_no_comments\"",
-                        "45 73++                block[\"metadata\"] = {",
-                        "45 74++                    \"file\": file,",
-                        "45 75++                    \"commit\": commits[commit][\"commit\"],",
-                        "45 76++                    \"creation_timestamp\": creation_timestamp,",
-                        "45 77++                    \"code_last_modified\": code_last_modified,",
-                        "45 78++                    \"comment_last_modified\": comment_last_modified",
-                        "45 79++                }",
-                        "45 80++            if commit != 0:",
-                        "45 81++                previous_commit += 1",
-                        "45 82  "
+                        "45 49--++                if commit != previous_commit and creation_timestamp != commits[commit][\"timestamp\"]:"
                     ],
                     "comment_lines": {
                         "41": {
@@ -8131,72 +8657,124 @@
                                 "normal"
                             ],
                             "edit": "modifiedd"
-                        },
+                        }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
+                },
+                {
+                    "code_linesv4": [
+                        "46 50--def blockify_diff(data, type):++                    changed, change_time = _code_changed(block, commits[previous_commit][\"source_code\"])",
+                        "47 51--    for file, commits in data.items():++                else:",
+                        "48 52--        for commit in commits:++                    changed = True",
+                        "49 53--            blocks = []++                if changed or creation_timestamp == commits[commit][\"timestamp\"]:",
+                        "50 54--            current_block = {}++                    code_last_modified = commits[commit][\"timestamp\"]",
+                        "51 55--            for line_number, content in commit[\"diff\"][type].items():",
+                        "52 55--                if line_number in list(commit[\"comments\"].keys()):",
+                        "53 55--                    if (current_block != {} and list(current_block.keys())[-1] not in list(commit[\"comments\"].keys())) or current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:",
+                        "54 55--                        blocks.append(current_block)",
+                        "55 55--                        current_block = {}",
+                        "56 55--                    current_block[line_number] = content",
+                        "57 55                  else:",
+                        "58 56--                    if current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:++                    code_last_modified = change_time",
+                        "59 57--                        blocks.append(current_block)++                # Analyse block for comment changes to previous block (block that includes the same line)",
+                        "60 58--                        current_block = {}++                if \"comment_lines\" in list(block.keys()):",
+                        "61 59--                    current_block[line_number] = content++                    for line in list(list(block[\"comment_lines\"].keys())):",
+                        "62 60--            if current_block != {}:++                        if line in list(commits[commit][\"diff\"][\"added\"].keys()):",
+                        "63 61--                blocks.append(current_block)++                            comment_last_modified = commits[commit][\"timestamp\"]",
+                        "64 62--            commit[\"diff\"][type + \"-\" + \"block\"] = blocks++                            break",
+                        "65 63++                        else:",
+                        "65 64++                            if commit != previous_commit:",
+                        "65 65++                                if _comment_changed(block, commits[previous_commit][\"source_code\"]) != \"mismatching comments\":",
+                        "65 66++                                    comment_last_modified = _comment_changed(block, commits[previous_commit][\"source_code\"])",
+                        "65 67++                                else:",
+                        "65 68++                                    comment_last_modified = commits[commit][\"timestamp\"]",
+                        "65 69++                            else:",
+                        "65 70++                                comment_last_modified = commits[commit][\"timestamp\"]",
+                        "65 71++                else:",
+                        "65 72++                    comment_last_modified = \"has_no_comments\"",
+                        "65 73++                block[\"metadata\"] = {",
+                        "65 74++                    \"file\": file,",
+                        "65 75++                    \"commit\": commits[commit][\"commit\"],",
+                        "65 76++                    \"creation_timestamp\": creation_timestamp,",
+                        "65 77++                    \"code_last_modified\": code_last_modified,",
+                        "65 78++                    \"comment_last_modified\": comment_last_modified",
+                        "65 79++                }",
+                        "65 80++            if commit != 0:",
+                        "65 81++                previous_commit += 1",
+                        "65 82  "
+                    ],
+                    "comment_lines": {
                         "57": {
                             "comment": "# Analyse block for comment changes to previous block (block that includes the same line)",
                             "type": [
                                 "normal"
                             ],
-                            "edit": "added"
+                            "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 },
                 {
                     "code_linesv4": [
-                        "46 83--def blockify_diff(data, type):++            # Repeat process for old source_code",
-                        "47 84--    for file, commits in data.items():++            for block in commits[commit][\"source_code_old\"]:",
-                        "48 85--        for commit in commits:++                blockified_source_code_old = None # Initialize variable as otherwise not reachable throughout the different if statements",
-                        "49 86--            blocks = []++                # Determine wether block was newly created",
-                        "50 87--            current_block = {}++                if commit == previous_commit_old:",
-                        "51 88--            for line_number, content in commit[\"diff\"][type].items():++                    commit_hash_old = get_parent_commit(commits[commit][\"commit\"], file)",
-                        "52 89--                if line_number in list(commit[\"comments\"].keys()):++                    commit_data_old = get_commit_data(commit_hash_old, file, old=True)",
-                        "53 90--                    if (current_block != {} and list(current_block.keys())[-1] not in list(commit[\"comments\"].keys())) or current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:++                    if commit_data_old[file][0][\"source_code_old\"] == {}:",
-                        "54 91--                        blocks.append(current_block)++                        created = True",
-                        "55 92--                        current_block = {}++                        creation_timestamp = commit_data_old[file][previous_commit_old][\"timestamp\"]",
-                        "56 93--                    current_block[line_number] = content++                    else:",
-                        "57 94++                        blockify_code_data(commit_data_old, old=True)",
-                        "57 95++                        created, creation_timestamp = _block_created(block, commit_data_old[file][previous_commit_old][\"source_code_old\"])",
-                        "57 96                  else:",
-                        "58 97--                    if current_block != {} and int(line_number) != int(list(current_block.keys())[-1]) + 1:++                    blockified_source_code_old = commits[previous_commit_old][\"source_code_old\"]",
-                        "59 98--                        blocks.append(current_block)++                    created, creation_timestamp = _block_created(block, blockified_source_code_old)",
-                        "60 99--                        current_block = {}++                    if created:",
-                        "61 100--                    current_block[line_number] = content++                        creation_timestamp = commits[previous_commit][\"timestamp\"]",
-                        "62 101--            if current_block != {}:++                # Analyse block for code changes to previous block (block that includes the same line)",
-                        "63 102--                blocks.append(current_block)++                if creation_timestamp != commits[previous_commit][\"timestamp\"] and blockified_source_code_old != None:",
-                        "64 103--            commit[\"diff\"][type + \"-\" + \"block\"] = blocks++                    changed, change_time = _code_changed(block, blockified_source_code_old)",
-                        "65 104++                    code_last_modified = change_time",
-                        "65 105++                else:",
-                        "65 106++                    changed = True",
-                        "65 107++                    code_last_modified = commits[previous_commit][\"timestamp\"]",
-                        "65 108++                # Analyse block for comment changes to previous block (block that includes the same line)",
-                        "65 109++                if \"comment_lines\" in list(block.keys()):",
-                        "65 110++                    for line in list(list(block[\"comment_lines\"].keys())):",
-                        "65 111++                        if line in list(commits[previous_commit_old][\"diff\"][\"added\"].keys()):",
-                        "65 112++                            comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
-                        "65 113++                            break",
-                        "65 114++                        else:",
-                        "65 115++                            if created:",
-                        "65 116++                                comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
-                        "65 117++                            elif _comment_changed(block, blockified_source_code_old) == \"mismatching comments\":",
-                        "65 118++                                comment_last_modified = _comment_changed(block, blockified_source_code_old)",
-                        "65 119++                            else:",
-                        "65 120++                                comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
-                        "65 121++                else:",
-                        "65 122++                    comment_last_modified = \"has_no_comments\"",
-                        "65 123++                block[\"metadata\"] = {",
-                        "65 124++                    \"file\": file,",
-                        "65 125++                    \"commit\": commits[commit][\"commit\"],",
-                        "65 126++                    \"creation_timestamp\": creation_timestamp,",
-                        "65 127++                    \"code_last_modified\": code_last_modified,",
-                        "65 128++                    \"comment_last_modified\": comment_last_modified",
-                        "65 129++                }",
-                        "65 130++            if commit != 0:",
-                        "65 131++                previous_commit_old += 1",
-                        "65 132++",
-                        "65 133++            # TODO Temporaryily disabled for testing purposes",
-                        "65 134++            # del commits[commit][\"diff\"]",
-                        "65 135++            # del commits[commit][\"comments\"]",
-                        "65 136  "
+                        "66 83--def extract_later_modified_comments(data):++            # Repeat process for old source_code",
+                        "67 84--    analysis_results = []++            for block in commits[commit][\"source_code_old\"]:",
+                        "68 85--    for file, commits in data.items():++                blockified_source_code_old = None # Initialize variable as otherwise not reachable throughout the different if statements",
+                        "69 86--        # Store last modified timestamps for each line++                # Determine wether block was newly created",
+                        "70 87--        last_modified = {}++                if commit == previous_commit_old:",
+                        "71 88--        for commit in commits:++                    commit_hash_old = get_parent_commit(commits[commit][\"commit\"], file)",
+                        "72 89--            # print(\"Starting to analyse commit: \", commit[\"commit\"])++                    commit_data_old = get_commit_data(commit_hash_old, file, old=True)",
+                        "73 90--            commit_time = datetime.fromisoformat(commit[\"timestamp\"])++                    if commit_data_old[file][0][\"source_code_old\"] == {}:",
+                        "74 91--            # Track modified lines++                        created = True",
+                        "75 92--            for line in list(commit[\"diff\"][\"added\"].keys()):++                        creation_timestamp = commit_data_old[file][previous_commit_old][\"timestamp\"]",
+                        "76 93--                last_modified[line] = commit_time++                    else:",
+                        "77 94--            # Compare with comments++                        blockify_code_data(commit_data_old, old=True)",
+                        "78 95--            for line in list(commit[\"comments\"].keys()):++                        created, creation_timestamp = _block_created(block, commit_data_old[file][previous_commit_old][\"source_code_old\"])",
+                        "79 96--                comment_time = datetime.fromisoformat(commit[\"timestamp\"])++                else:",
+                        "80 97--                last_modified_lines = list(last_modified.keys())++                    blockified_source_code_old = commits[previous_commit_old][\"source_code_old\"]",
+                        "81 98--                # TODO investigate why line is null++                    created, creation_timestamp = _block_created(block, blockified_source_code_old)",
+                        "82 99--                if line != \"null\" and line in last_modified_lines:++                    if created:",
+                        "83 100--                    for block in commit[\"diff\"][\"added-block\"]:++                        creation_timestamp = commits[previous_commit][\"timestamp\"]",
+                        "84 101--                        # Where there are comment changes and no source code changes in block++                # Analyse block for code changes to previous block (block that includes the same line)",
+                        "85 102--                        if not only_code_in_block(block): # and block[line[\"line\"]][\"comment_index\"] != -1:++                if creation_timestamp != commits[previous_commit][\"timestamp\"] and blockified_source_code_old != None:",
+                        "86 103--                            if comment_time > last_modified[line]:++                    changed, change_time = _code_changed(block, blockified_source_code_old)",
+                        "87 104--                                comment = commit[\"comments\"][line][\"comment\"]++                    code_last_modified = change_time",
+                        "88 105--                                comment_type = commit[\"comments\"][line][\"type\"]++                else:",
+                        "89 106--                                for comit in commits:++                    changed = True",
+                        "90 107--                                    if datetime.fromisoformat(comit[\"timestamp\"]) == comment_time:++                    code_last_modified = commits[previous_commit][\"timestamp\"]",
+                        "91 108--                                        for block in commit[\"source_code\"]:++                # Analyse block for comment changes to previous block (block that includes the same line)",
+                        "92 109--                                            if line in list(block[\"code_lines\"].keys()):++                if \"comment_lines\" in list(block.keys()):",
+                        "93 110--                                                content = block[\"code_lines\"][line]++                    for line in list(list(block[\"comment_lines\"].keys())):",
+                        "94 111--                                        break++                        if line in list(commits[previous_commit_old][\"diff\"][\"added\"].keys()):",
+                        "95 112--                                if len(analysis_results) == 0 or (len(analysis_results) > 0 and analysis_results[-1][\"comment\"] != comment):++                            comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
+                        "96 113--                                    analysis_results.append({++                            break",
+                        "97 114--                                        \"file\": file,++                        else:",
+                        "98 115--                                        \"line\": line,++                            if created:",
+                        "99 116--                                        \"content\": content,++                                comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
+                        "100 117--                                        \"comment\": comment,++                            elif _comment_changed(block, blockified_source_code_old) == \"mismatching comments\":",
+                        "101 118--                                        \"type\": comment_type,++                                comment_last_modified = _comment_changed(block, blockified_source_code_old)",
+                        "102 119--                                        \"comment_time\": str(comment_time),++                            else:",
+                        "103 120--                                        \"last_code_change_time\": str(last_modified[line])++                                comment_last_modified = commits[previous_commit_old][\"timestamp\"]",
+                        "104 121--                                    })++                else:",
+                        "105 122--    del commit[\"comments\"]++                    comment_last_modified = \"has_no_comments\"",
+                        "106 123--    return analysis_results++                block[\"metadata\"] = {",
+                        "107 124++                    \"file\": file,",
+                        "107 125++                    \"commit\": commits[commit][\"commit\"],",
+                        "107 126++                    \"creation_timestamp\": creation_timestamp,",
+                        "107 127++                    \"code_last_modified\": code_last_modified,",
+                        "107 128++                    \"comment_last_modified\": comment_last_modified",
+                        "107 129++                }",
+                        "107 130++            if commit != 0:",
+                        "107 131++                previous_commit_old += 1",
+                        "107 132++",
+                        "107 133++            # TODO Temporaryily disabled for testing purposes",
+                        "107 134++            # del commits[commit][\"diff\"]",
+                        "107 135++            # del commits[commit][\"comments\"]",
+                        "107 136++"
                     ],
                     "comment_lines": {
                         "83": {
@@ -8234,7 +8812,7 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "added"
+                            "edit": "modifiedd"
                         },
                         "133": {
                             "comment": "# TODO Temporaryily disabled for testing purposes",
@@ -8259,51 +8837,58 @@
                             ],
                             "edit": "added"
                         }
-                    }
-                },
-                {
-                    "code_linesv4": [
-                        "66 137--def extract_later_modified_comments(data):++def _block_created(block_new, blocks_old):",
-                        "67 138--    analysis_results = []++    old_sourcecode = []",
-                        "68 139--    for file, commits in data.items():++    for block in blocks_old:",
-                        "69 140--        # Store last modified timestamps for each line++        old_sourcecode.extend(list((block[\"code_lines\"].keys())))",
-                        "70 141--        last_modified = {}++    start_line = list(block_new[\"code_lines\"].keys())[0]",
-                        "71 142--        for commit in commits:++    if start_line not in old_sourcecode:",
-                        "72 143--            # print(\"Starting to analyse commit: \", commit[\"commit\"])++        return True, \"CREATED\"",
-                        "73 144--            commit_time = datetime.fromisoformat(commit[\"timestamp\"])++    else:",
-                        "74 145--            # Track modified lines++        for block in blocks_old:",
-                        "75 146--            for line in list(commit[\"diff\"][\"added\"].keys()):++            if start_line in list(block[\"code_lines\"].keys()):",
-                        "76 147--                last_modified[line] = commit_time++                block_created = block[\"metadata\"][\"creation_timestamp\"]",
-                        "77 148--            # Compare with comments++                return False, block_created",
-                        "78 149--            for line in list(commit[\"comments\"].keys()):++    raise Exception(\"ERROR: new block neither found in old blocks nor created\")",
-                        "79 150--                comment_time = datetime.fromisoformat(commit[\"timestamp\"])++"
+                    },
+                    "activities": [
+                        "Method Renamed"
                     ]
                 },
                 {
                     "code_linesv4": [
-                        "80 151--                last_modified_lines = list(last_modified.keys())++def _code_changed(block_new, blocks_old):",
-                        "81 152--                # TODO investigate why line is null++    for block_old in blocks_old:",
-                        "82 153--                if line != \"null\" and line in last_modified_lines:++        for line_old in list(block_old[\"code_lines\"].keys()):",
-                        "83 154--                    for block in commit[\"diff\"][\"added-block\"]:++            if line_old in list(block_new[\"code_lines\"].keys()):",
-                        "84 155--                        # Where there are comment changes and no source code changes in block++                # Check if block has comments and if so, remove them from comparison",
-                        "85 156--                        if not only_code_in_block(block): # and block[line[\"line\"]][\"comment_index\"] != -1:++                if \"comment_lines\" not in (list(block_old.keys()) or list(block_new.keys())):",
-                        "86 157--                            if comment_time > last_modified[line]:++                    return list(block_old[\"code_lines\"]) != list(block_new[\"code_lines\"]), block_old[\"metadata\"][\"code_last_modified\"]",
-                        "87 158--                                comment = commit[\"comments\"][line][\"comment\"]++                else:",
-                        "88 159--                                comment_type = commit[\"comments\"][line][\"type\"]++                    if \"comment_lines\" in list(block_old.keys()):",
-                        "89 160--                                for comit in commits:++                        actual_code_old = [line for line in block_old[\"code_lines\"] if line not in block_old[\"comment_lines\"]]",
-                        "90 161--                                    if datetime.fromisoformat(comit[\"timestamp\"]) == comment_time:++                    else:",
-                        "91 162--                                        for block in commit[\"source_code\"]:++                        actual_code_old = block_old[\"code_lines\"]",
-                        "92 163--                                            if line in list(block[\"code_lines\"].keys()):++                    if \"comment_lines\" in list(block_new.keys()):",
-                        "93 164--                                                content = block[\"code_lines\"][line]++                        actual_code_new = [line for line in block_new[\"code_lines\"] if line not in block_new[\"comment_lines\"]]",
-                        "94 165--                                        break++                    else:",
-                        "95 166--                                if len(analysis_results) == 0 or (len(analysis_results) > 0 and analysis_results[-1][\"comment\"] != comment):++                        actual_code_new = block_new[\"code_lines\"]",
-                        "96 167--                                    analysis_results.append({++                    # Compare content of code lines and return if different, else code_changed returns False",
-                        "97 168--                                        \"file\": file,++                    for code_line_old, code_line_new in zip(actual_code_old, actual_code_new):",
-                        "98 169--                                        \"line\": line,++                        if block_old[\"code_lines\"][code_line_old] != block_new[\"code_lines\"][code_line_new]:",
-                        "99 170--                                        \"content\": content,++                            return actual_code_old != actual_code_new, block_old[\"metadata\"][\"code_last_modified\"]",
-                        "100 171--                                        \"comment\": comment,++                    return False, block_old[\"metadata\"][\"code_last_modified\"]",
-                        "101 172--                                        \"type\": comment_type,++    raise Exception(\"ERROR: No line from block_new found in old_blocks\")",
-                        "102 173--                                        \"comment_time\": str(comment_time),++"
+                        "107 137++def _block_created(block_new, blocks_old):",
+                        "107 138++    old_sourcecode = []",
+                        "107 139++    for block in blocks_old:",
+                        "107 140++        old_sourcecode.extend(list((block[\"code_lines\"].keys())))",
+                        "107 141++    start_line = list(block_new[\"code_lines\"].keys())[0]",
+                        "107 142++    if start_line not in old_sourcecode:",
+                        "107 143++        return True, \"CREATED\"",
+                        "107 144++    else:",
+                        "107 145++        for block in blocks_old:",
+                        "107 146++            if start_line in list(block[\"code_lines\"].keys()):",
+                        "107 147++                block_created = block[\"metadata\"][\"creation_timestamp\"]",
+                        "107 148++                return False, block_created",
+                        "107 149++    raise Exception(\"ERROR: new block neither found in old blocks nor created\")",
+                        "107 150++"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Created"
+                    ]
+                },
+                {
+                    "code_linesv4": [
+                        "107 151++def _code_changed(block_new, blocks_old):",
+                        "107 152++    for block_old in blocks_old:",
+                        "107 153++        for line_old in list(block_old[\"code_lines\"].keys()):",
+                        "107 154++            if line_old in list(block_new[\"code_lines\"].keys()):",
+                        "107 155++                # Check if block has comments and if so, remove them from comparison",
+                        "107 156++                if \"comment_lines\" not in (list(block_old.keys()) or list(block_new.keys())):",
+                        "107 157++                    return list(block_old[\"code_lines\"]) != list(block_new[\"code_lines\"]), block_old[\"metadata\"][\"code_last_modified\"]",
+                        "107 158++                else:",
+                        "107 159++                    if \"comment_lines\" in list(block_old.keys()):",
+                        "107 160++                        actual_code_old = [line for line in block_old[\"code_lines\"] if line not in block_old[\"comment_lines\"]]",
+                        "107 161++                    else:",
+                        "107 162++                        actual_code_old = block_old[\"code_lines\"]",
+                        "107 163++                    if \"comment_lines\" in list(block_new.keys()):",
+                        "107 164++                        actual_code_new = [line for line in block_new[\"code_lines\"] if line not in block_new[\"comment_lines\"]]",
+                        "107 165++                    else:",
+                        "107 166++                        actual_code_new = block_new[\"code_lines\"]",
+                        "107 167++                    # Compare content of code lines and return if different, else code_changed returns False",
+                        "107 168++                    for code_line_old, code_line_new in zip(actual_code_old, actual_code_new):",
+                        "107 169++                        if block_old[\"code_lines\"][code_line_old] != block_new[\"code_lines\"][code_line_new]:",
+                        "107 170++                            return actual_code_old != actual_code_new, block_old[\"metadata\"][\"code_last_modified\"]",
+                        "107 171++                    return False, block_old[\"metadata\"][\"code_last_modified\"]",
+                        "107 172++    raise Exception(\"ERROR: No line from block_new found in old_blocks\")",
+                        "107 173++"
                     ],
                     "comment_lines": {
                         "155": {
@@ -8311,23 +8896,27 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         },
                         "167": {
                             "comment": "# Compare content of code lines and return if different, else code_changed returns False",
                             "type": [
                                 "normal"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Created"
+                    ]
                 },
                 {
                     "code_linesv4": [
-                        "103 174--                                        \"last_code_change_time\": str(last_modified[line])++def _comment_changed(block_new, old_blocks):",
-                        "104 175--                                    })++    matched_comments = []",
-                        "105 176--    del commit[\"comments\"]++    for block in old_blocks:",
-                        "106 177--    return analysis_results++        # Go through comment lines of current block and",
+                        "107 174++def _comment_changed(block_new, old_blocks):",
+                        "107 175++    matched_comments = []",
+                        "107 176++    for block in old_blocks:",
+                        "107 177++        # Go through comment lines of current block and",
                         "107 178++        if \"comment_lines\" in list(block.keys()):",
                         "107 179++            for _, comment_data_new in block_new[\"comment_lines\"].items():",
                         "107 180++                for _, comment_data in block[\"comment_lines\"].items():",
@@ -8345,9 +8934,12 @@
                             "type": [
                                 "normal"
                             ],
-                            "edit": "modifiedd"
+                            "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -8367,6 +8959,10 @@
                         "128 195--            clean_data.append(item)",
                         "129 195--    return clean_data",
                         "130 195--"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Deleted"
                     ]
                 },
                 {
@@ -8379,6 +8975,11 @@
                         "136 195--            return False",
                         "137 195--    return True",
                         "138 195--"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted",
+                        "Method Deleted"
                     ]
                 },
                 {
@@ -8394,6 +8995,10 @@
                         "147 203      total_duration = sum(durations, timedelta(0))",
                         "148 204      average_duration = total_duration / len(durations)",
                         "149 205--    return average_duration++    return average_duration"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
                     ]
                 }
             ]
@@ -8453,7 +9058,11 @@
                             ],
                             "edit": "added"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 },
                 {
                     "code_linesv4": [
@@ -8468,6 +9077,10 @@
                         "203 204      total_duration = sum(durations, timedelta(0))",
                         "204 205--    average_duration = total_duration / len(durations)++    if durations != []:",
                         "205 206--    return average_duration++        average_duration = total_duration / len(durations)"
+                    ],
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
                     ]
                 }
             ]
@@ -8480,106 +9093,6 @@
             "author": "alexander.schranner",
             "filename": "build/xes_conversion.py",
             "source_code_blocks": []
-        }
-    ],
-    "build/utils.py": [
-        {
-            "commit": "202468fb39d473251ab81eb3037227cf7af47344",
-            "timestamp": "2024-12-04T00:35:22+01:00",
-            "author": "alexander.schranner",
-            "filename": "build/utils.py",
-            "source_code_blocks": [
-                {
-                    "code_linesv4": [
-                        "9 9  def save_to_xes(data, path):",
-                        "10 10      log = EventLog()",
-                        "11 11      # Iterate over each element in the data",
-                        "12 12      for file, commits in data.items():",
-                        "13 13          # Create a trace for the file",
-                        "14 14          trace = Trace()",
-                        "15 15          trace.attributes[\"file\"] = file",
-                        "16 16          for commit in commits:",
-                        "17 17              # Extract event attributes",
-                        "18 18              event = Event()",
-                        "19 19              event[\"timestamp\"] = commit.get(\"timestamp\")",
-                        "20 20              event[\"author\"] = commit.get(\"author\")",
-                        "21 21              event[\"change_type\"] = commit.get(\"change_type\")",
-                        "22 22              # Add the event to the trace",
-                        "23 23              trace.append(event)",
-                        "24 24          # Add the trace to the log",
-                        "25 25          log.append(trace)",
-                        "26 26--    xes_exporter.apply(log, path)++    xes_exporter.apply(log, path)"
-                    ],
-                    "comment_lines": {
-                        "11": {
-                            "comment": "# Iterate over each element in the data",
-                            "type": [
-                                "normal"
-                            ],
-                            "edit": "unedited"
-                        },
-                        "13": {
-                            "comment": "# Create a trace for the file",
-                            "type": [
-                                "normal"
-                            ],
-                            "edit": "unedited"
-                        },
-                        "17": {
-                            "comment": "# Extract event attributes",
-                            "type": [
-                                "normal"
-                            ],
-                            "edit": "unedited"
-                        },
-                        "22": {
-                            "comment": "# Add the event to the trace",
-                            "type": [
-                                "normal"
-                            ],
-                            "edit": "unedited"
-                        },
-                        "24": {
-                            "comment": "# Add the trace to the log",
-                            "type": [
-                                "normal"
-                            ],
-                            "edit": "unedited"
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "commit": "c6c3ea5c48d609c94ffc5e79903f736b5630f3f2",
-            "timestamp": "2024-12-11T12:54:20+01:00",
-            "author": "alexander.schranner",
-            "filename": "build/utils.py",
-            "source_code_blocks": [
-                {
-                    "code_linesv4": [
-                        "1 1--from pm4py.objects.log.obj import EventLog, Trace, Event",
-                        "2 1--from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
-                        "3 1  import json",
-                        "4 2++import os",
-                        "4 3++import subprocess",
-                        "4 4++",
-                        "4 5++from pm4py.objects.log.exporter.xes import exporter as xes_exporter",
-                        "4 6++from pm4py.objects.log.obj import Event, EventLog, Trace",
-                        "4 7++",
-                        "4 8  "
-                    ]
-                },
-                {
-                    "code_linesv4": [
-                        "28 32  def list_to_dict(list):",
-                        "29 33      dict = {}",
-                        "30 34      for i in range(len(list)):",
-                        "31 35          dict[i+1] = list[i]",
-                        "32 36--    return dict++    return dict"
-                    ]
-                }
-            ]
         }
     ],
     "test.py": [
@@ -8603,7 +9116,8 @@
                         "5 10++import subprocess",
                         "5 11++import shutil",
                         "5 12  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -8752,7 +9266,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         },
@@ -8776,7 +9294,8 @@
                         "10 10  import subprocess",
                         "11 11  import shutil",
                         "12 12  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -9017,7 +9536,11 @@
                             ],
                             "edit": "unedited"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         },
@@ -9041,7 +9564,8 @@
                         "10 10  import subprocess",
                         "11 11  import shutil",
                         "12 12  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -9455,7 +9979,11 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         },
@@ -9469,29 +9997,31 @@
                     "code_linesv4": [
                         "1 1--from pydriller import Repository",
                         "2 1  import json",
-                        "3 2++import os",
-                        "3 3++import re",
-                        "3 4++import shutil",
-                        "3 5++import subprocess",
-                        "3 6++from datetime import datetime, timezone",
-                        "3 7++",
-                        "3 8++from pydriller import Repository",
-                        "3 9++",
-                        "3 10++from build.analysis import (analyse_diff_comments, average_comment_update_time,",
-                        "3 11++                            blockify_diff, classify_comments, classify_content,",
-                        "3 12++                            clean, extract_later_modified_comments)",
-                        "3 13++from build.comment_lister import filter_comments_by_time, get_comment_data",
-                        "3 14  from build.pydriller import get_commits_data",
-                        "4 15--from build.comment_lister import run_comment_lister, filter_comments_by_time",
-                        "5 15  from build.utils import save_to_json",
-                        "6 16--from build.analysis import analyse_diff_comments, blockify_diff, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
-                        "7 16  from build.xes_conversion import convert_json_to_xes",
-                        "8 17--from datetime import datetime, timezone++",
-                        "9 18--import os",
-                        "10 18--import subprocess",
-                        "11 18--import shutil",
+                        "3 2--from build.pydriller import get_commits_data",
+                        "4 2--from build.comment_lister import run_comment_lister, filter_comments_by_time",
+                        "5 2--from build.utils import save_to_json",
+                        "6 2--from build.analysis import analyse_diff_comments, blockify_diff, extract_later_modified_comments, clean, average_comment_update_time, classify_comments, classify_content",
+                        "7 2--from build.xes_conversion import convert_json_to_xes",
+                        "8 2--from datetime import datetime, timezone",
+                        "9 2  import os",
+                        "10 3--import subprocess++import re",
+                        "11 4  import shutil",
+                        "12 5++import subprocess",
+                        "12 6++from datetime import datetime, timezone",
+                        "12 7++",
+                        "12 8++from pydriller import Repository",
+                        "12 9++",
+                        "12 10++from build.analysis import (analyse_diff_comments, average_comment_update_time,",
+                        "12 11++                            blockify_diff, classify_comments, classify_content,",
+                        "12 12++                            clean, extract_later_modified_comments)",
+                        "12 13++from build.comment_lister import filter_comments_by_time, get_comment_data",
+                        "12 14++from build.pydriller import get_commits_data",
+                        "12 15++from build.utils import save_to_json",
+                        "12 16++from build.xes_conversion import convert_json_to_xes",
+                        "12 17++",
                         "12 18  "
-                    ]
+                    ],
+                    "activities": []
                 },
                 {
                     "code_linesv4": [
@@ -9536,12 +10066,12 @@
                         "51 57--repo_path = clone_path++# repo_path = clone_path",
                         "52 58--jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"++# jar_path = \"/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar\"",
                         "53 59--file_types = [\".c\", \".c\", \".cc\", \".cp\", \".cpp\", \".cx\", \".cxx\", \".c+\", \".c++\", \".h\", \".hh\", \".hxx\", \".h+\", \".h++\", \".hp\", \".hpp\", \".java\", \".js\", \".cs\", \".py\", \".php\", \".rb\"]++# file_types = [\".c\", \".c\", \".cc\", \".cp\", \".cpp\", \".cx\", \".cxx\", \".c+\", \".c++\", \".h\", \".hh\", \".hxx\", \".h+\", \".h++\", \".hp\", \".hpp\", \".java\", \".js\", \".cs\", \".py\", \".php\", \".rb\"]",
-                        "54 60--++",
+                        "54 60  ",
                         "55 61--commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)++# commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)",
                         "56 62--save_to_json(commits_data, \"Toy-Example/commits_data.json\")++# save_to_json(commits_data, \"Toy-Example/commits_data.json\")",
                         "57 63--with open (\"Toy-Example/commits_data.json\", \"r\") as json_file:++# with open (\"Toy-Example/commits_data.json\", \"r\") as json_file:",
                         "58 64--        commits_data = json.load(json_file)++#         commits_data = json.load(json_file)",
-                        "59 65--++",
+                        "59 65  ",
                         "60 66--for file, commits in commits_data.items():++# for file, commits in commits_data.items():",
                         "61 67--    for commit in commits:++#     for commit in commits:",
                         "62 68--        tag = \"-target=\" + commit[\"commit\"]++#         tag = \"-target=\" + commit[\"commit\"]",
@@ -10206,9 +10736,15 @@
                             ],
                             "edit": "modifiedd"
                         }
-                    }
+                    },
+                    "activities": [
+                        "Method Renamed",
+                        "Method Parameter Deleted"
+                    ]
                 }
             ]
         }
-    ]
+    ],
+    "build/classification.py": [],
+    "build/extraction.py": []
 }

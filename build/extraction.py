@@ -31,32 +31,6 @@ def diff_to_dict(diff):
     diff["deleted"] = dict_deleted
     return diff
 
-def extract_keywords(commit_message, modified_file):
-    # Determine basic keywords based on the commit message
-    keywords = []
-    if "performance" in commit_message.lower():
-        keywords.append("performance")
-    if "security" in commit_message.lower():
-        keywords.append("security")
-    if modified_file.added_lines > modified_file.deleted_lines:
-        keywords.append("expansion")
-    else:
-        keywords.append("optimization")
-    return keywords
-
-def extract_activity(commit_message):
-    # Use commit message keywords to determine activity type
-    activity = ""
-    if "bug" in commit_message.lower() or "fix" in commit_message.lower():
-        activity = "Bug Fix"
-    elif "feature" in commit_message.lower() or "add" in commit_message.lower():
-        activity = "Feature Development"
-    elif "refactor" in commit_message.lower():
-        activity = "Refactoring"
-    else:
-        activity = "Other"
-    return activity
-
 def split_comments_to_lines(code_data, raw_comment_data):
     processed_comments = {}
     for filename, contents in raw_comment_data["Files"].items():
@@ -201,7 +175,7 @@ def make_table(data, version):
                 except KeyError:
                     comments = ""
                     comment_lines = 0
-                line = [method_name, commit["commit"], commit["author"], commit["timestamp"], filename, block["code_linesv4"], comments, len(block["code_linesv4"]), comment_lines]
+                line = [method_name, commit["commit"], commit["author"], commit["timestamp"], filename, block["code_linesv4"], comments, len(block["code_linesv4"]), comment_lines, block["activities"]]
                 table.append(line)
     return table
 
