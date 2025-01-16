@@ -116,6 +116,7 @@ def blockify_code_data(data, version):
             i = 1
             i_del = 1
             i_add = 1
+            indent_depth = 0
             # Calculate where to insert diff added and deleted lines
             while int(i_del) < len(list(commit["source_code_old"].keys())) and int(i_add) < len(list(commit["source_code"].keys())):
                 i_del = str(i + sum(a for a, _ in shift_map))
@@ -133,13 +134,17 @@ def blockify_code_data(data, version):
                     shift_map.append((0, 0))
                     text = i_del + " " + i_add + "  " + commit[source_code][str(i_del)]
                     i += 1
-                # TODO Add proper check if i was not increased although lines still had to be added
-                if text.find("def ") != -1 and current_block != {"code_linesv4": []}:
+
+                # TODO Add proper check if i was increased although older lines still had to be added
+                if text.find("def ") != -1 and current_block != {"code_linesv4": []} or text.find("class ") != -1 and current_block != {"code_linesv4": []}:
                     if "++" in "".join(current_block["code_linesv4"]) or "--" in "".join(current_block["code_linesv4"]):
                         blocks.append(current_block)
                     current_block = {"code_linesv4": []}
-
+                    # Mark beginning of new block
+                    indent_depth = -1
                 current_block["code_linesv4"].append(text)
+                
+                # Add edited comments to the block
                 if i_add in commit[comments].keys():
                     if shift_map[-1] == (0, 1):
                         commit["comments"][i_add]["edit"] = "added"
@@ -151,6 +156,7 @@ def blockify_code_data(data, version):
                         commit["comments"][i_add]["edit"] = "unedited"
                     current_block.setdefault("comment_lines", {})[i_add] = commit[comments][i_add]
 
+            # Add last block to blocks and delete redundant data
             if current_block != {"code_linesv4": []}:
                 if "++" in "".join(current_block["code_linesv4"]) or "--" in "".join(current_block["code_linesv4"]):
                     blocks.append(current_block)

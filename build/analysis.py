@@ -7,6 +7,10 @@ def analyse_blocks(data):
         for commit in commits:
             for block in commit["source_code_blocks"]:
                 activities = []
+                old_parameters = []
+                new_parameters = []
+                old_method_name = ""
+                new_method_name = ""
                 if "def " in block["code_linesv4"][0]:
                     if "--" in block["code_linesv4"][0]:
                         old_part = block["code_linesv4"][0].split("--")[1]
@@ -27,7 +31,7 @@ def analyse_blocks(data):
                                 for parameter in old_parameters:
                                     if "=" in parameter:
                                         old_parameters[old_parameters.index(parameter)] = parameter.split("=")[0]
-                    if new_method_name != old_method_name and len (old_method_name) > 0 and len(new_method_name) > 0:
+                    if new_method_name != old_method_name and len (old_method_name) > 0 and len(new_method_name) > 0 and len(old_parameters) == len(new_parameters):
                         activities.append("Method Renamed")
                     if len(old_parameters) < len(new_parameters):
                         activities.append("Method Parameter Added")
@@ -70,9 +74,9 @@ def analyse_blocks(data):
                             elif comment_data["edit"] == "added":
                                 added = True
                         if added:
-                            activities.append("added")
+                            activities.append("Comment Added")
                         if modified:
-                            activities.append("modified")
+                            activities.append("Comment Modified")
                         # TODO Check if comment was deleted
                         
                 block["activities"] = activities
@@ -139,7 +143,7 @@ def process_csv_and_create_event_log(input_csv, output_csv):
             # Append the event to the log
             event_log.append({
                 "Case ID": current_row["Method Name"],
-                "Activity": current_row["Activities"],
+                "Activity": current_row["Activities"][1:-1],
                 "Timestamp": current_row["Timestamp"],
                 "Filename": current_row["Filename"],
                 "Author": current_row["Author"],
@@ -149,7 +153,4 @@ def process_csv_and_create_event_log(input_csv, output_csv):
     event_log_df = pd.DataFrame(event_log)
 
     # Step 5: Save the event log to a CSV file
-    event_log_df.to_csv(output_csv, index=False)
-
-
-  
+    event_log_df.to_csv(output_csv, index=False)  

@@ -1,236 +1,153 @@
 Case ID,Activity,Timestamp,Filename,Author
-Not a Method,[],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-Not a Method,[],2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-Not a Method,[],2024-11-21T12:33:35+01:00,build/XESConversion.py,alexander.schranner
-Not a Method,[],2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-Not a Method,'Import Changed',2024-11-28T10:16:59+01:00,build/analysis.py,alexander.schranner
-Not a Method,'Import Changed',2024-11-28T10:16:59+01:00,build/analysis.py,alexander.schranner
-Not a Method,[],2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-Not a Method,[],2024-12-05T00:04:47+01:00,build/analysis.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-Not a Method,[],2024-12-04T23:01:11+01:00,build/comment_lister.py,alexander.schranner
-Not a Method,[],2024-12-07T15:31:01+01:00,build/comment_lister.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,build/comment_lister.py,alexander.schranner
-Not a Method,[],2024-11-22T16:53:22+01:00,build/pydriller.py,alexander.schranner
-Not a Method,[],2024-12-04T00:35:22+01:00,build/pydriller.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-Not a Method,[],2025-01-09T12:48:21+01:00,build/pydriller.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,build/utils.py,alexander.schranner
-Not a Method,[],2024-11-22T16:53:22+01:00,main.py,alexander.schranner
-Not a Method,[],2024-11-23T21:32:59+01:00,main.py,alexander.schranner
-Not a Method,[],2024-11-24T18:37:49+01:00,main.py,alexander.schranner
-Not a Method,[],2024-11-25T02:54:47+01:00,main.py,alexander.schranner
-Not a Method,[],2024-11-25T11:26:40+01:00,main.py,alexander.schranner
-Not a Method,[],2024-11-28T10:16:59+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-03T15:33:45+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-04T00:35:22+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-04T23:01:11+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-07T15:31:01+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,main.py,alexander.schranner
-Not a Method,[],2024-12-04T14:36:49+01:00,test.py,alexander.schranner
-Not a Method,[],2024-12-04T23:01:11+01:00,test.py,alexander.schranner
-Not a Method,[],2024-12-07T15:31:01+01:00,test.py,alexander.schranner
-Not a Method,[],2024-12-11T12:54:20+01:00,test.py,alexander.schranner
-_block_created,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-_block_created,'Method Created',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-_code_changed,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-_code_changed,'Method Created',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-_code_changed,'Method Renamed',2025-01-09T12:48:21+01:00,build/analysis.py,alexander.schranner
-_code_changed,'Method Parameter Deleted',2025-01-09T12:48:21+01:00,build/analysis.py,alexander.schranner
-_comment_changed,['Method Renamed'],2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-add_comments_to_code,'Method Renamed',2024-12-11T12:54:20+01:00,main.py,alexander.schranner
-add_comments_to_code,'Method Parameter Added',2024-12-11T12:54:20+01:00,main.py,alexander.schranner
-analyse_diff_comments,'Method Renamed',2024-11-24T18:37:49+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Parameter Added',2024-11-24T18:37:49+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Renamed',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Parameter Added',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Renamed',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,'Method Parameter Added',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,['Method Parameter Renamed'],2024-12-05T23:05:58+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,['Method Parameter Renamed'],2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-analyse_diff_comments,['Method Parameter Renamed'],2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-analyze_commits,['Method Parameter Added'],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,['Method Parameter Renamed'],2024-11-17T16:33:10+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,['Method Parameter Renamed'],2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,'Method Renamed',2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,'Method Parameter Renamed',2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,['Method Renamed'],2024-11-19T15:32:58+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,['Method Parameter Added'],2024-11-19T17:09:41+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,['Method Parameter Added'],2024-11-19T17:28:53+01:00,build/XESConversion.py,alexander.schranner
-analyze_commits,'Method Renamed',2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-analyze_commits,'Method Parameter Deleted',2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-analyze_commits,'Method Deleted',2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-analyze_diff,['Method Renamed'],2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-analyze_diffs,'Method Renamed',2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-analyze_diffs,'Method Created',2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-analyze_diffs,['Method Renamed'],2024-11-19T15:32:58+01:00,build/XESConversion.py,alexander.schranner
-analyze_diffs,['Method Parameter Added'],2024-11-19T17:28:53+01:00,build/XESConversion.py,alexander.schranner
-analyze_diffs,['Method Parameter Added'],2024-11-22T16:53:22+01:00,build/pydriller.py,alexander.schranner
-average_comment_update_time,'Method Renamed',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Parameter Added',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Renamed',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Parameter Added',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Parameter Deleted',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Renamed',2025-01-09T12:48:21+01:00,build/analysis.py,alexander.schranner
-average_comment_update_time,'Method Parameter Deleted',2025-01-09T12:48:21+01:00,build/analysis.py,alexander.schranner
-blockify_code_data,['Method Renamed'],2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-blockify_comments,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-blockify_comments,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-blockify_comments,['Method Renamed'],2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,'Method Created',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,['Method Parameter Renamed'],2024-12-05T23:05:58+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,'Method Renamed',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-blockify_comments2,'Method Deleted',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-blockify_diff,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-blockify_diff,'Method Parameter Deleted',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-check_inline_comments,'Method Renamed',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-check_inline_comments,'Method Deleted',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-classify_comments,'Method Renamed',2024-12-04T00:55:39+01:00,build/analysis.py,alexander.schranner
-classify_comments,'Method Parameter Added',2024-12-04T00:55:39+01:00,build/analysis.py,alexander.schranner
-classify_comments,['Method Parameter Renamed'],2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-classify_content,['Method Parameter Renamed'],2024-12-05T00:04:47+01:00,build/analysis.py,alexander.schranner
-classify_content,['Method Parameter Renamed'],2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-clean,'Method Renamed',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-clean,'Method Parameter Added',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-clean,'Method Renamed',2024-12-04T00:55:39+01:00,build/analysis.py,alexander.schranner
-clean,'Method Parameter Added',2024-12-04T00:55:39+01:00,build/analysis.py,alexander.schranner
-clean,'Method Renamed',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-clean,'Method Parameter Added',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-clean,['Method Renamed'],2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-clean,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-clean,'Method Deleted',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-create_xes_log,['Method Deleted'],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-create_xes_log,['Method Parameter Renamed'],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-create_xes_log,['Method Parameter Renamed'],2024-11-16T20:51:56+01:00,build/XESConversion.py,alexander.schranner
-diff_to_dict,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/pydriller.py,alexander.schranner
-diff_to_dict,'Method Created',2024-11-25T02:54:47+01:00,build/pydriller.py,alexander.schranner
-diff_to_dict,['Method Parameter Added'],2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-diff_to_dict,'Method Renamed',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-diff_to_dict,'Method Parameter Added',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-extract_activity,'Method Parameter Added',2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-extract_activity,'Method Created',2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-extract_activity,'Method Renamed',2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-extract_activity,'Method Parameter Deleted',2024-11-28T10:16:59+01:00,build/pydriller.py,alexander.schranner
-extract_activity,'Method Renamed',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-extract_activity,'Method Parameter Added',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-extract_keywords,['Method Parameter Added'],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-extract_keywords,['Method Parameter Added'],2024-11-19T17:28:53+01:00,build/XESConversion.py,alexander.schranner
-extract_keywords,'Method Renamed',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-extract_keywords,'Method Parameter Added',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-extract_later_modified_comments,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Renamed',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Parameter Added',2024-12-04T00:35:22+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Renamed',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Parameter Added',2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Renamed',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,'Method Parameter Added',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-extract_later_modified_comments,['Method Renamed'],2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-filter_comments_by_time,['Method Parameter Added'],2024-11-22T16:53:22+01:00,build/comment_lister.py,alexander.schranner
-filter_comments_by_time,['Method Parameter Added'],2024-11-24T18:37:49+01:00,build/comment_lister.py,alexander.schranner
-filter_comments_by_time,['Method Parameter Added'],2024-12-04T00:35:22+01:00,build/comment_lister.py,alexander.schranner
-filter_comments_by_time,['Method Parameter Added'],2024-12-04T23:01:11+01:00,build/comment_lister.py,alexander.schranner
-filter_comments_by_time,['Method Parameter Added'],2024-12-07T15:31:01+01:00,build/comment_lister.py,alexander.schranner
-get_comment_lines,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_comment_lines,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_comment_lines,'Method Created',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_comment_lines,'Method Renamed',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-get_comment_lines,'Method Parameter Added',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-get_commits_data,['Method Parameter Added'],2024-11-22T16:53:22+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,['Method Parameter Added'],2024-11-25T02:54:47+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Renamed',2024-12-04T00:35:22+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Parameter Deleted',2024-12-04T00:35:22+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Renamed',2024-12-05T23:05:58+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Parameter Deleted',2024-12-05T23:05:58+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Renamed',2024-12-07T15:31:01+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,'Method Parameter Deleted',2024-12-07T15:31:01+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,['Method Created'],2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-get_commits_data,[],2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-get_diff_lines,'Method Renamed',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_diff_lines,'Method Parameter Added',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_diff_lines,'Method Created',2024-11-25T02:54:47+01:00,build/analysis.py,alexander.schranner
-get_diff_lines,'Method Renamed',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-get_diff_lines,'Method Parameter Added',2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-get_source_code_from_tag,'Method Renamed',2024-12-04T14:36:49+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Parameter Deleted',2024-12-04T14:36:49+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Renamed',2024-12-04T23:01:11+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Parameter Deleted',2024-12-04T23:01:11+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Renamed',2024-12-07T15:31:01+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Parameter Deleted',2024-12-07T15:31:01+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Renamed',2024-12-11T12:54:20+01:00,test.py,alexander.schranner
-get_source_code_from_tag,'Method Parameter Deleted',2024-12-11T12:54:20+01:00,test.py,alexander.schranner
-is_code_in_block,'Method Renamed',2024-11-25T11:26:40+01:00,build/analysis.py,alexander.schranner
-is_code_in_block,'Method Parameter Added',2024-11-25T11:26:40+01:00,build/analysis.py,alexander.schranner
-is_code_in_block,['Method Renamed'],2024-12-07T15:31:01+01:00,build/analysis.py,alexander.schranner
-is_equal,'Method Renamed',2024-11-28T10:16:59+01:00,build/analysis.py,alexander.schranner
-is_equal,'Method Parameter Added',2024-11-28T10:16:59+01:00,build/analysis.py,alexander.schranner
-is_equal,'Method Renamed',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-is_equal,'Method Parameter Deleted',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-is_equal,'Method Deleted',2024-12-11T12:54:20+01:00,build/analysis.py,alexander.schranner
-is_potential_code,['Method Parameter Renamed'],2024-12-04T23:01:11+01:00,build/analysis.py,alexander.schranner
-list_to_dict,'Method Renamed',2024-12-11T12:54:20+01:00,build/utils.py,alexander.schranner
-list_to_dict,'Method Parameter Added',2024-12-11T12:54:20+01:00,build/utils.py,alexander.schranner
-main,'Method Renamed',2024-11-22T16:53:22+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-22T16:53:22+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-11-23T21:32:59+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-23T21:32:59+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-11-24T18:37:49+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-24T18:37:49+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-11-25T02:54:47+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-25T02:54:47+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-11-25T11:26:40+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-25T11:26:40+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-11-28T10:16:59+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-11-28T10:16:59+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-03T15:33:45+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-03T15:33:45+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-03T15:46:08+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-03T15:46:08+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-04T00:35:22+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-04T00:35:22+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-04T00:55:39+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-04T00:55:39+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-04T23:01:11+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-04T23:01:11+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-05T23:05:58+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-05T23:05:58+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-07T15:31:01+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-07T15:31:01+01:00,main.py,alexander.schranner
-main,'Method Renamed',2024-12-11T12:54:20+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2024-12-11T12:54:20+01:00,main.py,alexander.schranner
-main,'Method Renamed',2025-01-09T12:48:21+01:00,main.py,alexander.schranner
-main,'Method Parameter Added',2025-01-09T12:48:21+01:00,main.py,alexander.schranner
-order_commits_data,'Method Renamed',2024-12-07T15:31:01+01:00,build/pydriller.py,alexander.schranner
-order_commits_data,'Method Parameter Deleted',2024-12-07T15:31:01+01:00,build/pydriller.py,alexander.schranner
-order_commits_data,'Method Created',2024-12-07T15:31:01+01:00,build/pydriller.py,alexander.schranner
-order_commits_data,'Method Renamed',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-order_commits_data,'Method Parameter Added',2024-12-11T12:54:20+01:00,build/pydriller.py,alexander.schranner
-pretty_diff,['Method Renamed'],2024-11-19T15:32:58+01:00,build/XESConversion.py,alexander.schranner
-pretty_diff,['Method Parameter Added'],2024-11-19T17:09:41+01:00,build/XESConversion.py,alexander.schranner
-pretty_diff,['Method Parameter Added'],2024-11-19T17:28:53+01:00,build/XESConversion.py,alexander.schranner
-pretty_diff,['Method Parameter Added'],2024-11-19T18:23:46+01:00,build/XESConversion.py,alexander.schranner
-run_comment_lister,'Method Renamed',2024-12-11T12:54:20+01:00,build/comment_lister.py,alexander.schranner
-run_comment_lister,'Method Parameter Order Changed',2024-12-11T12:54:20+01:00,build/comment_lister.py,alexander.schranner
-save_to_json,'Method Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_json,'Method Parameter Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_json,'Method Created',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_json,'Method Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_json,'Method Parameter Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_json,['Method Renamed'],2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,'Method Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,'Method Parameter Renamed',2024-11-18T10:51:21+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,['Method Renamed'],2024-11-18T15:19:19+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,['Method Renamed'],2024-11-19T15:32:58+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,['Method Parameter Added'],2024-11-19T17:09:41+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,['Method Parameter Added'],2024-11-19T18:23:46+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,['Method Parameter Added'],2024-11-21T12:33:35+01:00,build/XESConversion.py,alexander.schranner
-save_to_xes,'Method Renamed',2024-12-04T00:35:22+01:00,build/utils.py,alexander.schranner
-save_to_xes,'Method Parameter Added',2024-12-04T00:35:22+01:00,build/utils.py,alexander.schranner
-save_xes_log,['Method Parameter Renamed'],2024-11-16T19:39:45+01:00,build/XESConversion.py,alexander.schranner
-save_xes_log,['Method Parameter Renamed'],2024-11-16T20:51:56+01:00,build/XESConversion.py,alexander.schranner
-save_xes_log,['Method Parameter Renamed'],2024-11-17T16:33:10+01:00,build/XESConversion.py,alexander.schranner
+Not a Method,[],2024-03-25T19:13:40+05:30,Demo/DemoData.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,archive/streamlit_app.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
+Not a Method,[],2024-08-30T20:56:02+05:30,run_first.py,KamalMahanna
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/LinkedinJobToPDF.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/__init__.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/__init__.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+Not a Method,[],2024-06-07T12:45:42+05:30,scripts/similarity/get_similarity_score.py,Subramanyam Challa
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/ReadFiles.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/__init__.py,Devasy Patel
+Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+Not a Method,[],2024-03-13T00:44:27-07:00,streamlit_app.py,SubramanyamChalla24
+Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
+Not a Method,[],2025-01-08T11:35:24+01:00,streamlit_app.py,Zadkiel AHARONIAN
+Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
+Not a Method,[],2025-01-08T11:36:47+01:00,streamlit_interactive.py,Zadkiel AHARONIAN
+Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
+Not a Method,[],2025-01-08T11:37:33+01:00,streamlit_second.py,Zadkiel AHARONIAN
+__init__,[],2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+__init__,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+__init__,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
+__init__,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
+__init__,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
+__init__,['Method Created'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+__init__,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+__init__,['Method Created'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+_write_json_file,[],2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
+_write_json_file,[],2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
+bi_gramchunker,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+build_jobdesc_list,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
+build_resume_list,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
+clean_text,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
+clean_text,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
+create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
+create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
+create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
+create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
+create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
+create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
+dirty_intersection,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
+extract_emails,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_entities,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_experience,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_links,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_links_extended,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_names,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_particular_words,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_phone_numbers,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+extract_position_year,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
+fill_by_complements,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
+find_path,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
+find_path,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+format,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+format,['Method Created'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+get_JSON,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
+get_JSON,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
+get_embedding,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+get_filenames_from_dir,[],2024-03-25T19:13:40+05:30,scripts/utils/ReadFiles.py,Devasy Patel
+get_keyterms_based_on_scake,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+get_keyterms_based_on_sgrank,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+get_keyterms_based_on_textrank,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+get_keyterms_based_on_yake,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+get_pdf_files,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
+get_pdf_files,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
+get_score,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
+get_similarity_score,['Method Created'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+init_logging_config,'Method Renamed',2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+init_logging_config,'Method Deleted',2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+init_logging_config,[],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
+linkedin_to_pdf,[],2024-03-25T19:13:40+05:30,scripts/LinkedinJobToPDF.py,Devasy Patel
+list_to_matrix,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
+match,[],2024-03-25T19:13:40+05:30,scripts/utils/Similar.py,Devasy Patel
+plot_df,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
+read_config,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
+read_config,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+read_doc,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
+read_doc,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+read_json,[],2024-03-25T19:13:40+05:30,archive/streamlit_app.py,Devasy Patel
+read_json,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
+read_multiple_pdf,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
+read_resumes,[],2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
+read_single_pdf,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
+remove_emails_links,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
+remove_old_files,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
+remove_old_files,[],2024-08-30T20:56:02+05:30,run_first.py,KamalMahanna
+remove_old_files,[],2024-10-22T23:09:24+05:30,run_first.py,Abdulkhalek Muhammad
+remove_old_files,[],2024-10-22T23:09:51+05:30,run_first.py,Hemanth
+remove_stopwords,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
+search,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+split_list,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
+tokenize_string,[],2024-03-13T00:44:27-07:00,streamlit_app.py,SubramanyamChalla24
+tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
+tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
+tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
+tri_gramchunker,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
+update_qdrant,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
