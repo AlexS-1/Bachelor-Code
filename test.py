@@ -1,138 +1,156 @@
-import json
 import os
-import re
-import shutil
-import subprocess
-from datetime import datetime, timezone
+import sys
+from venv import create
+from httpx import get
+import requests
+import csv
+import pymongo
 
-from pydriller import Repository
-
-from build.analysis import (analyse_diff_comments, average_comment_update_time,
-                            blockify_diff, classify_comments, classify_content,
-                            clean, extract_later_modified_comments)
-from build.comment_lister import filter_comments_by_time, get_comment_data
-from build.pydriller import get_commits_data
+# Add the build directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'build'))
 from build.utils import save_to_json
-from build.xes_conversion import convert_json_to_xes
 
+# Configuration
+token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
+owner = "srbhr"
+repo_name = "Resume-Matcher"
+url = f"https://api.github.com/repos/{owner}/{repo_name}"
+headers = {"Authorization": f"token {token}"}
 
-def get_source_code_from_tag(repo_path, tag_name, dt1, dt2):
-    """
-    DOCSTRIING: Extracts the source code of a specific commit tagged in the repository.
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["mydatabase"]
+print(myclient.list_database_names())
+########################################################################################
 
-    :param repo_path: Path to the local Git repository.
-    :param tag_name: The name of the tag to fetch.
-    :return: A dictionary containing file paths and their contents at the given commit.
-    END DOCSTRING
-    """
-    source_code = []
+# # Message lines
+# message_lines = pull_request["body"].split("\n")
 
-    for commit in Repository(repo_path, since=dt1, to=dt2).traverse_commits():
-        print(f"Processing commit: {commit.hash} tagged as {tag_name}")
-        for modified_file in commit.modified_files:
-            # NORMAL Save the file path and its source code
-            if modified_file.source_code:
-                # BLOCK: Multiple lines
-                # of comment
-                if modified_file.filename.find(".py") != -1 and modified_file.filename.find(".pyc") == -1:
-                    comit = {
-                        commit.hash + "---" + modified_file.filename: list_to_dict(modified_file.source_code.split("\n")) #INLINE: identify each block of data
-                    }
-                    source_code.append(comit)
-                    # print(commit) #COMMENTED-OUT
-    return source_code  
+# classification = []
 
-# Example usage
-# repo_url = "https://github.com/AlexS-1/Bachelor-Code"
-# tag_name = "a1ad5c2cb35d621f2b187166af65a2b2ee3ea45e"
-# start_time = datetime(2024,12,3)
-# end_time = datetime.today()
-# repo_name = os.path.basename(repo_url).replace(".git", "")
-# temp_dir = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
-# clone_path = os.path.join(temp_dir, repo_name)
+# # Print the comments
+# for line in message_lines:
+#     if line.find("] Bug Fix") != -1 and line[:-2].find("x") != -1:
+#         classification.append("Corrective")
+#     if line.find("] Feature Enhancement") != -1 and line.find("x") != -1:
+#         classification.append("Adaptive")
+#     if line.find("] Code Refactoring") != -1 and line.find("x") != -1:
+#         classification.append("Perfective")
+#     if line.find("] Documentation Update") != -1 and line.find("x") != -1:
+#         classification.append("Preventive")
 
-# subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
+# print(pull_request["title"], ": ", classification[0])
 
-# # Paths
-# repo_path = clone_path
-# jar_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/CommentLister/target/CommentLister.jar"
-# file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
+########################################################################################
 
-# commits_data = get_commits_data(repo_path, start_time, datetime.today(), file_types)
-# save_to_json(commits_data, "Toy-Example/commits_data.json")
-# with open ("Toy-Example/commits_data.json", "r") as json_file: 
-#         commits_data = json.load(json_file)
+def get_api_response(url):
+    response = requests.get(url, headers=headers)
+    save_to_json(response.json(), "Data/response.json")
+    return response.json()
 
-# for file, commits in commits_data.items():
-#     for commit in commits:
-#         tag = "-target=" + commit["commit"]
-#         output = get_comment_data(repo_path, jar_path, tag)
-#         # Parse output as JSON
-#         try:
-#             comment_data = json.loads(output)
-#             if file.find("pydriller") != -1:
-#                 save_to_json(commit["source_code"], f"Toy-Example/{commit["commit"]}_code.json")
-#                 save_to_json(comment_data, f"Toy-Example/{commit["commit"]}_comments.json")
-#                 if commit["commit"] == "e20d03792161ba1b90725e6912b40275f06bf2da": break
-#         except json.JSONDecodeError as e:
-#             print(f"Failed to parse CommentLister output: {e}")
-#             break
-#         # Filter comments by time
-#         commit_hash, filtered_comments = filter_comments_by_time(comment_data, start_time, end_time)
-#         if commit["commit"] == commit_hash and file in filtered_comments.keys():
-#             commit["comments"] = filtered_comments[file]
-#         else:
-#             print("mismatch in commit and comment data or no comments in this commit for investigatet file")
-#             print("file could have been deleted")
-#             commit["comments"] = {}
-# shutil.rmtree(clone_path)
-# # Save filtered comments on your system
-# save_to_json(commits_data, "Toy-Example/filtered_commits_data.json")
-# shutil.rmtree(clone_path)
-# with open("Toy-Example/filtered_commits_data.json", "r") as json_file:
-#     data = json.load(json_file)
-# # analyse_diff_comments(data)
-# blockify_comments(data)
-# save_to_json(data, "Toy-Example/blockified_comments_data.json")
-# with open("Toy-Example/blockified_comments_data.json", "r") as json_file:
-#     data = json.load(json_file)
-# add_content_to_blocks(data)
-# save_to_json(data, "Toy-Example/blockified_comments2_data.json")
-# with open("Toy-Example/blockified_comments2_data.json", "r") as json_file:
-#     data = json.load(json_file)
-# d = extract_later_modified_comments(data)
-# save_to_json(d, "Toy-Example/analysis_results.json")
-# with open("Toy-Example/analysis_results.json", "r") as json_file:
-#     data = json.load(json_file)
-# d = clean(data)
-# save_to_json(d, "Toy-Example/clean_analysis_results.json")
-# with open("Toy-Example/clean_analysis_results.json", "r") as json_file:
-#     data = json.load(json_file)
-# d = classify_content(data)
-# save_to_json(d, "Toy-Example/clean_analysis_results2.json")
-# print("Average duration:", average_comment_update_time(d))
-# convert_json_to_xes(d, 'Toy-Example/output.xes')
+def get_repo_information(repo_url):
+    repo_response = get_api_response(repo_url)
+    repo_information = {
+        "forks_url": repo_response["forks_url"],
+        "forks_count": repo_response["forks"],
+        "pulls_url": repo_response["pulls_url"][:-9],
+        "issues_url": repo_response["issues_url"][:-9],
+        "commits_url": repo_response["commits_url"][:-6],
+        "created_at": repo_response["created_at"],
+    }
+    mydb["repos"].insert_one(repo_information)
+    return repo_information
 
-from pydriller import Repository
+def get_closed_pulls(pulls_url):
+    pull_response = get_api_response(pulls_url + "?state=closed")
+    pulls = {}
+    for pull in pull_response[:25]:
+        pull_content = {
+            "title": pull["title"],
+            "created_at": pull["created_at"],
+            "merged_at": pull["merged_at"],
+            "user": pull["user"]["login"],
+            "merge_commit_sha":  pull["merge_commit_sha"],
+            "commits_url": pull["commits_url"],
+            "head_branches_url": pull["head"]["repo"]["branches_url"][:-9],
+            "from_branch": pull["head"]["label"].split(":")[1],  
+        }
+        pulls[pull["number"]] = pull_content
+    mydb["pulls"].insert_many(pulls.values())
+    return pulls
 
-from build.utils import clone_ropositoriy
+def get_forks(forks_url, count):
+    forks_data = {}
+    for page in range(1, count//100 + 1):
+        forks_response = get_api_response(forks_url + "?sort=newest&per_page=100&page=" + str(page))
+        for fork in forks_response:
+            forks_data[fork["full_name"].split("/")[0]] = fork["created_at"]
+    mydb["forks"].insert_many(forks_data.values())
+    return forks_data
 
-repo_url = "https://github.com/AlexS-1/Bachelor-Code"
-repo_path = clone_ropositoriy(repo_url)
-comment_data = get_comment_data(repo_path, "-target=f73512c4aa778287e31d18e9d218502acf7479ee")
+########################################################################################
 
-def detect_renames(repo_path):
-    renames = {}
-    for commit in Repository(repo_path).traverse_commits():
-        for modification in commit.modified_files:
-            if (modification.change_type.name == 'DELETE' or modification.change_type.name == 'RENAME') and modification.filename.endswith('.py'):
-                old_path = modification.old_path
-                new_path = modification.new_path
-                print(modification.change_type.value, old_path, "-> ", new_path)
-                renames[new_path] = old_path
-    return renames
+activities = []
+repo = get_repo_information(url)
+pulls = get_closed_pulls(repo["pulls_url"])
+for pull, content in pulls.items():
+    if content["merged_at"] is not None:
+        activities.append({
+            "Commit Main Repositoriy": content["merge_commit_sha"], 
+            "Action": "Create Pull Request", 
+            "Message": content["title"], 
+            "Author": content["user"], 
+            "Timestamp": content["created_at"], 
+            "Comment": ""})
+        pull_item = get_api_response(repo["pulls_url"] + "/" + str(pull))
+        activities.append({
+            "Commit Main Repositoriy": pull_item["merge_commit_sha"], 
+            "Action": "Merge Pull Request", 
+            "Message": "Merge " + pull_item["title"], 
+            "Author": pull_item["merged_by"]["login"], 
+            "Timestamp": pull_item["merged_at"], 
+            "Comment": ""})
+        pull_commits_url = pull_item["commits_url"]
+        if pull_item["comments"] > 0:
+            comments = get_api_response(pull_item["comments_url"])
+            for comment in comments:
+                activities.append({
+                    "Commit Main Repositoriy": pull_item["merge_commit_sha"], 
+                    "Action": "Comment Pull Request", 
+                    "Message": comment["body"], 
+                    "Author": comment["user"]["login"], 
+                    "Timestamp": comment["created_at"], 
+                    "Comment": ""})
+        commits = get_api_response(pull_commits_url)
+        for commit in commits:
+            activities.append({
+                "Commit Main Repositoriy": commit["sha"], 
+                "Action": "Commit to Fork", 
+                "Message": commit["commit"]["message"], 
+                "Author": commit["author"]["login"], 
+                "Timestamp": commit["commit"]["author"]["date"], 
+                "Comment": ""})
+        # commit_info = get_api_response(content["head_branches_url"] + "/" + content["from_branch"])
+        # if commit_info["commit"]["sha"] == get_api_response(content["commits_url"])[0]["sha"]:
+        #     activities.append({
+        #         "Commit Main Repositoriy": content["merge_commit_sha"], 
+        #         "Action": "Commit to Forked Repository", 
+        #         "Message": "Commit " + commit_info["commit"]["message"], 
+        #         "Author": content["user"], 
+        #         "Timestamp": commit_info["commit"]["author"]["date"], 
+        #         "Comment": ""})
+        forks_data = get_forks(repo["forks_url"], repo["forks_count"])
+        for forker, created_at in forks_data.items():
+            if forker == content["user"]:
+                activities.append({
+                    "Commit Main Repositoriy": content["merge_commit_sha"],
+                    "Action": "Fork Repository", 
+                    "Message": "Fork " + repo_name, 
+                    "Author": content["user"], 
+                    "Timestamp": created_at, 
+                    "Comment": ""})
 
-# Example usage
-renames = detect_renames(repo_path)
-print(renames)
-shutil.rmtree(repo_path)
+with open("Exports/event_log.csv", "w", newline="") as csvfile:
+    fieldnames = ["Commit Main Repositoriy", "Action", "Message", "Author", "Timestamp", "Comment"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(activities)

@@ -29,7 +29,7 @@ def main():
     # Get and store the comment data using CommentLister
     add_comments_to_code(code_data, repo_path)
     save_to_json(code_data, "Data/code_data_with_comments.json")
-    shutil.rmtree(repo_path)
+    # shutil.rmtree(repo_path)
 
     with open("Data/code_data_with_comments.json") as f:
         code_data = json.load(f)

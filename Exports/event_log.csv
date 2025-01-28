@@ -1,153 +1,23 @@
-Case ID,Activity,Timestamp,Filename,Author
-Not a Method,[],2024-03-25T19:13:40+05:30,Demo/DemoData.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,archive/streamlit_app.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
-Not a Method,[],2024-08-30T20:56:02+05:30,run_first.py,KamalMahanna
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/LinkedinJobToPDF.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,'Import Changed',2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/__init__.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/parsers/__init__.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-Not a Method,[],2024-06-07T12:45:42+05:30,scripts/similarity/get_similarity_score.py,Subramanyam Challa
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/ReadFiles.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/__init__.py,Devasy Patel
-Not a Method,[],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-Not a Method,['Comment Added'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-Not a Method,[],2024-03-13T00:44:27-07:00,streamlit_app.py,SubramanyamChalla24
-Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
-Not a Method,[],2025-01-08T11:35:24+01:00,streamlit_app.py,Zadkiel AHARONIAN
-Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
-Not a Method,[],2025-01-08T11:36:47+01:00,streamlit_interactive.py,Zadkiel AHARONIAN
-Not a Method,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
-Not a Method,[],2025-01-08T11:37:33+01:00,streamlit_second.py,Zadkiel AHARONIAN
-__init__,[],2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-__init__,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-__init__,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
-__init__,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
-__init__,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
-__init__,['Method Created'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-__init__,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-__init__,['Method Created'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-_write_json_file,[],2024-03-25T19:13:40+05:30,scripts/JobDescriptionProcessor.py,Devasy Patel
-_write_json_file,[],2024-03-25T19:13:40+05:30,scripts/ResumeProcessor.py,Devasy Patel
-bi_gramchunker,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-build_jobdesc_list,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
-build_resume_list,[],2024-03-25T19:13:40+05:30,archive/Data.py,Devasy Patel
-clean_text,[],2024-03-25T19:13:40+05:30,scripts/TextCleaner.py,Devasy Patel
-clean_text,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
-create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
-create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
-create_annotated_text,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
-create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
-create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
-create_star_graph,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
-dirty_intersection,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
-extract_emails,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_entities,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_experience,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_links,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_links_extended,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_names,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_particular_words,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_phone_numbers,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-extract_position_year,[],2024-03-25T19:13:40+05:30,scripts/Extractor.py,Devasy Patel
-fill_by_complements,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
-find_path,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
-find_path,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-format,['Method Parameter Deleted'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-format,['Method Created'],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-get_JSON,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseJobDescToJson.py,Devasy Patel
-get_JSON,[],2024-03-25T19:13:40+05:30,scripts/parsers/ParseResumeToJson.py,Devasy Patel
-get_embedding,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-get_filenames_from_dir,[],2024-03-25T19:13:40+05:30,scripts/utils/ReadFiles.py,Devasy Patel
-get_keyterms_based_on_scake,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-get_keyterms_based_on_sgrank,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-get_keyterms_based_on_textrank,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-get_keyterms_based_on_yake,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-get_pdf_files,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
-get_pdf_files,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
-get_score,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
-get_similarity_score,['Method Created'],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-init_logging_config,'Method Renamed',2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-init_logging_config,'Method Deleted',2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-init_logging_config,[],2024-03-25T19:13:40+05:30,scripts/utils/logger.py,Devasy Patel
-linkedin_to_pdf,[],2024-03-25T19:13:40+05:30,scripts/LinkedinJobToPDF.py,Devasy Patel
-list_to_matrix,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
-match,[],2024-03-25T19:13:40+05:30,scripts/utils/Similar.py,Devasy Patel
-plot_df,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
-read_config,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
-read_config,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-read_doc,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_score.py,Devasy Patel
-read_doc,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-read_json,[],2024-03-25T19:13:40+05:30,archive/streamlit_app.py,Devasy Patel
-read_json,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
-read_multiple_pdf,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
-read_resumes,[],2024-03-25T19:13:40+05:30,archive/run.py,Devasy Patel
-read_single_pdf,[],2024-03-25T19:13:40+05:30,scripts/ReadPdf.py,Devasy Patel
-remove_emails_links,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
-remove_old_files,[],2024-03-25T19:13:40+05:30,run_first.py,Devasy Patel
-remove_old_files,[],2024-08-30T20:56:02+05:30,run_first.py,KamalMahanna
-remove_old_files,[],2024-10-22T23:09:24+05:30,run_first.py,Abdulkhalek Muhammad
-remove_old_files,[],2024-10-22T23:09:51+05:30,run_first.py,Hemanth
-remove_stopwords,[],2024-03-25T19:13:40+05:30,scripts/utils/Utils.py,Devasy Patel
-search,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
-split_list,[],2024-03-25T19:13:40+05:30,archive/ExtraScripts.py,Devasy Patel
-tokenize_string,[],2024-03-13T00:44:27-07:00,streamlit_app.py,SubramanyamChalla24
-tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_app.py,Devasy Patel
-tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_interactive.py,Devasy Patel
-tokenize_string,[],2024-03-25T19:13:40+05:30,streamlit_second.py,Devasy Patel
-tri_gramchunker,[],2024-03-25T19:13:40+05:30,scripts/KeytermsExtraction.py,Devasy Patel
-update_qdrant,[],2024-03-25T19:13:40+05:30,scripts/similarity/get_similarity_score.py,Devasy Patel
+Commit Main Repositoriy,Action,Message,Author,Timestamp,Comment
+004b8a0c15027431b453cfe10323e349481e8aaa,Create Pull Request,docs: update README.md,eltociear,2025-01-09T14:38:20Z,
+004b8a0c15027431b453cfe10323e349481e8aaa,Merge Pull Request,Merge docs: update README.md,srbhr,2025-01-11T23:48:39Z,
+0d3ee8ac5fef88bf471959fb946eba62dc47506a,Commit to Fork,"docs: update README.md",eltociear,2025-01-09T14:24:59Z,
+004b8a0c15027431b453cfe10323e349481e8aaa,Fork Repository,Fork Resume-Matcher,eltociear,2023-07-29T10:08:21Z,
+17965651f4506159f9e8c0da0a4df41fe6692e42,Create Pull Request,Chore(deps): Bump jinja2 from 3.1.4 to 3.1.5,dependabot[bot],2025-01-08T10:42:05Z,
+17965651f4506159f9e8c0da0a4df41fe6692e42,Merge Pull Request,Merge Chore(deps): Bump jinja2 from 3.1.4 to 3.1.5,srbhr,2025-01-08T10:57:07Z,
+7f6dc2688437269f7812310a5ce2c9dcc7b02d85,Commit to Fork,"Chore(deps): Bump jinja2 from 3.1.4 to 3.1.5",dependabot[bot],2025-01-08T10:42:05Z,
+367b9dd133c6da7a42c14d94e2e4ce2505eb1e05,Create Pull Request,fix: upgrading nltk dependency to fix wordnet/punkt download,aslafy-z,2025-01-08T10:25:55Z,
+367b9dd133c6da7a42c14d94e2e4ce2505eb1e05,Merge Pull Request,Merge fix: upgrading nltk dependency to fix wordnet/punkt download,srbhr,2025-01-08T10:41:09Z,
+367b9dd133c6da7a42c14d94e2e4ce2505eb1e05,Comment Pull Request,"Thanks for the PR. Let me test it and update it. @aslafy-z ",srbhr,2025-01-08T10:28:42Z,
+367b9dd133c6da7a42c14d94e2e4ce2505eb1e05,Comment Pull Request,@srbhr I just added the fix for https://github.com/nltk/nltk/issues/3293,aslafy-z,2025-01-08T10:38:20Z,
+f53791888d7d31ee14716e590dc49bc33b7d49cb,Commit to Fork,fix: upgrading nltk dependency to fix wordnet download,aslafy-z,2025-01-08T10:24:14Z,
+731201ab4fd1c4ff30b0010460f9979ab5505a29,Commit to Fork,Update streamlit_app.py,aslafy-z,2025-01-08T10:35:24Z,
+88f14b8b121337a82c5c70d68e03d28bb3ddac4d,Commit to Fork,Update streamlit_interactive.py,aslafy-z,2025-01-08T10:36:47Z,
+7e60d1a1fae2b8387a90c7474209a61e83503376,Commit to Fork,Update streamlit_second.py,aslafy-z,2025-01-08T10:37:33Z,
+367b9dd133c6da7a42c14d94e2e4ce2505eb1e05,Fork Repository,Fork Resume-Matcher,aslafy-z,2025-01-08T10:22:53Z,
+b2b43064ac152dfddcda285529d34e19fd385b45,Create Pull Request,Chore(deps): Bump tornado from 6.3.3 to 6.4.2,dependabot[bot],2024-12-03T11:23:57Z,
+b2b43064ac152dfddcda285529d34e19fd385b45,Merge Pull Request,Merge Chore(deps): Bump tornado from 6.3.3 to 6.4.2,srbhr,2024-12-03T11:27:16Z,
+9628cf5199e7aed607f57a84811172b3ff1c8c91,Commit to Fork,"Chore(deps): Bump tornado from 6.3.3 to 6.4.2",dependabot[bot],2024-12-03T11:23:56Z,
+dd85181f7ada07769f69a49a1d4ef54efd60cde2,Create Pull Request,Chore(deps): Bump streamlit from 1.30.0 to 1.37.0,dependabot[bot],2024-12-03T11:23:54Z,
+dd85181f7ada07769f69a49a1d4ef54efd60cde2,Merge Pull Request,Merge Chore(deps): Bump streamlit from 1.30.0 to 1.37.0,srbhr,2024-12-03T11:27:44Z,
+88c33b5054ac196fb3fa95159b403e04a9db0b15,Commit to Fork,"Chore(deps): Bump streamlit from 1.30.0 to 1.37.0",dependabot[bot],2024-12-03T11:23:53Z,

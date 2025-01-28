@@ -30,6 +30,7 @@ def get_commits_data(repo_path, from_date, to_date, file_types):
                     "commit": commit.hash,
                     "timestamp": commit.committer_date.isoformat(),
                     "author": commit.author.name,
+                    "commit_msg": commit.msg,
                     "filename": file.new_path,
                     "diff": diff_to_dict(file.diff_parsed),
                     "source_code": source,
