@@ -1,103 +1,48 @@
+from heapq import merge
 import json
-from datetime import date, datetime
-
-from httpx import get
-from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from numpy import add
 from pydriller import Repository
 
-from build.comment_lister import get_comment_data
-from build.extraction import diff_to_dict, filter_comments_by_time
-from build.utils import list_to_dict
+from build.database_handler import insert_commit, insert_file_change, insert_repo
+from build.api_handler import get_name_by_username
+from build.utils import array_to_string, diff_to_dict
 
 _repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Toy-Example"
 
-def get_commits_data(repo_path, from_date, to_date, file_types): 
-    files_data = {}
+def create_commit(commit_sha, author, title, repository, branch, commit_timestamp, message=None, file_changes=None, parents=None):
+    return {
+        "commit_sha": commit_sha,
+        "author": author,
+        "title": title,
+        "repository": repository,
+        "branch": branch,
+        "commit_timestamp": commit_timestamp,
+        "message": message,
+        "file_changes": file_changes,
+        "parents": parents
+    }
+
+def create_file_change(name, filename, file_change_timestamp, additions, deletions, language_popularity=None, typed=False):
+    return {
+        "changed_by": name,
+        "filename": filename,
+        "language_popularity": language_popularity,
+        "typed": typed,
+        "file_change_timestamp": file_change_timestamp,
+        "additions": additions,
+        "deletions": deletions
+    }
+
+def get_and_insert_commits_data(repo_path, from_date, to_date, file_types): 
+    commits_data = {}
     for commit in Repository(   repo_path, 
                                 since=from_date, 
-                                to=to_date, 
-                                only_modifications_with_file_types=file_types).traverse_commits():
+                                to=to_date).traverse_commits():
+        file_changes = []
         for file in commit.modified_files:
-            if file.new_path not in files_data and len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
-                files_data[file.new_path] = []
-            if len(file.filename.split(".")) == 2 and "." + file.filename.split(".")[1] in file_types and file.change_type.name == 'MODIFY':
-                if file.source_code:
-                    source = list_to_dict(file.source_code.split("\n"))
-                else:
-                    source = {}
-                if file.source_code_before:
-                    source_old = list_to_dict(file.source_code_before.split("\n"))
-                else:
-                    source_old = {}
-                file_data = {
-                    "commit": commit.hash,
-                    "timestamp": commit.committer_date.isoformat(),
-                    "author": commit.author.name,
-                    "filename": file.new_path,
-                    "diff": diff_to_dict(file.diff_parsed),
-                    "source_code": source,
-                    "source_code_old": source_old
-                }
-                if len(file.diff_parsed) != 0:
-                    files_data[file.new_path].append(file_data)
-    return files_data
-
-def get_parent_commit(commit_hash, file, repo_path=_repo_path):
-    for commit in Repository(repo_path).traverse_commits():
-        if commit.hash == commit_hash:
-            parent = None
-            while file not in get_files_in_commit(repo_path, commit.parents[0]):
-                parent = get_parent_commit(commit.parents[0], file, repo_path)
-                if parent is not None:
-                    return parent
-            return commit.parents[0]
-    return None
-
-def get_files_in_commit(repo_path, commit_hash):
-    files = []
-    for commit in Repository(repo_path, single=commit_hash).traverse_commits():
-        for file in commit.modified_files:
-            if file.new_path not in files:
-                files.append(file.new_path)
-    return files
-
-def get_commit_data(commit_hash, filename, repo_path=_repo_path, old=False):
-    for commit in Repository(repo_path, single=commit_hash).traverse_commits():
-        for file in commit.modified_files:
-            if file.new_path == filename:
-                if old:
-                    if file.change_type.name == 'ADD':
-                        source_code_old = {}
-                        comments = "comments_old"
-                    else:
-                        source_code_old = list_to_dict(file.source_code_before.split("\n"))
-                        comments = "comments"
-                    data = {
-                    "commit": commit.hash,
-                    "timestamp": commit.committer_date.isoformat(),
-                    "author": commit.author.name,
-                    "filename":file.new_path,
-                    "source_code_old": source_code_old
-                    }
-                else:
-                    data = {
-                    "commit": commit.hash,
-                    "timestamp": commit.committer_date.isoformat(),
-                    "author": commit.author.name,
-                    "filename":file.new_path,
-                    "source_code": list_to_dict(file.source_code.split("\n"))
-                    }
-                output = get_comment_data(repo_path, "-target=" + commit.hash)
-                try:
-                    comment_data = json.loads(output)
-                except json.JSONDecodeError as e:
-                    raise Exception(f"Failed to parse CommentLister output: {e}")
-                # Filter comments by time
-                commit_hash, filtered_comments = filter_comments_by_time(comment_data, datetime.fromisoformat(commit.committer_date.isoformat()).replace(tzinfo=None), datetime.fromisoformat(commit.committer_date.isoformat()).replace(tzinfo=None))
-                if data["commit"] == commit_hash and file.new_path in filtered_comments.keys():
-                    data[comments] = filtered_comments[file.new_path]
-                else:
-                    print("No comments in this Commit", data["commit"], "for investigate file", file.new_path)
-                    data[comments] = {}
-                return {file.new_path: [data]}
-    return None
+            file_changes.append("/".join([commit.committer.name, file.new_path if file.new_path != None else file.old_path, str(commit.committer_date)]))
+            insert_file_change(create_file_change(commit.committer.name, file.new_path if file.new_path != None else file.old_path, commit.committer_date, array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["added"]]), array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["deleted"]])))
+        commit = create_commit(commit.hash, commit.author.name, commit.msg.split("\n\n", 1)[0], commit.project_name, commit.committer_date.timestamp(), commit.merge, "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], file_changes, array_to_string(commit.parents))
+        insert_commit(commit)
+    return commits_data
