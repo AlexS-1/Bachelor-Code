@@ -27,3 +27,4 @@ def generic_to_python_type(python_type):
         return bool
     else:
         return None
+    
