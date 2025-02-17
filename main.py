@@ -21,16 +21,16 @@ def main():
     # Select from the supported file types for comment extraction
     file_types = [".c", ".c", ".cc", ".cp", ".cpp", ".cx", ".cxx", ".c+", ".c++", ".h", ".hh", ".hxx", ".h+", ".h++", ".hp", ".hpp", ".java", ".js", ".cs", ".py", ".php", ".rb"]
 
+    initialise_database()
+
     # Get and store the code data usingy PyDriller before deleting the cloned repository
     repo_path = clone_ropositoriy(repo_url)
     get_and_insert_commits_data(repo_path, start_time, end_time, file_types)
     shutil.rmtree(repo_path)
 
-    commits = get_commits()
     repo_info = get_repo_information()
     get_closed_pulls(repo_info["utility_information"]["pulls_url"])
     get_issues(repo_info["utility_information"]["issues_url"])
-    initialise_database()
 
 if __name__ == "__main__":
     main()

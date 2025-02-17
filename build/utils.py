@@ -28,3 +28,5 @@ def generic_to_python_type(python_type):
     else:
         return None
     
+def date_formatter(date):
+    return date.strftime('%Y-%m-%dT%H:%M:%SZ')

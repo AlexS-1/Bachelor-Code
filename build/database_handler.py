@@ -1,9 +1,10 @@
+import time
 from isort import file
 from numpy import insert
 import pymongo
 from ulid import T
 
-from build.utils import generic_to_python_type
+from build.utils import date_formatter, generic_to_python_type
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["mydatabase"]
@@ -13,7 +14,7 @@ ocdb = myclient["ocel"]
 def insert_commit(data):
     commit_type = get_type("commit")
     try: 
-        verify_type(data, commit_type)
+        verify_objectType(data, commit_type)
         data_to_insert = {k: v for k, v in data.items() if k != "commit_sha"}
     except ValueError as e:
         raise ValueError(f"Data does not match the commit type: {e}")
@@ -22,7 +23,7 @@ def insert_commit(data):
 def insert_repo(data):
     repository_type = get_type("repository")
     try:
-        verify_type(data, repository_type)
+        verify_objectType(data, repository_type)
         data_to_insert = {k: v for k, v in data.items() if k != "utility_information"}
     except ValueError as e:
         raise ValueError(f"Data does not match the repository type: {e}")
@@ -31,62 +32,62 @@ def insert_repo(data):
 def insert_pull(data):
     pull_request_type = get_type("pull_request")
     try:
-        verify_type(data, pull_request_type)
+        verify_objectType(data, pull_request_type)
         data_to_insert = {k: v for k, v in data.items() if k != "number"}
     except ValueError as e: 
         raise ValueError(f"Data does not match the pull request type: {e}")
     insert_object(data["number"], "pull_request", data_to_insert)
 
 def insert_issue(data):
-    issue_type = get_type("issue") 
+    issue_type = get_type("issue")
     try:
-        verify_type(data, issue_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "number"} 
+        verify_objectType(data, issue_type)
+        data_to_insert = {k: v for k, v in data.items() if k != "number"}
     except ValueError as e:
-        raise ValueError(f"Data does not match the issue type {e}")
+        raise ValueError(f"Data does not match the issue type: {e}")
     insert_object(data["number"], "issue", data_to_insert)
 
 def insert_comment(data):
     comment_type = get_type("comment")
     try:
-        verify_type(data, comment_type)
+        verify_objectType(data, comment_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError(f"Data does not match the comment type: {e}")
-    insert_object(data["author"] + "/" + str(data["timestamp"]), "comment", data_to_insert)
+    insert_object(data["comment-authored-by"] + "/" + str(data["timestamp"]), "comment", data_to_insert)
 
 def insert_review(data):
     review_type = get_type("review")
     try:
-        verify_type(data, review_type)
+        verify_objectType(data, review_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError(f"Data does not match the review type: {e}")
-    insert_object(data["author"] + "/" + str(data["timestamp"]), "review", data_to_insert)
+    insert_object(data["review-authored-by"] + "/" + str(data["timestamp"]), "review", data_to_insert)
 
 def insert_test_run(data):
     test_run_type = get_type("test_run")
     try:
-        verify_type(data, test_run_type)
-        data_to_insert = data
+        verify_objectType(data, test_run_type)
+        data_to_insert = {k: v for k, v in data.items() if k != "id"}
     except ValueError as e:
         raise ValueError(f"Data does not match the test run type: {e}")
-    insert_object(data["pull_request"] + "/" + str(data["timestamp"]), "test_run", data_to_insert)
+    insert_object(data["id"], "test_run", data_to_insert)
 
 def insert_file_change(data):
     file_change_type = get_type("file_change")
     try:
-        verify_type(data, file_change_type)
+        verify_objectType(data, file_change_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError("Data does not match the file change type: {e}")
-    insert_object("/".join([data["changed_by"], data["filename"], str(data["file_change_timestamp"])]), "file_change", data_to_insert)
+    insert_object("/".join([data["file-changed_by"], data["filename"], data["file_change_timestamp"]]), "file_change", data_to_insert)
 
 def insert_user(data):
     user_type = get_type("user")
     try:
-        verify_type(data, user_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "name"}
+        verify_objectType(data, user_type)
+        data_to_insert = data
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert)
@@ -101,51 +102,80 @@ def insert_objectType(name, attributes):
 def insert_event(id, type, time, attributes, relationships=[]):
     ocdb["events"].replace_one({"_id": id}, {"type": type, "time": time, "attributes": attributes, "relationships": relationships}, True)
 
-def insert_object(id, type, attributes=[], relationships=[]):
-    if not attributes and not relationships:
-        ocdb["objects"].replace_one({"_id": id}, {"type": type}, True)
-    elif not relationships:
-        ocdb["objects"].replace_one({"_id": id}, {"type": type, "attributes": attributes}, True)
-    elif not attributes:
-        ocdb["objects"].replace_one({"_id": id}, {"type": type, "relationships": relationships}, True)
-    else:
-        ocdb["objects"].replace_one({"_id": id}, {"type": type, "attributes": attributes}, True)
+def insert_object(id, object_type: str, data: dict):
+    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type)["attributes"])]
+    timestamp_keys = [key for key in list(data.keys()) if key.find("timestamp") != -1]
+    relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
+    attributes = []
+    relationships = []
+    if not attribute_keys and not relationship_keys:
+        ocdb["objects"].replace_one({"_id": id}, {"type": object_type}, True)
+    if relationship_keys:
+        for key in relationship_keys:
+            if type(data[key]) == list:
+                for item in data[key]:
+                    relationships.append({"objectId": item, "qualifier": key})
+            elif type(data[key]) != list:
+                relationships.append({"objectId": data[key], "qualifier": key})
+        if not attribute_keys:
+            ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "relationships": relationships}, True)
+            return
+    if attribute_keys:
+        for key in attribute_keys:
+            attributes.append({"name": key, "value": data[key], "time": data[timestamp_keys[0]]})
+        if not relationship_keys:
+            ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
+            return
+    ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
+
 
 ### Get functions
 def get_commits():
     return ocdb["objects"].find({"type": "commit"})
 
-def get_type(name):
+def get_type(name: str) -> dict:
     return ocdb["objectTypes"].find_one({"_id": name})
 
 ### Initialisation functions
 def initialise_database():
+    initialise_objectTypes()
+    initialise_eventTypes()
+
+def initialise_objectTypes():
     issue_type = {
         "name": "issue", 
-        "attributes": [
-            {"name": "author", "type": "string"}, 
+        "attributes": [ 
             {"name": "title", "type": "string"}, 
             {"name": "description", "type": "string"}, 
-            {"name": "number", "type": "int"}, 
-            {"name": "repository", "type": "string"}, 
-            {"name": "created_at_timestamp", "type": "time" }, 
-            {"name": "closed_at_timestamp", "type": "time"}, 
-            {"name": "type", "type": "string"},
-            {"name": "assignees", "type": "string"}, 
-            {"name": "comments", "type": "string"}
+            {"name": "type", "type": "string"} # TODO Decide on use e.g. from standard naming conventions, always used labels, NLP techniques on content or combination thereof
         ]
+
+            # TODO Discuss role of timestamps
+            # {"name": "created_at_timestamp", "type": "time" }, 
+            # {"name": "closed_at_timestamp", "type": "time"}, 
+        
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "author", "qualifier": "authored-by"},
+        #     {"objectId": "assignees", "qualifier": "assigned-to"},
+        #     {"objectId": "comments", "qualifier": "has"},
+        #     {"objectId": "repository", "qualifier": "comprises"}, 
+        #     {"objectId": "pull_requests", "qualifier": "is-related-to"},
+        # ]
     }
     insert_objectType(issue_type["name"], issue_type["attributes"])
     repository_type = {
         "name": "repository",
         "attributes": [
-            {"name": "owner", "type": "string"},
             {"name": "name", "type": "string"},
-            {"name": "pull_requests", "type": "string"},
-            {"name": "issues", "type": "string"},
-            {"name": "commits", "type": "string"},
             {"name": "branches", "type": "string"}
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "owner", "qualifier": "owned-by"},
+        #     {"objectId": "commit", "qualifier": "includes"},
+        #     {"objectId": "pull_requests", "qualifier": "string"},
+        # ]
     }
     insert_objectType(repository_type["name"], repository_type["attributes"])
     user_type = {
@@ -154,7 +184,7 @@ def initialise_database():
             {"name": "name", "type": "string"},
             {"name": "username", "type": "string"},
             {"name": "email", "type": "string"},
-            {"name": "rank", "type": "string"},
+            {"name": "rank", "type": "string"}, # TODO Find way to model rank
             {"name": "bot", "type": "bool"}
         ]
     }
@@ -162,86 +192,157 @@ def initialise_database():
     comment_type = {
         "name": "comment",
         "attributes": [
-            {"name": "message", "type": "string"},
-            {"name": "timestamp", "type": "time"},
-            {"name": "author", "type": "string"}
+            {"name": "message", "type": "string"}
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "user", "qualifier": "commented-by"}
+        # ]
     }
     insert_objectType(comment_type["name"], comment_type["attributes"])
     commit_type = {
         "name": "commit",
         "attributes": [
-            {"name": "commit_sha", "type": "string"},
-            {"name": "author", "type": "string"},
-            {"name": "title", "type": "string"},
-            {"name": "repository", "type": "string"},
-            {"name": "branch", "type": "string"},
-            {"name": "commit_timestamp", "type": "time"},
+            # {"name": "commit_sha", "type": "string"}, Removed as it is used as id
             {"name": "message", "type": "string"},
-            {"name": "file_changes", "type": "string"},
-            {"name": "parents", "type": "string"}
+            {"name": "description", "type": "string"},
+            {"name": "branch", "type": "string"},
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "user", "qualifier": "authored-by"},
+        #     {"objectId": "user", "qualifier": "co-authored-by"},
+        #     {"objectId": "file_change", "qualifier": "aggregates"},
+        #     {"objectId": "repository", "qualifier": "commit-to"},
+        #     {"objectId": "commit", "qualifier": "is-child-of"}, # TODO Discuss if this is necessary, can have relationship with multiple parents
+        # ]
     }
     insert_objectType(commit_type["name"], commit_type["attributes"])
     pull_request_type = {
         "name": "pull_request",
         "attributes": [
-            {"name": "number", "type": "int"},
-            {"name": "merge_commit_sha", "type": "string"},
-            {"name": "author", "type": "string"},
+            {"name": "merge_commit_sha", "type": "string"}, # TODO Potentially model as relationship with commit
             {"name": "title", "type": "string"},
+            {"name": "state", "type": "string"},
             {"name": "description", "type": "string"},
-            {"name": "merged_at_timestamp", "type": "time"},
-            {"name": "closed_at_timestamp", "type": "time"},
-            {"name": "created_at_timestamp", "type": "time"},
-            {"name": "branch_to_pull_from", "type": "string"},
-            {"name": "origin_branch", "type": "string"},
-            {"name": "closing_issues", "type": "string"},
-            {"name": "participants", "type": "string"},
-            {"name": "reviewers", "type": "string"},
-            {"name": "comments", "type": "string"},
-            {"name": "commits", "type": "string"},
-            {"name": "file_changes", "type": "string"},
-            {"name": "test_runs", "type": "string"}
+            # TODO Discuss role of timestamps currently unified in state
+            # {"name": "merged_at_timestamp", "type": "time"},
+            # {"name": "closed_at_timestamp", "type": "time"},
+            # {"name": "created_at_timestamp", "type": "time"},
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "user", "qualifier": "authored-by"},
+        #     {"objectId": "file_change", "qualifier": "aggregates"},
+        #     {"objectId": "commit", "qualifier": "formalises"},
+        #     {"objectId": "user", "qualifier": "has-participant"},
+        #     {"objectId": "user", "qualifier": "is-reviewd-by"},
+        #     {"objectId": "comment", "qualifier": "has"},
+        #     {"objectId": "test_run", "qualifier": "has"},
+        #     {"objectId": "issue", "qualifier": "is-related-to"},
+        #     {"objectId": "pull_request", "qualifier": "is-related-to"},
+        #     {"objectId": "issue", "qualifier": "would-close"}, # TODO Define according to analysis goal
+        #     {"objectId": "repository", "qualifier": "is-used-as-policy-in}
+        #     {"objectId": "repository", "type": "head-branch-to-pull-from"},
+        #     {"objectId": "repository", "type": "base-branch-to-pull-to"},
+        # ]
     }
     insert_objectType(pull_request_type["name"], pull_request_type["attributes"])
     file_change_type = {
         "name": "file_change",
         "attributes": [
-            {"name": "changed_by", "type": "string"},
             {"name": "filename", "type": "string"},
-            {"name": "language_popularity", "type": "string"},
-            {"name": "typed", "type": "bool"},
-            {"name": "file_change_timestamp", "type": "time"},
             {"name": "additions", "type": "string"},
             {"name": "deletions", "type": "string"}
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "commit", "qualifier": "part-of"},
+        #     {"objectId": "user", "qualifier": "changed-by"},
+        # ]
     }
     insert_objectType(file_change_type["name"], file_change_type["attributes"])
     review_type = {
         "name": "review",
         "attributes": [
-            {"name": "author", "type": "string"},
-            {"name": "timestamp", "type": "time"},
-            {"name": "referenced_code", "type": "string"},
+            {"name": "referenced_code_line", "type": "string"},
             {"name": "approved", "type": "bool"},
-            {"name": "comments", "type": "string"}
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "user", "qualifier": "authored-by"},
+        #     {"objectId": "comment", "qualifier": "has"},
+        #     {"objectId": "pull_request", "qualifier": "part-of"},
+        # ]
+
     }
     insert_objectType(review_type["name"], review_type["attributes"])
     test_run_type = {
         "name": "test_run",
         "attributes": [
-            {"name": "passed", "type": "string"},
             {"name": "name", "type": "string"},
-            {"name": "timestamp", "type": "time"},
-            {"name": "pull_request", "type": "int"}
+            {"name": "passed", "type": "bool"},
         ]
+        # Relationships listed for later use when creating objects (with relationships)
+        # "relationships": [
+        #     {"objectId": "pull_request", "qualifier": "part-of"},
+        # ]
     }
     insert_objectType(test_run_type["name"], test_run_type["attributes"])
 
-def verify_type(data, obj_type):
+def initialise_eventTypes():
+    commit_event = {
+        "name": "commit",
+        "attributes": []
+    }
+    insert_eventType(commit_event["name"], commit_event["attributes"])
+    comment_event = {
+        "name": "comment",
+        "attributes": []
+    }
+    insert_eventType(comment_event["name"], comment_event["attributes"])
+    review_event = {
+        "name": "review",
+        "attributes": []
+    }
+    insert_eventType(review_event["name"], review_event["attributes"])
+    create_issue_event = {
+        "name": "create_issue",
+        "attributes": []
+    }
+    insert_eventType(create_issue_event["name"], create_issue_event["attributes"])
+    close_issue_event = {
+        "name": "close_issue",
+        "attributes": []
+    }
+    insert_eventType(close_issue_event["name"], close_issue_event["attributes"])
+    create_pull_request_event = {
+        "name": "create_pull_request",
+        "attributes": []
+    }
+    insert_eventType(create_pull_request_event["name"], create_pull_request_event["attributes"])
+    close_pull_request_event = {
+        "name": "close_pull_request",
+        "attributes": []
+    }
+    insert_eventType(close_pull_request_event["name"], close_pull_request_event["attributes"])
+    approve_review_event = {
+        "name": "approve_review",
+        "attributes": []
+    }
+    insert_eventType(approve_review_event["name"], approve_review_event["attributes"])
+    reject_review_event = {
+        "name": "reject_review",
+        "attributes": []
+    }
+    insert_eventType(reject_review_event["name"], reject_review_event["attributes"])
+    fork_repository_event = {
+        "name": "fork_repository",
+        "attributes": []
+    }
+    insert_eventType(fork_repository_event["name"], fork_repository_event["attributes"])
+
+def verify_objectType(data, obj_type):
     for attribute in obj_type["attributes"]:
         if attribute["name"] not in list(data.keys()): 
             if type(data[attribute["name"]]) and generic_to_python_type(attribute["type"] is type(data[attribute["name"]])):
