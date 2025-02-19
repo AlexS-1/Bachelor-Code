@@ -1,6 +1,9 @@
 import datetime
+import json
 import os
 import subprocess
+
+from jsonschema import validate
 
 def diff_to_dict(diff):
     return {
@@ -30,3 +33,22 @@ def generic_to_python_type(python_type):
     
 def date_formatter(date):
     return date.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+def validate_json(data_file_path, schema_file_path):
+    with open(data_file_path, 'r') as data_file:
+        data = json.load(data_file)
+    with open(schema_file_path, 'r') as schema_file:
+        schema = json.load(schema_file)
+    return validate(data, schema)
+
+def rename_field(document, old_field, new_field):
+    if old_field in document:
+        document[new_field] = document.pop(old_field)
+    return document
+
+def write_json(path, data):
+    with open(path, "w") as data_file:
+        json.dump(data, data_file, indent=4)
+
+def delete_json(path):
+    os.remove(path)

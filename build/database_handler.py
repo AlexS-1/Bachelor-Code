@@ -4,13 +4,13 @@ from numpy import insert
 import pymongo
 from ulid import T
 
-from build.utils import date_formatter, generic_to_python_type
+from build.utils import date_formatter, generic_to_python_type, rename_field
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["mydatabase"]
 ocdb = myclient["ocel"]
 
-### Insert functions # TODO Unify insert functions as lots of similar functionality
+### Insert functions
 def insert_commit(data):
     commit_type = get_type("commit")
     try: 
@@ -27,7 +27,7 @@ def insert_repo(data):
         data_to_insert = {k: v for k, v in data.items() if k != "utility_information"}
     except ValueError as e:
         raise ValueError(f"Data does not match the repository type: {e}")
-    insert_object(data["owner"] + "/" + data["name"], "repository", data_to_insert) # TODO Double check correct format of repo id
+    insert_object(data["owner"] + "/" + data["name"], "repository", data_to_insert)
 
 def insert_pull(data):
     pull_request_type = get_type("pull_request")
@@ -99,8 +99,8 @@ def insert_eventType(name, attributes):
 def insert_objectType(name, attributes):
     ocdb["objectTypes"].replace_one({"_id": name}, {"attributes": attributes}, True)
 
-def insert_event(id, type, time, attributes, relationships=[]):
-    ocdb["events"].replace_one({"_id": id}, {"type": type, "time": time, "attributes": attributes, "relationships": relationships}, True)
+def insert_event(id, event_type: str, time, attributes=[], relationships=[]):
+    ocdb["events"].replace_one({"_id": id}, {"type": event_type, "time": time, "attributes": attributes, "relationships": relationships}, True)
 
 def insert_object(id, object_type: str, data: dict):
     attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type)["attributes"])]
@@ -114,15 +114,15 @@ def insert_object(id, object_type: str, data: dict):
         for key in relationship_keys:
             if type(data[key]) == list:
                 for item in data[key]:
-                    relationships.append({"objectId": item, "qualifier": key})
+                    relationships.append({"objectId": str(item), "qualifier": key})
             elif type(data[key]) != list:
-                relationships.append({"objectId": data[key], "qualifier": key})
+                relationships.append({"objectId": str(data[key]), "qualifier": key})
         if not attribute_keys:
             ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "relationships": relationships}, True)
             return
     if attribute_keys:
         for key in attribute_keys:
-            attributes.append({"name": key, "value": data[key], "time": data[timestamp_keys[0]]})
+            attributes.append({"name": key, "value": str(data[key]), "time": data[timestamp_keys[0]] if data[timestamp_keys[0]] else "" + str(data[timestamp_keys[1]])})
         if not relationship_keys:
             ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
             return
@@ -135,6 +135,15 @@ def get_commits():
 
 def get_type(name: str) -> dict:
     return ocdb["objectTypes"].find_one({"_id": name})
+
+def get_ocel_data():
+    data = {
+        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
+        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
+        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
+        "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
+    }
+    return data
 
 ### Initialisation functions
 def initialise_database():
@@ -149,11 +158,6 @@ def initialise_objectTypes():
             {"name": "description", "type": "string"}, 
             {"name": "type", "type": "string"} # TODO Decide on use e.g. from standard naming conventions, always used labels, NLP techniques on content or combination thereof
         ]
-
-            # TODO Discuss role of timestamps
-            # {"name": "created_at_timestamp", "type": "time" }, 
-            # {"name": "closed_at_timestamp", "type": "time"}, 
-        
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
         #     {"objectId": "author", "qualifier": "authored-by"},
@@ -185,7 +189,7 @@ def initialise_objectTypes():
             {"name": "username", "type": "string"},
             {"name": "email", "type": "string"},
             {"name": "rank", "type": "string"}, # TODO Find way to model rank
-            {"name": "bot", "type": "bool"}
+            {"name": "bot", "type": "boolean"}
         ]
     }
     insert_objectType(user_type["name"], user_type["attributes"])
@@ -225,10 +229,6 @@ def initialise_objectTypes():
             {"name": "title", "type": "string"},
             {"name": "state", "type": "string"},
             {"name": "description", "type": "string"},
-            # TODO Discuss role of timestamps currently unified in state
-            # {"name": "merged_at_timestamp", "type": "time"},
-            # {"name": "closed_at_timestamp", "type": "time"},
-            # {"name": "created_at_timestamp", "type": "time"},
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
@@ -266,7 +266,7 @@ def initialise_objectTypes():
         "name": "review",
         "attributes": [
             {"name": "referenced_code_line", "type": "string"},
-            {"name": "approved", "type": "bool"},
+            {"name": "approved", "type": "boolean"},
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
@@ -281,7 +281,7 @@ def initialise_objectTypes():
         "name": "test_run",
         "attributes": [
             {"name": "name", "type": "string"},
-            {"name": "passed", "type": "bool"},
+            {"name": "passed", "type": "boolean"},
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [

@@ -61,13 +61,4 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
             file_changes, 
             commit.parents)
         insert_commit(commit_object)
-        insert_event("create-" + commit_object["commit_sha"], 
-                     "commit", commit_object["commit_timestamp"], 
-                     None, 
-                     [{"objectId": commit_object["commit_sha"], "qualifier": "create"}, 
-                      {"objectId": commit_object["commit-authored-by"], "qualifier": "authored-by"}, 
-                      {"objectId": commit_object["commit-to-repository"], "qualifier": "commit-to-repo"}, 
-                      {"objectId": commit_object["branch"], "qualifier": "commit-to-branch"}, 
-                      {"objectId": commit_object["commit-includes-file_change"], "qualifier": "includes"}, 
-                      {"objectId": commit_object["commit-has-parent"], "qualifier": "has-parents"}])
     return commits_data

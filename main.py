@@ -3,11 +3,13 @@ from mimetypes import init
 import shutil
 from datetime import datetime, timedelta
 
+from httpx import get
+
 from build.analysis import analyse_message
-from build.api_handler import get_issues, get_repo_information, get_closed_pulls
+from build.api_handler import get_issues, get_repo_information, get_closed_pulls, get_anonymous_user_counter
 from build.pydriller import get_and_insert_commits_data
-from build.utils import clone_ropositoriy
-from build.database_handler import get_commits, initialise_database
+from build.utils import clone_ropositoriy, delete_json, validate_json, write_json
+from build.database_handler import get_commits, get_ocel_data, initialise_database
 
 
 def main():
@@ -29,8 +31,15 @@ def main():
     shutil.rmtree(repo_path)
 
     repo_info = get_repo_information()
-    get_closed_pulls(repo_info["utility_information"]["pulls_url"])
-    get_issues(repo_info["utility_information"]["issues_url"])
+    get_closed_pulls(repo_info["utility_information"]["pulls_url"], 9)
+    get_issues(repo_info["utility_information"]["issues_url"], 4)
+    count = get_anonymous_user_counter()
+    print(len(list(count.keys())))
+
+    # Validate the JSON data to OCEL format
+    write_json("Data/OCEL-Data.json", get_ocel_data())
+    validate_json("Data/OCEL-Data.json", "Data/OCEL-Schema.json")
+    delete_json("Data/OCEL-Data.json")
 
 if __name__ == "__main__":
     main()
