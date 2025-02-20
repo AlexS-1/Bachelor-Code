@@ -4,6 +4,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Data and Exports meant to store locally
+.jsonocel
+
 # C extensions
 *.so
 

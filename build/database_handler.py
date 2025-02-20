@@ -1,10 +1,6 @@
-import time
-from isort import file
-from numpy import insert
 import pymongo
-from ulid import T
 
-from build.utils import date_formatter, generic_to_python_type, rename_field
+from build.utils import generic_to_python_type, rename_field
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["mydatabase"]
@@ -24,10 +20,10 @@ def insert_repo(data):
     repository_type = get_type("repository")
     try:
         verify_objectType(data, repository_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "utility_information"}
+        data_to_insert = {k: v for k, v in data.items() if k != "utility_information" or k != "name"}
     except ValueError as e:
         raise ValueError(f"Data does not match the repository type: {e}")
-    insert_object(data["owner"] + "/" + data["name"], "repository", data_to_insert)
+    insert_object(data["name"], "repository", data_to_insert)
 
 def insert_pull(data):
     pull_request_type = get_type("pull_request")
@@ -171,11 +167,11 @@ def initialise_objectTypes():
     repository_type = {
         "name": "repository",
         "attributes": [
-            {"name": "name", "type": "string"},
-            {"name": "branches", "type": "string"}
+            {"name": "name", "type": "string"}
         ]
         # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
+        # "relationships": [,
+        #     {"objectId": "branches", "qualifier": "has"},
         #     {"objectId": "owner", "qualifier": "owned-by"},
         #     {"objectId": "commit", "qualifier": "includes"},
         #     {"objectId": "pull_requests", "qualifier": "string"},
@@ -187,9 +183,8 @@ def initialise_objectTypes():
         "attributes": [
             {"name": "name", "type": "string"},
             {"name": "username", "type": "string"},
-            {"name": "email", "type": "string"},
             {"name": "rank", "type": "string"}, # TODO Find way to model rank
-            {"name": "bot", "type": "boolean"}
+            {"name": "type", "type": "string"}
         ]
     }
     insert_objectType(user_type["name"], user_type["attributes"])

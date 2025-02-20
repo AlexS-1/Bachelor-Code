@@ -37,9 +37,8 @@ def main():
     print(len(list(count.keys())))
 
     # Validate the JSON data to OCEL format
-    write_json("Data/OCEL-Data.json", get_ocel_data())
-    validate_json("Data/OCEL-Data.json", "Data/OCEL-Schema.json")
-    delete_json("Data/OCEL-Data.json")
+    write_json("Exports/OCEL-Data.jsonocel", get_ocel_data())
+    validate_json("Exports/OCEL-Data.jsonocel", "Data/OCEL-Schema.json")
 
 if __name__ == "__main__":
     main()

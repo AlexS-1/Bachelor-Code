@@ -4,8 +4,7 @@ from httpx import get
 import requests
 import test
 
-from build.database_handler import insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_test_run, insert_user
-from build.utils import array_to_string
+from build.database_handler import insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_review, insert_test_run, insert_user
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 owner = "srbhr"
@@ -35,12 +34,11 @@ def get_api_response(url, retries=0):
 def get_repo_information(repo_url=url):
     repo_response = get_api_response(repo_url)
     repo_information = {
-        "owner": get_name_by_username(repo_response["owner"]["login"]), #TODO Investigate if use of owner is necessary or if full name is sufficient
-        "name": repo_response["name"],
-        "pull_requests": get_related_pulls(repo_response["pulls_url"][:-9]),
-        "commits": get_related_commits(repo_response["commits_url"][:-6]),
-        "branches": get_related_branches(repo_response["branches_url"][:-9]),
-        "issues": get_related_issues(repo_response["issues_url"][:-9]),
+        "name": repo_response["full_name"],
+        "has-pull_requests": get_related_pulls(repo_response["pulls_url"][:-9]),
+        "has-commits": get_related_commits(repo_response["commits_url"][:-6]),
+        "has-branches": get_related_branches(repo_response["branches_url"][:-9]),
+        "has-issues": get_related_issues(repo_response["issues_url"][:-9]),
         "timestamp": repo_response["updated_at"],
         "utility_information": {
             "forks_url": repo_response["forks_url"],
@@ -64,7 +62,7 @@ def get_closed_pulls(pulls_url, pages = 1):
             pull_content = {
                 "merge_commit_sha":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
-                "author": get_name_by_username(pull["user"]["login"]),
+                "author": get_name_by_username(pull["user"]["login"], pull["author_association"]),
                 "title": pull["title"],
                 "description": pull["body"],
                 "merged_at_timestamp": pull["merged_at"],
@@ -139,7 +137,7 @@ def get_issues(issues_url, pages=1):
         for issue in issue_response:
             issue_content = {
                 "number": str(issue["number"]),
-                "authored-by": get_name_by_username(issue["user"]["login"]),
+                "authored-by": get_name_by_username(issue["user"]["login"], issue["author_association"]),
                 "title": issue["title"],
                 "description": issue["body"],
                 "issue-in-repository": "/".join(issue["repository_url"].split("/")[:-2]),
@@ -210,6 +208,22 @@ def get_related_commits(commits_url):
         commits.append(commit["sha"])
     return commits
 
+def get_related_reviews(review_comments_url):
+    review_response = get_api_response(review_comments_url)
+    reviews = []
+    for review in review_response:
+        reviews.append(review["id"])
+        review_data = {
+            "id": str(review["id"]),
+            "timestamp": review["updated_at"],
+            "author": get_name_by_username(review["user"]["login"]),
+            "part-of-pull_request": review["pull_request_url"].split("/")[-1],
+            "comment": review["body"],
+            "references-code": review["diff_hunk"] if review["subject_tpye"] == "line" else review["path"]
+        }
+        insert_review(review_data)
+    return reviews
+
 def get_related_branches(branches_url):
     branch_response = get_api_response(branches_url)
     branches = []
@@ -243,7 +257,7 @@ def get_anonymous_user_counter():
     global anonymous_user_counter
     return anonymous_user_counter
 
-def get_name_by_username(username):
+def get_name_by_username(username, author_association = "NONE"):
     global anonymous_user_counter
     user_response = get_api_response(f"https://api.github.com/users/{username}")
     if user_response["name"] is None and user_response["type"] == "User":
@@ -251,9 +265,8 @@ def get_name_by_username(username):
     user = {
         "name": user_response["name"] if user_response["name"] else username, 
         "username": user_response["login"], 
-        "email": user_response["email"] if user_response["email"] else "N/A", # TODO Investigate if email is necessary
-        "rank": "None", # TODO Implement
-        "bot": False if user_response["type"] == "User" else True, 
+        "rank": author_association,
+        "type": "user" if user_response["type"] == "User" else "bot", 
         "created_at_timestamp": user_response["updated_at"]
     }
     insert_user(user)

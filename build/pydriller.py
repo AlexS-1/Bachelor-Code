@@ -1,10 +1,7 @@
 from pydriller import Repository
 
-from build.database_handler import insert_commit, insert_event, insert_file_change, insert_repo
-from build.api_handler import get_name_by_username
+from build.database_handler import insert_commit, insert_file_change
 from build.utils import array_to_string, date_formatter, diff_to_dict
-
-_repo_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp/Toy-Example"
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
     return {

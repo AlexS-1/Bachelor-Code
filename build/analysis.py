@@ -1,6 +1,10 @@
 from sklearn import svm
 import spacy
 
+from pm4py.algo.discovery.ocel.ocdfg import algorithm as ocel_algorithm
+from pm4py.visualization.ocel.ocdfg import visualizer as ocel_visualizer
+from pm4py.read import read_ocel2_json as read_el
+from pm4py.vis import save_vis_ocdfg as write_el
 # Load the spaCy model
 nlp = spacy.load("en_core_web_md")
 
@@ -33,4 +37,11 @@ def analyse_message(message):
     else:
         return "Adaptive"
 
+def analyse_ocel(ocel_path, export_path):
+    # Exemplary implementation of analysis script
+    # Load OCEL data and apply the OCEL algorithm
+    # The result is saved as a numpy array and a PNG image
+    ocel  = read_el(ocel_path)
+    ocdfg = ocel_algorithm.classic.apply(ocel)
+    write_el(ocdfg, export_path)
 
