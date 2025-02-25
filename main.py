@@ -1,20 +1,17 @@
-import json
-from mimetypes import init
 import shutil
+import os
 from datetime import datetime, timedelta
-
-from httpx import get
 
 from build.analysis import analyse_message
 from build.api_handler import get_issues, get_repo_information, get_closed_pulls, get_anonymous_user_counter
 from build.pydriller import get_and_insert_commits_data
-from build.utils import clone_ropositoriy, delete_json, validate_json, write_json
+from build.utils import clone_ropositoriy, validate_json, write_json
 from build.database_handler import get_commits, get_ocel_data, initialise_database
-
 
 def main():
     # Convert repo URL to path by cloning repo to temporary dictionary
     repo_url = "https://github.com/srbhr/Resume-Matcher"
+    api_url = repo_url.replace("github.com", "api.github.com/repos")
     
     # Setting different timeperiod
     start_time = datetime.today().replace(tzinfo=None, microsecond=0) - timedelta(days=365)
@@ -30,7 +27,7 @@ def main():
     get_and_insert_commits_data(repo_path, start_time, end_time, file_types)
     shutil.rmtree(repo_path)
 
-    repo_info = get_repo_information()
+    repo_info = get_repo_information(api_url)
     get_closed_pulls(repo_info["utility_information"]["pulls_url"], 9)
     get_issues(repo_info["utility_information"]["issues_url"], 4)
     count = get_anonymous_user_counter()

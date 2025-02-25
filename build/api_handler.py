@@ -1,19 +1,15 @@
-import os
 import time
-from httpx import get
 import requests
-import test
+import os
 
 from build.database_handler import insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_review, insert_test_run, insert_user
 
+
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
-owner = "srbhr"
-repo_name = "Resume-Matcher"
-url = f"https://api.github.com/repos/{owner}/{repo_name}"
-headers = {"Authorization": f"token {token}"}
 anonymous_user_counter = {}
 
 def get_api_response(url, retries=0):
+    headers = {"Authorization": f"token {token}"}
     response = requests.get(url, headers=headers)
     if response.ok:
         return response.json()
@@ -29,9 +25,9 @@ def get_api_response(url, retries=0):
         time.sleep(retry_after^retries)
         return get_api_response(url, retries)
     else: 
-        print(  response.raise_for_status())
+        print(response.raise_for_status())
 
-def get_repo_information(repo_url=url):
+def get_repo_information(repo_url):
     repo_response = get_api_response(repo_url)
     repo_information = {
         "name": repo_response["full_name"],
@@ -124,10 +120,10 @@ def extract_events_from_pull(pull_response):
                          "merge", 
                          pull["merged_at"], 
                          [], 
-                         [{"objectId": get_name_by_username(get_pull_data(pull["number"])["merged_by"]["login"]), "qualifier": "merged-by-user"},
+                         [{"objectId": get_name_by_username(get_pull_data(pull["number"], pull["base"]["repo"]["owner"]["login"], pull["base"]["repo"]["name"])["merged_by"]["login"]), "qualifier": "merged-by-user"},
                           {"objectId": str(pull["number"]), "qualifier": "merged-pull_request"}])
 
-def get_pull_data(number: int) -> dict:
+def get_pull_data(number: int, owner: str, repo_name: str) -> dict:
     return get_api_response(f"https://api.github.com/repos/{owner}/{repo_name}/pulls/{number}")
 
 def get_issues(issues_url, pages=1):
