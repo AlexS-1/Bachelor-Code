@@ -1,9 +1,11 @@
 import datetime
 import json
+from multiprocessing import process
 import os
 import subprocess
 
 from jsonschema import validate
+from numpy import std
 
 def diff_to_dict(diff):
     return {
@@ -15,6 +17,18 @@ def clone_ropositoriy(repo_url, temp_dir="/Users/as/Library/Mobile Documents/com
     clone_path = os.path.join(temp_dir, repo_name)
     subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
     return clone_path
+
+def test_code_quality(file_path):
+    try:
+        result = subprocess.run(
+            ['python', '-m', 'flake8', file_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True
+        )
+        return result.stdout.decode('utf-8').strip()
+    except subprocess.CalledProcessError as e:
+        return e.stdout.decode('utf-8').strip() + "\n" + e.stderr.decode('utf-8').strip()
 
 def array_to_string(array):
     return "[" + ", ".join(map(str, array)) + "]"
