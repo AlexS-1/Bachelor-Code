@@ -115,7 +115,7 @@ def visualise_diff_graph(graph_old, graph_new, filename="diff_graph"):
 def analyse_source_code(source_code: str, code_metric: str):
     """Analyse the source code and return the code metric."""
     if code_metric == "cc":
-        path = "Data/temp.py"
+        path = "temp.py"
         write_to_file(path, source_code)
         res = get_cyclomatic_complexity(path)
         os.remove(path)

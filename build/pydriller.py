@@ -94,3 +94,7 @@ def get_pydriller_metric(repo_path, from_commit, to_commit, path, metric):
                               from_commit=from_commit,
                               to_commit=to_commit)
     return  metric.count()[path]
+
+def get_initial_commit_hash(repo_path):
+    for commit in Repository(repo_path).traverse_commits():
+        return commit.hash
