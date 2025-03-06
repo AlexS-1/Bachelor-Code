@@ -1,8 +1,10 @@
 from pydriller import Repository
+from pydriller.metrics.process.code_churn import CodeChurn
+from pydriller.metrics.process.commits_count import CommitsCount
 import os
 
 from build.database_handler import insert_commit, insert_file_change
-from build.utils import array_to_string, date_formatter, diff_to_dict, test_code_quality
+from build.utils import array_to_string, date_formatter, diff_to_dict
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
     return {
@@ -37,12 +39,6 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
         file_changes = []
         commit_timestamp = date_formatter(commit.committer_date)
         for file in commit.modified_files:
-            if file.new_path != None and file.new_path.endswith(".py"):
-                base_path = "/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"
-                file_path = os.path.join(base_path, repo, file.new_path)
-                quality_report = test_code_quality(file_path)
-                print(quality_report)
-                print(file.complexity)
             file_changes.append("/".join([
                 commit.committer.name, file.new_path if file.new_path != None else file.old_path, 
                 commit_timestamp]))
@@ -66,3 +62,35 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
             commit.parents)
         insert_commit(commit_object)
     return commits_data
+
+def get_and_store_commits_data(repo_path, from_date, to_date, file_types):
+    commits_data = {}
+    commits = Repository(repo_path,
+                         since=from_date,
+                         to=to_date,
+                         only_modifications_with_file_types=".py").traverse_commits()
+    for commit in commits:
+        for file in commit.modified_files:
+            if file.new_path != None and file.new_path.endswith(".py"):
+                commit_data = {
+                    "filename_old": file.old_path,
+                    "source_old": file.source_code_before,
+                    "filename_new": file.new_path,
+                    "source_new": file.source_code,
+                    "additions": file.added_lines,
+                    "deletions": file.deleted_lines,
+                    "cyclomatic_complexity_new": file.complexity
+                    }
+                commits_data[commit.hash] = commit_data
+    return commits_data
+
+def get_pydriller_metric(repo_path, from_commit, to_commit, path, metric):
+    if metric == "code_churn":
+        metric = CodeChurn(path_to_repo=repo_path,
+                           from_commit=from_commit,
+                           to_commit=to_commit)
+    if metric == "commit_count":
+        metric = CommitsCount(path_to_repo=repo_path,
+                              from_commit=from_commit,
+                              to_commit=to_commit)
+    return  metric.count()[path]

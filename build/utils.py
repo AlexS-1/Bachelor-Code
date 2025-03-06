@@ -18,18 +18,6 @@ def clone_ropositoriy(repo_url, temp_dir="/Users/as/Library/Mobile Documents/com
     subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
     return clone_path
 
-def test_code_quality(file_path):
-    try:
-        result = subprocess.run(
-            ['python', '-m', 'flake8', file_path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=True
-        )
-        return result.stdout.decode('utf-8').strip()
-    except subprocess.CalledProcessError as e:
-        return e.stdout.decode('utf-8').strip() + "\n" + e.stderr.decode('utf-8').strip()
-
 def array_to_string(array):
     return "[" + ", ".join(map(str, array)) + "]"
 
@@ -66,3 +54,11 @@ def write_json(path, data):
 
 def delete_json(path):
     os.remove(path)
+
+def write_to_file(path: str, data: str):
+    with open(path, "w") as file:
+        file.write(data)
+
+def read_from_file(path: str):
+    with open(path, "r") as file:
+        return json.load(file)
