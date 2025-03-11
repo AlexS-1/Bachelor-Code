@@ -1,0 +1,489 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" version="26.1.0">
+  <diagram name="Page-1" id="97916047-d0de-89f5-080d-49f4d83e522f">
+    <mxGraphModel dx="378" dy="177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-59" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="93.00000000000006" as="sourcePoint" />
+            <mxPoint x="880" y="167" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-55" target="WlSLyMddTxWrjb-d0O-I-96" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="880" y="120" />
+              <mxPoint x="1320" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="WlSLyMddTxWrjb-d0O-I-110" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="93" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="880" y="120" />
+              <mxPoint x="440" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-55" value="Comparing control flow between code changes from pull requests for improving code quality during open-source code review" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="779" y="10" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-61" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880.008" y="253" as="sourcePoint" />
+            <mxPoint x="741" y="327" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="880" y="290" />
+              <mxPoint x="741" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-64" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880.008" y="253" as="sourcePoint" />
+            <mxPoint x="1021" y="327" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="880" y="290" />
+              <mxPoint x="1021" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="253" as="sourcePoint" />
+            <mxPoint x="880" y="327" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-58" value="How can code review be made more efficient with respect to review effort?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="819" y="170" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-60" value="How is code quality measured traditionally?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="680" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-62" value="How can multiple metrics be integrated within the pull request review process?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="960" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-117" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-116" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880.008" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="880" y="450" />
+              <mxPoint x="833" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-118" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-124" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="927" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="880.008" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="880" y="450" />
+              <mxPoint x="927" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-65" value="Why should the change in code quality be measured?&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="820" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-93" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-96" target="WlSLyMddTxWrjb-d0O-I-97" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1320" y="290" />
+              <mxPoint x="1180" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-94" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-96" target="WlSLyMddTxWrjb-d0O-I-98" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1320" y="253" />
+              <mxPoint x="1320" y="290" />
+              <mxPoint x="1460" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-95" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="WlSLyMddTxWrjb-d0O-I-96" target="WlSLyMddTxWrjb-d0O-I-99" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1320" y="270" />
+              <mxPoint x="1320" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-96" value="What metrics and visualisations can be helpful for improving the pull request review process?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1260" y="170" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-97" value="How is code quality analysis currently integrated into OSS repositories?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1120" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-98" value="How can the changes in the flow of execution be visualised most effectively?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-99" value="How can pull request reviews be improved through better visualisation of code changes?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1260" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-107" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="WlSLyMddTxWrjb-d0O-I-110" target="WlSLyMddTxWrjb-d0O-I-111" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="290" />
+              <mxPoint x="300" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-108" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="WlSLyMddTxWrjb-d0O-I-110" target="WlSLyMddTxWrjb-d0O-I-112" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="290" />
+              <mxPoint x="580" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-109" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="WlSLyMddTxWrjb-d0O-I-113" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="253" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="440" y="253" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-110" value="What are common code quality metrics and why is high code quality desirable?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="380" y="170" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-111" value="What is the goal of code quality metrics?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="240" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-112" value="How can high code quality be achieved?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="520" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-113" value="Which effects does high code quality have on the development process generally?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="380" y="330" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-116" value="&lt;font&gt;How does this compare to classical static analysis on code quality?&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="813" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-121" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-65" target="WlSLyMddTxWrjb-d0O-I-123" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="413" as="sourcePoint" />
+            <mxPoint x="880" y="487.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-123" value="Why can metrics not cover every nuance of code change?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="860" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-124" value="What additional insights can be gathered by measuring the changes in code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="907" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-125" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-60" target="WlSLyMddTxWrjb-d0O-I-127" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="740" y="450" />
+              <mxPoint x="693" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-126" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-60" target="WlSLyMddTxWrjb-d0O-I-130" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="787" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="740" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="740" y="450" />
+              <mxPoint x="787" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-127" value="Which metrics are used in the investigated three repositories" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="673" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-128" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-60" target="WlSLyMddTxWrjb-d0O-I-129" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="420" as="sourcePoint" />
+            <mxPoint x="740" y="487.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-129" value="On what factors does the selection of code quality metrics depend?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="720" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-130" value="What aspects of code quality can hardly be captured by code quality metrics" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="767" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-131" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-112" target="WlSLyMddTxWrjb-d0O-I-133" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="580" y="450" />
+              <mxPoint x="533" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-112" target="WlSLyMddTxWrjb-d0O-I-136" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="627" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="580" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="580" y="450" />
+              <mxPoint x="627" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-133" value="What practices like CI/CD pipelines, contribution guidelines &amp;amp; code review practices do repositories with high code quality use?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="513" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-134" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-112" target="WlSLyMddTxWrjb-d0O-I-135" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="413" as="sourcePoint" />
+            <mxPoint x="580" y="487.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-135" value="How has code quality evolved in those repositories?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="560" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-136" value="What actions led to a higher measured code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="607" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-137" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-62" target="WlSLyMddTxWrjb-d0O-I-139" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1020" y="450" />
+              <mxPoint x="973" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-138" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-62" target="WlSLyMddTxWrjb-d0O-I-142" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1067" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="1020" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1020" y="450" />
+              <mxPoint x="1067" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-139" value="How does &amp;nbsp;meaningfulness of metrics compare and how are individual quality metrics combined to form one code quality score?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="953" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-140" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="WlSLyMddTxWrjb-d0O-I-62" target="WlSLyMddTxWrjb-d0O-I-141" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="413" as="sourcePoint" />
+            <mxPoint x="1020" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1020" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-141" value="Why are single metrics insufficient for measuring code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1000" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-142" value="Between which points in time is measuring the changes in code quality metrics most effective?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1047" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-143" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-145" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1180" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1180" y="450" />
+              <mxPoint x="1133" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-144" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-148" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1227" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="1180" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1180" y="450" />
+              <mxPoint x="1227" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-145" value="Which tools are used to measure code quality metrics?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1113" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-146" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-147" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1180" y="413" as="sourcePoint" />
+            <mxPoint x="1180" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1180" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-147" value="How are the results of such measurements presented to the user?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-148" value="What recommendations do code quality tools give with respect to reviewing a pull request?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1207" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-149" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-151" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1320" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1320" y="450" />
+              <mxPoint x="1273" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-150" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-154" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1367" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="1320" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1320" y="450" />
+              <mxPoint x="1367" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-151" value="Which visualisations help code reviewers to understand the code better or faster&lt;span style=&quot;white-space: pre;&quot;&gt;?&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1253" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-153" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1320" y="413" as="sourcePoint" />
+            <mxPoint x="1320" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1320" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-153" value="How can visuals be integrated in to the UI of GitHub&lt;span style=&quot;white-space: pre;&quot;&gt;?&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1300" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YjBKKxuMVn2vRLSoexX5-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="WlSLyMddTxWrjb-d0O-I-154" target="YjBKKxuMVn2vRLSoexX5-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-154" value="How can those visuals be extracted from available data on GitHub and through git?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1347" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-155" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-157" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1460" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1460" y="450" />
+              <mxPoint x="1413" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-156" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-160" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1507" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="1460" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1460" y="450" />
+              <mxPoint x="1507" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-157" value="Which metrics are provided by GitHub directly?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1393" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-158" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-159" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1460" y="413" as="sourcePoint" />
+            <mxPoint x="1460" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1460" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-159" value="Which information is not caputred by those metrics?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1440" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-160" value="What program entry point should be chosen for the visualisation of the flow of execution?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1487" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-161" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-163" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="440" y="450" />
+              <mxPoint x="393" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-162" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-166" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="487" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="440" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="440" y="450" />
+              <mxPoint x="487" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-163" value="What is the baseline development process and code quality" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="373" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-164" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-165" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="413" as="sourcePoint" />
+            <mxPoint x="440" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-165" value="Which factors have the largest influence on later efficiency for fixing bugs?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="420" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-166" value="Why does spending time on improving code quality pay off?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="467" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-167" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.496;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-169" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="300" y="450" />
+              <mxPoint x="253" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-168" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.501;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-172" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="487.0000000000001" as="targetPoint" />
+            <mxPoint x="300" y="413" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="300" y="450" />
+              <mxPoint x="347" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-169" value="What is code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="233" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-170" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="WlSLyMddTxWrjb-d0O-I-171" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="413" as="sourcePoint" />
+            <mxPoint x="300" y="487.0000000000001" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-171" value="How can code quality be measured?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="280" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSLyMddTxWrjb-d0O-I-172" value="What properties of souce code do code quality metrics not account for?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="327" y="490" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="M1kuKOY4G_Xc1Gv_RkIK-1" value="Introduction" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="240" y="40" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M1kuKOY4G_Xc1Gv_RkIK-2" value="Motivation" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="240" y="90" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M1kuKOY4G_Xc1Gv_RkIK-3" value="Analysis" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="240" y="140" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M1kuKOY4G_Xc1Gv_RkIK-4" value="Conclusion" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="240" y="190" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="YjBKKxuMVn2vRLSoexX5-1" value="Visualisation of call graphs in common notation with focus on important methods" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1347" y="620" width="40" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
