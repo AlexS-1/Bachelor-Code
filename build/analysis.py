@@ -1,5 +1,7 @@
 import os
+import re
 import subprocess
+from turtle import st
 import spacy
 import ast
 
@@ -14,7 +16,7 @@ from graphviz import Digraph
 from build.utils import write_to_file
 
 # Load the spaCy model
-nlp = spacy.load("en_core_web_md")
+# nlp = spacy.load("en_core_web_md")
 
 # Define example sentences for each category
 corrective_examples = [
@@ -53,38 +55,38 @@ def analyse_ocel(ocel_path, export_path):
     ocdfg = ocel_algorithm.classic.apply(ocel)
     write_el(ocdfg, export_path)
 
-def visit_functions(node, graph, current_function=None):
-    """Recursively visit function definitions and calls to build the call graph."""
-    if isinstance(node, ast.FunctionDef):
-        current_function = node.name
-        graph.add_node(current_function, type="function")
+def visit_functions(node, functions=None, current_function=None):
+    """Recursively visit function definitions and return them as a list"""
+    if functions is None:
+        functions = []
     
-    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
-        callee = node.func.id
-        if current_function:
-            graph.add_edge(current_function, callee)
+    if isinstance(node, ast.FunctionDef):
+        functions.append(node)
+        current_function = node
     
     for child in ast.iter_child_nodes(node):
-        visit_functions(child, graph, current_function)
+        visit_functions(child, functions, current_function)
+    
+    return functions
 
 def generate_ast_graph(file_content):
     """Parses the file content, extracts AST, and creates a call graph."""
     tree = ast.parse(file_content)
-    graph = nx.DiGraph()
-    visit_functions(tree, graph)
-    return graph
+    graphs = []
+    function_definitions = visit_functions(tree)
+    for function in function_definitions:
+        graph = Digraph(strict=True)
+        graphs.append(check_ast(function, graph))
+    return graphs
 
 def visualize_call_graph(graph, filename="call_graph"):
     """Visualizes a call graph using Graphviz."""
-    dot = Digraph()
+    graph.render(filename, format="svg", cleanup=True)
+
+def get_filename_for_graph(folder, file, sha, graph: Digraph, revision = "new"):
+    return f"{folder}/{file.split('/')[-1].replace(".", "-")}-{sha[:7]}-{graph.body[0].split('"')[1].split('- ')[1]}-{revision}"
     
-    for node in graph.nodes():
-        dot.node(node, shape="ellipse")
-
-    for caller, callee in graph.edges():
-        dot.edge(caller, callee)
-
-    dot.render(filename, format="pdf", view=True, cleanup=True)
+    
 
 def visualise_diff_graph(graph_old, graph_new, filename="diff_graph"):
     """Visualizes the differences between two call graphs."""
@@ -171,3 +173,345 @@ def get_cyclomatic_complexity(file_path: str):
     
     return complexity, message_count
 
+def check_ast(node, graph, parent=None):
+    if isinstance(node, ast.Module):
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph)
+    if isinstance(node, ast.FunctionDef):
+        graph.node(f"Start▷- {node.name}", fixedsize = "True", label = "▷", shape = "circle", fontsize = "8", height = "0.5")
+        parent = f"Start▷- {node.name}"
+
+        parallel = check_sub_tree_parallelism(node)
+        children = []
+        for i in range(len(parallel.values())):
+            if i == 0:
+                if len(parallel.values()) > 1:
+                    if list(parallel.values())[i+1] == True:
+                        # open + and add as child of that
+                        graph.node(f"Start+- {str(node)}", fixedsize = "True", label = "+", shape = "diamond", width = "0.5", height = "0.5")
+                        graph.edge(str(parent), f"Start+- {str(node)}")
+                        parent = f"Start+- {str(node)}"
+                        children.append(check_ast(node.body[i], graph, parent))
+                    if list(parallel.values())[i+1] == False:
+                        # add as child of start and set parent to new node
+                        sub_tree_parent = parent
+                        parent = check_ast(node.body[i], graph, sub_tree_parent)
+            else:
+                if list(parallel.values())[i] == True:
+                    if list(parallel.values())[i-1] == True:
+                        # add as child of previous + or create new one
+                        if "Start+-" in str(parent):
+                            children.append(check_ast(node.body[i], graph, parent))
+                        else:
+                            graph.node(f"Start+- {str(node)}", fixedsize = "True", label = "+", shape = "diamond", width = "0.5", height = "0.5")
+                            graph.edge(str(parent), f"Start+- {str(node)}")
+                            parent = f"Start+- {str(node)}"
+                            children.append(check_ast(node.body[i], graph, parent))
+                    if list(parallel.values())[i-1] == False:
+                        # close + and add as child of that
+                        graph.node(f"End+- {str(node)}", fixedsize = "True", label = "+", shape = "diamond", width = "0.5", height = "0.5")
+                        children.append(check_ast(node.body[i], graph, parent))
+                        for child in children:
+                            graph.edge(str(child), f"End+- {str(node)}")
+                        children = []
+                        parent = f"End+- {str(node)}"
+                if list(parallel.values())[i] == False:
+                    if list(parallel.values())[i-1] == False:
+                        # add as child of previous
+                        sub_tree_parent = parent
+                        parent = check_ast(node.body[i], graph, sub_tree_parent)
+                    if list(parallel.values())[i-1] == True:
+                        if children != []:
+                            # close + and add as child of that
+                            graph.node(f"End+- {str(node)}", fixedsize = "True", label = "+", shape = "diamond", width = "0.5", height = "0.5")
+                            for child in children:
+                                graph.edge(str(child), f"End+- {str(node)}")
+                            children = []
+                            parent = f"End+- {str(node)}"
+                            sub_tree_parent = parent
+                            parent = check_ast(node.body[i], graph, sub_tree_parent)
+                        else:
+                            if list(parallel.values())[i+1] == True:
+                                # open + and add as child of that
+                                graph.node(f"Start+- {str(node)}", fixedsize = "True", label = "+", shape = "diamond", width = "0.5", height = "0.5")
+                                graph.edge(str(parent), f"Start+- {str(node)}")
+                                parent = f"Start+- {str(node)}"
+                                children.append(check_ast(node.body[i], graph, parent))
+                            if list(parallel.values())[i+1] == False:
+                                # add as child of start and set parent to new node
+                                sub_tree_parent = parent
+                                parent = check_ast(node.body[i], graph, sub_tree_parent)
+
+        graph.node("End⃞", fixedsize = "True", label = "⃞", shape = "circle", fontsize = "8", height = "0.5")
+        for child in children:
+            graph.edge(str(child), str("End⃞"))
+        else: 
+            graph.edge(str(parent), str("End⃞"))
+        return graph
+    if isinstance(node, ast.If):
+        sub_tree_children = [] # Calls in the test node
+        if node.test:
+            calls = get_calls(node.test)
+            for call in calls:
+                sub_tree_children.append(check_ast(call, graph, parent))
+        if node.orelse != []:
+            # Exclusive
+            graph.node(f"Start×- {str(node)}", fixedsize = "True", label = "×", shape = "diamond", width = "0.5", height = "0.5")
+            if sub_tree_children != []:
+                for child in sub_tree_children:
+                    graph.edge(str(child), f"Start×- {str(node)}")
+            else:
+                graph.edge(str(parent), f"Start×- {str(node)}")
+            parent = f"Start×- {str(node)}"
+            children = []
+            for child in node.body:
+                children.append(check_ast(child, graph, parent))
+            for child in node.orelse:
+                children.append(check_ast(child, graph, parent))
+            graph.node(f"End×- {str(node)}", fixedsize = "True", label = "×", shape = "diamond", width = "0.5", height = "0.5")
+            if len(children) > 1:
+                color = "red"
+            else:
+                color = "black"
+            for child in children:
+                if isinstance(child, ast.Call) or True or "End×-" in str(child):
+                    graph.edge(str(child), f"End×- {str(node)}", color = color)
+                parent = f"End×- {str(node)}"
+            return parent
+        else:
+            # Inclusive
+            graph.node(f"Start○- {str(node)}", fixedsize = "True", label = "○", shape = "diamond", width = "0.5", height = "0.5")
+            if sub_tree_children != []:
+                for child in sub_tree_children:
+                    graph.edge(str(child), f"Start○- {str(node)}")
+            else:
+                graph.edge(str(parent), f"Start○- {str(node)}")
+            parent = f"Start○- {str(node)}"
+            children = []
+            for child in node.body:
+                children.append(check_ast(child, graph, parent))
+            for child in node.orelse:
+                children.append(check_ast(child, graph, parent))
+            graph.node(f"End○- {str(node)}", fixedsize = "True", label = "○", shape = "diamond", width = "0.5", height = "0.5")
+            if len(children) > 1:
+                color = "red"
+            else:
+                color = "black"
+            for child in children:
+                if isinstance(child, ast.Call) or True or "End○-" in str(child):
+                    graph.edge(str(child), f"End○- {str(node)}", color = color)
+                parent = f"End○- {str(node)}"
+            return parent
+    if isinstance(node, ast.For):
+        graph.node(f"Starf- {str(node)}", fixedsize = "True", label = "⟲", shape = "diamond", width = "0.5", height = "0.5")
+        graph.edge(str(parent), f"Starf- {str(node)}")
+        parent = f"Starf- {str(node)}"
+        children = []
+        for child in node.body:
+            children.append(check_ast(child, graph, parent))
+        for child in node.orelse:
+            children.append(check_ast(child, graph, parent))
+        graph.node(f"Endf-{str(node)}", fixedsize = "True", label = "⟲", shape = "diamond", width = "0.5", height = "0.5")
+        for child in children:
+            graph.edge(str(child), f"Endf-{str(node)}")
+        parent = f"Endf-{str(node)}"
+        return parent
+    if isinstance(node, ast.Call):
+        # Parallel
+        graph.node(str(node), label = get_func_name(node.func))
+        graph.edge(str(parent), str(node))
+        parent = node
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph, parent)
+    if isinstance(node, ast.Assign):
+        calls = get_calls(node.value)
+        for call in calls:
+            return check_ast(call, graph, parent)
+        else:
+            if parent:
+                return parent
+    else:
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph, parent)
+        else:
+            if parent:
+                return parent
+
+def check_ast2(node, graph, parent=None):
+    if isinstance(node, ast.Module):
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph)
+    if isinstance(node, ast.FunctionDef):
+        graph.node(f"Start▷- {node.name}", label = "▷", shape = "circle", fontsize = "8", height = "0.5")
+        parent = f"Start▷- {node.name}"
+        children = []
+        for child in node.body:
+            children.append(check_ast(child, graph, parent))
+        graph.node("End⃞", label = "⃞", shape = "circle", fontsize = "8", height = "0.5")
+        for child in children:
+            graph.edge(str(child), str("End⃞"))
+        return graph
+    if isinstance(node, ast.If):
+        sub_tree_children = [] # Calls in the test node
+        if node.test:
+            calls = get_calls(node.test)
+            for call in calls:
+                sub_tree_children.append(check_ast(call, graph, parent))
+        if node.orelse != []:
+            # Exclusive
+            graph.node(f"Start+- {str(node)}", label = "+", shape = "diamond", width = "0.1", height = "0.1")
+            if sub_tree_children != []:
+                for child in sub_tree_children:
+                    graph.edge(str(child), f"Start+- {str(node)}")
+            else:
+                graph.edge(str(parent), f"Start+- {str(node)}")
+            parent = f"Start+- {str(node)}"
+            children = []
+            for child in node.body:
+                children.append(check_ast(child, graph, parent))
+            for child in node.orelse:
+                children.append(check_ast(child, graph, parent))
+            graph.node(f"End+- {str(node)}", label = "+", shape = "diamond", width = "0.1", height = "0.1")
+            if len(children) > 1:
+                color = "red"
+            else:
+                color = "black"
+            for child in children:
+                if isinstance(child, ast.Call) or True or "End+-" in str(child):
+                    graph.edge(str(child), f"End+- {str(node)}", color = color)
+                parent = f"End+- {str(node)}"
+            return parent
+        else:
+            # Inclusive
+            graph.node(f"Start○- {str(node)}", label = "○", shape = "diamond", width = "0.1", height = "0.1")
+            if sub_tree_children != []:
+                for child in sub_tree_children:
+                    graph.edge(str(child), f"Start○- {str(node)}")
+            else:
+                graph.edge(str(parent), f"Start○- {str(node)}")
+            parent = f"Start○- {str(node)}"
+            children = []
+            for child in node.body:
+                children.append(check_ast(child, graph, parent))
+            for child in node.orelse:
+                children.append(check_ast(child, graph, parent))
+            graph.node(f"End○- {str(node)}", label = "○", shape = "diamond", width = "0.1", height = "0.1")
+            if len(children) > 1:
+                color = "red"
+            else:
+                color = "black"
+            for child in children:
+                if isinstance(child, ast.Call) or True or "End○-" in str(child):
+                    graph.edge(str(child), f"End○- {str(node)}", color = color)
+                parent = f"End○- {str(node)}"
+            return parent
+    if isinstance(node, ast.For):
+        graph.node(f"Starf- {str(node)}", label = "⟲", shape = "diamond", width = "0.1", height = "0.1")
+        graph.edge(str(parent), f"Starf- {str(node)}")
+        parent = f"Starf- {str(node)}"
+        children = []
+        for child in node.body:
+            children.append(check_ast(child, graph, parent))
+        for child in node.orelse:
+            children.append(check_ast(child, graph, parent))
+        graph.node(f"Endf-{str(node)}", label = "⟲", shape = "diamond", width = "0.1", height = "0.1")
+        for child in children:
+            graph.edge(str(child), f"Endf-{str(node)}")
+        parent = f"Endf-{str(node)}"
+        return parent
+    if isinstance(node, ast.Call):
+        # Parallel
+        graph.node(str(node), label = get_func_name(node.func))
+        graph.edge(str(parent), str(node))
+        parent = node
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph, parent)
+    if isinstance(node, ast.Assign):
+        calls = get_calls(node.value)
+        for call in calls:
+            return check_ast(call, graph, parent)
+        else:
+            if parent:
+                return parent
+    else:
+        for child in ast.iter_child_nodes(node):
+            return check_ast(child, graph, parent)
+        else:
+            if parent:
+                return parent
+
+def get_calls(node):
+    calls = []
+    if isinstance(node, ast.Call):
+        calls.append(node)
+    for child in ast.iter_child_nodes(node):
+        calls += get_calls(child)
+    return calls
+
+def nodes(graph: Digraph):
+    return [line for line in graph.body if not "->" in line]
+
+def get_func_name(node):
+    if isinstance(node, ast.Name):
+        return node.id
+    elif isinstance(node, ast.Attribute):
+        return f"{get_func_name(node.value)}.{node.attr}"
+    elif isinstance(node, ast.FunctionDef):
+        return node.name
+    else:
+        return ""
+    
+def check_sub_tree_parallelism(node):
+    """ Returns a dictionary of type {node: {store: [], load: []}}
+        i.e. variables stored and loaded for each direct child node of the passed AST """
+    variables = {}
+    for child in ast.iter_child_nodes(node):
+        variables[child] = get_variables(child)
+    parallel = {}
+    current_dependent_variables = []
+    for sub_tree in list(variables.keys())[1:]:
+        if "store" in variables[sub_tree].keys():
+            for variable in variables[sub_tree]["store"]:
+                current_dependent_variables.append(variable)
+        parallel[sub_tree] = True
+        if "load" in variables[sub_tree].keys():
+            for variable in variables[sub_tree]["load"]:
+                if variable in current_dependent_variables:
+                    parallel[sub_tree] = False
+                    current_dependent_variables = []
+                    if "store" in variables[sub_tree].keys():
+                        for variable in variables[sub_tree]["store"]:
+                            current_dependent_variables.append(variable)
+                    break        
+    return parallel
+
+def get_variables(node):
+    variables = dict()
+    if isinstance(node, ast.Assign):
+        for target in node.targets:
+            if isinstance(target, ast.Name):
+                variables.setdefault("store", set()).add(target.id)
+    if isinstance(node, ast.Compare):
+        for expression in node.comparators:
+            if isinstance(expression, ast.Name):
+                variables.setdefault("load", set()).add(expression.id)
+        if not isinstance(node.left, ast.Constant) and isinstance(node.left, ast.Name):
+            variables.setdefault("load", set()).add(node.left.id)
+    if isinstance(node, ast.Call):
+        for arg in node.args:
+            if isinstance(arg, ast.Name):
+                variables.setdefault("load", set()).add(arg.id)
+        for keyword in node.keywords:
+            variables.setdefault("load", set()).add(keyword.arg)
+    if isinstance(node, ast.If):
+        if isinstance(node.test, ast.Name):
+            variables.setdefault("load", set()).add(node.test.id)
+    for child in ast.iter_child_nodes(node):
+        res = get_variables(child)
+        if "load" in res.keys():
+            for variable in res["load"]:
+                variables.setdefault("load", set()).add(variable)
+        if "store" in res.keys():
+            for variable in res["store"]:
+                variables.setdefault("store", set()).add(variable)
+    return variables
