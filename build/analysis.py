@@ -2,6 +2,7 @@ import os
 import re
 import subprocess
 from turtle import st
+import pylint
 import spacy
 import ast
 
@@ -55,6 +56,8 @@ def analyse_ocel(ocel_path, export_path):
     ocdfg = ocel_algorithm.classic.apply(ocel)
     write_el(ocdfg, export_path)
 
+# Call Graph generation
+
 def visit_functions(node, functions=None, current_function=None):
     """Recursively visit function definitions and return them as a list"""
     if functions is None:
@@ -84,35 +87,33 @@ def visualize_call_graph(graph, filename="call_graph"):
     graph.render(filename, format="svg", cleanup=True)
 
 def get_filename_for_graph(folder, file, sha, graph: Digraph, revision = "new"):
-    return f"{folder}/{file.split('/')[-1].replace(".", "-")}-{sha[:7]}-{graph.body[0].split('"')[1].split('- ')[1]}-{revision}"
-    
-    
+    return f"{folder}/{sha[:7]}-{file.split('/')[-1].replace(".", "-")}-{graph.body[0].split('"')[1].split('- ')[1]}-{revision}"
 
 def visualise_diff_graph(graph_old, graph_new, filename="diff_graph"):
     """Visualizes the differences between two call graphs."""
     dot = Digraph()
     
-    for node in graph_new.nodes():
-        if node not in graph_old.nodes():
-            dot.node(node, shape="ellipse", color="green")
+    for node in nodes(graph_new):
+        if node not in nodes(graph_old):
+            dot.body.append(node)
         else:
             dot.node(node, shape="ellipse")
     
-    for caller, callee in graph_new.edges():
-        if (caller, callee) not in graph_old.edges():
+    for caller, callee in edges(graph_new):
+        if (caller, callee) not in edges(graph_old):
             dot.edge(caller, callee, color="green")
         else:
             dot.edge(caller, callee)
     
-    for node in graph_old.nodes():
-        if node not in graph_new.nodes():
+    for node in nodes(graph_old):
+        if node not in nodes(graph_new):
             dot.node(node, shape="ellipse", color="red")
     
-    for caller, callee in graph_old.edges():
-        if (caller, callee) not in graph_new.edges():
+    for caller, callee in edges(graph_old):
+        if (caller, callee) not in edges(graph_new):
             dot.edge(caller, callee, color="red")
     
-    dot.render(filename, format="pdf", view=True, cleanup=True)
+    dot.render(filename, format="svg", cleanup=True)
 
 def analyse_source_code(source_code: str, code_metric: str):
     """Analyse the source code and return the code metric."""
@@ -145,6 +146,16 @@ def analyse_source_code(source_code: str, code_metric: str):
             text=True
         )
         os.remove(path)
+        return result.stdout.split("\n")
+    if code_metric == "pylint":
+        path = "temp.py"
+        write_to_file(path, source_code)
+        result = subprocess.run(
+            ['pylint', path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
         return result.stdout.split("\n")
 
 
@@ -450,6 +461,13 @@ def get_calls(node):
 
 def nodes(graph: Digraph):
     return [line for line in graph.body if not "->" in line]
+
+def edges(graph: Digraph):
+    res = []
+    for line in graph.body:
+        if "->" in line:
+            res.append([line.split("->")[0].strip(), line.split("->")[1].strip()])
+    return res
 
 def get_func_name(node):
     if isinstance(node, ast.Name):

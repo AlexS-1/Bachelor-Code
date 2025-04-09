@@ -122,7 +122,10 @@ def insert_object(id, object_type: str, data: dict):
         if not relationship_keys:
             ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
             return
-    ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
+    try:
+        ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
+    except (pymongo.errors.DocumentTooLarge, pymongo.errors.InvalidDocument) as e:
+        print(e)
 
 
 ### Get functions
