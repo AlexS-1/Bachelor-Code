@@ -87,41 +87,139 @@ def get_closed_pulls(pulls_url, pages = 1):
 
 def extract_events_from_pull(pull_response):
     for pull in pull_response:
-        for comment in get_api_response(pull["comments_url"]):
-            insert_event(f"comment-pull_request-{comment["id"]}", 
-                         "comment", 
-                         comment["created_at"], 
-                         [], 
-                         [{"objectId": get_name_by_username(comment["user"]["login"]), "qualifier": "commented-by-user"},
-                          {"objectId": str(pull["number"]), "qualifier": "commented-on-pull_request"}])
-        for review in get_api_response(pull["review_comments_url"]):
-            insert_event(f"review-pull_request-{review["id"]}", 
-                         "review", 
-                         review["created_at"], 
-                         [], 
-                         [{"objectId": get_name_by_username(review["user"]["login"]), "qualifier": "reviewed-by-user"},
-                          {"objectId": str(pull["number"]), "qualifier": "reviewed-on-pull_request"}])
-        for commit in get_api_response(pull["commits_url"]):
-            insert_event(f"commit-pull_request-{commit["sha"]}", 
-                         "commit", 
-                         commit["commit"]["author"]["date"], 
-                         [], 
-                         [{"objectId": commit["commit"]["author"]["name"], "qualifier": "committed-by-user"},
-                          {"objectId": str(pull["number"]), "qualifier": "committed-to-pull_request"}])
-        if pull["closed_at"]:
-            insert_event(f"close-pull_request-{pull["number"]}", 
-                         "close", 
-                         pull["closed_at"], 
-                         [], 
-                         [{"objectId": get_name_by_username(pull["user"]["login"]), "qualifier": "closed-by-user"},
-                          {"objectId": str(pull["number"]), "qualifier": "closed-pull_request"}])
-        if pull["merged_at"]:
-            insert_event(f"merge-pull_request-{pull["number"]}", 
-                         "merge", 
-                         pull["merged_at"], 
-                         [], 
-                         [{"objectId": get_name_by_username(get_pull_data(pull["number"], pull["base"]["repo"]["owner"]["login"], pull["base"]["repo"]["name"])["merged_by"]["login"]), "qualifier": "merged-by-user"},
-                          {"objectId": str(pull["number"]), "qualifier": "merged-pull_request"}])
+        # Check PR events
+
+        for event in get_api_response(pull["issue_url"] + "/timeline"):
+            if event["event"] not in ["committed"]:
+                timestamp = event["created_at"]
+                actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "authored-by"}
+
+            # Handle specific events from OCEL-Diagrams.drawio
+            if event["event"] == "committed":
+                # TOOD Define timestamp correctly: timestamp = event["author"]["date"]
+                committer = {"objectId": event["committer"]["name"], "qualifier": "authored-by"}
+                commit = {"objectId": event["sha"], "qualifier": "sha"}
+                insert_event(
+                    f"{event['node_id']}",
+                    "commit",
+                    event["committer"]["date"], 
+                    [],
+                    [committer, commit, {"objectId": str(pull['number']), "qualifier": "committed-to-pull_request"}]
+                    # TODO Add linked files (maybe commit message as well)
+                )
+            elif event["event"] == "closed":
+                insert_event(
+                    f"{event['node_id']}",
+                    "close pull request",
+                    timestamp,
+                    [],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "closed-on-pull_request"}]
+                )
+            elif event["event"] == "reopened":
+                actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "reopened-by"}
+                insert_event(
+                    f"{event['node_id']}",
+                    "reopen pull request",
+                    timestamp,
+                    [],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "pr"}]
+                )
+            elif event["event"] == "merged":
+                insert_event(
+                    f"{event['node_id']}",
+                    "merge pull request",
+                    timestamp,
+                    [],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
+                )
+            elif event["event"] == "review_requested":
+                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"]), "qualifier": "for"}
+                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
+                insert_event(
+                    f"{event['node_id']}",
+                    "request review",
+                    timestamp,
+                    [],
+                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
+                )
+            elif event["event"] == "review_request_removed":
+                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"]), "qualifier": "for"}
+                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
+                insert_event(
+                    f"{event['node_id']}",
+                    "remove review request",
+                    timestamp,
+                    [],
+                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
+                )
+            elif event["event"] == "commented":
+                user_relation = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "commented-by"}
+                insert_event(
+                    f"{event['node_id']}",
+                    "comment pull request",
+                    timestamp,
+                    [{"name": "comment", "value": f"{event["body"]}"}],
+                    [user_relation, {"objectId": str(pull['number']), "qualifier": "on"}]
+                )
+            elif event["event"] == "ready-for-review":
+                insert_event(
+                    f"{event['node_id']}",
+                    "mark ready for review",
+                    timestamp,
+                    [],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "in"}]
+                )
+            elif event["event"] == "renamed":
+                insert_event(
+                    f"{event['node_id']}",
+                    "rename pull request",
+                    timestamp,
+                    [{"name": "renamed-to", "value": event["rename"]["new_title"]}],
+                    [{"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
+                )
+            elif event["event"] == "labeled":
+                label = {"name": "label", "value": event["label"]["name"]}
+                insert_event(
+                    f"{event['node_id']}",
+                    "add label",
+                    timestamp,
+                    [label],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "labeled-on-pull_request"}]
+                )
+            elif event["event"] == "unlabeled":
+                label = {"name": "label", "value": event["label"]["name"]}
+                insert_event(
+                    f"{event['node_id']}",
+                    "remove label",
+                    timestamp,
+                    [label],
+                    [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
+                )
+            elif event["event"] == "reviewed":
+                if event["review"]["state"] == "approved":
+                    review_type = "approve review"
+                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "approved-by"}
+                elif event["review"]["state"] == "changes_requested":
+                    review_type = "suggest changes"
+                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "requested-by"}
+                elif event["event"] == "review_dismissed":
+                    review_type = "dismiss review"
+                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "dismissed-by"}
+                else:
+                    review_type = "comment review"
+                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "commented-by"}
+                timestamp = event["review"]["submitted_at"]
+                insert_event(
+                    f"review-{event['id']}",
+                    review_type,
+                    timestamp,
+                    [],
+                    [user_relation, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
+                )
+
+        # TODO Change file event
+        # TODO Open pull request event
+
 
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:
     return get_api_response(f"https://api.github.com/repos/{owner}/{repo_name}/pulls/{number}")
