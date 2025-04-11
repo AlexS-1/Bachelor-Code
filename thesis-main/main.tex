@@ -1,0 +1,61 @@
+\documentclass[bachelor]{padsthesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Useful LaTeX Packages and Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outsourced to preamble.sty
+\usepackage{preamble}
+
+\addbibresource{references.bib}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Config %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{Alexander Schranner}
+\studentID{423184}
+\title{Git Repository Contribution Analysis: Effects of Pull Request Reviews on Code Quality}
+%\firstexaminer{Prof.\@ Dr.\@ Wil M.\,P. van der Aalst} % defaults to Prof. van der Aalst
+\secondexaminer{Prof.\@ Dr.\@ Second Supervisor}
+\advisor{Chiao Li}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title and Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+%\cleardoublepage
+
+\frontmatter
+
+\input{chapters/acknowledgements.tex}
+
+\input{chapters/abstract.tex}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+\input{chapters/introduction.tex}
+
+\input{chapters/related_work.tex}
+
+\input{chapters/prelim.tex}
+
+\input{chapters/method.tex}
+
+\input{chapters/implementation.tex}
+
+\input{chapters/evaluation.tex}
+
+\input{chapters/discussion.tex}
+
+\input{chapters/conclusion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\chapter{Some additional stuff}
+Try to avoid appendices.
+If you can't, this is a place to show all kinds of results that are supportive, yet, not critical for your thesis.
+
+\backmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}
