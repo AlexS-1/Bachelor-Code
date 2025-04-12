@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Anaysis-Goals" id="97916047-d0de-89f5-080d-49f4d83e522f">
-        <mxGraphModel dx="1327" dy="990" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+        <mxGraphModel dx="391" dy="179" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -142,7 +142,7 @@
                 <mxCell id="26" value="What types of code quality metrics exist?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="80" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" value="What metrics are used most commonly in leiterature and which in practice" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+                <mxCell id="27" value="What metrics are used most commonly in literature and which in practice" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="150" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" value="What potential effects can low quality code have on numbr of bugs, workload for developers &amp;amp; future development effort" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
@@ -720,6 +720,62 @@
                 </mxCell>
                 <mxCell id="280" value="Why are pull requests relevant to investigate in addition to commits and reviews?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
                     <mxGeometry x="1700" y="180" width="40" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="284" value="&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;For selected repositoreis insert URL for fetching pull request and commt information&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Decide on timeframe of analysis (consider time frame definition per commit sha, tag, date or release)&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check already stored event types and object types for style and adherence to current definition&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new object types and event types to OCEL log&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new object to OCEL&lt;/font&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check if object already exists by using its ID&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check adherence to defined object type in 4.&amp;nbsp;&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add object with its relationships and initial attributes to OCEL&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new events to OCEL&lt;/font&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check if event at same time already exists and compare IDs&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check adherence to event types defined in 4.&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add event with its relationships and update objects accordingly (e.g. rename)&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Export/store OCEL or otherwise mark extraction as finished&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Analyse OCEL according to above analysis questions&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;" style="align=left;html=1;whiteSpace=wrap;verticalAlign=top;spacing=0;" parent="1" vertex="1">
+                    <mxGeometry x="810" y="900" width="540" height="330" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="eKUK3vrR_9GYCevPWeM6" name="Overview-Diagram">
+        <mxGraphModel dx="1434" dy="944" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="GslqEcg6We2W02iY_cbz-1" value="Committer" style="shape=actor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="300" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-2" value="Author" style="shape=actor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="300" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-3" value="Reviewer" style="shape=actor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="300" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-5" value="Contributor" style="shape=actor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="190" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-6" value="User" style="shape=actor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="80" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-7" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-8" value="Issue" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-9" value="Pull Request" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-10" value="Commit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-11" value="Discussion" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-13" value="Comment" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-14" value="Review" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-15" value="Label" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-16" value="File" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GslqEcg6We2W02iY_cbz-17" value="Method?" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="850" y="310" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

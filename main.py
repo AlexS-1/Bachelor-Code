@@ -11,7 +11,7 @@ from build.database_handler import initialise_database
 
 def main():
     # Convert repo URL to path by cloning repo to temporary dictionary
-    repo_url = "https://github.com/AlexS-1/Bachelor-Code"
+    repo_url = "https://github.com/srbhr/Resume-Matcher"
     api_url = repo_url.replace("github.com", "api.github.com/repos")
 
     # Setting different timeperiod

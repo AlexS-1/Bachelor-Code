@@ -90,7 +90,7 @@ def extract_events_from_pull(pull_response):
         # Check PR events
 
         for event in get_api_response(pull["issue_url"] + "/timeline"):
-            if event["event"] not in ["committed"]:
+            if event["event"] not in ["committed", "reviewed"]:
                 timestamp = event["created_at"]
                 actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "authored-by"}
 
@@ -174,7 +174,7 @@ def extract_events_from_pull(pull_response):
                     f"{event['node_id']}",
                     "rename pull request",
                     timestamp,
-                    [{"name": "renamed-to", "value": event["rename"]["new_title"]}],
+                    [{"name": "renamed-to", "value": event["rename"]["to"]}],
                     [{"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
                 )
             elif event["event"] == "labeled":
@@ -196,21 +196,21 @@ def extract_events_from_pull(pull_response):
                     [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
                 )
             elif event["event"] == "reviewed":
-                if event["review"]["state"] == "approved":
+                if event["state"] == "approved":
                     review_type = "approve review"
-                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "approved-by"}
-                elif event["review"]["state"] == "changes_requested":
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "approved-by"}
+                elif event["state"] == "changes_requested":
                     review_type = "suggest changes"
-                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "requested-by"}
-                elif event["event"] == "review_dismissed":
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "requested-by"}
+                elif event["state"] == "review_dismissed":
                     review_type = "dismiss review"
-                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "dismissed-by"}
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "dismissed-by"}
                 else:
                     review_type = "comment review"
-                    user_relation = {"objectId": get_name_by_username(event["review"]["user"]["login"]), "qualifier": "commented-by"}
-                timestamp = event["review"]["submitted_at"]
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "commented-by"}
+                timestamp = event["submitted_at"]
                 insert_event(
-                    f"review-{event['id']}",
+                    f"{event['id']}",
                     review_type,
                     timestamp,
                     [],

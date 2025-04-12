@@ -1,6 +1,5 @@
 \chapter{Introduction}
 \label{chap:intro}
-First of all, we encourage you to read Prof.\@ van der Aalst's guide on how to write papers~\autocite{beautiful}.
 
 In this section, you introduce the work to your audience.
 Even though this is the first chapter of your thesis, you should not necessarily write this chapter first.
@@ -8,10 +7,14 @@ It is often easier to write this chapter at the end of the thesis writing.
 In this part of your introduction, i.e., the part before the Motivation section (\cref{sec:intro_ssec:motiv}), you write a paragraph (not just a sentence) for each of the bullet points mentioned in the abstract:
 
 \begin{itemize}
-	\item Domain, i.e., explain the application domain in which your thesis is applicable.
+	\item Domain, i.e., explain the application domain in which your thesis is applicable.:
+	\paragraph{Domain} In ever more complex business cases, software bases are becoming more complex. Therefore, understanding the complex details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow to form a better understanding of how code contributions are integrated into the project, but also \acp{OCEL}  allow querying, to help developers approve or deny merging changes into the production or development branch of a project. 
 	\item Problem, i.e., motivate what the problem is you are solving.
+	\paragraph{Problem} Many repositories use \ac{CICD} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often times developers do not question why a test fails or passes, but instead just focus on building code that passes the needed tests. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in the \ac{CICD} pipeline, the actual outcomes are not commonly checked. Therefore, gaining insights into how code quality evolves within one pull request and where to request changes are vital insights into understanding the code base better and thus delivering higher quality code
 	\item Method, i.e., describe the method you have proposed, and, compare it, briefly \& high level to other approaches. In particular, focus on the benefits of your approach versus the other approach(es)
+	\paragraph{Method} On the one hand, using GitHub's REST \ac{API} provides insights into what steps were carried out, on the other hand generalisations over multiple pull requests are not directly extractable. \Ac{ocpm} can be used to generate process models for multiple viewpoints in one event log. Compared to traditional process mining, this enables to store all data in one event log and use it as a single source of truth for building process models. In this fashion multiple viewpoints i.e. from a user perspective, from the perspective of one pull request, or even the perspective of one file across multiple pull requests can be conceited. Through examining the event log for details of one object type, reviewers can utilise historical data about similar pull requests, users or in general situations to help them decide whether to merge a pull request or request additional changes. Furthermore, visualising the process for certain development teams enables them to copy work flows from other teams for working more productive. 
 	\item Evaluation, i.e., how did you evaluate your method and what do the results indicate?
+	\paragraph{Evaluation} Confirm helpfulness with developers through survey, and compare outcomes to similar tool. Verify code quality metrics with \textit{wiley}.
 \end{itemize}
 
 Optionally, you can finalize this part with a little overview of what is still to come in this chapter:
@@ -58,7 +61,9 @@ Before we dive into the motivation section, a few general guidelines for writing
 In this section, you explain to the reader why:
 \begin{enumerate}
 	\item The problem you are solving is relevant to be solved.
+	\paragraph{Problem Solving} Pull requests often are deeply connected within a repository. Therefore, conventional event logs are less suited, as many viewpoints require different event logs. Therefore, \acp{ocel} are ideally suited to model the different activities and objects in the contribution process. 
 	\item The existing solutions do not solve the problem and/or have significant problems/shortcomings when doing so.
+	\paragraph{Existing Solutions} There exist many tools for \ac{msr}, i.e extracting details about a certain aspect within a software repository. But because pull requests unify multiple different viewpoints and \ac{msr} focuses on extracting single details, there exists unused potential. Process mining tools require dependable data. The proposed approach combines aspects of \ac{MSR} with the tools of process mining. With clear visualisations and simple extraction, developers have the possibility to make decisions based on clear facts and models, rather than drawing from past experiences and estimations. In turn revealing insights about code quality not only improves the knowledge and makes decision making fact based, but also should help maintainers reduce bugs and save costs in the long term. 
 \end{enumerate}
 Note that parts of this section are already highlighted in both the abstract and the introduction.
 However, in this section, you dive a bit deeper.
@@ -67,6 +72,8 @@ In a good motivation, you show a (simple) example on which current methods fail,
 For example, assume that your thesis describes a new \emph{process discovery} algorithm that is able to handle noise, incomplete behavior, and, on top of that, is able to apply label-splitting.
 You can take an (example) event log and show that existing algorithms result in models that are of suboptimal quality.
 Finally, you show a model discovered by your fancy algorithm, and, you explain why this model is so much better.
+
+
 
 \section{Problem Statement}
 \label{sec:intro_ssec:probs}
