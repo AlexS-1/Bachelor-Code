@@ -1,36 +1,26 @@
 \chapter{Evaluation}
 \label{chap:eval}
 
-In this chapter, you present your evaluation.
-You should have extensively discussed with your supervisor what you are evaluating and why \dots
 
-Some typical sections that you need here:
 \section{Experimental Setup}
-Describe the setup of your experiments.
-If you apply a pipeline of different techniques, show the pipeline.
-Present the parameters of your experiments in a table, and, describe them.
-Typical Elements:
 \begin{itemize}
-    \item Input Data Set(s) Used
-    \item Algorithm(s) Used
-    \item Parameter(s) Used
-    \item \dots
+	\item Reason for chosen repositories
+	\item Inputs and outputs in pipeline
+	\item Algorithms used for code quality
+	\item Algorithms used for process discovery and conformance checking
 \end{itemize}
 
 \section{Results}
-Show the results.
-Try to present your results as structured as you can.
-A good result (sub)section, follows the following structure:
+Expected results:
 \begin{itemize}
-    \item Describe what results you are going to Show
-    \item Present an initial hypothesis about the results, e.g., We expect the quality metric M to behave like this, conditional to this parameter P.
-    \item Show the Results
-    \item Confirm the hypothesis.
-    \item If there are results that are not according to the hypothesis, you have to be able to explain why this is the case!!!
+	\item Code quality initially low, improves to a certain level, where initial bugs are fixed, slightly decreases as project gets more complex
+	\item Process discovered different per repository, with similar sub-sequences
+	\item Time taken longer than proposed and order not according to concept (mainly in one of three repositories, where clear expected/wanted process is given)
 \end{itemize}
 
 \section{Threats to Validity}
-Here you discuss any element of your experiments (usually depending on the setup), e.g., data sets used, parameters assessed, that might have implications for the validity of your results.
-For example, if you have not considered a specific range of parameter values, it is unclear how the algorithm will behave for these settings.
-If you have excluded certain data, this might have its implications for the generalizability of your results.
-In a way, this is the discussion section of your thesis.
+\begin{itemize}
+	\item Code quality metrics are only metrics, impossible to capture all aspects of code quality
+	\item Process variance large despite splitting process model evolution in parts
+	\item Conformance checking to information updated infrequently
+\end{itemize}

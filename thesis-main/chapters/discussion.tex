@@ -1,9 +1,12 @@
 \chapter{Discussion}
 \label{chap:discussion}
 
-In this section, you discuss your general approach.
-What design decisions did you make, and, what are the implications of this?
-Maybe your approach computes an exact intermediary result, which is costly in terms of time.
-Does a suitable approximation approach exist?
-What are the implications for that approach.
-You can also dive deeper in very related work and explain why it does not work in certain cases.
+\section{Data Model of Objects and Events}
+\begin{itemize}
+	\item Focus on three viewpoints: Pull requests, users and files/methods
+	\item Other auxiliary objects without useful viewpoint: Label and commit
+	\item Relationships between objects and objects and events and objects
+	\item Attributes of objects and events including initialization timestamp (1970-01-01 vs.\ actual date of creation)
+	\item Attributes modeled as relationship to objects
+	\item Distinguishing between events and objects: Example of the commit object and event and their differences
+\end{itemize}

@@ -1,24 +1,21 @@
 \chapter{Preliminaries}
 \label{chap:prelim}
 
-In the preliminaries you present well-understood mathematical concepts that you need in your thesis.
-For example, you can define the natural numbers as $\N\coloneqq\Set{1,2,\dots}$, and, correspondingly $\N_0\coloneqq\N\cup\Set{0}$.
-A preliminary notion is either a well-defined commonly understood mathematical notion, e.g., sets, multisets, graphs, sequences, Petri nets, \dots, or, it is a concept clearly defined in another paper, i.e., you just adopt the notation (or a slight variation thereof).
-\emph{Any concept you use should be defined in your thesis}.
-You should never write: \enquote{We use Workflow nets, a definition of these can be found here [X]}.
-If you use it, explain it.
-
-Concepts that are unique to your approach are not part of the preliminaries, i.e., they are described in the approach section itself.
-
-Some useful tips:
+\section{Choice and Definition of Code Quality Metrics}
 \begin{itemize}
-	\item When introducing a complex concept, use the following structure (always works):
-	      \begin{itemize}
-		      \item Explain the concept informally.
-		      \item Provide a formal definition of the concept.
-		      \item Provide an example, using the formal definition, of the concept.
-	      \end{itemize}
-	      In your examples, try to be \emph{as visual as you can}, often, an image says more than 5 pages of text.
-	\item use commands, some of which are already provided in the preamble, e.g.,\\
-	\verb+\newcommand*{\N}{\mathbb{N}}+
+	\item Definition cyclomatic complexity: How many conditional branches does method, file or class have, by using running example
+	\item Definition maintainability index using running example: Chosen version and relation to Halstead's complexity measures using running example
+	\item Explanation \emph{PyLint} score: Linting and variable names using running example
+	\item Definition of method length, file length, variable name length, line length among other line number related code quality metrics
+\end{itemize}
+
+\section{Definition of Contribution}
+\begin{itemize}
+	\item Based on GitHub definition, but changed meaning for context of this thesis
+\end{itemize}
+
+\section{Definitions of \ac{ocpm}-Related Terms}
+\begin{itemize}
+	\item Viewpoint using running example
+	\item Event vs.\ activity vs.\ event type using running example
 \end{itemize}

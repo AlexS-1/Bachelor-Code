@@ -1,154 +1,68 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-In this section, you introduce the work to your audience.
-Even though this is the first chapter of your thesis, you should not necessarily write this chapter first.
-It is often easier to write this chapter at the end of the thesis writing.
-In this part of your introduction, i.e., the part before the Motivation section (\cref{sec:intro_ssec:motiv}), you write a paragraph (not just a sentence) for each of the bullet points mentioned in the abstract:
+\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze e.g. procurement or order management processes. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the intricate details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel}  allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing the experience of others. 
+	
+\paragraph{Problem.} Many repositories use \ac{cicd} pipe-lines that check whether changes made to parts of the code cause issues in the already existing code base. Often times developers do not question why a test fails or passes, but instead just focus on building code that passes the needed tests. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the outcomes besides passing or not are hardly checked. Therefore, gaining insights into how code quality evolves within one pull request or the code base and where to request changes are vital steps towards understanding the code base better and thus delivering higher quality code.
 
-\begin{itemize}
-	\item Domain, i.e., explain the application domain in which your thesis is applicable.:
-	\paragraph{Domain} In ever more complex business cases, software bases are becoming more complex. Therefore, understanding the complex details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow to form a better understanding of how code contributions are integrated into the project, but also \acp{OCEL}  allow querying, to help developers approve or deny merging changes into the production or development branch of a project. 
-	\item Problem, i.e., motivate what the problem is you are solving.
-	\paragraph{Problem} Many repositories use \ac{CICD} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often times developers do not question why a test fails or passes, but instead just focus on building code that passes the needed tests. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in the \ac{CICD} pipeline, the actual outcomes are not commonly checked. Therefore, gaining insights into how code quality evolves within one pull request and where to request changes are vital insights into understanding the code base better and thus delivering higher quality code
-	\item Method, i.e., describe the method you have proposed, and, compare it, briefly \& high level to other approaches. In particular, focus on the benefits of your approach versus the other approach(es)
-	\paragraph{Method} On the one hand, using GitHub's REST \ac{API} provides insights into what steps were carried out, on the other hand generalisations over multiple pull requests are not directly extractable. \Ac{ocpm} can be used to generate process models for multiple viewpoints in one event log. Compared to traditional process mining, this enables to store all data in one event log and use it as a single source of truth for building process models. In this fashion multiple viewpoints i.e. from a user perspective, from the perspective of one pull request, or even the perspective of one file across multiple pull requests can be conceited. Through examining the event log for details of one object type, reviewers can utilise historical data about similar pull requests, users or in general situations to help them decide whether to merge a pull request or request additional changes. Furthermore, visualising the process for certain development teams enables them to copy work flows from other teams for working more productive. 
-	\item Evaluation, i.e., how did you evaluate your method and what do the results indicate?
-	\paragraph{Evaluation} Confirm helpfulness with developers through survey, and compare outcomes to similar tool. Verify code quality metrics with \textit{wiley}.
-\end{itemize}
+\paragraph{Method.} On the one hand, using GitHub's REST \ac{api} provides insights into what steps were carried out, on the other hand generalizations over multiple pull requests are not directly extractable. \Ac{ocpm} can be used to generate process models for multiple viewpoints in one event log. Compared to traditional process mining, this enables to use it as a single source of truth for building process models. In this fashion, multiple viewpoints i.e. activities form the perspective of one user, one pull request or one file can be conceited. Through examining the event log for details of one object type, reviewers can utilise historical data about similar instances to help them decide whether to merge a pull request or request additional changes. Furthermore, visualising processes e.g., for certain development teams, enables all developers to apply efficient variations into their workflow.
 
-Optionally, you can finalize this part with a little overview of what is still to come in this chapter:
-\enquote{The remainder of this chapter is structured as follows.
-	In \cref{sec:intro_ssec:motiv}, we motivate the need for \dots{}
-	In \cref{sec:intro_ssec:probs}, we provide a formal problem statement.
-	\dots
-}
-
-Before we dive into the motivation section, a few general guidelines for writing:
-\begin{enumerate}
-	\item Write \emph{active} and in the \emph{present tense}.
-	\item Avoid \enquote{optionality} as much as possible, i.e., usage of the following words should (pun intended) be minimized:
-	      \begin{itemize}
-		      \item could
-		      \item would
-		      \item should
-		      \item may
-		      \item might
-		      \item can
-		      \item will
-		      \item \dots
-	      \end{itemize}
-	      Good: We present a method that ...\\
-	      Bad: We will present a method that ...\\
-	      Good: We use function $f$ and compute its inverse.\\
-	      Bad: We can use the function $f$ and will compute its inverse.
-	\item Do not use \verb|\\| to generate line breaks, but an empty line % we used a few before, however do not use them in text!
-	\item Position the caption of a Figure below the figure.
-	\item Position the caption of a Table above the table.
-	\item Write Section Headings and Titles Like This\\
-	      Good: Approximation Bias in Unstable Systems\\
-	      Bad: Approximation bias in unstable systems
-	\item Be consistent in your references.
-	      \begin{itemize}
-		      \item Make sure that the name of the same author is always the same (using DBLP helps for this)
-		      \item Titles should be consistent. Either use the style previously described, i.e., Approximation Bias in Unstable Systems or Approximation bias in unstable systems (this is allowed in the references, opposed to your own section headings and titles, however, \emph{BE CONSISTENT}).
-	      \end{itemize}
-\end{enumerate}
+\paragraph{Evaluation.} Verify code quality metrics against data from similar tool: \emph{wiley}.
 
 \section{Motivation}
 \label{sec:intro_ssec:motiv}
+\paragraph{Problem Relevance.} 
+\begin{itemize}
+	\item No known implementation of data extraction of pull request information from GitHub repositories to form event log or \ac{ocel}
+	\item Novel combination of code quality analysis with process mining
+	\item Lack of user-friendly tools to analyse OCEL not just for process mining, but also general querying for information e.g., about pull request author
+\end{itemize}
 
-In this section, you explain to the reader why:
-\begin{enumerate}
-	\item The problem you are solving is relevant to be solved.
-	\paragraph{Problem Solving} Pull requests often are deeply connected within a repository. Therefore, conventional event logs are less suited, as many viewpoints require different event logs. Therefore, \acp{ocel} are ideally suited to model the different activities and objects in the contribution process. 
-	\item The existing solutions do not solve the problem and/or have significant problems/shortcomings when doing so.
-	\paragraph{Existing Solutions} There exist many tools for \ac{msr}, i.e extracting details about a certain aspect within a software repository. But because pull requests unify multiple different viewpoints and \ac{msr} focuses on extracting single details, there exists unused potential. Process mining tools require dependable data. The proposed approach combines aspects of \ac{MSR} with the tools of process mining. With clear visualisations and simple extraction, developers have the possibility to make decisions based on clear facts and models, rather than drawing from past experiences and estimations. In turn revealing insights about code quality not only improves the knowledge and makes decision making fact based, but also should help maintainers reduce bugs and save costs in the long term. 
-\end{enumerate}
-Note that parts of this section are already highlighted in both the abstract and the introduction.
-However, in this section, you dive a bit deeper.
-In a good motivation, you show a (simple) example on which current methods fail, yet, the method that you are going to describe in this thesis actually yields a better result.
-
-For example, assume that your thesis describes a new \emph{process discovery} algorithm that is able to handle noise, incomplete behavior, and, on top of that, is able to apply label-splitting.
-You can take an (example) event log and show that existing algorithms result in models that are of suboptimal quality.
-Finally, you show a model discovered by your fancy algorithm, and, you explain why this model is so much better.
-
+\paragraph{Existing Solutions.}
+\begin{itemize}
+	\item Data extraction with data only from git (local repository) and REST API exist separately, but to the author's knowledge no combined approach exists
+	\item Code quality metrics have existed for long time, were refined, but too little focus of code quality changes $\Rightarrow$ Use process mining to visualise the change of code quality along the process
+	\item Easy to use web-based tools exist to visualise an \ac{ocel} and show general statistics, but lack of possibility to query event log to answer specific questions
+\end{itemize}
 
 
 \section{Problem Statement}
 \label{sec:intro_ssec:probs}
+\begin{itemize}
+	\item Git commit and pull request data is hard to overview
+	\item Existing tools focus too little on the changes of code quality during the history of a repository
+	\item Different data sources are hard to unify
+\end{itemize}
 
-In this section, you introduce the problem that you are solving.
-A good problem statement is a concise, more general statement of the example motivation that you have used in the motivation section.
-
-For example, in the case of our previous example:
-
-\begin{displayquote}
-	Real event data contains infrequent and incomplete behavior.
-	Furthermore, different recordings of the same activity may refer to conceptually different contextual executions.
-	Existing, state-of-the-art process discovery algorithms cannot discover process models of adequate quality, given event data of the previously described form.
-\end{displayquote}
 
 \section{Research Questions}
-
-The research questions you pose, are questions you need to (largely) answer in order to solve the problem.
-Basically, the combined set of answers to the questions you pose, allow you to solve the research problem.
-
-From the book of Justin Zobel, \enquote{Writing for Computer Science}~\autocite{DBLP:books/sp/Zobel14} (which we highly recommend you to read before writing):
-
-\begin{displayquote}
-	A hypothesis or research question should be specific and precise, and should be
-	unambiguous; the more loosely a concept is defined, the more easily it will satisfy
-	many needs simultaneously, even when these needs are contradictory. And it is
-	important to state what is not being proposed—what the limits on the conclusions
-	will be.
-\end{displayquote}
-
-In the context of our example, we can define many relevant research questions:
-\begin{enumerate}
-	\item What are typical prominent noise patterns in real event data?
-	\item How to detect noise patterns in event data?
-	\item How to detect infrequent behavior in event data?
-	\item How to detect contextually different executions of the same activity?
-	\item How to balance between detected noise patterns, infrequent behavior and imprecise labels?
-	\item \dots
-\end{enumerate}
-Typically, your thesis consists of 3-5 research questions (often multiple more questions can be defined).
+\label{sec:intro_ssec:rqs}
+\begin{itemize}
+	\item Which data sources exist for extracting data from git repositories
+	\item How does code quality change, when introducing adapted processes
+	\item Which steps need to be taken to unify data from different sources
+	\item How can the insights gathered through process mining be visualised in a user-friendly way
+	\item How far do planned processes listed in contribution guides differ from real processes?
+\end{itemize}
 
 \section{Research Goals}
-
-In this section, you present your research goals.
-A research goal is a concise statement that s.t., achieving the goal helps you in (partially) solve a research question.
-Hence, the research questions and goals are often very related.
-Furthermore, it should be obvious for the reader what goal answers what problem.
-
-In the context of our previously mentioned questions, some example goals are:
+\label{sec:intro_ssec:rgs}
 \begin{itemize}
-	\item Conduct a systematic literature review on noise patterns in real event data.
-	\item Design a noise detection algorithm.
-	\item Formalize the notion of incompleteness in an event log.
-	\item \dots
+	\item Combine data of a local repository and online data from GitHub to form an \ac{ocel}
+	\item Analyze \ac{ocel} to discover process model of contributing to a repository through pull requests from the pull request viewpoint
+	\item Visualize changes in code quality from the pull request, user and commit viewpoints
+	\item Check whether carried out process match with proposed processes in guidelines using conformance-checking
+	\item Present analysis results in a user-friendly interface
 \end{itemize}
+
 
 \section{Contributions}
-
-In this section, you list the contributions that your thesis makes to our wonderful world (of science).
-Again, there is a strong link to the previous section.
-Usually, you have achieved your research goals.
-Hence, the contributions are concrete statements of the goals you have achieved.
-Additionally, your evaluation (most likely also stressed as a goal) is a contribution.
-Any implementation or prototype can also be quantified as a contribution.
-
-Some examples:
+\label{sec:intro_ssec:c}
 \begin{itemize}
-	\item A systematic literature review covering 35 articles on noise patterns in real event data
-	\item A noise detection algorithm based on dynamic programming and symbolic linking
-	\item ...
+	\item \textbf{To be written later, when implementation and other relevant parts are finished}
 \end{itemize}
 
-\section{Thesis Structure}
-In this section, you outline the remainder of the thesis.
 
-The remainder of this thesis is structured as follows.
-In \cref{chap:related_work}, we discuss related work.
-In \cref{chap:prelim}, we present basic mathematical preliminaries, used throughout the thesis.
+\section{Thesis Structure}
+\label{sec:intro_ssec:ts}
+The remainder of the thesis is structured as follows. In \cref{chap:prelim}, the author formally defines the terms used in the latter chapters and explains how the chosen code quality metrics are calculated, by introducing a running example. In \cref{chap:related_work}, he presents related work on other approaches to measure code quality, how data from software repositories is commonly analyzed and which process mining concepts have been applied in the context of git repositories. In \cref{chap:method}, the extraction process is explained referring to the running example, introduced in \cref{chap:prelim}. Next the approach is applied to three large Python repositories and the discovered process models together with their \acp{ocel} are compared to the planned processes for contribution of these repositories in \cref{chap:eval}. In \cref{chap:discussion}, design choices regarding the data model are discussed and the limitations of code quality metrics and time complexity are explained. Lastly, in \cref{chap:conclusion} the discoveries made are summarized and possibilities for future work are lined out.

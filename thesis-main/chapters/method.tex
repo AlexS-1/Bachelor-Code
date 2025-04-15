@@ -1,19 +1,27 @@
 \chapter{Method}
 \label{chap:method}
+Overview of pipelines steps: Extraction, Storage and Analysis
 
-Describe the method/idea/algorithm in this chapter.
-Rename this chapter to a more meaningful name, given your topic.
+\section{Extraction and Preparation of Local Data}
+\begin{itemize}
+	\item Using \emph{PyDriller}
+	\item Storing data in suitable format 
+\end{itemize}
 
-The best possible Method chapter is fairly easy, it has the following sections:
-\begin{enumerate}
-    \item Overview; You provide an overview of the approach. You do so by showing a graphical example of the main steps (usually 2-3 steps).
-    For each step, you clearly indicate the inputs and the outputs of the step. Let's assume we have Step 1, 2, and 3; guess what the next sections are\dots
-    \item Step 1 (obviously a fancier name)
-    \item Step 2 (obviously a fancier name)
-    \item Step 3 (obviously a fancier name)
-\end{enumerate}
-Describing the steps is very similar to the difficult mathematical concepts.
-First describe an informal description of what the step does.
-Then provide supporting definitions, theorems and proofs.
-Then show how this works on an example.
-In some cases, it helps to adopt a \enquote{running example} that you use throughout this section to clarify each step.
+\section{Extraction and Combination with Web-Based Data}
+\begin{itemize}
+	\item Using \emph{GitHub REST API}
+	\item What to watch out for while matching data
+\end{itemize}
+
+\section{Storing and Querying Data}
+\begin{itemize}
+	\item Storage in MongoDB
+	\item Export of \acp{ocel}
+\end{itemize}
+
+\section{Process Mining using \emph{PM4Py}}
+\begin{itemize}
+	\item Process discovery for initial process per repository
+	\item Conformance checking against planned processes (where available)
+\end{itemize}

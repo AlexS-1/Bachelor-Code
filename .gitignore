@@ -10,6 +10,18 @@ __pycache__/
 # C extensions
 *.so
 
+# Latex files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+thesis-main/template-chapters/
+
 # Distribution / packaging
 .Python
 develop-eggs/
