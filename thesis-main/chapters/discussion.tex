@@ -10,3 +10,38 @@
 	\item Attributes modeled as relationship to objects
 	\item Distinguishing between events and objects: Example of the commit object and event and their differences
 \end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/Object_Types.pdf}
+	\caption{Object types, their attributes and relationships, with the qualifier and cardinality  written on the end of a line relating two object types}
+\end{figure}
+
+\paragraph{Selection of object types and attributes.} To model the data from both the local git repository and the information on pull requests from GitHub, the object types can be divided into three categories:
+
+\begin{enumerate}
+	\item Object types whose data origin is the local git repository
+	\item Object types whose data origin is the remote GitHub repository
+	\item Object types that have a mixed data origin
+\end{enumerate}
+
+Although other object types are possible to include, the author chooses to limit the complexity by focusing on the most relevant object types. For analysis of the code quality the source code has to be analyzed. Therefore, local operations are vital to ensure a sufficiently fast runtime of the tool. 
+
+The \emph{method} object type is the smallest entity for later analysis of code quality. The attributes include the Halstead's complexity merics, the cyclomatic complexity and the pylint score, as well as line related metrics. Together these raw metrics enable the calculation of the proposed overall code quality. The method object was included because in initial analysis it was found that large parts of the file are not modified, whereas modifications often affect related methods across several files. Additionally, the cyclomatic complexity has to be evaluated per method in order to calculate the \emph{weighted method count} for file level code quality metrics.
+
+The \emph{file} object type includes all the same attributes as the \emph{method} object type, but the cyclomatic complexity is replaced with the \emph{method\_count} attribute to calculate the \emph{weighted method count} during analysis. A file includes any number of methods and a commit aggregates one or more files.
+
+The \emph{commit} object type only includes the higher level attributes, that are not completely dependent of the code changes. Every commit has a commit message, however the more detailed description for commits is optional, marked by a question mark. The \emph{to} attribute stores to which branch in which repository the commit has been made to. This is especially relevant for repositories that use the fork and merge contribution process as explained in the works of Liu et al. \autocite{DBLP:conf/icse/Liu0MKYXGG24}.
+
+The \emph{pull request} object type has a remote origin. Similar to the \emph{commit} object type it has a mandatory name, namely the title and an optional description. The \emph{state} attribute describes the overarching history of the pull request and can be either, opened, closed or merged. Pull requests can have labels, and every label that exists in the event log is used by at least one pull request. This ensures that unused labels do not unnecessarily complicate the event log. Labels often are a heavily used feature for managing pull requests and therefore, have been included in the analysis. The goal is to analyze if pull requests labeled similarly also exhibit closely related contribution processes or user groups.  
+
+Lastly, the \emph{user} object type both has local and remote data origins. To identify a user, the full name was chosen as it is both prevalent in the local and remote data. Furthermore, the username is stored as well, as this is the primary identifier for users in the remote data. The rank describes the association of the user to the repository that is analyzed in the event log and can be either \emph{COLLABORATOR}, \emph{CONTRIBUTOR}, \emph{FIRST\_TIMER}, \emph{FIRST\_TIME\_CONTRIBUTOR}, \emph{MANNEQUIN}, \emph{MEMBER}, \emph{NONE} or \emph{OWNER}. These terms are also used within the \emph{GitHub REST API} documentation \footnote{https://docs.github.com/en/graphql/reference/enums\#commentauthorassociation}.
+
+\paragraph{Relationships of objects and events.} In \acp{ocel}, object-to-object or object-to-event relationships can be grouped into three categories based on their cardinaltiy:
+
+\begin{enumerate}
+	\item One-to-one relationships (1:1)
+	\item One-to-many relationships (1:n)
+	\item Many-to-many relationships (m:n)
+\end{enumerate}
+
