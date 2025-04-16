@@ -364,4 +364,5 @@ def get_name_by_username(username, author_association = "NONE"):
         "created_at_timestamp": user_response["updated_at"]
     }
     insert_user(user)
+    print("TYPE: ", user_response["type"])
     return user["name"]
