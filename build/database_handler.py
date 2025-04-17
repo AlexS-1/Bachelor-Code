@@ -70,14 +70,14 @@ def insert_test_run(data):
         raise ValueError(f"Data does not match the test run type: {e}")
     insert_object(data["id"], "test_run", data_to_insert)
 
-def insert_file_change(data):
-    file_change_type = get_type("file_change")
+def insert_file(data):
+    file_type = get_type("file")
     try:
-        verify_objectType(data, file_change_type)
+        verify_objectType(data, file_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError("Data does not match the file change type: {e}")
-    insert_object("/".join([data["file-changed_by"], data["filename"], data["file_change_timestamp"]]), "file_change", data_to_insert)
+    insert_object("/".join([data["file-changed_by"], data["filename"], data["file_change_timestamp"]]), "file", data_to_insert)
 
 def insert_user(data):
     user_type = get_type("user")
@@ -87,6 +87,10 @@ def insert_user(data):
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert)
+
+def insert_method(data):
+    pass
+    # TODO Implement method insertion
 
 ### Generic insert functions
 def insert_eventType(name, attributes):
@@ -150,65 +154,64 @@ def initialise_database():
     initialise_eventTypes()
 
 def initialise_objectTypes():
-    issue_type = {
-        "name": "issue", 
-        "attributes": [ 
-            {"name": "title", "type": "string"}, 
-            {"name": "description", "type": "string"}, 
-            {"name": "type", "type": "string"} # TODO Decide on use e.g. from standard naming conventions, always used labels, NLP techniques on content or combination thereof
-        ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "author", "qualifier": "authored-by"},
-        #     {"objectId": "assignees", "qualifier": "assigned-to"},
-        #     {"objectId": "comments", "qualifier": "has"},
-        #     {"objectId": "repository", "qualifier": "comprises"}, 
-        #     {"objectId": "pull_requests", "qualifier": "is-related-to"},
-        # ]
-    }
-    insert_objectType(issue_type["name"], issue_type["attributes"])
-    repository_type = {
-        "name": "repository",
-        "attributes": [
-            {"name": "name", "type": "string"}
-        ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [,
-        #     {"objectId": "branches", "qualifier": "has"},
-        #     {"objectId": "owner", "qualifier": "owned-by"},
-        #     {"objectId": "commit", "qualifier": "includes"},
-        #     {"objectId": "pull_requests", "qualifier": "string"},
-        # ]
-    }
-    insert_objectType(repository_type["name"], repository_type["attributes"])
+    # issue_type = {
+    #     "name": "issue", 
+    #     "attributes": [ 
+    #         {"name": "title", "type": "string"}, 
+    #         {"name": "description", "type": "string"}, 
+    #         {"name": "type", "type": "string"} # TODO Decide on use e.g. from standard naming conventions, always used labels, NLP techniques on content or combination thereof
+    #     ]
+    #     # Relationships listed for later use when creating objects (with relationships)
+    #     # "relationships": [
+    #     #     {"objectId": "author", "qualifier": "authored-by"},
+    #     #     {"objectId": "assignees", "qualifier": "assigned-to"},
+    #     #     {"objectId": "comments", "qualifier": "has"},
+    #     #     {"objectId": "repository", "qualifier": "comprises"}, 
+    #     #     {"objectId": "pull_requests", "qualifier": "is-related-to"},
+    #     # ]
+    # }
+    # insert_objectType(issue_type["name"], issue_type["attributes"])
+    # repository_type = {
+    #     "name": "repository",
+    #     "attributes": [
+    #         {"name": "name", "type": "string"}
+    #     ]
+    #     # Relationships listed for later use when creating objects (with relationships)
+    #     # "relationships": [,
+    #     #     {"objectId": "branches", "qualifier": "has"},
+    #     #     {"objectId": "owner", "qualifier": "owned-by"},
+    #     #     {"objectId": "commit", "qualifier": "includes"},
+    #     #     {"objectId": "pull_requests", "qualifier": "string"},
+    #     # ]
+    # }
+    # insert_objectType(repository_type["name"], repository_type["attributes"])
     user_type = {
         "name": "user",
         "attributes": [
-            {"name": "name", "type": "string"},
             {"name": "username", "type": "string"},
             {"name": "rank", "type": "string"}, # TODO Find way to model rank
             {"name": "type", "type": "string"}
         ]
     }
     insert_objectType(user_type["name"], user_type["attributes"])
-    comment_type = {
-        "name": "comment",
-        "attributes": [
-            {"name": "message", "type": "string"}
-        ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "user", "qualifier": "commented-by"}
-        # ]
-    }
-    insert_objectType(comment_type["name"], comment_type["attributes"])
+    # comment_type = {
+    #     "name": "comment",
+    #     "attributes": [
+    #         {"name": "message", "type": "string"}
+    #     ]
+    #     # Relationships listed for later use when creating objects (with relationships)
+    #     # "relationships": [
+    #     #     {"objectId": "user", "qualifier": "commented-by"}
+    #     # ]
+    # }
+    # insert_objectType(comment_type["name"], comment_type["attributes"])
     commit_type = {
         "name": "commit",
         "attributes": [
             # {"name": "commit_sha", "type": "string"}, Removed as it is used as id
             {"name": "message", "type": "string"},
             {"name": "description", "type": "string"},
-            {"name": "branch", "type": "string"},
+            {"name": "to", "type": "string"},
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
@@ -223,10 +226,9 @@ def initialise_objectTypes():
     pull_request_type = {
         "name": "pull_request",
         "attributes": [
-            {"name": "merge_commit_sha", "type": "string"}, # TODO Potentially model as relationship with commit
             {"name": "title", "type": "string"},
-            {"name": "state", "type": "string"},
             {"name": "description", "type": "string"},
+            {"name": "state", "type": "string"},
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
@@ -246,12 +248,22 @@ def initialise_objectTypes():
         # ]
     }
     insert_objectType(pull_request_type["name"], pull_request_type["attributes"])
-    file_change_type = {
-        "name": "file_change",
+    file_type = {
+        "name": "file",
         "attributes": [
-            {"name": "filename", "type": "string"},
-            {"name": "additions", "type": "string"},
-            {"name": "deletions", "type": "string"}
+            {"name": "filename", "type": "string"}, # TODO Decide on use, then add to diagramm
+            {"name": "method_count", "type": "int"},
+            {"name": "theta_1", "type": "int"},
+            {"name": "theta_2", "type": "int"},
+            {"name": "N_1", "type": "int"},
+            {"name": "N_2", "type": "int"},
+            {"name": "loc", "type": "int"},
+            {"name": "lloc", "type": "int"},
+            {"name": "sloc", "type": "int"},
+            {"name": "cloc", "type": "int"},
+            {"name": "dloc", "type": "int"},
+            {"name": "blank_lines", "type": "int"},
+            {"name": "pylint_score", "type": "float"}
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
@@ -259,86 +271,152 @@ def initialise_objectTypes():
         #     {"objectId": "user", "qualifier": "changed-by"},
         # ]
     }
-    insert_objectType(file_change_type["name"], file_change_type["attributes"])
-    review_type = {
-        "name": "review",
+    insert_objectType(file_type["name"], file_type["attributes"])
+    method_tpye = {
+        "name": "method",
         "attributes": [
-            {"name": "referenced_code_line", "type": "string"},
-            {"name": "approved", "type": "boolean"},
+            {"name": "cyclomatic_complexity", "type": "int"},
+            {"name": "theta_1", "type": "int"},
+            {"name": "theta_2", "type": "int"},
+            {"name": "N_1", "type": "int"},
+            {"name": "N_2", "type": "int"},
+            {"name": "loc", "type": "int"},
+            {"name": "lloc", "type": "int"},
+            {"name": "sloc", "type": "int"},
+            {"name": "cloc", "type": "int"},
+            {"name": "dloc", "type": "int"},
+            {"name": "blank_lines", "type": "int"},
+            {"name": "pylint_score", "type": "float"}
         ]
         # Relationships listed for later use when creating objects (with relationships)
         # "relationships": [
-        #     {"objectId": "user", "qualifier": "authored-by"},
-        #     {"objectId": "comment", "qualifier": "has"},
-        #     {"objectId": "pull_request", "qualifier": "part-of"},
-        # ]
+        #     {"objectId": "method", "qualifier": "calls-method"},
+        #]
+    }
+    insert_objectType(method_tpye["name"], method_tpye["attributes"])
+    label_type = {
+        "name": "label",
+        "attributes": [
+        ]
+    }
+    insert_objectType(label_type["name"], label_type["attributes"])
+    # review_type = {
+    #     "name": "review",
+    #     "attributes": [
+    #         {"name": "referenced_code_line", "type": "string"},
+    #         {"name": "approved", "type": "boolean"},
+    #     ]
+    #     # Relationships listed for later use when creating objects (with relationships)
+    #     # "relationships": [
+    #     #     {"objectId": "user", "qualifier": "authored-by"},
+    #     #     {"objectId": "comment", "qualifier": "has"},
+    #     #     {"objectId": "pull_request", "qualifier": "part-of"},
+    #     # ]
 
-    }
-    insert_objectType(review_type["name"], review_type["attributes"])
-    test_run_type = {
-        "name": "test_run",
-        "attributes": [
-            {"name": "name", "type": "string"},
-            {"name": "passed", "type": "boolean"},
-        ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "pull_request", "qualifier": "part-of"},
-        # ]
-    }
-    insert_objectType(test_run_type["name"], test_run_type["attributes"])
+    # }
+    # insert_objectType(review_type["name"], review_type["attributes"])
+    # test_run_type = {
+    #     "name": "test_run",
+    #     "attributes": [
+    #         {"name": "name", "type": "string"},
+    #         {"name": "passed", "type": "boolean"},
+    #     ]
+    #     # Relationships listed for later use when creating objects (with relationships)
+    #     # "relationships": [
+    #     #     {"objectId": "pull_request", "qualifier": "part-of"},
+    #     # ]
+    # }
+    # insert_objectType(test_run_type["name"], test_run_type["attributes"])
 
 def initialise_eventTypes():
+    # File viewpoint
     commit_event = {
         "name": "commit",
         "attributes": []
     }
     insert_eventType(commit_event["name"], commit_event["attributes"])
-    comment_event = {
-        "name": "comment",
+    change_file_event = {
+        "name": "change_file",
         "attributes": []
     }
-    insert_eventType(comment_event["name"], comment_event["attributes"])
-    review_event = {
-        "name": "review",
+    # Pull request viewpoint
+    insert_eventType(change_file_event["name"], change_file_event["attributes"])
+    reopen_pull_request_event = {
+        "name": "rereopen_pull_request",
         "attributes": []
     }
-    insert_eventType(review_event["name"], review_event["attributes"])
-    create_issue_event = {
-        "name": "create_issue",
+    insert_eventType(reopen_pull_request_event["name"], reopen_pull_request_event["attributes"])
+    add_label_event = {
+        "name": "add_label",
         "attributes": []
     }
-    insert_eventType(create_issue_event["name"], create_issue_event["attributes"])
-    close_issue_event = {
-        "name": "close_issue",
+    insert_eventType(add_label_event["name"], add_label_event["attributes"])
+    remove_label_event = {
+        "name": "remove_label",
         "attributes": []
     }
-    insert_eventType(close_issue_event["name"], close_issue_event["attributes"])
-    create_pull_request_event = {
-        "name": "create_pull_request",
+    insert_eventType(remove_label_event["name"], remove_label_event["attributes"])
+    open_pull_request_event = {
+        "name": "open_pull_request",
         "attributes": []
     }
-    insert_eventType(create_pull_request_event["name"], create_pull_request_event["attributes"])
+    insert_eventType(open_pull_request_event["name"], open_pull_request_event["attributes"])
     close_pull_request_event = {
         "name": "close_pull_request",
         "attributes": []
     }
     insert_eventType(close_pull_request_event["name"], close_pull_request_event["attributes"])
+    merge_pull_request_event = {
+        "name": "merge_pull_request",
+        "attributes": []
+    }
+    insert_eventType(merge_pull_request_event["name"], merge_pull_request_event["attributes"])
+    rename_pull_request_event = {
+        "name": "rename_pull_request",
+        "attributes": []
+    }
+    insert_eventType(rename_pull_request_event["name"], rename_pull_request_event["attributes"])
+    comment_pull_request_event = {
+        "name": "comment_pull_request",
+        "attributes": []
+    }
+    insert_eventType(comment_pull_request_event["name"], comment_pull_request_event["attributes"])
+    # Review viewpoint
+    mark_ready_for_review_event = {
+        "name": "mark_ready_for_review",
+        "attributes": []
+    }
+    insert_eventType(mark_ready_for_review_event["name"], mark_ready_for_review_event["attributes"])
+    add_review_request_event = {
+        "name": "add_review_request",
+        "attributes": []
+    }
+    insert_eventType(add_review_request_event["name"], add_review_request_event["attributes"])
+    remove_review_request_event = {
+        "name": "remove_review_request",
+        "attributes": []
+    }
+    insert_eventType(remove_review_request_event["name"], remove_review_request_event["attributes"])
+    comment_review_event = {
+        "name": "comment_review",
+        "attributes": []
+    }
+    insert_eventType(comment_review_event["name"], comment_review_event["attributes"])
+    suggest_changes_as_review_event = {
+        "name": "suggest_changes_as_review",
+        "attributes": []
+    }
+    insert_eventType(suggest_changes_as_review_event["name"], suggest_changes_as_review_event["attributes"])
     approve_review_event = {
         "name": "approve_review",
         "attributes": []
     }
     insert_eventType(approve_review_event["name"], approve_review_event["attributes"])
-    reject_review_event = {
-        "name": "reject_review",
+    dismiss_review_event = {
+        "name": "dismiss_review",
         "attributes": []
     }
-    insert_eventType(reject_review_event["name"], reject_review_event["attributes"])
-    fork_repository_event = {
-        "name": "fork_repository",
-        "attributes": []
-    }
-    insert_eventType(fork_repository_event["name"], fork_repository_event["attributes"])
+    insert_eventType(dismiss_review_event["name"], dismiss_review_event["attributes"])
 
 def verify_objectType(data, obj_type):
     for attribute in obj_type["attributes"]:

@@ -3,8 +3,9 @@ from pydriller.metrics.process.code_churn import CodeChurn
 from pydriller.metrics.process.commits_count import CommitsCount
 import os
 
-from build.database_handler import insert_commit, insert_file_change
+from build.database_handler import insert_commit, insert_file
 from build.utils import array_to_string, date_formatter, diff_to_dict
+from main import analyse_source_code
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
     return {
@@ -19,14 +20,46 @@ def create_commit(commit_sha, author, message, repository, branches, commit_time
         "commit-has-parent": parents
     }
 
-def create_file_change(name, filename, file_change_timestamp, commit_sha, additions, deletions, language_popularity=None, typed=False):
+# TODO Add code quality metrics
+def create_file(
+        name, 
+        filename, 
+        file_change_timestamp, 
+        commit_sha, 
+        additions, 
+        deletions,
+        method_count,
+        theta_1,
+        theta_2,
+        N_1,
+        N_2,
+        loc,
+        lloc,
+        sloc,
+        cloc,
+        dloc,
+        blank_lines,
+        pylint_score,
+        anguage_popularity=None, typed=False):
     return {
         "file-changed_by": name,
         "filename": filename,
         "file_change_timestamp": file_change_timestamp,
         "part-of-commit": commit_sha,
         "additions": additions,
-        "deletions": deletions
+        "deletions": deletions,
+        "method_count": method_count,
+        "theta_1": theta_1,
+        "theta_2": theta_2,
+        "N_1": N_1,
+        "N_2": N_2,
+        "loc": loc,
+        "lloc": lloc,
+        "sloc": sloc,
+        "cloc": cloc,
+        "dloc": dloc,
+        "blank_lines": blank_lines,
+        "pylint_score": pylint_score
     }
 
 def get_and_insert_commits_data(repo_path, from_date, to_date, file_types): 
@@ -35,21 +68,28 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
                                 since=from_date, 
                                 to=to_date,
                                 only_modifications_with_file_types=".py").traverse_commits():
-        repo = commit.project_name
         file_changes = []
         commit_timestamp = date_formatter(commit.committer_date)
         for file in commit.modified_files:
+            # Generate ID for the file object, to be referenced from the commit object
             file_changes.append("/".join([
                 commit.committer.name, file.new_path if file.new_path != None else file.old_path, 
                 commit_timestamp]))
-            file_change = create_file_change(
+            
+            # Gather code quality data
+            _, method_count = analyse_source_code(file.source_code, "cc")
+            theta_1, theta_2, N_1, N_2 = analyse_source_code(file.source_code, "helstead")
+            # TODO Add code quality metrics
+
+            # TODO Add code quality metrics
+            file = create_file(
                 commit.committer.name, 
                 file.new_path if file.new_path != None else file.old_path, 
                 commit_timestamp, 
                 commit.hash,
                 array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["added"]]), 
                 array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["deleted"]]))
-            insert_file_change(file_change)
+            insert_file(file)
         commit_object = create_commit(
             commit.hash, 
             commit.author.name, 

@@ -1,20 +1,22 @@
 import os
 import re
 import subprocess
-from turtle import st
 import pylint
 import spacy
 import ast
+import networkx as nx
 
+from turtle import st
 from pm4py.algo.discovery.ocel.ocdfg import algorithm as ocel_algorithm
 from pm4py.visualization.ocel.ocdfg import visualizer as ocel_visualizer
 from pm4py.read import read_ocel2_json as read_el
 from pm4py.vis import save_vis_ocdfg as write_el
 from sklearn import svm
-import networkx as nx
 from graphviz import Digraph
+from numpy import log, sin, sqrt
 
 from build.utils import write_to_file
+from build.pydriller import get_initial_commit_hash
 
 # Load the spaCy model
 # nlp = spacy.load("en_core_web_md")
@@ -156,6 +158,7 @@ def analyse_source_code(source_code: str, code_metric: str):
             stderr=subprocess.PIPE,
             text=True
         )
+        os.remove(path)
         return result.stdout.split("\n")
 
 
@@ -183,6 +186,43 @@ def get_cyclomatic_complexity(file_path: str):
                 message_count += 1
     
     return complexity, message_count
+
+def get_code_metrics(commit_hash, commit_data, repo_path):
+    cc_old, message_count_old = analyse_source_code(commit_data["source_old"], "cc")
+    cc_new, message_count_new = analyse_source_code(commit_data["source_new"], "cc")
+    initial_commit_hash = get_initial_commit_hash(repo_path)
+    print(f"HALSTEAD: Changed from {analyse_source_code(commit_data["source_old"], 'helstead')[1:5]} to {analyse_source_code(commit_data["source_new"], 'helstead')[1:5]}")
+    print(f"CYCLOMATIC COMPLEXITY: The average cyclomatic complexity per method changed from {cc_old/message_count_old} to {cc_new/message_count_new}")
+    print(f"MCCABE'S WEIGHTED METHOD COUNT: The McCabe's weighted method count changed from {cc_old} to {cc_new}")
+    print(f"HALSTEAD'S COMPLEXITY MEASURES: The Halstead's complexity measures e.g. for Effort changed from {analyse_source_code(commit_data["source_old"], 'helstead')[10].split(":")[-1]} to {analyse_source_code(commit_data["source_new"], 'helstead')[10].split(":")[-1]}")
+    loc = int(analyse_source_code(commit_data["source_old"], 'docuementation_LOC')[4].split(":")[1])
+    loc_new = int(analyse_source_code(commit_data["source_new"], 'docuementation_LOC')[4].split(":")[1])
+    print(f"LINES OF COMMENT: The lines of comment changed from {loc} to {loc_new}")
+    print(f"DOCUMENTATION RATIO: The documentation ratio changed from {int(analyse_source_code(commit_data["source_old"], 'docuementation_LOC')[6].split(":")[1])/int(analyse_source_code(commit_data["source_old"], 'docuementation_LOC')[1].split(":")[1])} to {int(analyse_source_code(commit_data["source_new"], 'docuementation_LOC')[6].split(":")[1])/int(analyse_source_code(commit_data["source_new"], 'docuementation_LOC')[1].split(":")[1])}")
+    print(f"COMMENT LINES OF CODE: The comment lines of code changed from {analyse_source_code(commit_data["source_old"], 'docuementation_LOC')[4].split(":")[1]} to {analyse_source_code(commit_data["source_new"], 'docuementation_LOC')[4].split(":")[1]}")
+    print(f"METHOD COUNT: The method count changed from {message_count_old} to {message_count_new}")
+    print(f"CALL GRAPH: The call graphs are as follows and the differences are visualized in the diff graph")
+    sloc_old = len([line for line in commit_data["source_old"].split("\n")])
+    sloc_new = len([line for line in commit_data["source_new"].split("\n")])
+    print(f"MAINTAINABIKITY INDEX: The maintainability index changed from {max(0,(171 - 5.2 * log(float(analyse_source_code(commit_data["source_old"], 'helstead')[8].split(":")[-1])) - 0.23 * (cc_old) - 16.2 * log(sloc_old) + 50* sin(sqrt(2.4 * (loc)/(loc_new))))*100 / 171)} to {max(0,(171 - 5.2 * log(float(analyse_source_code(commit_data["source_new"], 'helstead')[8].split(":")[-1])) - 0.23 * (cc_new) - 16.2 * log(sloc_new)+50*sin(sqrt(2.4 * (loc)/(loc_new))))*100 / 171)}") if loc_new != 0 else 0
+    print(f"CODE QUALITY: The code quality changed from {analyse_source_code(commit_data["source_old"], 'pylint')[-3].split("at ")[-1].split(" ")[0]} to {analyse_source_code(commit_data["source_new"], 'pylint')[-3].split("at ")[-1].split(" ")[0]}")
+    graphs_old = generate_ast_graph(commit_data["source_old"])
+    graphs_new = generate_ast_graph(commit_data["source_new"])
+    for graph_old in graphs_old:
+        name_old = get_filename_for_graph("Exports", commit_data["filename_new"], commit_hash, graph_old, "old")
+        visualize_call_graph(graph_old, name_old)
+    for graph_new in graphs_new:
+        name_new = get_filename_for_graph("Exports", commit_data["filename_old"], commit_hash, graph_new, "new")
+        visualize_call_graph(graph_new, name_new)
+    
+    # TODO Run pylint programmaticaly
+    """
+    from pylint.lint import Run
+
+    results = Run(['test.py'], do_exit=False)
+    # `exit` is deprecated, use `do_exit` instead
+    print(results.linter.stats['global_note'])
+    """
 
 def check_ast(node, graph, parent=None):
     if isinstance(node, ast.Module):

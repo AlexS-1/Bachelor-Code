@@ -110,7 +110,7 @@ def extract_events_from_pull(pull_response):
             elif event["event"] == "closed":
                 insert_event(
                     f"{event['node_id']}",
-                    "close pull request",
+                    "close_pull_request",
                     timestamp,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "closed-on-pull_request"}]
@@ -119,7 +119,7 @@ def extract_events_from_pull(pull_response):
                 actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "reopened-by"}
                 insert_event(
                     f"{event['node_id']}",
-                    "reopen pull request",
+                    "reopen_pull_request",
                     timestamp,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "pr"}]
@@ -127,7 +127,7 @@ def extract_events_from_pull(pull_response):
             elif event["event"] == "merged":
                 insert_event(
                     f"{event['node_id']}",
-                    "merge pull request",
+                    "merge_pull_request",
                     timestamp,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
@@ -137,7 +137,7 @@ def extract_events_from_pull(pull_response):
                 review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
-                    "request review",
+                    "add_review_request",
                     timestamp,
                     [],
                     [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
@@ -147,7 +147,7 @@ def extract_events_from_pull(pull_response):
                 review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
-                    "remove review request",
+                    "remove_review_request",
                     timestamp,
                     [],
                     [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
@@ -156,7 +156,7 @@ def extract_events_from_pull(pull_response):
                 user_relation = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "commented-by"}
                 insert_event(
                     f"{event['node_id']}",
-                    "comment pull request",
+                    "comment_pull_request",
                     timestamp,
                     [{"name": "comment", "value": f"{event["body"]}"}],
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "on"}]
@@ -164,7 +164,7 @@ def extract_events_from_pull(pull_response):
             elif event["event"] == "ready-for-review":
                 insert_event(
                     f"{event['node_id']}",
-                    "mark ready for review",
+                    "mark_ready_for_review",
                     timestamp,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "in"}]
@@ -172,7 +172,7 @@ def extract_events_from_pull(pull_response):
             elif event["event"] == "renamed":
                 insert_event(
                     f"{event['node_id']}",
-                    "rename pull request",
+                    "rename_pull_request",
                     timestamp,
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
                     [{"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
@@ -181,7 +181,7 @@ def extract_events_from_pull(pull_response):
                 label = {"name": "label", "value": event["label"]["name"]}
                 insert_event(
                     f"{event['node_id']}",
-                    "add label",
+                    "add_label",
                     timestamp,
                     [label],
                     [actor, {"objectId": str(pull['number']), "qualifier": "labeled-on-pull_request"}]
@@ -190,23 +190,23 @@ def extract_events_from_pull(pull_response):
                 label = {"name": "label", "value": event["label"]["name"]}
                 insert_event(
                     f"{event['node_id']}",
-                    "remove label",
+                    "remove_label",
                     timestamp,
                     [label],
                     [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
                 )
             elif event["event"] == "reviewed":
                 if event["state"] == "approved":
-                    review_type = "approve review"
+                    review_type = "approve_review"
                     user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "approved-by"}
                 elif event["state"] == "changes_requested":
-                    review_type = "suggest changes"
+                    review_type = "suggest_changes_as_review"
                     user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "requested-by"}
                 elif event["state"] == "review_dismissed":
-                    review_type = "dismiss review"
+                    review_type = "dismiss_review"
                     user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "dismissed-by"}
                 else:
-                    review_type = "comment review"
+                    review_type = "comment_review"
                     user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "commented-by"}
                 timestamp = event["submitted_at"]
                 insert_event(
