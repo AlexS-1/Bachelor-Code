@@ -1,9 +1,9 @@
+from datetime import datetime
 import pymongo
 
-from build.utils import generic_to_python_type, rename_field
+from build.utils import date_1970, generic_to_python_type, rename_field
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["mydatabase"]
 ocdb = myclient["ocel"]
 
 ### Insert functions
@@ -77,7 +77,7 @@ def insert_file(data):
         data_to_insert = data
     except ValueError as e:
         raise ValueError("Data does not match the file change type: {e}")
-    insert_object("/".join([data["file-changed_by"], data["filename"], data["file_change_timestamp"]]), "file", data_to_insert)
+    insert_object(data["filename"], "file", data_to_insert)
 
 def insert_user(data):
     user_type = get_type("user")
@@ -108,26 +108,80 @@ def insert_object(id, object_type: str, data: dict):
     relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
     attributes = []
     relationships = []
+
+    # Check if the object already exists
+    existing_object = ocdb["objects"].find_one({"_id": id})
+
     if not attribute_keys and not relationship_keys:
+        # Replace object, as no times/relationships to update
         ocdb["objects"].replace_one({"_id": id}, {"type": object_type}, True)
-    if relationship_keys:
-        for key in relationship_keys:
-            if type(data[key]) == list:
-                for item in data[key]:
-                    relationships.append({"objectId": str(item), "qualifier": key})
-            elif type(data[key]) != list:
-                relationships.append({"objectId": str(data[key]), "qualifier": key})
-        if not attribute_keys:
-            ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "relationships": relationships}, True)
-            return
-    if attribute_keys:
+        return
+
+    if not existing_object:
+        existing_attributes = []
+        # If the object does not exist, create it
+        if relationship_keys:
+            for key in relationship_keys:
+                if type(data[key]) == list:
+                    for item in data[key]:
+                        relationships.append({"objectId": str(item), "qualifier": key})
+                elif type(data[key]) != list:
+                    relationships.append({"objectId": str(data[key]), "qualifier": key})
+            if not attribute_keys:
+                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "relationships": relationships}, True)
+                return
+        if attribute_keys:
+            for key in attribute_keys:
+                attributes.append({
+                    "name": key,
+                    "value": str(data[key]),
+                    "time": str(date_1970())
+                })
+            if not relationship_keys:
+                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
+                return
+    else:
+        # If the object exists, update it
+        existing_attributes = existing_object.get("attributes", [])
         for key in attribute_keys:
-            attributes.append({"name": key, "value": str(data[key]), "time": data[timestamp_keys[0]] if data[timestamp_keys[0]] else "" + str(data[timestamp_keys[1]])})
-        if not relationship_keys:
-            ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
-            return
+            new_value = str(data[key])
+            new_time = data[timestamp_keys[0]] if timestamp_keys else ""
+            # Check if the attribute already exists with the same name and timestamp
+            attribute_found = False
+            for attribute_object in existing_attributes:
+                if attribute_object["name"] == key:
+                    if attribute_object["time"] == new_time:
+                        # If an attribute with the same name and timestamp exists, skip adding it
+                        attribute_found = True
+                        break
+                    elif attribute_object["value"] == new_value:
+                        # If the value is the same but the timestamp is different, skip adding it
+                        attribute_found = True
+                        break
+            if not attribute_found:
+                # Add the new attribute only if it doesn't already exist with the same name and timestamp
+                attributes.append({
+                    "name": key,
+                    "value": new_value,
+                    "time": new_time
+                })
+
+        # Merge relationships if they exist
+        if relationship_keys:
+            for key in relationship_keys:
+                if type(data[key]) == list:
+                    for item in data[key]:
+                        relationships.append({"objectId": str(item), "qualifier": key})
+                elif type(data[key]) != list:
+                    relationships.append({"objectId": str(data[key]), "qualifier": key})
+
     try:
-        ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
+        # Update the object in the database
+        ocdb["objects"].replace_one(
+            {"_id": id}, 
+            {"type": object_type, "attributes": existing_attributes + attributes, "relationships": relationships}, 
+            True
+        )
     except (pymongo.errors.DocumentTooLarge, pymongo.errors.InvalidDocument) as e:
         print(e)
 
@@ -190,7 +244,7 @@ def initialise_objectTypes():
         "attributes": [
             {"name": "username", "type": "string"},
             {"name": "rank", "type": "string"}, # TODO Find way to model rank
-            {"name": "type", "type": "string"}
+            {"name": "is-bot", "type": "boolean"}
         ]
     }
     insert_objectType(user_type["name"], user_type["attributes"])

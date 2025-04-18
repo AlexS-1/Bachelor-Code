@@ -5,49 +5,27 @@ import os
 
 from build.database_handler import insert_commit, insert_file
 from build.utils import array_to_string, date_formatter, diff_to_dict
-from main import analyse_source_code
+from build.analysis import analyse_source_code
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
     return {
         "commit_sha": commit_sha,
         "message": message,
         "description": description,
-        "branch": list(branches),
-        "commit-authored-by": author,
-        "commit-to-repository": repository,
+        "to": [repository + ":" + branch for branch in branches],
+        "is-authored-by": author,
         "commit_timestamp": commit_timestamp,
-        "commit-includes-file_change": file_changes,
-        "commit-has-parent": parents
+        "aggregates": file_changes,
+        "is-child-of": parents
     }
 
 # TODO Add code quality metrics
-def create_file(
-        name, 
-        filename, 
-        file_change_timestamp, 
-        commit_sha, 
-        additions, 
-        deletions,
-        method_count,
-        theta_1,
-        theta_2,
-        N_1,
-        N_2,
-        loc,
-        lloc,
-        sloc,
-        cloc,
-        dloc,
-        blank_lines,
-        pylint_score,
-        anguage_popularity=None, typed=False):
+def create_file(name, filename, file_change_timestamp, commit_sha, method_count, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc,blank_lines, pylint_score, language_popularity=None, typed=False):
     return {
         "file-changed_by": name,
         "filename": filename,
         "file_change_timestamp": file_change_timestamp,
         "part-of-commit": commit_sha,
-        "additions": additions,
-        "deletions": deletions,
         "method_count": method_count,
         "theta_1": theta_1,
         "theta_2": theta_2,
@@ -66,21 +44,22 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
     commits_data = {}
     for commit in Repository(   repo_path, 
                                 since=from_date, 
-                                to=to_date,
-                                only_modifications_with_file_types=".py").traverse_commits():
+                                to=to_date).traverse_commits():
         file_changes = []
         commit_timestamp = date_formatter(commit.committer_date)
         for file in commit.modified_files:
             # Generate ID for the file object, to be referenced from the commit object
-            file_changes.append("/".join([
-                commit.committer.name, file.new_path if file.new_path != None else file.old_path, 
-                commit_timestamp]))
-            
+            file_changes.append(file.new_path if file.new_path != None else file.old_path)
+            if file.new_path != None and file.new_path.endswith(".py"):
             # Gather code quality data
-            _, method_count = analyse_source_code(file.source_code, "cc")
-            theta_1, theta_2, N_1, N_2 = analyse_source_code(file.source_code, "helstead")
-            # TODO Add code quality metrics
-
+                _, method_count = analyse_source_code(file.source_code, "cc")
+                theta_1, theta_2, N_1, N_2 = [int(i.split(": ")[-1]) for i in analyse_source_code(file.source_code, "helstead")[1:5]]
+                loc, lloc, sloc, _, cloc, dloc, blank_lines = [int(i.split(" ")[-1]) for i in analyse_source_code(file.source_code, "loc")[1:8]]
+                pylint_score = float(analyse_source_code(file.source_code, "pylint"))
+            else:
+                method_count, theta_1, theta_2, N_1, N_2 = -1, -1, -1, -1, -1
+                loc, lloc, sloc, cloc, dloc, blank_lines = -1, -1, -1, -1, -1, -1
+                pylint_score = -1
             # TODO Add code quality metrics
             file = create_file(
                 commit.committer.name, 
@@ -88,7 +67,19 @@ def get_and_insert_commits_data(repo_path, from_date, to_date, file_types):
                 commit_timestamp, 
                 commit.hash,
                 array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["added"]]), 
-                array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["deleted"]]))
+                array_to_string([str(diff_to_dict(line)) for line in file.diff_parsed["deleted"]]),
+                method_count,
+                theta_1,
+                theta_2,
+                N_1,
+                N_2,
+                loc,
+                lloc,
+                sloc,
+                cloc,
+                dloc,
+                blank_lines,
+                pylint_score)
             insert_file(file)
         commit_object = create_commit(
             commit.hash, 

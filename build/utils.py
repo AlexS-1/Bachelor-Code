@@ -36,6 +36,9 @@ def generic_to_python_type(python_type):
 def date_formatter(date):
     return date.strftime('%Y-%m-%dT%H:%M:%SZ')
 
+def date_1970():
+    return datetime.datetime(1970, 1, 1, 0, 0, 0, 0)
+
 def validate_json(data_file_path, schema_file_path):
     with open(data_file_path, 'r') as data_file:
         data = json.load(data_file)

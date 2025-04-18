@@ -1,7 +1,6 @@
 import os
 import re
 import subprocess
-import pylint
 import spacy
 import ast
 import networkx as nx
@@ -14,9 +13,9 @@ from pm4py.vis import save_vis_ocdfg as write_el
 from sklearn import svm
 from graphviz import Digraph
 from numpy import log, sin, sqrt
+from pylint.lint import Run
 
 from build.utils import write_to_file
-from build.pydriller import get_initial_commit_hash
 
 # Load the spaCy model
 # nlp = spacy.load("en_core_web_md")
@@ -34,21 +33,21 @@ adaptive_examples = [
     "Adapt the code to new requirements"
 ]
 
-def analyse_message(message):
-    # Process the message with spaCy
-    message_doc = nlp(message)
+# def analyse_message(message):
+#     # Process the message with spaCy
+#     message_doc = nlp(message)
 
-    # Calculate similarity with corrective examples
-    corrective_similarity = max(message_doc.similarity(nlp(example)) for example in corrective_examples)
+#     # Calculate similarity with corrective examples
+#     corrective_similarity = max(message_doc.similarity(nlp(example)) for example in corrective_examples)
 
-    # Calculate similarity with adaptive examples
-    adaptive_similarity = max(message_doc.similarity(nlp(example)) for example in adaptive_examples)
+#     # Calculate similarity with adaptive examples
+#     adaptive_similarity = max(message_doc.similarity(nlp(example)) for example in adaptive_examples)
 
-    # Classify based on the highest similarity score
-    if corrective_similarity > adaptive_similarity:
-        return "Corrective"
-    else:
-        return "Adaptive"
+#     # Classify based on the highest similarity score
+#     if corrective_similarity > adaptive_similarity:
+#         return "Corrective"
+#     else:
+#         return "Adaptive"
 
 def analyse_ocel(ocel_path, export_path):
     # Exemplary implementation of analysis script
@@ -138,7 +137,7 @@ def analyse_source_code(source_code: str, code_metric: str):
         )
         os.remove(path)
         return result.stdout.split("\n")
-    if code_metric == "docuementation_LOC":
+    if code_metric == "loc":
         path = "temp.py"
         write_to_file(path, source_code)
         result = subprocess.run(
@@ -152,14 +151,14 @@ def analyse_source_code(source_code: str, code_metric: str):
     if code_metric == "pylint":
         path = "temp.py"
         write_to_file(path, source_code)
-        result = subprocess.run(
-            ['pylint', path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+        options = [
+            path, 
+            "--output-format=json:somefile.json"
+        ]
+        results = Run(options, exit=False)
         os.remove(path)
-        return result.stdout.split("\n")
+        os.remove("somefile.json")
+        return results.linter.stats.global_note
 
 
 def get_cyclomatic_complexity(file_path: str):
@@ -190,7 +189,6 @@ def get_cyclomatic_complexity(file_path: str):
 def get_code_metrics(commit_hash, commit_data, repo_path):
     cc_old, message_count_old = analyse_source_code(commit_data["source_old"], "cc")
     cc_new, message_count_new = analyse_source_code(commit_data["source_new"], "cc")
-    initial_commit_hash = get_initial_commit_hash(repo_path)
     print(f"HALSTEAD: Changed from {analyse_source_code(commit_data["source_old"], 'helstead')[1:5]} to {analyse_source_code(commit_data["source_new"], 'helstead')[1:5]}")
     print(f"CYCLOMATIC COMPLEXITY: The average cyclomatic complexity per method changed from {cc_old/message_count_old} to {cc_new/message_count_new}")
     print(f"MCCABE'S WEIGHTED METHOD COUNT: The McCabe's weighted method count changed from {cc_old} to {cc_new}")
@@ -214,15 +212,6 @@ def get_code_metrics(commit_hash, commit_data, repo_path):
     for graph_new in graphs_new:
         name_new = get_filename_for_graph("Exports", commit_data["filename_old"], commit_hash, graph_new, "new")
         visualize_call_graph(graph_new, name_new)
-    
-    # TODO Run pylint programmaticaly
-    """
-    from pylint.lint import Run
-
-    results = Run(['test.py'], do_exit=False)
-    # `exit` is deprecated, use `do_exit` instead
-    print(results.linter.stats['global_note'])
-    """
 
 def check_ast(node, graph, parent=None):
     if isinstance(node, ast.Module):

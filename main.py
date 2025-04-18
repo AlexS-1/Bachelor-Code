@@ -1,22 +1,22 @@
 import os
 from datetime import datetime, timedelta
 
-from build.analysis import analyse_source_code, generate_ast_graph, get_filename_for_graph, visualise_diff_graph, visualize_call_graph
+from build.analysis import analyse_ocel
 from build.api_handler import get_repo_information, get_closed_pulls
-from build.pydriller import get_and_insert_commits_data, get_and_store_commits_data, get_initial_commit_hash, get_pydriller_metric
-from build.utils import clone_ropositoriy, read_from_file, write_json
-from build.database_handler import initialise_database
+from build.pydriller import get_and_insert_commits_data, get_and_store_commits_data
+from build.utils import clone_ropositoriy, write_json
+from build.database_handler import get_ocel_data, initialise_database
 
 
 def main():
     # Convert repo URL to path by cloning repo to temporary dictionary
-    repo_url = "https://github.com/srbhr/Resume-Matcher"
+    repo_url = "https://github.com/AlexS-1/Toy-Example"
     api_url = repo_url.replace("github.com", "api.github.com/repos")
 
     # Setting different timeperiod
     start_time = datetime.today().replace(
         tzinfo=None,
-        microsecond=0) - timedelta(days=100)
+        microsecond=0) - timedelta(days=200)
     end_time = datetime.today().replace(microsecond=0)
 
     # Select from the supported file types for comment extraction

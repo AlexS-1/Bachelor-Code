@@ -2,7 +2,9 @@ import time
 import requests
 import os
 
-from build.database_handler import insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_review, insert_test_run, insert_user
+from tomlkit import date
+
+from build.database_handler import date_1970, insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_review, insert_test_run, insert_user
 
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
@@ -45,7 +47,6 @@ def get_repo_information(repo_url):
             "created_at": repo_response["created_at"], #TODO Check if it was modified and how to get data (e.g. rename of repository)
         }
     }
-    insert_repo(repo_information)
     return repo_information
 
 def get_closed_pulls(pulls_url, pages = 1):
@@ -54,11 +55,11 @@ def get_closed_pulls(pulls_url, pages = 1):
         pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
         extract_events_from_pull(pull_response)
         for pull in pull_response:
-            comments = get_related_comments(pull["comments_url"])
+            # comments = get_related_comments(pull["comments_url"])
             pull_content = {
-                "merge_commit_sha":  pull["merge_commit_sha"],
+                "is-merged-with":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
-                "author": get_name_by_username(pull["user"]["login"], pull["author_association"]),
+                "is-authored-by": get_name_by_username(pull["user"]["login"], pull["author_association"]),
                 "title": pull["title"],
                 "description": pull["body"],
                 "merged_at_timestamp": pull["merged_at"],
@@ -66,21 +67,20 @@ def get_closed_pulls(pulls_url, pages = 1):
                 "closed_at_timestamp": pull["closed_at"],
                 # "head_branches_url": pull["head"]["label"].split(":")[0]+"/Resume-Matcher" if not pull["head"]["repo"]["branches_url"][:-9] else pull["head"]["repo"]["branches_url"][:-9],
                 # "base_branches_url": pull["base"]["repo"]["branches_url"][:-9],
-                "branch_to_pull_from": pull["head"]["ref"],
-                "origin_branch": pull["base"]["ref"],
+                # "branch_to_pull_from": pull["head"]["ref"],
+                # "origin_branch": pull["base"]["ref"],
                 # "closing_issues": 0, # TODO Fix to parse description and crawl github.com or otherwise retrieve respective field -> GH Archive maybe
-                "participants": 
+                "has-participant": 
                     [get_name_by_username(pull["user"]["login"])] + 
-                    [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]] + 
-                    [comment.split("/")[0] for comment in comments],
-                "reviewers": [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
-                "assignees": [get_name_by_username(user["login"]) for user in pull["assignees"]],
-                "comments": comments,
-                "commits": get_related_commits(pull["commits_url"]),
-                "file_changes": get_related_files(pull["url"] + "/files"),
-                "test_runs": get_related_ci_cd(pull["url"].split("pulls")[0] + "commits/" + pull["head"]["sha"]),
-                "state": "merged" if pull["merged_at"] else "closed",
-            }
+                    [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]],
+                "is-reviewed-by": [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
+                # "assignees": [get_name_by_username(user["login"]) for user in pull["assignees"]],
+                # "comments": comments,
+                "formalises": get_related_commits(pull["commits_url"]),
+                "aggregates": get_related_files(pull["url"] + "/files"),
+                # "test_runs": get_related_ci_cd(pull["url"].split("pulls")[0] + "commits/" + pull["head"]["sha"]),
+                "state": "open",
+            } 
             insert_pull(pull_content)
             pulls[pull["number"]] = pull_content
     return pulls
@@ -353,16 +353,22 @@ def get_anonymous_user_counter():
 
 def get_name_by_username(username, author_association = "NONE"):
     global anonymous_user_counter
-    user_response = get_api_response(f"https://api.github.com/users/{username}")
-    if user_response["name"] is None and user_response["type"] == "User":
-        anonymous_user_counter[username] = anonymous_user_counter.get(username, 0) + 1
+    user_response = {
+        "name": None,
+        "login": username,
+        "type": "Bot",
+        "updated_at": date_1970(),
+    }
+    if username != "Copilot":
+        user_response = get_api_response(f"https://api.github.com/users/{username}")
+        if user_response["name"] is None and user_response["type"] == "User":
+            anonymous_user_counter[username] = anonymous_user_counter.get(username, 0) + 1
     user = {
         "name": user_response["name"] if user_response["name"] else username, 
-        "username": user_response["login"], 
+        "username": user_response["login"] if user_response["login"] else username, 
         "rank": author_association,
-        "type": "user" if user_response["type"] == "User" else "bot", 
-        "created_at_timestamp": user_response["updated_at"]
+        "is-bot": False if user_response["type"] == "User" else True, 
+        "created_at_timestamp": user_response["updated_at"] if user_response["updated_at"] else date_1970(),
     }
     insert_user(user)
-    print("TYPE: ", user_response["type"])
     return user["name"]
