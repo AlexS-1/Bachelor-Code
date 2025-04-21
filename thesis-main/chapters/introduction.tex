@@ -1,13 +1,25 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze e.g. procurement or order management processes. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the intricate details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel}  allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing the experience of others. 
+\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze business processes e.g., procurement or order management. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the intricate details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel}  allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing metrics. 
 	
-\paragraph{Problem.} Many repositories use \ac{cicd} pipe-lines that check whether changes made to parts of the code cause issues in the already existing code base. Often times developers do not question why a test fails or passes, but instead just focus on building code that passes the needed tests. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the outcomes besides passing or not are hardly checked. Therefore, gaining insights into how code quality evolves within one pull request or the code base and where to request changes are vital steps towards understanding the code base better and thus delivering higher quality code.
+\paragraph{Problem.} Many repositories use \ac{cicd} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often developers do not question why a test fails or passes, but instead focus on building code that passes the needed tests \author{...}. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the results besides passing or not are hardly checked. Therefore, gaining insights into how code quality evolves within one pull request or the code base and where to request changes are vital steps towards understanding the code base better and thus delivering higher quality code.
 
-\paragraph{Method.} On the one hand, using GitHub's REST \ac{api} provides insights into what steps were carried out, on the other hand generalizations over multiple pull requests are not directly extractable. \Ac{ocpm} can be used to generate process models for multiple viewpoints in one event log. Compared to traditional process mining, this enables to use it as a single source of truth for building process models. In this fashion, multiple viewpoints i.e. activities form the perspective of one user, one pull request or one file can be conceited. Through examining the event log for details of one object type, reviewers can utilise historical data about similar instances to help them decide whether to merge a pull request or request additional changes. Furthermore, visualising processes e.g., for certain development teams, enables all developers to apply efficient variations into their workflow.
+\paragraph{Method.} Steps in enumeration
+\begin{enumerate}
+	\item Extract data using GitHub's \ac{rest api} and cloning the repository to local drive
+	\item Analyze file changes with respect to code quality improvements
+	\item Store analysis data as \ac{ocel} in MongoDB, a document-based database
+	\item Analyze data using PM4Py to discover a process model of the contribution process to selected repositories
+	\item Use conformance checking to compare expected contribution process with discovered process model
+	\item (Use root cause analysis to find reasons, why real-life process does not match expected process model)
+\end{enumerate}
 
-\paragraph{Evaluation.} Verify code quality metrics against data from similar tool: \emph{wiley}.
+\paragraph{Evaluation.} 
+\begin{itemize}
+	\item Verify code quality metrics against data from similar tool: \emph{wiley}.
+	\item Conformance checking of discovered process model with expected contribution process
+\end{itemize} 
 
 \section{Motivation}
 \label{sec:intro_ssec:motiv}
@@ -15,14 +27,14 @@
 \begin{itemize}
 	\item No known implementation of data extraction of pull request information from GitHub repositories to form event log or \ac{ocel}
 	\item Novel combination of code quality analysis with process mining
-	\item Lack of user-friendly tools to analyse OCEL not just for process mining, but also general querying for information e.g., about pull request author
+	\item Lack of user-friendly tools to analyze \ac{ocel} not just for process mining, but also general querying for information e.g., about pull request author
 \end{itemize}
 
 \paragraph{Existing Solutions.}
 \begin{itemize}
 	\item Data extraction with data only from git (local repository) and REST API exist separately, but to the author's knowledge no combined approach exists
-	\item Code quality metrics have existed for long time, were refined, but too little focus of code quality changes $\Rightarrow$ Use process mining to visualise the change of code quality along the process
-	\item Easy to use web-based tools exist to visualise an \ac{ocel} and show general statistics, but lack of possibility to query event log to answer specific questions
+	\item Code quality metrics have existed for long time, were refined, but too little focus of code quality changes $\Rightarrow$ Use process mining to visualize the change of code quality along the process
+	\item Easy to use web-based tools exist to visualize an \ac{ocel} and show general statistics, but lack of possibility to query event log to answer specific questions
 \end{itemize}
 
 
@@ -41,8 +53,8 @@
 	\item Which data sources exist for extracting data from git repositories
 	\item How does code quality change, when introducing adapted processes
 	\item Which steps need to be taken to unify data from different sources
-	\item How can the insights gathered through process mining be visualised in a user-friendly way
-	\item How far do planned processes listed in contribution guides differ from real processes?
+	\item How can the insights gathered through process mining be visualized in a user-friendly way
+	\item How much do real processes differ from specified processes listed in contribution guidelines?
 \end{itemize}
 
 \section{Research Goals}
@@ -59,7 +71,8 @@
 \section{Contributions}
 \label{sec:intro_ssec:c}
 \begin{itemize}
-	\item \textbf{To be written later, when implementation and other relevant parts are finished}
+	\item Extraction pipeline to combine local and remote data from GitHub in one \ac{ocel} for process mining
+	\item 
 \end{itemize}
 
 

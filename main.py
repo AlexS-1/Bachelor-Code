@@ -28,13 +28,13 @@ def main():
     initialise_database()
 
     # Get & store code data usingy PyDriller before deleting cloned repository
-    if not os.path.exists(f"../tmp/{repo_url.split('/')[-1]}"):        
+    if not os.path.exists(f"../tmp/{repo_url.split('/')[-1]}"):
         repo_path = clone_ropositoriy(repo_url)
     else:
         repo_path = os.path.abspath(f"../tmp/{repo_url.split('/')[-1]}")
     get_and_insert_commits_data(repo_path, start_time, end_time, file_types)
     commits = get_and_store_commits_data(repo_path, start_time, end_time, file_types)
-    
+
     write_json("Data/commits.json", commits)
 
     repo_info = get_repo_information(api_url)
