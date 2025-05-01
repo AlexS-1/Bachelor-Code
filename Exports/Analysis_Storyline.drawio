@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Anaysis-Goals" id="97916047-d0de-89f5-080d-49f4d83e522f">
-        <mxGraphModel dx="1838" dy="944" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+        <mxGraphModel dx="1386" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -214,67 +214,67 @@
                 <mxCell id="284" value="&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;For selected repositoreis insert URL for fetching pull request and commit information&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Decide on timeframe of analysis (consider time frame definition per commit sha, tag, date or release)&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check already stored event types and object types for style and adherence to current definition&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new object types and event types to OCEL log&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new object to OCEL&lt;/font&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check if object already exists by using its ID&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check adherence to defined object type in 4.&amp;nbsp;&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add object with its relationships and initial attributes to OCEL&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add new events to OCEL&lt;/font&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check if event at same time already exists and compare IDs&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Check adherence to event types defined in 4.&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Add event with its relationships and update objects accordingly (e.g. rename)&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Export/store OCEL or otherwise mark extraction as finished&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Analyse OCEL according to above analysis questions&lt;/font&gt;&lt;/li&gt;&lt;/ol&gt;" style="align=left;html=1;whiteSpace=wrap;verticalAlign=top;spacing=0;" parent="1" vertex="1">
                     <mxGeometry x="810" y="900" width="540" height="330" as="geometry"/>
                 </mxCell>
-                <mxCell id="287" value="What is code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                <mxCell id="287" value="What is code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="150" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="288" value="How is code quality measured?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                <mxCell id="288" value="How is code quality measured?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="140" y="90" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="289" value="What types of code quality metrics exist?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                <mxCell id="289" value="What types of code quality metrics exist?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="210" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="290" value="Why is the pull request process targeted for analysis in this thesis?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                <mxCell id="290" value="Why is the pull request process targeted for analysis in this thesis?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="340" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="293" value="What is the baseline development process and code quality" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="293" value="What is the baseline development process and code quality" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="932" y="345" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="294" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" vertex="1" parent="1">
+                <mxCell id="294" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="1" vertex="1">
                     <mxGeometry x="967" y="390" width="10" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="295" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" vertex="1" parent="1">
+                <mxCell id="295" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="1" vertex="1">
                     <mxGeometry x="972" y="390" width="5" height="5" as="geometry"/>
                 </mxCell>
-                <mxCell id="296" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" vertex="1" parent="1">
+                <mxCell id="296" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="1" vertex="1">
                     <mxGeometry x="967" y="390" width="5" height="5" as="geometry"/>
                 </mxCell>
-                <mxCell id="304" value="Which categories of code quality metrics exist?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="304" value="Which categories of code quality metrics exist?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="810" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="305" value="Which objects and events can be related with code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="305" value="Which objects and events can be related with code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="910" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="306" value="Does the Pylint score evolve differently compared to the Maintainability Index?" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="306" value="Does the Pylint score evolve differently compared to the Maintainability Index?" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="1010" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="309" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="307" target="308">
+                <mxCell id="309" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="307" target="308" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="307" value="Can changes in the contribution process can be measured in code quality?" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="307" value="Can changes in the contribution process can be measured in code quality?" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="1110" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="308" value="What measures influence code quality" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="308" value="What measures influence code quality" style="rounded=1;align=center;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="1060" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="310" value="After which time can developers expect changes in guidelines to be reflected in real life processes?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="310" value="After which time can developers expect changes in guidelines to be reflected in real life processes?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="1210" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="311" value="How does a new process instance compare to older models with respect ot response time, process &amp;amp; code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="311" value="How does a new process instance compare to older models with respect ot response time, process &amp;amp; code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="1260" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="312" value="How often do contribution guidelines change" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="312" value="How often do contribution guidelines change" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="830" y="350" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="313" value="How many pull requests are developers working on simultaneously?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                <mxCell id="313" value="How many pull requests are developers working on simultaneously?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="1310" y="180" width="40" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="316" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                <mxCell id="316" value="" style="endArrow=none;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="11" y="850" as="sourcePoint"/>
                         <mxPoint x="1761" y="850" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="318" value="" style="group" vertex="1" connectable="0" parent="1">
+                <mxCell id="318" value="" style="group" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="1220" y="480" width="45" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="74" value="How often are files edited?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="318" vertex="1">
@@ -286,7 +286,7 @@
                 <mxCell id="138" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="318" vertex="1">
                     <mxGeometry x="40" y="45" width="5" height="5" as="geometry"/>
                 </mxCell>
-                <mxCell id="319" value="" style="group" vertex="1" connectable="0" parent="1">
+                <mxCell id="319" value="" style="group" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="1220" y="540" width="45" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="76" value="Which file type is modified most often?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="319" vertex="1">
@@ -298,7 +298,7 @@
                 <mxCell id="166" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="319" vertex="1">
                     <mxGeometry x="40" y="45" width="5" height="5" as="geometry"/>
                 </mxCell>
-                <mxCell id="320" value="" style="group" vertex="1" connectable="0" parent="1">
+                <mxCell id="320" value="" style="group" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="1280" y="540" width="45" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="WlSLyMddTxWrjb-d0O-I-139" value="How does &amp;nbsp;meaningfulness of metrics compare and how are individual quality metrics combined to form one code quality score?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="320" vertex="1">
@@ -310,7 +310,7 @@
                 <mxCell id="130" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=middle;spacingLeft=0;labelPosition=right;verticalLabelPosition=middle;" parent="320" vertex="1">
                     <mxGeometry x="40" y="45" width="5" height="5" as="geometry"/>
                 </mxCell>
-                <mxCell id="321" value="" style="group" vertex="1" connectable="0" parent="1">
+                <mxCell id="321" value="" style="group" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="1010" y="350" width="45" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="75" value="Is the size/frequency of edits decreasing as the codebase gets more stable or larger and how does this influence code quality?" style="rounded=1;whiteSpace=wrap;html=1;align=left;perimeterSpacing=3;strokeWidth=1;spacingLeft=0;spacingBottom=0;spacingTop=0;spacingRight=0;spacing=5;fontSize=4;fillColor=#f8cecc;strokeColor=#b85450;" parent="321" vertex="1">
@@ -557,7 +557,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="eKUK3vrR_9GYCevPWeM6" name="Overview-Diagram">
-        <mxGraphModel dx="758" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="95" dy="66" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -603,8 +603,59 @@
                 <mxCell id="GslqEcg6We2W02iY_cbz-16" value="File" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="910" y="230" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="GslqEcg6We2W02iY_cbz-17" value="Method?" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="GslqEcg6We2W02iY_cbz-17" value="Method" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="850" y="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-1" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Dashboard2.svg;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="725.88" width="40" height="28.24" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-2" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/File.svg;" vertex="1" parent="1">
+                    <mxGeometry x="363.77" y="690" width="32.46" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-3" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Files.svg;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="480" width="36.57" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-4" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/preview/Static_Apps.svg;" vertex="1" parent="1">
+                    <mxGeometry x="360" y="748" width="40" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.git_repository;" vertex="1" parent="1">
+                    <mxGeometry x="285" y="720" width="30.77" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-6" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.github_code;pointerEvents=1;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="600" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-7" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.git_repository;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="520" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-8" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.data2;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="720" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-9" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.workflow2;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="660" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-10" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.personalization2;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="720" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-11" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.bots2;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="780" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-12" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="250" y="690" as="sourcePoint"/>
+                        <mxPoint x="280" y="720" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-13" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="250" y="790" as="sourcePoint"/>
+                        <mxPoint x="280" y="760" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="BHwpJ0VD3osPqOIF6x2w-14" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="250" y="740" as="sourcePoint"/>
+                        <mxPoint x="280" y="740" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

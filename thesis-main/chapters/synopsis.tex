@@ -1,0 +1,46 @@
+\chapter*{Synopsis: Object-Centric Process Mining of Contribution Workflows in Git Repositories: A Code Quality Perspective}
+\label{chap:synopsis}
+
+\section*{Motivation}
+The process of contributing to open-source software repositories often involves complex interactions between developers, reviewers, and automated tools. Understanding and optimizing this process is crucial for project quality, developer onboarding, and decision-making. However, it remains unclear how close contribution guidelines are followed in practice and if their restrictiveness positively impacts code quality and code review outcomes.
+
+\section*{Research Problem}
+Details about the current pull request workflow can be hard to understand, especially for new contributors. In large repositories, getting to know the employed process is challenging. Understanding which changes are accepted and which require rework is non-trivial. This thesis aims to uncover how process dynamics, the structure of pull requests and the corresponding guidelines affect code quality.
+
+\section*{Research Questions}
+\begin{itemize}[noitemsep]
+    \item RQ1: To what extent do proposed processes in contribution guidelines differ from executed processes in the respective repository?
+    \item RQ2: How does code quality vary throughout the history of a repository?
+    \item RQ3: How do changes in contribution guidelines affect code quality?
+\end{itemize}
+
+\section*{Approach and Methodology}
+\begin{enumerate}[noitemsep]
+    \item Extract unstructured commit data through cloning a Git repository.
+    \item Extract structured event data on pull requests
+    \item Generate an \ac{ocel} allowing the analysis of multiple viewpoints on code quality and the contribution process
+    \item Apply process mining techniques to model and analyze pull request workflows.
+    \item Measure and visualize code quality evolution using static analysis metrics (e.g., Maintainability Index and Pylint score)
+    \item Analyze effect of pull request patterns on code quality
+    \begin{enumerate}
+    		\item Detect changes in contribution guidelines through pull requests with documentation label or commits to non-source code files
+    		\item Discover process models for pull requests in intervals between changes in contribution guidelines
+    		\item Correlate changes in contribution guidelines with changes in code quality
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Expected Contribution}
+\begin{itemize}[noitemsep]
+    \item A reusable framework for generating process models from GitHub pull requests
+    \item A modular framework to visualize the code quality throughout a git repository's history
+    \item A case study on the effects of contribution guidelines on code quality using three large Python GitHub repositories.
+\end{itemize}
+
+\section*{Planned Timeline}
+\begin{itemize}[noitemsep]
+    \item Toy example \& proof of concept: 01 may -- 14 may
+    \item Implementation: 15 may -- 22 may
+    \item Evaluation and analysis: 23 may -- 31 may
+    \item Writing: 01 june -- 07 june
+    \item Submission: 08 june
+\end{itemize}
