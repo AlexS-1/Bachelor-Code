@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-```main.py``` includes all the current capabilities and can be run using the command. It is recommended to run the project in an virtual environment. To make use of storing data in MongoDB a local database instance is created. You also need to add your ```GITHUB_TOKEN``` in the environment. For more information please refer to the [GitHub Documentation](https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28).
+```main.py``` includes all the current capabilities. It is recommended to run the project in an virtual environment. To make use of storing data in MongoDB a local database instance is created. You also need to add your ```GITHUB_TOKEN``` in the environment. For more information please refer to the [GitHub Documentation](https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28).
 
 ```bash
 python main.py

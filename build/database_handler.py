@@ -4,9 +4,9 @@ import pymongo
 from build.utils import date_1970, generic_to_python_type, rename_field
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-ocdb = myclient["ocel"]
+ocdb = myclient["OCEL"]
 
-### Insert functions
+### Insert object-type functions
 def insert_commit(data):
     commit_type = get_type("commit")
     try: 
@@ -16,15 +16,6 @@ def insert_commit(data):
         raise ValueError(f"Data does not match the commit type: {e}")
     insert_object(data["commit_sha"], "commit", data_to_insert)
 
-def insert_repo(data):
-    repository_type = get_type("repository")
-    try:
-        verify_objectType(data, repository_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "utility_information" or k != "name"}
-    except ValueError as e:
-        raise ValueError(f"Data does not match the repository type: {e}")
-    insert_object(data["name"], "repository", data_to_insert)
-
 def insert_pull(data):
     pull_request_type = get_type("pull_request")
     try:
@@ -33,42 +24,6 @@ def insert_pull(data):
     except ValueError as e: 
         raise ValueError(f"Data does not match the pull request type: {e}")
     insert_object(data["number"], "pull_request", data_to_insert)
-
-def insert_issue(data):
-    issue_type = get_type("issue")
-    try:
-        verify_objectType(data, issue_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "number"}
-    except ValueError as e:
-        raise ValueError(f"Data does not match the issue type: {e}")
-    insert_object(data["number"], "issue", data_to_insert)
-
-def insert_comment(data):
-    comment_type = get_type("comment")
-    try:
-        verify_objectType(data, comment_type)
-        data_to_insert = data
-    except ValueError as e:
-        raise ValueError(f"Data does not match the comment type: {e}")
-    insert_object(data["comment-authored-by"] + "/" + str(data["timestamp"]), "comment", data_to_insert)
-
-def insert_review(data):
-    review_type = get_type("review")
-    try:
-        verify_objectType(data, review_type)
-        data_to_insert = data
-    except ValueError as e:
-        raise ValueError(f"Data does not match the review type: {e}")
-    insert_object(data["review-authored-by"] + "/" + str(data["timestamp"]), "review", data_to_insert)
-
-def insert_test_run(data):
-    test_run_type = get_type("test_run")
-    try:
-        verify_objectType(data, test_run_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "id"}
-    except ValueError as e:
-        raise ValueError(f"Data does not match the test run type: {e}")
-    insert_object(data["id"], "test_run", data_to_insert)
 
 def insert_file(data):
     file_type = get_type("file")
@@ -88,9 +43,7 @@ def insert_user(data):
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert)
 
-def insert_method(data):
-    pass
-    # TODO Implement method insertion
+### TODO Make inserting events and objects consistent
 
 ### Generic insert functions
 def insert_eventType(name, attributes):
@@ -208,37 +161,6 @@ def initialise_database():
     initialise_eventTypes()
 
 def initialise_objectTypes():
-    # issue_type = {
-    #     "name": "issue", 
-    #     "attributes": [ 
-    #         {"name": "title", "type": "string"}, 
-    #         {"name": "description", "type": "string"}, 
-    #         {"name": "type", "type": "string"} # TODO Decide on use e.g. from standard naming conventions, always used labels, NLP techniques on content or combination thereof
-    #     ]
-    #     # Relationships listed for later use when creating objects (with relationships)
-    #     # "relationships": [
-    #     #     {"objectId": "author", "qualifier": "authored-by"},
-    #     #     {"objectId": "assignees", "qualifier": "assigned-to"},
-    #     #     {"objectId": "comments", "qualifier": "has"},
-    #     #     {"objectId": "repository", "qualifier": "comprises"}, 
-    #     #     {"objectId": "pull_requests", "qualifier": "is-related-to"},
-    #     # ]
-    # }
-    # insert_objectType(issue_type["name"], issue_type["attributes"])
-    # repository_type = {
-    #     "name": "repository",
-    #     "attributes": [
-    #         {"name": "name", "type": "string"}
-    #     ]
-    #     # Relationships listed for later use when creating objects (with relationships)
-    #     # "relationships": [,
-    #     #     {"objectId": "branches", "qualifier": "has"},
-    #     #     {"objectId": "owner", "qualifier": "owned-by"},
-    #     #     {"objectId": "commit", "qualifier": "includes"},
-    #     #     {"objectId": "pull_requests", "qualifier": "string"},
-    #     # ]
-    # }
-    # insert_objectType(repository_type["name"], repository_type["attributes"])
     user_type = {
         "name": "user",
         "attributes": [
@@ -248,17 +170,7 @@ def initialise_objectTypes():
         ]
     }
     insert_objectType(user_type["name"], user_type["attributes"])
-    # comment_type = {
-    #     "name": "comment",
-    #     "attributes": [
-    #         {"name": "message", "type": "string"}
-    #     ]
-    #     # Relationships listed for later use when creating objects (with relationships)
-    #     # "relationships": [
-    #     #     {"objectId": "user", "qualifier": "commented-by"}
-    #     # ]
-    # }
-    # insert_objectType(comment_type["name"], comment_type["attributes"])
+    
     commit_type = {
         "name": "commit",
         "attributes": [
@@ -267,14 +179,6 @@ def initialise_objectTypes():
             {"name": "description", "type": "string"},
             {"name": "to", "type": "string"},
         ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "user", "qualifier": "authored-by"},
-        #     {"objectId": "user", "qualifier": "co-authored-by"},
-        #     {"objectId": "file_change", "qualifier": "aggregates"},
-        #     {"objectId": "repository", "qualifier": "commit-to"},
-        #     {"objectId": "commit", "qualifier": "is-child-of"}, # TODO Discuss if this is necessary, can have relationship with multiple parents
-        # ]
     }
     insert_objectType(commit_type["name"], commit_type["attributes"])
     pull_request_type = {
@@ -284,22 +188,6 @@ def initialise_objectTypes():
             {"name": "description", "type": "string"},
             {"name": "state", "type": "string"},
         ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "user", "qualifier": "authored-by"},
-        #     {"objectId": "file_change", "qualifier": "aggregates"},
-        #     {"objectId": "commit", "qualifier": "formalises"},
-        #     {"objectId": "user", "qualifier": "has-participant"},
-        #     {"objectId": "user", "qualifier": "is-reviewd-by"},
-        #     {"objectId": "comment", "qualifier": "has"},
-        #     {"objectId": "test_run", "qualifier": "has"},
-        #     {"objectId": "issue", "qualifier": "is-related-to"},
-        #     {"objectId": "pull_request", "qualifier": "is-related-to"},
-        #     {"objectId": "issue", "qualifier": "would-close"}, # TODO Define according to analysis goal
-        #     {"objectId": "repository", "qualifier": "is-used-as-policy-in}
-        #     {"objectId": "repository", "type": "head-branch-to-pull-from"},
-        #     {"objectId": "repository", "type": "base-branch-to-pull-to"},
-        # ]
     }
     insert_objectType(pull_request_type["name"], pull_request_type["attributes"])
     file_type = {
@@ -319,68 +207,8 @@ def initialise_objectTypes():
             {"name": "blank_lines", "type": "int"},
             {"name": "pylint_score", "type": "float"}
         ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "commit", "qualifier": "part-of"},
-        #     {"objectId": "user", "qualifier": "changed-by"},
-        # ]
     }
     insert_objectType(file_type["name"], file_type["attributes"])
-    method_tpye = {
-        "name": "method",
-        "attributes": [
-            {"name": "cyclomatic_complexity", "type": "int"},
-            {"name": "theta_1", "type": "int"},
-            {"name": "theta_2", "type": "int"},
-            {"name": "N_1", "type": "int"},
-            {"name": "N_2", "type": "int"},
-            {"name": "loc", "type": "int"},
-            {"name": "lloc", "type": "int"},
-            {"name": "sloc", "type": "int"},
-            {"name": "cloc", "type": "int"},
-            {"name": "dloc", "type": "int"},
-            {"name": "blank_lines", "type": "int"},
-            {"name": "pylint_score", "type": "float"}
-        ]
-        # Relationships listed for later use when creating objects (with relationships)
-        # "relationships": [
-        #     {"objectId": "method", "qualifier": "calls-method"},
-        #]
-    }
-    insert_objectType(method_tpye["name"], method_tpye["attributes"])
-    label_type = {
-        "name": "label",
-        "attributes": [
-        ]
-    }
-    insert_objectType(label_type["name"], label_type["attributes"])
-    # review_type = {
-    #     "name": "review",
-    #     "attributes": [
-    #         {"name": "referenced_code_line", "type": "string"},
-    #         {"name": "approved", "type": "boolean"},
-    #     ]
-    #     # Relationships listed for later use when creating objects (with relationships)
-    #     # "relationships": [
-    #     #     {"objectId": "user", "qualifier": "authored-by"},
-    #     #     {"objectId": "comment", "qualifier": "has"},
-    #     #     {"objectId": "pull_request", "qualifier": "part-of"},
-    #     # ]
-
-    # }
-    # insert_objectType(review_type["name"], review_type["attributes"])
-    # test_run_type = {
-    #     "name": "test_run",
-    #     "attributes": [
-    #         {"name": "name", "type": "string"},
-    #         {"name": "passed", "type": "boolean"},
-    #     ]
-    #     # Relationships listed for later use when creating objects (with relationships)
-    #     # "relationships": [
-    #     #     {"objectId": "pull_request", "qualifier": "part-of"},
-    #     # ]
-    # }
-    # insert_objectType(test_run_type["name"], test_run_type["attributes"])
 
 def initialise_eventTypes():
     # File viewpoint

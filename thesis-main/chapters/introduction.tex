@@ -1,23 +1,32 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze business processes e.g., procurement or order management. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the intricate details of git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel}  allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing metrics. 
+\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze business processes e.g., procurement or order management. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the details of workflows in git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel} allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing metrics. 
+\begin{itemize}
+	\item Open-source software repositories depend on contributions from developers foreign to the project
+	\item Process of contribution on GitHub can be hard to understand, especially in large repositories
+	\item Contribution guidelines aim to help developers understand the general process and specific details for the respective repository 
+	\item Process mining allows to visualize contribution process as it really happens
+	\item Unclear if reality gap between expected contribution process (reference model) and real process (discovered model) exists
+	\item Conformance to guidelines can be 
+\end{itemize}
 	
-\paragraph{Problem.} Many repositories use \ac{cicd} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often developers do not question why a test fails or passes, but instead focus on building code that passes the needed tests \author{...}. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the possibility of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the results besides passing or not are hardly checked. Therefore, gaining insights into how code quality evolves within one pull request or the code base and where to request changes are vital steps towards understanding the code base better and thus delivering higher quality code.
+\paragraph{Problem.} Many repositories use \ac{cicd} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often developers do not question why a test fails or passes, but instead focus on building code that passes the needed tests \autocite{DBLP:conf/icsm/ElazharySEZ19}. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the likelihood of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the results besides passing or not are hardly checked or further interpreted. Therefore, gaining insights into how code quality evolves is a vital step towards understanding the code base better and delivering higher quality code.
 
 \paragraph{Method.} Steps in enumeration
 \begin{enumerate}
-	\item Extract data using GitHub's \ac{rest api} and cloning the repository to local drive
-	\item Analyze file changes with respect to code quality improvements
+	\item Extract data by cloning open-source repository for local analysis and using GitHub's \ac{rest api} for gathering data of the corresponding remote repository
+	\item Analyze file changes with respect to code quality
 	\item Store analysis data as \ac{ocel} in MongoDB, a document-based database
-	\item Analyze data using PM4Py to discover a process model of the contribution process to selected repositories
-	\item Use conformance checking to compare expected contribution process with discovered process model
-	\item (Use root cause analysis to find reasons, why real-life process does not match expected process model)
+	\item Analyze \ac{ocel} for commits and thus timestamps, where the proposed contribution process changed
+	\item Analyze data using PM4Py to discover process models of the contribution process for the corresponding timeframes
+	\item Manually create reference model
+	\item Use conformance checking to reference contribution process with discovered process
 \end{enumerate}
 
 \paragraph{Evaluation.} 
 \begin{itemize}
-	\item Verify code quality metrics against data from similar tool: \emph{wiley}.
+	\item Case study on three Python repositories
 	\item Conformance checking of discovered process model with expected contribution process
 \end{itemize} 
 

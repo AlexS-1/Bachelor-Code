@@ -2,13 +2,16 @@ import time
 import requests
 import os
 
-from tomlkit import date
-
-from build.database_handler import date_1970, insert_comment, insert_event, insert_issue, insert_repo, insert_pull, insert_review, insert_test_run, insert_user
-
+from build.database_handler import date_1970, insert_event, insert_pull, insert_user
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
+
+def get_and_insert_remote_data(repo_url, repo_path, from_date, to_date):
+    repo = get_repo_information(repo_url)
+    get_closed_pulls(repo["utility_information"]["pulls_url"], from_date, to_date)
+    
+
 
 def get_api_response(url, retries=0):
     headers = {"Authorization": f"token {token}"}
@@ -35,8 +38,6 @@ def get_repo_information(repo_url):
         "name": repo_response["full_name"],
         "has-pull_requests": get_related_pulls(repo_response["pulls_url"][:-9]),
         "has-commits": get_related_commits(repo_response["commits_url"][:-6]),
-        "has-branches": get_related_branches(repo_response["branches_url"][:-9]),
-        "has-issues": get_related_issues(repo_response["issues_url"][:-9]),
         "timestamp": repo_response["updated_at"],
         "utility_information": {
             "forks_url": repo_response["forks_url"],
@@ -44,18 +45,18 @@ def get_repo_information(repo_url):
             "pulls_url": repo_response["pulls_url"][:-9],
             "issues_url": repo_response["issues_url"][:-9],
             "commits_url": repo_response["commits_url"][:-6],
-            "created_at": repo_response["created_at"], #TODO Check if it was modified and how to get data (e.g. rename of repository)
+            #TODO Check if it was modified and how to get data (e.g. rename of repository)
+            "created_at": repo_response["created_at"], 
         }
     }
     return repo_information
 
-def get_closed_pulls(pulls_url, pages = 1):
-    pulls = {}
+def get_closed_pulls(pulls_url, from_date, to_date):
+    # TODO Check pulls for date range with link headers in pagination
+    pages = 5
     for page in range(1, pages + 1):
         pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
-        extract_events_from_pull(pull_response)
         for pull in pull_response:
-            # comments = get_related_comments(pull["comments_url"])
             pull_content = {
                 "is-merged-with":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
@@ -65,25 +66,18 @@ def get_closed_pulls(pulls_url, pages = 1):
                 "merged_at_timestamp": pull["merged_at"],
                 "created_at_timestamp": pull["created_at"],
                 "closed_at_timestamp": pull["closed_at"],
-                # "head_branches_url": pull["head"]["label"].split(":")[0]+"/Resume-Matcher" if not pull["head"]["repo"]["branches_url"][:-9] else pull["head"]["repo"]["branches_url"][:-9],
-                # "base_branches_url": pull["base"]["repo"]["branches_url"][:-9],
-                # "branch_to_pull_from": pull["head"]["ref"],
-                # "origin_branch": pull["base"]["ref"],
-                # "closing_issues": 0, # TODO Fix to parse description and crawl github.com or otherwise retrieve respective field -> GH Archive maybe
                 "has-participant": 
                     [get_name_by_username(pull["user"]["login"])] + 
                     [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]],
                 "is-reviewed-by": [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
-                # "assignees": [get_name_by_username(user["login"]) for user in pull["assignees"]],
-                # "comments": comments,
                 "formalises": get_related_commits(pull["commits_url"]),
                 "aggregates": get_related_files(pull["url"] + "/files"),
-                # "test_runs": get_related_ci_cd(pull["url"].split("pulls")[0] + "commits/" + pull["head"]["sha"]),
+                # FIXME Extract correct state
                 "state": "open",
+                "commits": get_related_commits(pull["commits_url"]),
+                "files": get_related_files(pull["url"] + "/files"),
             } 
             insert_pull(pull_content)
-            pulls[pull["number"]] = pull_content
-    return pulls
 
 def extract_events_from_pull(pull_response):
     for pull in pull_response:
@@ -224,56 +218,6 @@ def extract_events_from_pull(pull_response):
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:
     return get_api_response(f"https://api.github.com/repos/{owner}/{repo_name}/pulls/{number}")
 
-def get_issues(issues_url, pages=1):
-    issues = {}
-    for page in range(1, pages + 1):
-        issue_response = get_api_response(issues_url + "?page=" + str(page))
-        for issue in issue_response:
-            issue_content = {
-                "number": str(issue["number"]),
-                "authored-by": get_name_by_username(issue["user"]["login"], issue["author_association"]),
-                "title": issue["title"],
-                "description": issue["body"],
-                "issue-in-repository": "/".join(issue["repository_url"].split("/")[:-2]),
-                "created_at_timestamp": issue["created_at"],
-                "closed_at_timestamp": issue["closed_at"],
-                "type": get_issue_state_history(issue["events_url"]),
-                "issue-has-comment": get_related_comments(issue["comments_url"]),
-                "issue-is-assigned-to": [get_name_by_username(assignee["login"]) for assignee in issue["assignees"]],
-            }
-            insert_issue(issue_content)
-            issues[issue["number"]] = issue_content
-    return issues
-
-def get_issue_state_history(events_url):
-    events = []
-    event_response = get_api_response(events_url)
-    for event in event_response:
-        if event["event"] == "opened":
-            events.append({"opened": event["created_at"]})
-        elif event["event"] == "closed":
-            events.append({"closed": event["created_at"]})
-        elif event["event"] == "reopened":
-            events.append({"reopened": event["created_at"]})
-        elif event["event"] == "merged":
-            events.append({"merged": event["created_at"]})
-        elif event["event"] == "referenced":
-            events.append({"closed": event["created_at"]})
-    return events
-
-def get_related_comments(comments_url):
-    comment_response = get_api_response(comments_url)
-    comments = []
-    for comment in comment_response[:5]:
-        comments.append(get_name_by_username(comment["user"]["login"]) + "/" + comment["created_at"])
-        comment_content = {
-            "message": comment["body"],
-            "timestamp": comment["created_at"],
-            "comment-authored-by": get_name_by_username(comment["user"]["login"])
-        }
-        insert_comment(comment_content)
-    return comments
-
 def get_related_commits(commits_url):
     commit_response = get_api_response(commits_url) 
     commits = []
@@ -294,58 +238,6 @@ def get_related_pulls(pulls_url):
     for pull in pull_response:
         pulls.append(str(pull["number"]))
     return pulls
-
-def get_related_commits(commits_url):
-    commit_response = get_api_response(commits_url)
-    commits = []
-    for commit in commit_response:
-        commits.append(commit["sha"])
-    return commits
-
-def get_related_reviews(review_comments_url):
-    review_response = get_api_response(review_comments_url)
-    reviews = []
-    for review in review_response:
-        reviews.append(review["id"])
-        review_data = {
-            "id": str(review["id"]),
-            "timestamp": review["updated_at"],
-            "author": get_name_by_username(review["user"]["login"]),
-            "part-of-pull_request": review["pull_request_url"].split("/")[-1],
-            "comment": review["body"],
-            "references-code": review["diff_hunk"] if review["subject_tpye"] == "line" else review["path"]
-        }
-        insert_review(review_data)
-    return reviews
-
-def get_related_branches(branches_url):
-    branch_response = get_api_response(branches_url)
-    branches = []
-    for branch in branch_response:
-        branches.append(branch["name"])
-    return branches
-
-def get_related_issues(issues_url):
-    issue_response = get_api_response(issues_url)
-    issues = []
-    for issue in issue_response:
-        issues.append(str(issue["number"]))
-    return issues
-
-def get_related_ci_cd(ci_cd_url):
-    ci_cd_response = get_api_response(ci_cd_url + "/check-runs")
-    ci_cd = []
-    if ci_cd_response["total_count"] != 0:
-        for ci_cd_run in ci_cd_response["check_runs"]:
-            test_run = {
-                "id": str(ci_cd_run["id"]),
-                "timestamp": ci_cd_run["started_at"],
-                "name": ci_cd_run["name"],
-                "passed": ci_cd_run["conclusion"] == "success",
-            }
-            insert_test_run(test_run)
-            ci_cd.append(test_run["id"])
-    return ci_cd
 
 def get_anonymous_user_counter():
     global anonymous_user_counter
