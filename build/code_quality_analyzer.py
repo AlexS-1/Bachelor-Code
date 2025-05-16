@@ -1,7 +1,8 @@
 # Get the maintainability index for a given source code file
 import os
 import subprocess
-from radon.metrics import mi_visit
+from radon.metrics import mi_visit, h_visit
+from radon.raw import analyze
 from pylint.reporters.base_reporter import BaseReporter
 import re
 from pylint.lint import Run
@@ -22,7 +23,7 @@ class ScoreOnlyReporter(BaseReporter):
     def display_reports(self, layout):
         pass
 
-    def on_close(self, stats, previous_stats):
+    def on_close(self, stats, previous_stats): # type: ignore
         return stats.global_note
 
 def get_maintainability_index(source_code, filepath='temp_code.py'):
@@ -73,3 +74,115 @@ def get_pylint_score(source_code, filepath='temp_code.py'):
     except Exception as e:
         print(f"Error calculating pylint score for file at {filepath}: {e}")
         return None
+    
+
+class Python2LineMetics:
+    def __init__(self, loc, lloc, sloc, comments, single_comments, multi, blank):
+        self.loc = loc
+        self.lloc = lloc
+        self.sloc = sloc
+        self.comments = comments
+        self.single_comments = single_comments
+        self.multi = multi
+        self.blank = blank
+
+    def __repr__(self):
+        return f"""
+        LOC: {self.loc}, 
+        LLOC: {self.lloc}, 
+        SLOC: {self.sloc}, 
+        Comments: {self.comments}, 
+        Single Comments: {self.single_comments}, 
+        Multi: {self.multi}, 
+        Blank: {self.blank}"""
+
+def get_line_metrics(source_code, filepath='temp_code.py'):
+    try:
+        return analyze(source_code)
+    except Exception as e:
+        filename = filepath.split("/")[-1]
+        with open(filename, 'w') as f:
+            f.write(source_code)
+        result = subprocess.run(
+            ['python2', '-m' 'radon', "raw", filename],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        line_metrics_output = result.stdout
+        loc = re.search(r"LOC:\s*(\d+)", line_metrics_output)
+        lloc = re.search(r"LLOC:\s*(\d+)", line_metrics_output)
+        sloc = re.search(r"SLOC:\s*(\d+)", line_metrics_output)
+        comments = re.search(r"Comments:\s*(\d+)", line_metrics_output)
+        single_comments = re.search(r"Single comments:\s*(\d+)", line_metrics_output)
+        multi = re.search(r"Multi:\s*(\d+)", line_metrics_output)
+        blank = re.search(r"Blank:\s*(\d+)", line_metrics_output)
+        if loc and lloc and sloc and comments and single_comments and multi and blank:
+            os.remove(filename)
+            return Python2LineMetics(
+                loc=int(loc.group(1)),
+                lloc=int(lloc.group(1)),
+                sloc=int(sloc.group(1)),
+                comments=int(comments.group(1)),
+                single_comments=int(single_comments.group(1)),
+                multi=int(multi.group(1)),
+                blank=int(blank.group(1))
+            )
+        else:
+            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
+        
+class Python2HelsteadTotal:
+    def __init__(self, h1, h2, N1, N2):
+        self.h1 = h1
+        self.h2 = h2
+        self.N1 = N1
+        self.N2 = N2
+
+class Python2HelsteadReport:
+    def __init__(self, h1, h2, N1, N2):
+        self.total = Python2HelsteadTotal(h1, h2, N1, N2)
+
+    def __repr__(self):
+        return f"""
+        HelsteadReport(total: 
+        h1={self.total.h1}, 
+        h2={self.total.h2}, 
+        N1={self.total.N1}, 
+        N2={self.total.N2})"""
+
+def get_halstead_metrics(source_code, filepath='temp_code.py'):
+    """
+    Calculate the Halstead metrics of a given source code file.
+    Args:
+        source_code (str): The source code to analyze.
+        filepath (str): The path to the file to save the source code temporarily.
+    Returns:
+        dict: A dictionary containing the Halstead metrics.
+    """
+    try:
+        return h_visit(source_code)
+    except Exception as e:
+        filename = filepath.split("/")[-1]
+        with open(filename, 'w') as f:
+            f.write(source_code)
+        result = subprocess.run(
+            ['python2', '-m' 'radon', "raw", filename],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        line_metrics_output = result.stdout
+        theta_1 = re.search(r"h1:\s*(\d+)", line_metrics_output)
+        theta_2 = re.search(r"h1:\s*(\d+)", line_metrics_output)
+        N1 = re.search(r"N1:\s*(\d+)", line_metrics_output)
+        N2 = re.search(r"N2:\s*(\d+)", line_metrics_output)
+        if theta_1 and theta_2 and N1 and N2:
+            os.remove(filename)
+            return Python2HelsteadReport(
+                h1=int(theta_1.group(1)),
+                h2=int(theta_2.group(1)),
+                N1=int(N1.group(1)),
+                N2=int(N2.group(1))
+            )
+        else:
+            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
