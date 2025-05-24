@@ -5,22 +5,10 @@ __pycache__/
 *$py.class
 
 # Data and Exports meant to store locally
-*.jsonocel
+.jsonocel
 
 # C extensions
 *.so
-
-# Latex files
-*.aux
-*.bbl
-*.blg
-*.dvi
-*.idx
-*.ilg
-*.ind
-*.log
-*.out
-thesis-main/template-chapters/
 
 # Distribution / packaging
 .Python

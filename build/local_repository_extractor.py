@@ -1,7 +1,11 @@
+import subprocess
+from venv import create
+from colorama import init
 from pydriller import Repository
+from requests import get
 
-from build.database_handler import insert_commit, insert_file
-from build.code_quality_analyzer import get_pylint_score, get_maintainability_index
+from build.database_handler import insert_commit, insert_event, insert_file
+from build.code_quality_analyzer import get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
 from build.utils import date_formatter
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
@@ -16,7 +20,7 @@ def create_commit(commit_sha, author, message, repository, branches, commit_time
         "is-child-of": parents
     }
 
-def create_file(name, filename, file_change_timestamp, commit_sha, method_count, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc,blank_lines, pylint_score):
+def create_file(name, filename, file_change_timestamp, commit_sha, method_count, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
     return {
         "file-changed_by": name,
         "filename": filename,
@@ -36,54 +40,128 @@ def create_file(name, filename, file_change_timestamp, commit_sha, method_count,
         "pylint_score": pylint_score
     }
 
-def get_and_insert_local_data(repo_path, from_date, to_date, file_types): 
+def get_snapshot_code_quality(repo_path, from_date, file_types):
+    repository_code_metrics = {}
     # FIXME Split in extract and insert methods in two modules
-    count = 0
+    for commit in Repository(repo_path, 
+                             since=from_date, 
+                             only_modifications_with_file_types=file_types).traverse_commits():
+        
+        # Get the initial commit to reset the repository to its original state
+        initial_commit = subprocess.run(
+            ['git', 'rev-parse', 'HEAD'], 
+            cwd=repo_path, 
+            stdout=subprocess.PIPE, 
+            text=True).stdout.strip()
+        
+        # Move HEAD to the commit, from which we want to analze the code quality
+        # and get the code metrics for all Python files
+        print(f"Checking out commit {commit.hash} from original commit {initial_commit}")
+        subprocess.run(['git', 'checkout', commit.hash], cwd=repo_path, check=True)
+        result = subprocess.run(
+            ["git", "ls-files", "*.py", "**/*.py"],
+            cwd=repo_path,
+            stdout=subprocess.PIPE,
+            text=True,
+            check=True
+        )
+        py_files = result.stdout.strip().split('\n')
+        # TODO Check if simply passing the path is faster
+        for file in py_files:
+            try:
+                with open(f"{repo_path}/{file}", 'r') as f:
+                    source_code = f.read()
+            except Exception as e:
+                print(f"Error reading file {file}: {e}")
+                source_code = ""
+            # TODO Implement own calculation of other metrics
+            mi = get_maintainability_index(source_code)/100
+            pl = get_pylint_score(source_code)/10
+            repository_code_metrics[file] = [mi, pl]
+
+        # Move HEAD back to the initial commit
+        subprocess.run(['git', 'checkout', initial_commit], cwd=repo_path, check=True)
+        print(f"Back to the real analysis")
+        break
+    return repository_code_metrics
+
+def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapshot=False):
+    # FIXME Split in extract and insert methods in two modules
+    repository_code_metrics = get_snapshot_code_quality(repo_path, from_date, file_types) if snapshot else {}
     for commit in Repository(repo_path, 
                              since=from_date, 
                              to=to_date,
                              only_modifications_with_file_types=file_types).traverse_commits():
-        files_modified_in_commit = []
         commit_timestamp = date_formatter(commit.committer_date)
-        code_quality_graph = []
-        # TODO For testing limit analysis to 100 commits
-        if count == 100:
-            break
+        
+        # TODO test if replaying with MongoDB is faster
+        file_mis = []
+        file_pylints = []
 
-        # Gather code quality data per file
-        for file in commit.modified_files:
-            if file.new_path != None and [file.new_path.endswith(extension) == True for extension in file_types]:
-                files_modified_in_commit.append(file.new_path)
-                try:
-                    # TODO Implement own calculation of other metrics
-                    method_count, theta_1, theta_2, N_1, N_2 = 0, 0, 0, 0, 0
-                    loc, lloc, sloc, cloc, dloc = 0, 0, 0, 0, 0
-                    pylint_score = get_pylint_score(file.source_code, file.new_path)
-                    blank_lines = get_maintainability_index(file.source_code, file.new_path)
-                except:
-                    pylint_score = 0
-                    blank_lines = 0
+        # Update the repository code metrics for current commit and skip irrelevant commits
+        for modified_file in commit.modified_files:
+            if modified_file.change_type.name == "ADD" and modified_file.new_path and modified_file.new_path.endswith(".py"):
+                repository_code_metrics[modified_file.new_path] = [0, 0]
+            elif modified_file.change_type.name == "DELETE" and modified_file.old_path and modified_file.old_path.endswith(".py"):
+                # TODO Decide how to handle deleted files
+                repository_code_metrics.pop(modified_file.old_path, None)
+                continue
+            elif modified_file.change_type.name == "RENAME":
+                # TODO Implement updating filename in MongoDB
+                if modified_file.old_path and modified_file.old_path.endswith(".py"):
+                    repository_code_metrics.pop(modified_file.old_path, None)
+                if modified_file.new_path and modified_file.new_path.endswith(".py"):
+                    repository_code_metrics[modified_file.new_path] = [0, 0]
+                if modified_file.source_code and modified_file.source_code_before:
+                    print(f"File LOC changed from {len(modified_file.source_code_before.split("\n"))} to {len(modified_file.source_code.split("\n"))}")
+            elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and modified_file.new_path.endswith(".py"):
+                repository_code_metrics[modified_file.new_path] = [0, 0]
             else:
-                # TODO Handle case when file is not of specified file type i.e., when guideleines could have changed
-                method_count, theta_1, theta_2, N_1, N_2 = -1, -1, -1, -1, -1
-                loc, lloc, sloc, cloc, dloc, blank_lines = -1, -1, -1, -1, -1, -1
+                continue
+            
+            # Skip irrevant files in relevant commits
+            if modified_file.new_path is None or modified_file.new_path.endswith(".py") == False:
+                # TODO Check if there are cases where code_metrics is stil set to [0, 0]
+                continue
+            
+            # Prevent wrong code quality measurements for empty files
+            # TODO Optimize by not analyzing files that are renamed
+            if modified_file.source_code is None:
+                source = ""
+                print(f"File {modified_file.new_path} has no source code")
+            else:
+                source = modified_file.source_code
+
+            # Gather code quality data per file
+            mi = get_maintainability_index(source)/100
+            pl = get_pylint_score(source)/10
+            lm = get_line_metrics(source)
+            hm = get_halstead_metrics(source)
+
+            # TODO Implement as reading from MongoDB
+            repository_code_metrics[modified_file.new_path] = [mi, pl]
+
+            #####################################################
+            # TODO Split here for insertion and MongoDB control #
+            #####################################################
+
             file = create_file(
                 commit.committer.name, 
-                file.new_path if file.new_path != None else file.old_path,
+                modified_file.new_path,
                 commit_timestamp, 
                 commit.hash,
-                method_count,
-                theta_1,
-                theta_2,
-                N_1,
-                N_2,
-                loc,
-                lloc,
-                sloc,
-                cloc,
-                dloc,
-                blank_lines,
-                pylint_score)
+                -1, # TODO Check how method count works len(hm.methods),
+                hm.total.h1,
+                hm.total.h2,
+                hm.total.N1,
+                hm.total.N2,
+                lm.loc,
+                lm.lloc,
+                lm.sloc,
+                lm.comments,
+                lm.multi,
+                lm.blank,
+                pl)
             insert_file(file)
         commit_object = create_commit(
             commit.hash, 
@@ -93,7 +171,14 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types):
             commit.branches, 
             commit_timestamp, 
             "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], 
-            files_modified_in_commit, 
+            commit.modified_files, 
             commit.parents)
-        insert_commit(commit_object)
-        count += 1
+        for _,v in repository_code_metrics.items():
+            file_mis.append(v[0])
+            file_pylints.append(v[1])
+        commit_mi = sum(file_mis)/len(file_mis) if file_mis else 0
+        commit_pylint = sum(file_pylints)/len(file_pylints) if file_pylints else 0
+        commit_object["commit_mi"] = commit_mi
+        commit_object["commit_pylint"] = commit_pylint
+        insert_event(commit.hash, "commit", commit_timestamp, [commit_mi, commit_pylint])
+    return repository_code_metrics

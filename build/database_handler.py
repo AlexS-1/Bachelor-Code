@@ -146,6 +146,9 @@ def get_commits():
 def get_type(name: str) -> dict:
     return ocdb["objectTypes"].find_one({"_id": name})
 
+def get_events_for_type(type: str):
+    return ocdb["events"].find({"type": type})
+
 def get_ocel_data():
     data = {
         "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],

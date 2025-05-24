@@ -3,3 +3,4 @@ pydriller
 pymongo
 radon == 6.0.1
 matplotlib
+pylint == 3.3.1

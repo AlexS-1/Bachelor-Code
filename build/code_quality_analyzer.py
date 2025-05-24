@@ -1,15 +1,16 @@
 # Get the maintainability index for a given source code file
+import io
 import os
 import subprocess
+from matplotlib.pylab import f
+import pylint
 from radon.metrics import mi_visit, h_visit
 from radon.raw import analyze
 from pylint.reporters.base_reporter import BaseReporter
 import re
 from pylint.lint import Run
 import os
-
 class ScoreOnlyReporter(BaseReporter):
-    """A reporter that only returns the score of the code quality analysis."""
     def __init__(self, output = None) -> None:
         super().__init__(output)
         self.name = "score-only"
@@ -24,7 +25,7 @@ class ScoreOnlyReporter(BaseReporter):
         pass
 
     def on_close(self, stats, previous_stats): # type: ignore
-        return stats.global_note
+        self.out.write(f"{stats.global_note}")
 
 def get_maintainability_index(source_code, filepath='temp_code.py'):
     """
@@ -53,28 +54,41 @@ def get_maintainability_index(source_code, filepath='temp_code.py'):
             os.remove(filename)
             return int(match_mi.group(1))
         else:
-            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
+            print(f"Error calculating maintainability index for file at {filepath}: {result.stderr}")
+            return 0
         
+# def get_pylint_score(source_code, filepath='temp_code.py'):
+#     """
+#     Calculate the pylint score of a given source code file.
+#     Args:
+#         source_code (str): The source code to analyze.
+#         filepath (str): The path to the file to save the source code temporarily.
+#     Returns:
+#         float: The pylint score of the source code.
+#     """
+#     filename = filepath.split("/")[-1]
+#     with open(filename, 'w') as f:
+#         f.write(source_code)
+#     try:
+#         pylint_results = Run([filename], ScoreOnlyReporter(), exit=True)
+#         os.remove(filename)
+#         return pylint_results.linter.stats.global_note
+#     except:
+#         print(f"Error calculating pylint score for file at {filepath}")
+#         return 0
+    
 def get_pylint_score(source_code, filepath='temp_code.py'):
-    """
-    Calculate the pylint score of a given source code file.
-    Args:
-        source_code (str): The source code to analyze.
-        filepath (str): The path to the file to save the source code temporarily.
-    Returns:
-        float: The pylint score of the source code.
-    """
     filename = filepath.split("/")[-1]
     with open(filename, 'w') as f:
         f.write(source_code)
     try:
         pylint_results = Run([filename], ScoreOnlyReporter(), exit=False)
+        score = pylint_results.linter.stats.global_note
         os.remove(filename)
-        return pylint_results.linter.stats.global_note
-    except Exception as e:
-        print(f"Error calculating pylint score for file at {filepath}: {e}")
-        return None
-    
+        return score if score is not None else 0
+    except Exception:
+        print(f"Error calculating pylint score for file at {filepath}")
+        return 0
 
 class Python2LineMetics:
     def __init__(self, loc, lloc, sloc, comments, single_comments, multi, blank):
@@ -129,7 +143,16 @@ def get_line_metrics(source_code, filepath='temp_code.py'):
                 blank=int(blank.group(1))
             )
         else:
-            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
+            print(f"Error calculating maintainability index for {filepath}: {result.stderr}")
+            return Python2LineMetics(
+                loc=0,
+                lloc=0,
+                sloc=0,
+                comments=0,
+                single_comments=0,
+                multi=0,
+                blank=0
+            )
         
 class Python2HelsteadTotal:
     def __init__(self, h1, h2, N1, N2):
@@ -185,4 +208,10 @@ def get_halstead_metrics(source_code, filepath='temp_code.py'):
                 N2=int(N2.group(1))
             )
         else:
-            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
+            print(f"File at {filepath} does not compile: {result.stderr}")
+            return Python2HelsteadReport(
+                h1=0,
+                h2=0,
+                N1=0,
+                N2=0
+            )

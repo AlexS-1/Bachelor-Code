@@ -8,6 +8,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package
 ```bash
 pip install -r requirements.txt
 ```
+Also you need to set up the database e.g., using MongoDB as a service on macOS through installation via homebrew as a service
 
 ## Usage
 

@@ -11,8 +11,6 @@ def get_and_insert_remote_data(repo_url, repo_path, from_date, to_date):
     repo = get_repo_information(repo_url)
     get_closed_pulls(repo["utility_information"]["pulls_url"], from_date, to_date)
     
-
-
 def get_api_response(url, retries=0):
     headers = {"Authorization": f"token {token}"}
     response = requests.get(url, headers=headers)
