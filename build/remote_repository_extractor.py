@@ -1,8 +1,10 @@
+from datetime import timedelta
 import time
+from numpy import extract
 import requests
 import os
 
-from build.database_handler import date_1970, insert_event, insert_pull, insert_user
+from build.database_handler import date_1970, datetime, insert_event, insert_pull, insert_user
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
@@ -19,16 +21,18 @@ def get_api_response(url, retries=0):
     elif response.status_code == 403 or response.status_code == 429 and retries < 5:
         if int(response.headers.get("x-ratelimit-remaining", 0)) == 0:
             retry_after = int(response.headers.get("x-ratelimit-reset", 60)) - int(time.time())
-            print(f"Primary rate limit exceeded. Retrying after {retry_after} seconds.")
+            retry_time = datetime.now() + timedelta(seconds=retry_after)
+            print(f"Secondary rate limit exceeded. Retrying after {retry_after} seconds at {retry_time.strftime('%H:%M:%S')}.")
             retries += 1
         else:
             retry_after = int(response.headers.get("retry-after", 60))
-            print(f"Secondary rate limit exceeded. Retrying after {retry_after} seconds.")
+            retry_time = datetime.now() + timedelta(seconds=retry_after)
+            print(f"Secondary rate limit exceeded. Retrying after {retry_after} seconds at {retry_time.strftime('%H:%M:%S')}.")
             retries += 1
         time.sleep(retry_after^retries)
         return get_api_response(url, retries)
     else: 
-        print(response.raise_for_status())
+        raise Exception(response.raise_for_status())
 
 def get_repo_information(repo_url):
     repo_response = get_api_response(repo_url)
@@ -72,10 +76,9 @@ def get_closed_pulls(pulls_url, from_date, to_date):
                 "aggregates": get_related_files(pull["url"] + "/files"),
                 # FIXME Extract correct state
                 "state": "open",
-                "commits": get_related_commits(pull["commits_url"]),
-                "files": get_related_files(pull["url"] + "/files"),
             } 
             insert_pull(pull_content)
+            extract_events_from_pull(pull_response)
 
 def extract_events_from_pull(pull_response):
     for pull in pull_response:
@@ -85,7 +88,10 @@ def extract_events_from_pull(pull_response):
             if event["event"] not in ["committed", "reviewed"]:
                 timestamp = event["created_at"]
                 actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "authored-by"}
-
+            else:
+                # TODO Check OCEL for those attributes
+                timestamp = date_1970()
+                actor = "Cincinnatus"
             # Handle specific events from OCEL-Diagrams.drawio
             if event["event"] == "committed":
                 # TOOD Define timestamp correctly: timestamp = event["author"]["date"]

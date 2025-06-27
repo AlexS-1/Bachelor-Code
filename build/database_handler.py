@@ -1,7 +1,8 @@
 from datetime import datetime
+from os import path
 import pymongo
 
-from build.utils import date_1970, generic_to_python_type, rename_field
+from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 ocdb = myclient["OCEL"]
@@ -56,7 +57,7 @@ def insert_event(id, event_type: str, time, attributes=[], relationships=[]):
     ocdb["events"].replace_one({"_id": id}, {"type": event_type, "time": time, "attributes": attributes, "relationships": relationships}, True)
 
 def insert_object(id, object_type: str, data: dict):
-    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type)["attributes"])]
+    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type)["attributes"])] # type: ignore
     timestamp_keys = [key for key in list(data.keys()) if key.find("timestamp") != -1]
     relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
     attributes = []
@@ -88,7 +89,7 @@ def insert_object(id, object_type: str, data: dict):
                 attributes.append({
                     "name": key,
                     "value": str(data[key]),
-                    "time": str(date_1970())
+                    "time": str(date_1970()) if not timestamp_keys else data[timestamp_keys[0]]
                 })
             if not relationship_keys:
                 ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
@@ -135,7 +136,7 @@ def insert_object(id, object_type: str, data: dict):
             {"type": object_type, "attributes": existing_attributes + attributes, "relationships": relationships}, 
             True
         )
-    except (pymongo.errors.DocumentTooLarge, pymongo.errors.InvalidDocument) as e:
+    except (pymongo.errors.DocumentTooLarge, pymongo.errors.InvalidDocument) as e: # type: ignore
         print(e)
 
 
@@ -143,20 +144,45 @@ def insert_object(id, object_type: str, data: dict):
 def get_commits():
     return ocdb["objects"].find({"type": "commit"})
 
-def get_type(name: str) -> dict:
+def get_type(name: str):
     return ocdb["objectTypes"].find_one({"_id": name})
 
 def get_events_for_type(type: str):
     return ocdb["events"].find({"type": type})
 
+def get_object(id: str):
+    """
+    Get an object from the database by its ID.
+    Args:
+        id (str): The ID of the object to retrieve.
+    Returns:
+        dict: The object data if found, otherwise None.
+    """
+    return ocdb["objects"].find({"_id": id})
+
+def get_event(id: str):
+    """
+    Get an event from the database by its ID.
+    Args:
+        id (str): The ID of the event to retrieve.
+    Returns:
+        dict: The event data if found, otherwise None.
+    """
+    return ocdb["events"].find({"_id": id})
+    
+
 def get_ocel_data():
     data = {
-        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
-        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
-        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
-        "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
+        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["ocel:objectTypes"].find()],
+        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["ocel:eventTypes"].find()],
+        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["ocel:objects"].find()],
+        "events": [rename_field(doc, "_id", "id") for doc in ocdb["ocel:events"].find()]
     }
-    return data
+    # Return data as JSON
+    path = "Exports/OCEL-Data.json"
+    
+    write_to_file(path, str(data))
+    return path
 
 ### Initialisation functions
 def initialise_database():

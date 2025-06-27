@@ -1,6 +1,7 @@
 import subprocess
 from venv import create
 from colorama import init
+from numpy import insert
 from pydriller import Repository
 from requests import get
 
@@ -113,9 +114,17 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 if modified_file.new_path and modified_file.new_path.endswith(".py"):
                     repository_code_metrics[modified_file.new_path] = [0, 0]
                 if modified_file.source_code and modified_file.source_code_before:
-                    print(f"File LOC changed from {len(modified_file.source_code_before.split("\n"))} to {len(modified_file.source_code.split("\n"))}")
+                    print(f"RENAME: File LOC changed from {len(modified_file.source_code_before.split("\n"))} to {len(modified_file.source_code.split("\n"))}")
             elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and modified_file.new_path.endswith(".py"):
                 repository_code_metrics[modified_file.new_path] = [0, 0]
+            elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and not modified_file.new_path.endswith(".py"):
+                print("Potentially change in documentation")
+                # # TODO Decide how to do NLP here
+                # import spacy
+                # nlp = spacy.load("en_core_web_sm")
+                # doc = nlp(str(modified_file.source_code))
+                
+            
             else:
                 continue
             
@@ -163,6 +172,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 lm.blank,
                 pl)
             insert_file(file)
+        filenames = [f.new_path for f in commit.modified_files if f.new_path]
         commit_object = create_commit(
             commit.hash, 
             commit.author.name, 
@@ -171,7 +181,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
             commit.branches, 
             commit_timestamp, 
             "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], 
-            commit.modified_files, 
+            filenames, 
             commit.parents)
         for _,v in repository_code_metrics.items():
             file_mis.append(v[0])
@@ -180,5 +190,5 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
         commit_pylint = sum(file_pylints)/len(file_pylints) if file_pylints else 0
         commit_object["commit_mi"] = commit_mi
         commit_object["commit_pylint"] = commit_pylint
-        insert_event(commit.hash, "commit", commit_timestamp, [commit_mi, commit_pylint])
+        insert_commit(commit_object)
     return repository_code_metrics

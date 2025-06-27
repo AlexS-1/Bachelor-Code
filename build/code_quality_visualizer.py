@@ -1,7 +1,9 @@
 from datetime import datetime
+from fileinput import filename
+import attr
 from matplotlib import pyplot as plt
 import numpy as np
-from build.database_handler import get_events_for_type
+from build.database_handler import get_events_for_type, get_object
 
 def plot_commit_code_quality(repo_name):
     """
@@ -38,4 +40,32 @@ def plot_commit_code_quality(repo_name):
     plt.ylim(0, 1.1)
     plt.legend()
     plt.xticks(rotation=90)
-    plt.show()
+    plt.savefig(f"Exports/{repo_name}_code_quality.png")
+
+# def plot_file_code_quality(file_id):
+#     """
+#     Plot the code quality metrics for a specific file in the repository
+#     Args:
+#         repo_name (str): The name of the repository of the file file belongs to
+#         file_id (str): The ID of the file to plot the code quality metrics for
+#     """
+#     file = get_object(file_id)
+#     mis = {}
+#     pylint_scores = {}
+#     for attribute in file["attributes"]: # type: ignore
+#         if attribute["name"] == "loc":
+#             mis[datetime.fromisoformat(attribute["time"]).replace(tzinfo=None)] = int(attribute["value"])
+#     commit_dates = sorted(mis.keys())
+#     maintainability_indices = [mis[date] for date in commit_dates]
+#     plt.figure(figsize=(12, 6))
+#     plt.plot(commit_dates, maintainability_indices, label="Maintainability Index", color="blue", marker="o", linestyle="-")
+#     plt.xlabel("Commit Date")
+#     plt.ylabel("Code Quality Score")
+#     plt.title(f"Code Quality Metrics Over Time for {file['_id']}") # type: ignore
+#     plt.xticks(rotation=90)
+#     plt.rcParams['axes.spines.top'] = False
+#     plt.rcParams['axes.spines.right'] = False
+#     plt.ylim(0, 400)
+#     plt.legend()
+#     plt.savefig(f"Exports/{file['_id']}_code_quality.png") # type: ignore
+

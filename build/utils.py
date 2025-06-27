@@ -1,3 +1,4 @@
+import ast
 import datetime
 import json
 from multiprocessing import process
@@ -52,6 +53,13 @@ def rename_field(document, old_field, new_field):
     return document
 
 def write_json(path, data):
+    # If data is a string, parse it; if it's already a dict, just write it
+    # if isinstance(data, str):
+    #     try:
+    #         data = json.loads(data)
+    #     except Exception:
+    #         import ast
+    #         data = ast.literal_eval(data)
     with open(path, "w") as data_file:
         json.dump(data, data_file, indent=4)
 

@@ -1,79 +1,77 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\paragraph{Domain.} With ever more connected supply chains process mining has become widely adopted as a tool to analyze business processes e.g., procurement or order management. Due to many involved parties and the lack of the possibility to model different participants, the limitations of traditional process mining are often hindering industry wide adoption. Therefore, \ac{ocpm} has been proposed and quickly became very popular for above examples. Due to more interconnected business models,  software products are also becoming more complex. Most software being developed uses some form of \ac{vcs}. The predominant tool to manage changes for a software project is \emph{git}. Therefore, understanding the details of workflows in git repositories provides valuable insights into how the code base changes over time. Not only does process mining allow developers to form a better understanding of how code contributions are integrated into the project, but also \acp{ocel} allow querying. This helps developers decide whether to approve or deny merging changes into a certain branch of a project not only based on their own knowledge, but also by utilizing metrics. 
 \begin{itemize}
-	\item Open-source software repositories depend on contributions from developers foreign to the project
-	\item Process of contribution on GitHub can be hard to understand, especially in large repositories
-	\item Contribution guidelines aim to help developers understand the general process and specific details for the respective repository 
-	\item Process mining allows to visualize contribution process as it really happens
-	\item Unclear if reality gap between expected contribution process (reference model) and real process (discovered model) exists
-	\item Conformance to guidelines can be 
+	\item Domain: Pull request mechanism as central element to contribute to a repository \autocite{DBLP:conf/icse/TsayDH14}
+	\item Problem: Lack of transparency and enforcement regarding contribution guidelines resulting in complex interactions between developers, maintainers and new users i.e., following repository guidelines requires more effort than following own approach
+	\item Method: Extract source code and pull request data from GitHub to form an \ac{ocel} for analysis with regards to contribution process and code quality
+	\item Result: Workflow diagram focusing on pull request process and evolution of code quality makes process clear and easy to understand
+	\item Evaluation: Case study through analysis of contribution processes and code quality in three large Python repositories
 \end{itemize}
-	
-\paragraph{Problem.} Many repositories use \ac{cicd} pipelines that check whether changes made to parts of the code cause issues in the already existing code base. Often developers do not question why a test fails or passes, but instead focus on building code that passes the needed tests \autocite{DBLP:conf/icsm/ElazharySEZ19}. Therefore, the quality of the tests, but also the quality of the code are vital to reduce the likelihood of future bugs. Although, code quality metrics are included in many \ac{cicd} pipelines, the results besides passing or not are hardly checked or further interpreted. Therefore, gaining insights into how code quality evolves is a vital step towards understanding the code base better and delivering higher quality code.
-
-\paragraph{Method.} Steps in enumeration
-\begin{enumerate}
-	\item Extract data by cloning open-source repository for local analysis and using GitHub's \ac{rest api} for gathering data of the corresponding remote repository
-	\item Analyze file changes with respect to code quality
-	\item Store analysis data as \ac{ocel} in MongoDB, a document-based database
-	\item Analyze \ac{ocel} for commits and thus timestamps, where the proposed contribution process changed
-	\item Analyze data using PM4Py to discover process models of the contribution process for the corresponding timeframes
-	\item Manually create reference model
-	\item Use conformance checking to reference contribution process with discovered process
-\end{enumerate}
-
-\paragraph{Evaluation.} 
-\begin{itemize}
-	\item Case study on three Python repositories
-	\item Conformance checking of discovered process model with expected contribution process
-\end{itemize} 
 
 \section{Motivation}
 \label{sec:intro_ssec:motiv}
+\begin{itemize}
+	\item It is essential to follow guidelines (naming conventions, process of finding reviewers \& expected time until merge), in order to contribute code to a repository effectively
+	\item Documentation how contributions are handled can hardly capture all scenarios
+	\item Specification of scenario, where developer finds a bug during use of a program and wants to contribute own fix to repository for illustrating status-quo
+\end{itemize}
 \paragraph{Problem Relevance.} 
 \begin{itemize}
-	\item No known implementation of data extraction of pull request information from GitHub repositories to form event log or \ac{ocel}
-	\item Novel combination of code quality analysis with process mining
-	\item Lack of user-friendly tools to analyze \ac{ocel} not just for process mining, but also general querying for information e.g., about pull request author
+	\item Increasing popularity of open-source projects in contrast to lack of new developers to maintain repositories \autocite{DBLP:journals/corr/abs-2208-04895}\autocite{DBLP:journals/ese/RehmanWKIM22}
+	\item No known implementation of data extraction of pull request information from Git repositories to form \ac{ocel}
+	\item Git commit and pull request data is hard to overview making visualizations valuable
+	\item Contribution guidelines as initial point of contact \autocite{DBLP:conf/icsm/ElazharySEZ19} lack step-by-step walk-through of contribution process
+	\item Increased code quality motivates the adherence to contribution guidelines
 \end{itemize}
 
 \paragraph{Existing Solutions.}
 \begin{itemize}
-	\item Data extraction with data only from git (local repository) and REST API exist separately, but to the author's knowledge no combined approach exists
-	\item Code quality metrics have existed for long time, were refined, but too little focus of code quality changes $\Rightarrow$ Use process mining to visualize the change of code quality along the process
-	\item Easy to use web-based tools exist to visualize an \ac{ocel} and show general statistics, but lack of possibility to query event log to answer specific questions
+	\item Data extraction with data only from git (local repository) and \ac{restapi} (remote repository) exist separately, but no combined approach could be found at the point of writing.
+	\item Code quality metrics have existed for a long time, they have been refined, but there has been little focus on code quality evolution $\Rightarrow$ Use \ac{ocel} to visualize the change of code quality
+	\item Work by \autocite{DBLP:conf/icsm/ElazharySEZ19} analyzes adherence to contribution guidelines, but excludes impact of process mining to improve contribution guidelines and code quality
 \end{itemize}
 
 
 \section{Problem Statement}
 \label{sec:intro_ssec:probs}
 \begin{itemize}
-	\item Git commit and pull request data is hard to overview
+	\item Datasets for \ac{msr} are outdated and specific to one viewpoint, lacking the interdependence of different aspects of contributing
 	\item Existing tools focus too little on the changes of code quality during the history of a repository
-	\item Different data sources are hard to unify
+	\item The effect of adhering to contribution guidelines is largely unclear
 \end{itemize}
 
 
 \section{Research Questions}
 \label{sec:intro_ssec:rqs}
 \begin{itemize}
-	\item Which data sources exist for extracting data from git repositories
-	\item How does code quality change, when introducing adapted processes
-	\item Which steps need to be taken to unify data from different sources
-	\item How can the insights gathered through process mining be visualized in a user-friendly way
-	\item How much do real processes differ from specified processes listed in contribution guidelines?
+	\item How can local and remote repository data be standardized and combined into an \ac{ocel}?
+	\begin{itemize}
+		\item How is Git data extracted from open source software repositories?
+		\item Which additional benefits does an \ac{ocel} offer compared to traditional event logs in this domain?
+		\item Why is this definition and format of \ac{ocel} chosen?
+	\end{itemize}
+	\item How does code quality evolve, when inspected from different viewpoints?
+	\begin{itemize}
+		\item Does code quality generally increase within a repository?
+		\item Do maintainability index and Pylint score follow the same trends?
+		\item How does code quality evolve from a file, author or pull request viewpoint?
+	\end{itemize}
+	\item Does adhering to contribution guidelines result in the desired code quality?
+	\begin{itemize}
+		\item Are changes in contribution guidelines noticeable in the evolution of code quality?
+		\item Do deviations from guidelines affect code quality?
+		\item Which deviations from guidelines have the biggest impact on code quality?
+	\end{itemize}
 \end{itemize}
 
 \section{Research Goals}
 \label{sec:intro_ssec:rgs}
 \begin{itemize}
-	\item Combine data of a local repository and online data from GitHub to form an \ac{ocel}
-	\item Analyze \ac{ocel} to discover process model of contributing to a repository through pull requests from the pull request viewpoint
-	\item Visualize changes in code quality from the pull request, user and commit viewpoints
-	\item Check whether carried out process match with proposed processes in guidelines using conformance-checking
-	\item Present analysis results in a user-friendly interface
+	\item Combine data of local and remote repository data from GitHub to form an \ac{ocel} incorporating code quality
+	\item Visualize evolution of code quality from different (repository, pull request, author and file) viewpoints solely based on \ac{ocel}
+	\item Pinpoint most common deviations from guidelines through conformance checking 
+	\item Compare discovered pull request process models and their impact on code quality
 \end{itemize}
 
 
@@ -81,10 +79,10 @@
 \label{sec:intro_ssec:c}
 \begin{itemize}
 	\item Extraction pipeline to combine local and remote data from GitHub in one \ac{ocel} for process mining
-	\item 
+	\item Visualization tool to build code quality graphs based on \acp{ocel}
+	\item Case study of mining three large Python repositories and their contribution guidelines
 \end{itemize}
 
 
 \section{Thesis Structure}
 \label{sec:intro_ssec:ts}
-The remainder of the thesis is structured as follows. In \cref{chap:prelim}, the author formally defines the terms used in the latter chapters and explains how the chosen code quality metrics are calculated, by introducing a running example. In \cref{chap:related_work}, he presents related work on other approaches to measure code quality, how data from software repositories is commonly analyzed and which process mining concepts have been applied in the context of git repositories. In \cref{chap:method}, the extraction process is explained referring to the running example, introduced in \cref{chap:prelim}. Next the approach is applied to three large Python repositories and the discovered process models together with their \acp{ocel} are compared to the planned processes for contribution of these repositories in \cref{chap:eval}. In \cref{chap:discussion}, design choices regarding the data model are discussed and the limitations of code quality metrics and time complexity are explained. Lastly, in \cref{chap:conclusion} the discoveries made are summarized and possibilities for future work are lined out.

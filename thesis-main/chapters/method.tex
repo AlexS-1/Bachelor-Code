@@ -1,27 +1,32 @@
 \chapter{Method}
 \label{chap:method}
-Overview of pipelines steps: Extraction, Storage and Analysis
-
-\section{Extraction and Preparation of Local Data}
+Overview of approach
 \begin{itemize}
-	\item Using \emph{PyDriller}
-	\item Storing data in suitable format 
+	\item Source code of commits is analyzed for maintainability index and Pylint score
+	\item Data extracted from local git repository is related to objects from remote repository before being unified as \ac{ocel}
+	\item \ac{ocel} is analyzed for contribution guidelines changes and split into separate logs for respective process discovery and conformance checking to measure impact of guidelines on code quality
 \end{itemize}
 
-\section{Extraction and Combination with Web-Based Data}
+\section{Extraction of Data For Code Quality Analysis and Contribution Data}
 \begin{itemize}
-	\item Using \emph{GitHub REST API}
-	\item What to watch out for while matching data
+	\item \emph{PyDriller} is suitable to extract source code evolution by commits
+	\item Source code is analyzed with Pylint\footnote{\url{https://pylint.pycqa.org/} (accessed 2025-05-29)} and Radon\footnote{\url{https://radon.readthedocs.io/} (accessed 2025-05-29)}
+	\item \emph{GitHub \ac{restapi}} is used for filling \ac{ocel} with events via issue timeline \ac{api} \footnote{\url{https://docs.github.com/en/rest/issues/timeline?apiVersion=2022-11-28} (accessed 2025-05-29)}
+	\item The pull request object is used as central part for connecting code quality with workflow analysis through process mining
+	\item Matching local user's names with remote usernames and renaming files are two challenges when relating objects with events
 \end{itemize}
 
-\section{Storing and Querying Data}
+\section{Dissecting Data into Blocks for Analysis}
 \begin{itemize}
-	\item Storage in MongoDB
-	\item Export of \acp{ocel}
+	\item Document based database is ideal for storing \ac{api} responses in JSON format
+	\item Data from \emph{PyDriller} is stored in objects collection in MongoDB\footnote{\url{https://www.mongodb.com/docs/} (accessed 2025-05-29)}
+	\item Remote data from GitHub is stored in objects and events collections in MongoDB
 \end{itemize}
 
-\section{Process Mining using \emph{PM4Py}}
+\section{Visualization of Process Mining Results Suitable for Developers}
 \begin{itemize}
-	\item Process discovery for initial process per repository
-	\item Conformance checking against planned processes (where available)
+	\item Changes in contribution guidelines are detected through code changes on non-source-code files especially on contribution.md and pull requests with respective tags
+	\item Process models are discovered for time frames where contribution guidelines do not change
+	\item Process models are evaluated based on effect on code quality in the repository
+	\item Code quality can be visualized from file, commit, pull request and repository viewpoint through object-centric nature of \ac{ocel}
 \end{itemize}

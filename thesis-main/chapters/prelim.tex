@@ -1,21 +1,29 @@
 \chapter{Preliminaries}
 \label{chap:prelim}
 
-\section{Choice and Definition of Code Quality Metrics}
+\section{Introduction of Running Example}
 \begin{itemize}
-	\item Definition cyclomatic complexity: How many conditional branches does method, file or class have, by using running example
-	\item Definition maintainability index using running example: Chosen version and relation to Halstead's complexity measures using running example
-	\item Explanation \emph{PyLint} score: Linting and variable names using running example
-	\item Definition of method length, file length, variable name length, line length among other line number related code quality metrics
+	\item Toy repository with contribution guidelines, pull request template, protected main branch, 3 contributors, new user, two pull requests, multiple reviews per pull request, based on scenario mentioned in \autoref{sec:intro_ssec:motiv}
+\end{itemize}
+
+\section{Definition of Code Quality Metrics}
+\begin{itemize}
+	\item Definition of cyclomatic complexity: How many conditional branches does method, file or class have, by using changed file of running example
+	\item Definition of Halstead's complexity measures using same file in running example
+	\item Definition of chosen maintainability index variant based on same file as above in running example
+	\item Explanation of \emph{Pylint} score: Linting and variable names using same file in running example
+	\item Definition of how file code quality data is aggregated for author, pull request and repository viewpoints
 \end{itemize}
 
 \section{Definition of Contribution}
 \begin{itemize}
-	\item Based on GitHub definition, but changed meaning for context of this thesis
+	\item Which actions are considered as contribution on GitHub and which aspects of contribution are considered in this thesis
+	\item Differentiation between source code and documentation pull requests for later analysis of their impact on code quality and contribution guidelines respectively
 \end{itemize}
 
 \section{Definitions of Object-Centric Process Mining Related Terms}
 \begin{itemize}
-	\item Viewpoint using running example
-	\item Event vs.\ activity vs.\ event type using running example
-f\end{itemize}
+	\item Definition of term viewpoint using a running example
+	\item Explain, what an event vs.\ activity vs.\ event type is by using data from running example \ac{ocel}
+	\item Definition of variant of \ac{ocel}
+\end{itemize}

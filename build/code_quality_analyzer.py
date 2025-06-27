@@ -1,5 +1,6 @@
 # Get the maintainability index for a given source code file
 import io
+import math
 import os
 import subprocess
 from matplotlib.pylab import f
@@ -24,8 +25,11 @@ class ScoreOnlyReporter(BaseReporter):
     def display_reports(self, layout):
         pass
 
-    def on_close(self, stats, previous_stats): # type: ignore
-        self.out.write(f"{stats.global_note}")
+    def _display(self, layout):
+        pass
+
+    def on_close(self, stats, previous_stats): 
+        pass
 
 def get_maintainability_index(source_code, filepath='temp_code.py'):
     """
@@ -52,11 +56,19 @@ def get_maintainability_index(source_code, filepath='temp_code.py'):
         match_mi = re.search(r"\((\d+)\)", maintainability_output)
         if match_mi:
             os.remove(filename)
-            return int(match_mi.group(1))
+            return float(match_mi.group(1))  
         else:
             print(f"Error calculating maintainability index for file at {filepath}: {result.stderr}")
             return 0
         
+def calculate_maintainability_index(N1, N2, h1, h2, complexity, loc):
+    N = N1 + N2
+    h = h1 + h2
+    volume = N * math.log2(h) if h > 0 else 0
+    mi = 171 - 5.2 * math.log(volume) - 0.23 * complexity - 16.2 * math.log(loc)
+    mi = max(0, mi/ 171)
+    return mi
+
 # def get_pylint_score(source_code, filepath='temp_code.py'):
 #     """
 #     Calculate the pylint score of a given source code file.
@@ -82,13 +94,23 @@ def get_pylint_score(source_code, filepath='temp_code.py'):
     with open(filename, 'w') as f:
         f.write(source_code)
     try:
-        pylint_results = Run([filename], ScoreOnlyReporter(), exit=False)
-        score = pylint_results.linter.stats.global_note
-        os.remove(filename)
-        return score if score is not None else 0
-    except Exception:
-        print(f"Error calculating pylint score for file at {filepath}")
-        return 0
+        result = subprocess.run(
+            ['python', '-m', 'pylint', filename],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        match = re.search(r"rated at ([\d\.]+)/10", result.stdout)
+        if match:
+            os.remove(filename)
+            print(f"{match.group(1)}")
+            return float(match.group(1))
+        else:
+            pylint_results = Run([filename], ScoreOnlyReporter(), exit =False)
+            os.remove(filename)
+            return pylint_results.linter.stats.global_note
+    except Exception as e:
+        print(f"Error calculating pylint score for file at {filepath}: {e}")
 
 class Python2LineMetics:
     def __init__(self, loc, lloc, sloc, comments, single_comments, multi, blank):
