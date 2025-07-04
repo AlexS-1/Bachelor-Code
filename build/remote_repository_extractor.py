@@ -1,4 +1,5 @@
 from datetime import timedelta
+from gc import collect
 import time
 from numpy import extract
 import requests
@@ -11,7 +12,8 @@ anonymous_user_counter = {}
 
 def get_and_insert_remote_data(repo_url, repo_path, from_date, to_date):
     repo = get_repo_information(repo_url)
-    get_closed_pulls(repo["utility_information"]["pulls_url"], from_date, to_date)
+    collection = repo_url.split("/")[-1]
+    get_closed_pulls(repo["utility_information"]["pulls_url"], from_date, to_date, collection)
     
 def get_api_response(url, retries=0):
     headers = {"Authorization": f"token {token}"}
@@ -53,7 +55,7 @@ def get_repo_information(repo_url):
     }
     return repo_information
 
-def get_closed_pulls(pulls_url, from_date, to_date):
+def get_closed_pulls(pulls_url, from_date, to_date, collection):
     # TODO Check pulls for date range with link headers in pagination
     pages = 5
     for page in range(1, pages + 1):
@@ -62,32 +64,32 @@ def get_closed_pulls(pulls_url, from_date, to_date):
             pull_content = {
                 "is-merged-with":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
-                "is-authored-by": get_name_by_username(pull["user"]["login"], pull["author_association"]),
+                "is-authored-by": get_name_by_username(pull["user"]["login"], collection, pull["author_association"]),
                 "title": pull["title"],
                 "description": pull["body"],
                 "merged_at_timestamp": pull["merged_at"],
                 "created_at_timestamp": pull["created_at"],
                 "closed_at_timestamp": pull["closed_at"],
                 "has-participant": 
-                    [get_name_by_username(pull["user"]["login"])] + 
-                    [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]],
-                "is-reviewed-by": [get_name_by_username(user["login"]) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
+                    [get_name_by_username(pull["user"]["login"], collection)] + 
+                    [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]],
+                "is-reviewed-by": [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
                 "formalises": get_related_commits(pull["commits_url"]),
                 "aggregates": get_related_files(pull["url"] + "/files"),
                 # FIXME Extract correct state
                 "state": "open",
             } 
-            insert_pull(pull_content)
-            extract_events_from_pull(pull_response)
+            insert_pull(pull_content, collection)
+            extract_events_from_pull(pull_response, collection)
 
-def extract_events_from_pull(pull_response):
+def extract_events_from_pull(pull_response, collection):
     for pull in pull_response:
         # Check PR events
 
         for event in get_api_response(pull["issue_url"] + "/timeline"):
             if event["event"] not in ["committed", "reviewed"]:
                 timestamp = event["created_at"]
-                actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "authored-by"}
+                actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
             else:
                 # TODO Check OCEL for those attributes
                 timestamp = date_1970()
@@ -114,7 +116,7 @@ def extract_events_from_pull(pull_response):
                     [actor, {"objectId": str(pull['number']), "qualifier": "closed-on-pull_request"}]
                 )
             elif event["event"] == "reopened":
-                actor = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "reopened-by"}
+                actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "reopened-by"}
                 insert_event(
                     f"{event['node_id']}",
                     "reopen_pull_request",
@@ -131,8 +133,8 @@ def extract_events_from_pull(pull_response):
                     [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
                 )
             elif event["event"] == "review_requested":
-                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"]), "qualifier": "for"}
-                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
+                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
                     "add_review_request",
@@ -141,8 +143,8 @@ def extract_events_from_pull(pull_response):
                     [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
                 )
             elif event["event"] == "review_request_removed":
-                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"]), "qualifier": "for"}
-                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"]), "qualifier": "by"}
+                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
                     "remove_review_request",
@@ -151,7 +153,7 @@ def extract_events_from_pull(pull_response):
                     [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
                 )
             elif event["event"] == "commented":
-                user_relation = {"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "commented-by"}
+                user_relation = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "commented-by"}
                 insert_event(
                     f"{event['node_id']}",
                     "comment_pull_request",
@@ -173,7 +175,7 @@ def extract_events_from_pull(pull_response):
                     "rename_pull_request",
                     timestamp,
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
-                    [{"objectId": get_name_by_username(event["actor"]["login"]), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
+                    [{"objectId": get_name_by_username(event["actor"]["login"], collection, collection), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
                 )
             elif event["event"] == "labeled":
                 label = {"name": "label", "value": event["label"]["name"]}
@@ -196,16 +198,16 @@ def extract_events_from_pull(pull_response):
             elif event["event"] == "reviewed":
                 if event["state"] == "approved":
                     review_type = "approve_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "approved-by"}
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "approved-by"}
                 elif event["state"] == "changes_requested":
                     review_type = "suggest_changes_as_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "requested-by"}
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "requested-by"}
                 elif event["state"] == "review_dismissed":
                     review_type = "dismiss_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "dismissed-by"}
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "dismissed-by"}
                 else:
                     review_type = "comment_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"]), "qualifier": "commented-by"}
+                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "commented-by"}
                 timestamp = event["submitted_at"]
                 insert_event(
                     f"{event['id']}",
@@ -247,7 +249,7 @@ def get_anonymous_user_counter():
     global anonymous_user_counter
     return anonymous_user_counter
 
-def get_name_by_username(username, author_association = "NONE"):
+def get_name_by_username(username, collection, author_association = "NONE"):
     global anonymous_user_counter
     user_response = {
         "name": None,
@@ -266,5 +268,5 @@ def get_name_by_username(username, author_association = "NONE"):
         "is-bot": False if user_response["type"] == "User" else True, 
         "created_at_timestamp": user_response["updated_at"] if user_response["updated_at"] else date_1970(),
     }
-    insert_user(user)
+    insert_user(user, collection)
     return user["name"]

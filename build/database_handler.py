@@ -1,5 +1,6 @@
 from datetime import datetime
 from os import path
+from flask.cli import F
 import pymongo
 
 from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
@@ -8,56 +9,60 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 ocdb = myclient["OCEL"]
 
 ### Insert object-type functions
-def insert_commit(data):
-    commit_type = get_type("commit")
+def insert_commit(data, collection):
+    commit_type = get_type("commit", collection)
     try: 
         verify_objectType(data, commit_type)
         data_to_insert = {k: v for k, v in data.items() if k != "commit_sha"}
     except ValueError as e:
         raise ValueError(f"Data does not match the commit type: {e}")
-    insert_object(data["commit_sha"], "commit", data_to_insert)
+    insert_object(data["commit_sha"], "commit", data_to_insert, collection)
 
-def insert_pull(data):
-    pull_request_type = get_type("pull_request")
+def insert_pull(data, collection):
+    pull_request_type = get_type("pull_request", collection)
     try:
         verify_objectType(data, pull_request_type)
         data_to_insert = {k: v for k, v in data.items() if k != "number"}
     except ValueError as e: 
         raise ValueError(f"Data does not match the pull request type: {e}")
-    insert_object(data["number"], "pull_request", data_to_insert)
+    insert_object(data["number"], "pull_request", data_to_insert, collection)
 
-def insert_file(data):
-    file_type = get_type("file")
+def insert_file(data, collection):
+    file_type = get_type("file", collection)
     try:
         verify_objectType(data, file_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError("Data does not match the file change type: {e}")
-    insert_object(data["filename"], "file", data_to_insert)
+    insert_object(data["filename"], "file", data_to_insert, collection)
 
-def insert_user(data):
-    user_type = get_type("user")
+def insert_user(data, collection):
+    user_type = get_type("user", collection)
     try:
         verify_objectType(data, user_type)
         data_to_insert = data
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
-    insert_object(data["name"], "user", data_to_insert)
+    insert_object(data["name"], "user", data_to_insert, collection)
 
 ### TODO Make inserting events and objects consistent
 
 ### Generic insert functions
-def insert_eventType(name, attributes):
+def insert_eventType(name, attributes, collection):
+    ocdb = myclient[f"{collection}"]
     ocdb["eventTypes"].replace_one({"_id": name}, {"attributes": attributes}, True)
 
-def insert_objectType(name, attributes):
+def insert_objectType(name, attributes, collection):
+    ocdb = myclient[f"{collection}"]
     ocdb["objectTypes"].replace_one({"_id": name}, {"attributes": attributes}, True)
 
-def insert_event(id, event_type: str, time, attributes=[], relationships=[]):
+def insert_event(id, event_type: str, time, collection, attributes=[], relationships=[]):
+    ocdb = myclient[f"{collection}"]
     ocdb["events"].replace_one({"_id": id}, {"type": event_type, "time": time, "attributes": attributes, "relationships": relationships}, True)
 
-def insert_object(id, object_type: str, data: dict):
-    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type)["attributes"])] # type: ignore
+def insert_object(id, object_type: str, data: dict, collection: str):
+    ocdb = myclient[f"{collection}"]
+    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type, collection)["attributes"])] # type: ignore
     timestamp_keys = [key for key in list(data.keys()) if key.find("timestamp") != -1]
     relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
     attributes = []
@@ -141,55 +146,64 @@ def insert_object(id, object_type: str, data: dict):
 
 
 ### Get functions
-def get_commits():
+def get_commits(collection: str):
+    ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "commit"})
 
-def get_type(name: str):
+def get_type(name: str, collection: str):
+    ocdb = myclient[f"{collection}"]
     return ocdb["objectTypes"].find_one({"_id": name})
 
-def get_events_for_type(type: str):
+def get_events_for_type(type: str, collection: str):
+    ocdb = myclient[f"{collection}"]
     return ocdb["events"].find({"type": type})
 
-def get_object(id: str):
+def get_object(id: str, collection: str):
     """
     Get an object from the database by its ID.
     Args:
         id (str): The ID of the object to retrieve.
+        collection (str): The collection to get the objec from.
     Returns:
         dict: The object data if found, otherwise None.
     """
+    ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"_id": id})
 
-def get_event(id: str):
+def get_event(id: str, collection: str):
     """
     Get an event from the database by its ID.
     Args:
         id (str): The ID of the event to retrieve.
+        collection (str): The collection to get the objec from
     Returns:
         dict: The event data if found, otherwise None.
     """
+    ocdb = myclient[f"{collection}"]
     return ocdb["events"].find({"_id": id})
     
 
-def get_ocel_data():
+def get_ocel_data(collection):
+    ocdb = myclient[f"{collection}"]
     data = {
-        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["ocel:objectTypes"].find()],
-        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["ocel:eventTypes"].find()],
-        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["ocel:objects"].find()],
-        "events": [rename_field(doc, "_id", "id") for doc in ocdb["ocel:events"].find()]
+        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
+        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
+        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
+        "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
-    path = "Exports/OCEL-Data.json"
+    path = f"Exports/{collection}-OCEL.json"
     
-    write_to_file(path, str(data))
+    write_json(path, data)
     return path
 
 ### Initialisation functions
-def initialise_database():
-    initialise_objectTypes()
-    initialise_eventTypes()
+def initialise_database(repo_path):
+    initialise_objectTypes(repo_path)
+    initialise_eventTypes(repo_path)
 
-def initialise_objectTypes():
+def initialise_objectTypes(repo_path):
+    collection = repo_path.split("/")[-1]
     user_type = {
         "name": "user",
         "attributes": [
@@ -198,7 +212,7 @@ def initialise_objectTypes():
             {"name": "is-bot", "type": "boolean"}
         ]
     }
-    insert_objectType(user_type["name"], user_type["attributes"])
+    insert_objectType(user_type["name"], user_type["attributes"], collection)
     
     commit_type = {
         "name": "commit",
@@ -207,9 +221,10 @@ def initialise_objectTypes():
             {"name": "message", "type": "string"},
             {"name": "description", "type": "string"},
             {"name": "to", "type": "string"},
+            {"name": "contribution_guideline_version", "type": "string"},
         ]
     }
-    insert_objectType(commit_type["name"], commit_type["attributes"])
+    insert_objectType(commit_type["name"], commit_type["attributes"], collection)
     pull_request_type = {
         "name": "pull_request",
         "attributes": [
@@ -218,7 +233,7 @@ def initialise_objectTypes():
             {"name": "state", "type": "string"},
         ]
     }
-    insert_objectType(pull_request_type["name"], pull_request_type["attributes"])
+    insert_objectType(pull_request_type["name"], pull_request_type["attributes"], collection)
     file_type = {
         "name": "file",
         "attributes": [
@@ -237,102 +252,106 @@ def initialise_objectTypes():
             {"name": "pylint_score", "type": "float"}
         ]
     }
-    insert_objectType(file_type["name"], file_type["attributes"])
+    insert_objectType(file_type["name"], file_type["attributes"], collection)
 
-def initialise_eventTypes():
+def initialise_eventTypes(repo_path):
+    collection = repo_path.split("/")[-1]
     # File viewpoint
     commit_event = {
         "name": "commit",
         "attributes": []
     }
-    insert_eventType(commit_event["name"], commit_event["attributes"])
+    insert_eventType(commit_event["name"], commit_event["attributes"], collection)
     change_file_event = {
         "name": "change_file",
         "attributes": []
     }
     # Pull request viewpoint
-    insert_eventType(change_file_event["name"], change_file_event["attributes"])
+    insert_eventType(change_file_event["name"], change_file_event["attributes"], collection)
     reopen_pull_request_event = {
         "name": "rereopen_pull_request",
         "attributes": []
     }
-    insert_eventType(reopen_pull_request_event["name"], reopen_pull_request_event["attributes"])
+    insert_eventType(reopen_pull_request_event["name"], reopen_pull_request_event["attributes"], collection)
     add_label_event = {
         "name": "add_label",
         "attributes": []
     }
-    insert_eventType(add_label_event["name"], add_label_event["attributes"])
+    insert_eventType(add_label_event["name"], add_label_event["attributes"], collection)
     remove_label_event = {
         "name": "remove_label",
         "attributes": []
     }
-    insert_eventType(remove_label_event["name"], remove_label_event["attributes"])
+    insert_eventType(remove_label_event["name"], remove_label_event["attributes"], collection)
     open_pull_request_event = {
         "name": "open_pull_request",
         "attributes": []
     }
-    insert_eventType(open_pull_request_event["name"], open_pull_request_event["attributes"])
+    insert_eventType(open_pull_request_event["name"], open_pull_request_event["attributes"], collection)
     close_pull_request_event = {
         "name": "close_pull_request",
         "attributes": []
     }
-    insert_eventType(close_pull_request_event["name"], close_pull_request_event["attributes"])
+    insert_eventType(close_pull_request_event["name"], close_pull_request_event["attributes"], collection)
     merge_pull_request_event = {
         "name": "merge_pull_request",
         "attributes": []
     }
-    insert_eventType(merge_pull_request_event["name"], merge_pull_request_event["attributes"])
+    insert_eventType(merge_pull_request_event["name"], merge_pull_request_event["attributes"], collection)
     rename_pull_request_event = {
         "name": "rename_pull_request",
         "attributes": []
     }
-    insert_eventType(rename_pull_request_event["name"], rename_pull_request_event["attributes"])
+    insert_eventType(rename_pull_request_event["name"], rename_pull_request_event["attributes"], collection)
     comment_pull_request_event = {
         "name": "comment_pull_request",
         "attributes": []
     }
-    insert_eventType(comment_pull_request_event["name"], comment_pull_request_event["attributes"])
+    insert_eventType(comment_pull_request_event["name"], comment_pull_request_event["attributes"], collection)
     # Review viewpoint
     mark_ready_for_review_event = {
         "name": "mark_ready_for_review",
         "attributes": []
     }
-    insert_eventType(mark_ready_for_review_event["name"], mark_ready_for_review_event["attributes"])
+    insert_eventType(mark_ready_for_review_event["name"], mark_ready_for_review_event["attributes"], collection)
     add_review_request_event = {
         "name": "add_review_request",
         "attributes": []
     }
-    insert_eventType(add_review_request_event["name"], add_review_request_event["attributes"])
+    insert_eventType(add_review_request_event["name"], add_review_request_event["attributes"], collection)
     remove_review_request_event = {
         "name": "remove_review_request",
         "attributes": []
     }
-    insert_eventType(remove_review_request_event["name"], remove_review_request_event["attributes"])
+    insert_eventType(remove_review_request_event["name"], remove_review_request_event["attributes"], collection)
     comment_review_event = {
         "name": "comment_review",
         "attributes": []
     }
-    insert_eventType(comment_review_event["name"], comment_review_event["attributes"])
+    insert_eventType(comment_review_event["name"], comment_review_event["attributes"], collection)
     suggest_changes_as_review_event = {
         "name": "suggest_changes_as_review",
         "attributes": []
     }
-    insert_eventType(suggest_changes_as_review_event["name"], suggest_changes_as_review_event["attributes"])
+    insert_eventType(suggest_changes_as_review_event["name"], suggest_changes_as_review_event["attributes"], collection)
     approve_review_event = {
         "name": "approve_review",
         "attributes": []
     }
-    insert_eventType(approve_review_event["name"], approve_review_event["attributes"])
+    insert_eventType(approve_review_event["name"], approve_review_event["attributes"], collection)
     dismiss_review_event = {
         "name": "dismiss_review",
         "attributes": []
     }
-    insert_eventType(dismiss_review_event["name"], dismiss_review_event["attributes"])
+    insert_eventType(dismiss_review_event["name"], dismiss_review_event["attributes"], collection)
 
 def verify_objectType(data, obj_type):
     for attribute in obj_type["attributes"]:
-        if attribute["name"] not in list(data.keys()): 
-            if type(data[attribute["name"]]) and generic_to_python_type(attribute["type"] is type(data[attribute["name"]])):
-                raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())} or {generic_to_python_type(attribute["type"])} is not of type {type(data[attribute["name"]])})")
-            else: 
-                raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())})")
+        try:
+            if attribute["name"] not in list(data.keys()): 
+                if type(data[attribute["name"]]) and generic_to_python_type(attribute["type"] is type(data[attribute["name"]])):
+                    raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())} or {generic_to_python_type(attribute["type"])} is not of type {type(data[attribute["name"]])})")
+                else: 
+                    raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())})")
+        except Exception as e:
+            raise ValueError(f"{e}: Data is {data}")

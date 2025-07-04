@@ -7,9 +7,9 @@ from requests import get
 
 from build.database_handler import insert_commit, insert_event, insert_file
 from build.code_quality_analyzer import get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
-from build.utils import date_formatter
+from build.utils import date_1970, date_formatter
 
-def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
+def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, contribution_guideline_version, description=None, file_changes=None, parents=None):
     return {
         "commit_sha": commit_sha,
         "message": message,
@@ -18,7 +18,9 @@ def create_commit(commit_sha, author, message, repository, branches, commit_time
         "is-authored-by": author,
         "commit_timestamp": commit_timestamp,
         "aggregates": file_changes,
-        "is-child-of": parents
+        "is-child-of": parents,
+
+        "contribution_guideline_version": contribution_guideline_version
     }
 
 def create_file(name, filename, file_change_timestamp, commit_sha, method_count, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
@@ -88,6 +90,8 @@ def get_snapshot_code_quality(repo_path, from_date, file_types):
 
 def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapshot=False):
     # FIXME Split in extract and insert methods in two modules
+    collection = repo_path.split("/")[-1]
+    contribution_guideline_version = date_1970()
     repository_code_metrics = get_snapshot_code_quality(repo_path, from_date, file_types) if snapshot else {}
     for commit in Repository(repo_path, 
                              since=from_date, 
@@ -123,7 +127,8 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 # import spacy
                 # nlp = spacy.load("en_core_web_sm")
                 # doc = nlp(str(modified_file.source_code))
-                
+                # TODO Correct detection to NLP techniques instead of flagging every change of a non source code file as guideline change
+                contribution_guideline_version = commit.committer_date
             
             else:
                 continue
@@ -171,7 +176,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 lm.multi,
                 lm.blank,
                 pl)
-            insert_file(file)
+            insert_file(file, collection)
         filenames = [f.new_path for f in commit.modified_files if f.new_path]
         commit_object = create_commit(
             commit.hash, 
@@ -180,6 +185,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
             commit.project_name, 
             commit.branches, 
             commit_timestamp, 
+            contribution_guideline_version,
             "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], 
             filenames, 
             commit.parents)
@@ -190,5 +196,5 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
         commit_pylint = sum(file_pylints)/len(file_pylints) if file_pylints else 0
         commit_object["commit_mi"] = commit_mi
         commit_object["commit_pylint"] = commit_pylint
-        insert_commit(commit_object)
+        insert_commit(commit_object, collection)
     return repository_code_metrics

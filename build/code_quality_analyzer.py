@@ -89,7 +89,7 @@ def calculate_maintainability_index(N1, N2, h1, h2, complexity, loc):
 #         print(f"Error calculating pylint score for file at {filepath}")
 #         return 0
     
-def get_pylint_score(source_code, filepath='temp_code.py'):
+def get_pylint_score(source_code, filepath='temp_code.py') -> float:
     filename = filepath.split("/")[-1]
     with open(filename, 'w') as f:
         f.write(source_code)
@@ -108,9 +108,10 @@ def get_pylint_score(source_code, filepath='temp_code.py'):
         else:
             pylint_results = Run([filename], ScoreOnlyReporter(), exit =False)
             os.remove(filename)
-            return pylint_results.linter.stats.global_note
+            return float(pylint_results.linter.stats.global_note)
     except Exception as e:
         print(f"Error calculating pylint score for file at {filepath}: {e}")
+        return 0
 
 class Python2LineMetics:
     def __init__(self, loc, lloc, sloc, comments, single_comments, multi, blank):
