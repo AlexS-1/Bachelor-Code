@@ -150,6 +150,10 @@ def get_commits(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "commit"})
 
+def get_files(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find({"type": "file"})
+
 def get_type(name: str, collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objectTypes"].find_one({"_id": name})
@@ -158,7 +162,7 @@ def get_events_for_type(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["events"].find({"type": type})
 
-def get_object(id: str, collection: str):
+def get_object(object_id: str, collection: str):
     """
     Get an object from the database by its ID.
     Args:
@@ -168,9 +172,9 @@ def get_object(id: str, collection: str):
         dict: The object data if found, otherwise None.
     """
     ocdb = myclient[f"{collection}"]
-    return ocdb["objects"].find({"_id": id})
+    return ocdb["objects"].find_one({"_id": object_id})
 
-def get_event(id: str, collection: str):
+def get_event(event_id: str, collection: str):
     """
     Get an event from the database by its ID.
     Args:
@@ -180,7 +184,7 @@ def get_event(id: str, collection: str):
         dict: The event data if found, otherwise None.
     """
     ocdb = myclient[f"{collection}"]
-    return ocdb["events"].find({"_id": id})
+    return ocdb["events"].find({"_id": event_id})
     
 
 def get_ocel_data(collection):
@@ -237,7 +241,8 @@ def initialise_objectTypes(repo_path):
     file_type = {
         "name": "file",
         "attributes": [
-            {"name": "filename", "type": "string"}, # TODO Decide on use, then add to diagramm
+            {"name": "filename", "type": "string"},
+            {"name": "cc", "type": "int"},
             {"name": "method_count", "type": "int"},
             {"name": "theta_1", "type": "int"},
             {"name": "theta_2", "type": "int"},
@@ -355,3 +360,79 @@ def verify_objectType(data, obj_type):
                     raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())})")
         except Exception as e:
             raise ValueError(f"{e}: Data is {data}")
+
+def get_attribute_value_at_time(id, attribute_name, time, collection):
+    """
+    Get the value of an attribute at a specific time.
+    Args:
+        id (str): The ID of the object to get the attribute value for.
+        attribute_name (str): The name of the attribute to get the value for.
+        time (datetime): The time to get the attribute value at.
+    Returns:
+        str: The value of the attribute at the specified time, or None if not found.
+    """
+    file = get_object(id, collection)
+    time = datetime.fromisoformat(time).replace(tzinfo=None)
+    attributes = {}
+    if file is None:
+        return None
+    for attribute in file["attributes"]:
+        attr_time = datetime.fromisoformat(attribute["time"]).replace(tzinfo=None)
+        if attribute["name"] == attribute_name and attr_time <= time:
+            # Convert string to designated attribute_type
+            object_type = get_type(file["type"], collection)
+            if object_type is not None:
+                attribute_type = next((attr["type"] for attr in object_type["attributes"] if attr["name"] == attribute_name), None)
+                if attribute_type == "int":
+                    attributes[attr_time] = int(attribute["value"])
+                if attribute_type == "float":
+                    attributes[attr_time] = float(attribute["value"])
+                if attribute_type == "boolean":
+                    attributes[attr_time] = True if attribute["value"] == "True" else False
+        else:
+            print("ERROR: No suitable object type for requested id")
+    return attributes.get(max(attributes.keys(), default=None), None) if attributes else None
+
+
+def get_related_objects(id, qualifier, collection):
+    """
+    Get the related objects of an object based on a qualifier.
+    Args:
+        id (str): The ID of the file to get the related objects for.
+        qualifier (str): The qualifier to filter the related objects by.
+    Returns:
+        list: A list of related object IDs.
+    """
+    object = get_object(id, collection)
+    related_objects = []
+    if object is None:
+        return []
+    for relation in object["relationships"]:
+        if relation["qualifier"] == qualifier:
+            related_objects.append(relation["objectId"])
+    return related_objects 
+
+def get_attribute_times(id, collection):
+    """
+    Get the timestamps when an attribute value changed
+    Args:
+        id (str): The ID of the object to get the attribute times for.
+        collection (str): The collection to get the object from.
+    Returns:
+        list: A list of timestamps when the attribute value changed.
+    """
+    try:
+        file = get_object(id, collection)
+    except Exception as e:
+        print(f"Error retrieving object with ID {id} from collection {collection}: {e}")
+        return []
+    
+    if not file or "attributes" not in file:
+        print(f"No attributes found for object with ID {id} in collection {collection}")
+        return []
+    
+    attribute_times = set()
+    for attribute in file["attributes"]:
+        if "time" in attribute:
+            attribute_times.add(attribute["time"])
+    return list(attribute_times)

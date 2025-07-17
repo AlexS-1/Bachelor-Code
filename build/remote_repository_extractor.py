@@ -77,7 +77,7 @@ def get_closed_pulls(pulls_url, from_date, to_date, collection):
                 "formalises": get_related_commits(pull["commits_url"]),
                 "aggregates": get_related_files(pull["url"] + "/files"),
                 # FIXME Extract correct state
-                "state": "open",
+                "state": pull["state"],
             } 
             insert_pull(pull_content, collection)
             extract_events_from_pull(pull_response, collection)
@@ -216,9 +216,15 @@ def extract_events_from_pull(pull_response, collection):
                     [],
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
-
-        # TODO Change file event
-        # TODO Open pull request event
+        # Assumption: Creation of pull request is when pull request was opened, i.e. pull requests are opened not as draft
+        insert_event(
+            f"open_pull_{pull['number']}",
+            "open_pull_request",
+            pull["created_at"],
+            [],
+            [{"objectId": get_name_by_username(pull["user"]["login"], collection), "qualifier": "opened-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull_request"}]
+        )
+        # TODO 1. Change file event
 
 
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:

@@ -5,8 +5,8 @@ from numpy import insert
 from pydriller import Repository
 from requests import get
 
-from build.database_handler import insert_commit, insert_event, insert_file
-from build.code_quality_analyzer import get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
+from build.database_handler import get_attribute_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file
+from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
 from build.utils import date_1970, date_formatter
 
 def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, contribution_guideline_version, description=None, file_changes=None, parents=None):
@@ -23,13 +23,14 @@ def create_commit(commit_sha, author, message, repository, branches, commit_time
         "contribution_guideline_version": contribution_guideline_version
     }
 
-def create_file(name, filename, file_change_timestamp, commit_sha, method_count, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
+def create_file(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
     return {
         "file-changed_by": name,
         "filename": filename,
         "file_change_timestamp": file_change_timestamp,
         "part-of-commit": commit_sha,
         "method_count": method_count,
+        "cyclomatic_complexity": cyclomatic_complexity,
         "theta_1": theta_1,
         "theta_2": theta_2,
         "N_1": N_1,
@@ -151,6 +152,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
             pl = get_pylint_score(source)/10
             lm = get_line_metrics(source)
             hm = get_halstead_metrics(source)
+            cc = get_cyclomatic_complexity(source)
 
             # TODO Implement as reading from MongoDB
             repository_code_metrics[modified_file.new_path] = [mi, pl]
@@ -165,6 +167,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 commit_timestamp, 
                 commit.hash,
                 -1, # TODO Check how method count works len(hm.methods),
+                cc,
                 hm.total.h1,
                 hm.total.h2,
                 hm.total.N1,
@@ -197,4 +200,4 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
         commit_object["commit_mi"] = commit_mi
         commit_object["commit_pylint"] = commit_pylint
         insert_commit(commit_object, collection)
-    return repository_code_metrics
+    return

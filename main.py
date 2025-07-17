@@ -17,7 +17,7 @@ from build.code_quality_visualizer import plot_commit_code_quality
 
 def main():
     # Convert repo URL to path by cloning repo to temporary dictionary
-    repo_url = "https://github.com/srbhr/Resume-Matcher"
+    repo_url = "https://github.com/matplotlib/matplotlib"
     api_url = repo_url.replace("github.com", "api.github.com/repos")
 
     # Setting different timeperiod
@@ -38,19 +38,24 @@ def main():
     initialise_database(repo_path)
     
     # Go through all commits in the given time period
-    # get_and_insert_local_data(repo_path, from_date, to_date, file_types, True)
+    get_and_insert_local_data(repo_path, from_date, to_date, file_types, True)
 
     # TODO Implement checking if remote and lcoal user ids match
-    # get_and_insert_remote_data(api_url, from_date, to_date, file_types)
+    get_and_insert_remote_data(api_url, from_date, to_date, file_types)
 
     # plot_commit_code_quality(repo_url.split('/')[-1])
     collection = repo_path.split("/")[-1]
     path = get_ocel_data(collection)
     with open(path) as f:
         ocel = json.load(f)
-    ocels = split_OCEL_at_guideline_changes(ocel, collection)
-    for ocel in ocels:
-        print(len(ocel["events"]))
+    try:
+        ocels = split_OCEL_at_guideline_changes(ocel, collection)
+        for ocel in ocels:
+            print(len(ocel["events"]))
+    except Exception as e:
+        print(f"Error splitting OCEL: {e}")
  
 if __name__ == "__main__":
-    main()
+    from build.code_quality_visualizer import split_code_quality_per_guideline_change
+    split_code_quality_per_guideline_change("matplotlib")
+    # main()
