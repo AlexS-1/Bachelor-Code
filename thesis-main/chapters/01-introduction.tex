@@ -1,99 +1,57 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\begin{itemize}
-	\item Domain: Pull request mechanism as central element to contribute to a repository \autocite{DBLP:conf/icse/TsayDH14}, signifying a request to to merge proposed changes with the existing codebase
-	\item Problem: Lack of transparency and enforcement regarding contribution guidelines resulting in complex interactions between developers, maintainers and new users i.e., following repository guidelines requires more effort than following own approach e.g., finding a suitable reviewer, which tasks are to be completed, what is the time frame for one pull request? \ac{cicd} pipelines help to automate some aspects but introduce further complexity.
-	\item Method: Extract source code and pull request data from GitHub to form an \ac{ocel} for analysis with regards to contribution process and code quality
-	\item Result: Workflow diagram focusing on pull request process and evolution of code quality makes process clear and easy to understand, helping maintainers to optimize workflows and new developers adapt the desired process. 
-	\item Evaluation: Case study of using \ac{ocel} as single source of truth through analysis of contribution processes and code quality in three large Python repositories to visualize code quality from different viewpoints and detect guideline changes as well as comparing their effectiveness.
-\end{itemize}
+Modern software engineering is shaped by distributed collaboration, version control, and continuous integration. As development processes become increasingly complex and team-based, effective coordination between contributors is essential for ensuring code quality, consistency, and maintainability. Version control systems, particularly Git, have emerged as critical infrastructure to support collaborative software development. Git enables developers to track changes, experiment with new features, and manage parallel development streams through branching and merging mechanisms. On top of Git, platforms such as GitHub provide user-friendly interfaces, hosting, and social collaboration features. One of GitHub’s central mechanisms is the pull request (PR), which allows contributors to propose changes to a repository while enabling project maintainers to review, discuss, and control their integration. This mechanism plays a pivotal role in shaping how software contributions are evaluated, discussed, and merged in modern open-source projects \autocite{DBLP:conf/icse/TsayDH14}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Collaboration_Illustration.pdf}
+    \caption{Overview of collaboration process in open-source GitHub Respository}
+    \label{fig:your-label}
+\end{figure}
+
+Despite its centrality, the pull request process is often opaque and difficult to navigate, particularly for new contributors. Many repositories include contribution guidelines, but enforcement is limited and the guidelines may lack specificity. Contributors must determine, for example, how to find suitable reviewers, what tests must be passed, or how long reviews might take—questions often left unanswered by documentation. Furthermore, continuous integration/deployment (CI/CD) pipelines, while automating quality assurance steps, can introduce additional complexity and variability in the process. These factors contribute to a lack of transparency in contribution workflows, impeding effective participation and complicating efforts to assess the impact of contributions on code quality.
+
+To address these challenges, this thesis proposes a method to extract both local (Git) and remote (GitHub) repository data and combine them into an Object-Centric Event Log (\ac{ocel}). The OCEL serves as a unified representation of the contribution process, capturing events such as commits, reviews, comments, and merges, and linking them to relevant objects such as pull requests, files, and users. This structure enables the application of Object-Centric Process Mining techniques to analyze workflows from multiple viewpoints. Using this approach, we visualize the pull request process alongside code quality metrics over time, allowing both maintainers and contributors to better understand how contributions evolve and affect the codebase. A case study on three large Python repositories is conducted to demonstrate the feasibility and utility of this method. The evaluation focuses on detecting process changes, comparing workflows across projects, and analyzing the relationship between contribution guideline adherence and code quality evolution.
 
 \section{Motivation}
-\label{sec:intro_ssec:motiv}
-\begin{itemize}
-	\item It is essential to follow guidelines (naming conventions, process of finding reviewers \& expected time until merge), in order to contribute code to a repository effectively
-	\item Documentation how contributions are handled can hardly capture all scenarios
-	\item Specification of scenario, where developer finds a bug during use of a program and wants to contribute own fix to repository without prior open-source contribution experience (i.e., a new developer)
-\end{itemize}
+Effective contribution to a software repository requires following the project’s contribution guidelines, which may include naming conventions, review processes, and expected merge timelines. Adhering to these guidelines ensures that contributions integrate smoothly into the codebase, which is crucial for maintaining project quality and consistency. When guidelines are not followed, the integration of changes can be delayed or result in conflicts.
 
-\paragraph{Problem Relevance.} 
-\begin{itemize}
-	\item Increasing popularity of open-source projects in contrast to lack of new developers to maintain repositories \autocite{DBLP:journals/corr/abs-2208-04895}\autocite{DBLP:journals/ese/RehmanWKIM22}
-	\item No known implementation of data extraction of pull request information from Git repositories to form \ac{ocel}
-	\item Git commit and pull request data is hard to overview making visualizations valuable, especially for new developers
-	\item Contribution guidelines as initial point of contact \autocite{DBLP:conf/icsm/ElazharySEZ19} lack step-by-step walk-through of contribution process
-	\item Different developers pursuing their own goals can cause worsening of overall code quality, especially with new developers
-\end{itemize}
+However, official documentation and contribution guidelines rarely capture every possible scenario a contributor might encounter. As a result, developers often face uncertainty when their specific situation is not addressed, forcing them to guess how to proceed. This gap in documentation can lead to confusion and inconsistent contributions.
 
-\paragraph{Existing Solutions.}
-\begin{itemize}
-	\item For developers, both new and experienced, understanding the employed contribution process is essential, therefore tools helping developers and maintainers to make better decisions. Tools excelling at measuring code quality, analyzing the contribution process or helping reviewers decide whether to approve a pull request exist separately, the aim of this thesis is to combine aspects about contribution process visualization and code quality measurement to unveil their relationship.
-	\item Data extraction with data only from git (local repository) and \ac{restapi} (remote repository) exist separately, but no combined approach could be found at the point of writing.
-	\item Code quality metrics have existed for a long time, they have been refined and new metrics have been proposed \autocite{DBLP:journals/smr/CodabuxSC24}, but there has been little focus on code quality evolution $\Rightarrow$ Use \ac{ocel} to visualize the change of code quality. Code review, an important aspect of contribution processes, and its impact on code quality has been studied, but again the wholistic view of the contribution process was not analyzed \autocite{DBLP:journals/ese/McIntoshKAH16}
-	% CI/CD aspect could also be mentioned here
-	\item Work by \autocite{DBLP:conf/icsm/ElazharySEZ19} analyzes adherence to contribution guidelines and detects anomalies in the contribution process, but the impact of contribution processes on code quality is not discussed.
-\end{itemize}
+For example, consider a scenario where a developer discovers a bug while using a program and wants to contribute a fix to the repository without any prior open-source experience. This newcomer must figure out how to clone the repository, understand the coding standards, create a pull request, and find an appropriate reviewer — all without clear instructions. Such scenarios highlight the need for tools or visualizations that clarify the contribution process for inexperienced developers.
 
+\paragraph{Problem Relevance.} Open-source software projects have grown in popularity, but there is a shortage of new developers to maintain them \autocite{DBLP:journals/corr/abs-2208-04895}\autocite{DBLP:journals/ese/RehmanWKIM22}. This imbalance emphasizes the importance of making the contribution process as clear and accessible as possible to attract and retain contributors. Currently, there is no known implementation that automatically extracts pull request information from a Git repository and organizes it into an OCEL. Developing such a dataset would provide a unified view of the project’s history and contribution workflow, serving as a valuable resource for analysis. Raw Git commit and pull request data are difficult to overview in their native form, especially for new developers. Visualizing this data using an OCEL can make the contribution workflow more comprehensible, which is particularly valuable for those unfamiliar with the project’s history and processes.
+
+Contribution guidelines are typically the first point of contact for potential contributors, but they often lack a detailed, step-by-step walkthrough of the process \autocite{DBLP:conf/icsm/ElazharySEZ19}. Contributors frequently have to learn the process by trial and error rather than by following clear instructions, which can lead to inefficiencies and errors. Moreover, when individual developers — especially newcomers — pursue their own goals without coordination, the overall code quality can suffer. For example, inconsistent coding styles or missed review steps may accumulate over time, further highlighting the need for better guidance and process transparency.
+
+\paragraph{Existing Solutions.} For developers of all experience levels, understanding the contribution process is essential. A variety of tools exist to assist in related tasks: some focus on measuring code quality, others on analyzing parts of the contribution process, and others on helping reviewers evaluate pull requests. However, these tools generally address only one aspect at a time. Our goal is to integrate process visualization and code quality measurement to reveal their relationship.
+
+Some existing data extraction methods use only the local Git repository or only the GitHub REST API, but we found no approach that combines both sources. By integrating data from both local and remote repositories, we can create a more complete picture of the project’s history and workflow.
+
+Code quality metrics have been studied and refined for many years, and new metrics continue to be proposed \autocite{DBLP:journals/smr/CodabuxSC24}. However, these metrics are typically applied to snapshots of code at a single point in time, with little attention to how quality evolves over the lifetime of a project. We propose using OCELs to visualize changes in code quality across the project history. Although prior research has examined how code review influences code quality \autocite{DBLP:journals/ese/McIntoshKAH16}, the broader contribution process has not been analyzed together in terms of its impact on quality.
+
+Elazhary et al. (2019) \autocite{DBLP:conf/icsm/ElazharySEZ19} analyze whether pull requests adhere to a project’s contribution guidelines and detect anomalies in the process. However, they do not consider how those process characteristics affect the resulting code quality. Our work extends this by linking process conformance and deviations to the measured code quality outcomes.
 
 \section{Problem Statement}
-\label{sec:intro_ssec:probs}
-\begin{itemize}
-	\item Datasets for \ac{msr} are specific to one viewpoint, lacking the analysis of interdependence between different aspects of contributing and often are specific to an older version of process mining format like the original \ac{ocel} specification
-	\item Existing code quality tools focus too little on the changes of code quality during the history of a repository and often just analyze one perspective
-	% Rewrite to focus on specific tools to compare to like CodeScene
-	\item The effect of adhering to contribution guidelines is largely unclear
-\end{itemize}
+Most existing datasets used in Mining Software Repositories (MSR) research focus on a single dimension of project history, such as commits or issues. This narrow focus prevents analysis of the interdependencies between different aspects of the contribution process. Furthermore, these datasets often rely on older event log formats rather than modern object-centric logs, limiting their ability to capture complex workflows and relationships among artifacts.
 
+Existing code quality analysis tools generally emphasize static snapshots or single-perspective analysis (e.g., file-level or project-level metrics) and pay little attention to how code quality changes over the repository’s history. As a result, opportunities to identify trends or anomalies in code quality evolution are often missed.
+
+Finally, it remains unclear whether strict adherence to contribution guidelines actually leads to improved code quality. The effect of guideline compliance on metrics like maintainability or defect rates has not been thoroughly studied, leaving an important question unanswered.
 
 \section{Research Questions}
-\label{sec:intro_ssec:rqs}
-\begin{itemize}
-	\item How can local and remote repository data be standardized and combined into an \ac{ocel}?
-	\begin{itemize}
-		\item How is Git data extracted from open source software repositories?
-		\item Which additional benefits does an \ac{ocel} offer compared to traditional event logs in this domain?
-		\item Why is this definition and format of \ac{ocel} chosen?
-	\end{itemize}
-	\item How does code quality evolve, when inspected from different viewpoints?
-	\begin{itemize}
-		\item Does code quality generally increase within a repository?
-		\item Do maintainability index and Pylint score follow the same trends?
-		\item How does code quality evolve from a file, author, pull request or repository viewpoint?
-	\end{itemize}
-	\item Does adhering to contribution guidelines result in the desired code quality?
-	\begin{itemize}
-		\item Are changes in contribution guidelines noticeable in the evolution of code quality?
-		\item Do deviations from guidelines affect code quality?
-		\item Which deviations from guidelines have the biggest impact on code quality?
-	\end{itemize}
-\end{itemize}
+Our first research question asks how to standardize and combine data from a project’s local Git repository and the remote GitHub repository into an object-centric event log (OCEL). Specifically, we will determine how to extract the relevant data (commits, pull request events, review comments, etc.), what additional benefits an OCEL provides compared to traditional event logs in this domain, and why a particular OCEL definition and format is chosen for modeling the workflow.
+
+The second research question examines how code quality evolves when viewed from different perspectives. We will investigate whether code quality generally improves as the repository matures, whether different metrics (for example, the maintainability index and Pylint score) follow similar or divergent trends, and how code quality changes when examined at the level of individual files, authors, pull requests, and the entire repository.
+
+The third research question asks whether adhering to contribution guidelines results in the desired code quality outcomes. We will look for noticeable changes in code quality evolution that coincide with changes in the guidelines, determine how deviations from the guidelines affect code quality, and identify which specific guideline violations have the greatest impact on code quality.
 
 \section{Research Goals}
-\label{sec:intro_ssec:rgs}
-\begin{itemize}
-	\item Create an approach to build datasets of contribution processes in GitHub repositories incorporating multiple viewpoints on code quality
-	\item Visualize evolution of code quality from different (repository, pull request, author and file) viewpoints solely based on \ac{ocel}
-	\item Pinpoint most common deviations from guidelines through conformance checking 
-	\item Compare discovered pull request process models and their impact on code quality
-\end{itemize}
-
+The first goal of this research is to create an approach for building datasets of GitHub contribution processes that capture multiple code quality viewpoints in an \ac{ocel} format. The second goal is to develop visualization tools that use the \ac{ocel} to show how code quality metrics evolve over time from different perspectives (repository, pull request, author, file). The third goal is to use conformance checking on the discovered process models to pinpoint the most common deviations from the documented contribution guidelines. The fourth goal is to compare the discovered pull request process models across different projects and analyze how these variations impact code quality.
 
 \section{Contributions}
-\label{sec:intro_ssec:c}
-\begin{itemize}
-	\item General approach to build datasets on GitHub contribution data in an \ac{ocel} format
-	\item Visualization tool to build code quality graphs based on built \acp{ocel}
-	\item Case study of mining three large Python repositories and their contribution guidelines
-\end{itemize}
-
+This thesis makes three main contributions. First, we present a general approach for constructing datasets from GitHub contribution data in an object-centric event log format. Second, we provide a visualization tool that generates code quality graphs from these OCELs, showing how quality metrics change over time. Third, we conduct a case study on three large Python repositories and their contribution guidelines to demonstrate the usefulness and applicability of our approach.
 
 \section{Thesis Structure}
-\label{sec:intro_ssec:ts}
-\begin{enumerate}
-	\item First discuss fundamental principles about code quality and \ac{ocpm} 
-	\item Related work on code quality metrics and contribution process mining
-	\item Design decisions in general approach from extraction to analysis
-	\item Evaluating the proposed approach through a case study
-	\item Concluding this thesis with an outlook for future work
-\end{enumerate}
+In Chapter 2, we discuss fundamental principles of code quality and object-centric process mining (OCPM), explaining key concepts and metrics used in this work. Chapter 3 reviews related work on code quality metrics and contribution process mining, summarizing existing tools and studies relevant to our research. Chapter 4 details our design decisions and overall approach, from data extraction to analysis, including how we construct the OCEL and compute quality metrics. Chapter 5 presents a case study evaluation of our method on three Python repositories, demonstrating the approach and analyzing the results. Finally, Chapter 6 concludes the thesis and outlines directions for future work.
