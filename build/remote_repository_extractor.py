@@ -103,15 +103,16 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "commit",
                     event["committer"]["date"], 
+                    collection, 
                     [],
                     [committer, commit, {"objectId": str(pull['number']), "qualifier": "committed-to-pull_request"}]
-                    # TODO Add linked files (maybe commit message as well)
                 )
             elif event["event"] == "closed":
                 insert_event(
                     f"{event['node_id']}",
                     "close_pull_request",
                     timestamp,
+                    collection,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "closed-on-pull_request"}]
                 )
@@ -121,14 +122,16 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "reopen_pull_request",
                     timestamp,
+                    collection,
                     [],
-                    [actor, {"objectId": str(pull['number']), "qualifier": "pr"}]
+                    [actor, {"objectId": str(pull['number']), "qualifier": "reopened-pull-request"}]
                 )
             elif event["event"] == "merged":
                 insert_event(
                     f"{event['node_id']}",
                     "merge_pull_request",
                     timestamp,
+                    collection,
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
                 )
@@ -139,8 +142,9 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "add_review_request",
                     timestamp,
+                    collection, 
                     [],
-                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
+                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "review_request_removed":
                 requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
@@ -149,8 +153,9 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "remove_review_request",
                     timestamp,
+                    collection,
                     [],
-                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in"}]
+                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "commented":
                 user_relation = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "commented-by"}
@@ -158,24 +163,27 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "comment_pull_request",
                     timestamp,
+                    collection,
                     [{"name": "comment", "value": f"{event["body"]}"}],
-                    [user_relation, {"objectId": str(pull['number']), "qualifier": "on"}]
+                    [user_relation, {"objectId": str(pull['number']), "qualifier": "on-pull-request"}]
                 )
             elif event["event"] == "ready-for-review":
                 insert_event(
                     f"{event['node_id']}",
                     "mark_ready_for_review",
                     timestamp,
+                    collection,
                     [],
-                    [actor, {"objectId": str(pull['number']), "qualifier": "in"}]
+                    [actor, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "renamed":
                 insert_event(
                     f"{event['node_id']}",
                     "rename_pull_request",
                     timestamp,
+                    collection,
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
-                    [{"objectId": get_name_by_username(event["actor"]["login"], collection, collection), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pr"}]
+                    [{"objectId": get_name_by_username(event["actor"]["login"], collection, collection), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
             elif event["event"] == "labeled":
                 label = {"name": "label", "value": event["label"]["name"]}
@@ -183,6 +191,7 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "add_label",
                     timestamp,
+                    collection,
                     [label],
                     [actor, {"objectId": str(pull['number']), "qualifier": "labeled-on-pull_request"}]
                 )
@@ -192,6 +201,7 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['node_id']}",
                     "remove_label",
                     timestamp,
+                    collection,
                     [label],
                     [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
                 )
@@ -213,6 +223,7 @@ def extract_events_from_pull(pull_response, collection):
                     f"{event['id']}",
                     review_type,
                     timestamp,
+                    collection,
                     [],
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
@@ -221,6 +232,7 @@ def extract_events_from_pull(pull_response, collection):
             f"open_pull_{pull['number']}",
             "open_pull_request",
             pull["created_at"],
+            collection,
             [],
             [{"objectId": get_name_by_username(pull["user"]["login"], collection), "qualifier": "opened-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull_request"}]
         )

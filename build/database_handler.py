@@ -10,7 +10,7 @@ ocdb = myclient["OCEL"]
 
 ### Insert object-type functions
 def insert_commit(data, collection):
-    commit_type = get_type("commit", collection)
+    commit_type = get_object_type("commit", collection)
     try: 
         verify_objectType(data, commit_type)
         data_to_insert = {k: v for k, v in data.items() if k != "commit_sha"}
@@ -19,7 +19,7 @@ def insert_commit(data, collection):
     insert_object(data["commit_sha"], "commit", data_to_insert, collection)
 
 def insert_pull(data, collection):
-    pull_request_type = get_type("pull_request", collection)
+    pull_request_type = get_object_type("pull_request", collection)
     try:
         verify_objectType(data, pull_request_type)
         data_to_insert = {k: v for k, v in data.items() if k != "number"}
@@ -28,7 +28,7 @@ def insert_pull(data, collection):
     insert_object(data["number"], "pull_request", data_to_insert, collection)
 
 def insert_file(data, collection):
-    file_type = get_type("file", collection)
+    file_type = get_object_type("file", collection)
     try:
         verify_objectType(data, file_type)
         data_to_insert = data
@@ -37,7 +37,7 @@ def insert_file(data, collection):
     insert_object(data["filename"], "file", data_to_insert, collection)
 
 def insert_user(data, collection):
-    user_type = get_type("user", collection)
+    user_type = get_object_type("user", collection)
     try:
         verify_objectType(data, user_type)
         data_to_insert = data
@@ -62,7 +62,7 @@ def insert_event(id, event_type: str, time, collection, attributes=[], relations
 
 def insert_object(id, object_type: str, data: dict, collection: str):
     ocdb = myclient[f"{collection}"]
-    attribute_keys = [attribute_key["name"] for attribute_key in list(get_type(object_type, collection)["attributes"])] # type: ignore
+    attribute_keys = [attribute_key["name"] for attribute_key in list(get_object_type(object_type, collection)["attributes"])] # type: ignore
     timestamp_keys = [key for key in list(data.keys()) if key.find("timestamp") != -1]
     relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
     attributes = []
@@ -154,9 +154,18 @@ def get_files(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "file"})
 
-def get_type(name: str, collection: str):
+def get_object_type(name: str, collection: str):
     ocdb = myclient[f"{collection}"]
-    return ocdb["objectTypes"].find_one({"_id": name})
+    object = ocdb["objectTypes"].find_one({"_id": name})
+    return object
+
+def get_type_of_object(object_id: str, collection: str):
+    ocdb = myclient[f"{collection}"]
+    object = ocdb["objects"].find_one({"_id": object_id})
+    if object:
+        return object.get("type")
+    print(f"ERROR: No object found for id: {object_id}")
+    return None
 
 def get_events_for_type(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
@@ -187,7 +196,7 @@ def get_event(event_id: str, collection: str):
     return ocdb["events"].find({"_id": event_id})
     
 
-def get_ocel_data(collection):
+def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
     data = {
         "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
@@ -380,7 +389,7 @@ def get_attribute_value_at_time(id, attribute_name, time, collection):
         attr_time = datetime.fromisoformat(attribute["time"]).replace(tzinfo=None)
         if attribute["name"] == attribute_name and attr_time <= time:
             # Convert string to designated attribute_type
-            object_type = get_type(file["type"], collection)
+            object_type = get_object_type(file["type"], collection)
             if object_type is not None:
                 attribute_type = next((attr["type"] for attr in object_type["attributes"] if attr["name"] == attribute_name), None)
                 if attribute_type == "int":

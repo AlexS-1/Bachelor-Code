@@ -1,0 +1,2206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<log xes.version="1849-2016" xes.features="nested-attributes" xmlns="http://www.xes-standard.org/">
+	<extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext" />
+	<extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext" />
+	<string key="origin" value="csv" />
+	<trace>
+		<string key="concept:name" value="30271" />
+		<event>
+			<string key="event_id" value="open_pull_30271" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-07T21:22:51" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'opened-by'}, {'objectId': '30271', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RTE_lADOABUios6_WRIgzwAAAARPefCD" />
+			<string key="concept:name" value="rename_pull_request" />
+			<date key="time:timestamp" value="2025-07-07T21:42:55" />
+			<string key="attributes" value="[{'name': 'renamed-to', 'value': 'Reduce pause time in interactive timer test'}]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'change-issued-by'}, {'objectId': '30271', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDMyMDg4MzFjNTIxOGQ0ODAyZmY4Y2Y3NmQxYzZlYmE3ZGMyY2QzZGY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-08T10:59:37" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '3208831c5218d4802ff8cf76d1c6eba7dc2cd3df', 'qualifier': 'sha'}, {'objectId': '30271', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RRE_lADOABUios6_WRIgzwAAAARQqSSl" />
+			<string key="concept:name" value="add_review_request" />
+			<date key="time:timestamp" value="2025-07-08T19:59:53" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Greg Lucas', 'qualifier': 'for'}, {'objectId': 'Elliott Sales de Andrade', 'qualifier': 'by'}, {'objectId': '30271', 'qualifier': 'in-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2999808665" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-09T03:04:00" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Greg Lucas', 'qualifier': 'approved-by'}, {'objectId': '30271', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2999968795" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-09T05:00:00" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'approved-by'}, {'objectId': '30271', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_WRIgzwAAAARQ9orA" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-09T05:00:40" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'authored-by'}, {'objectId': '30271', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_WRIgzwAAAARQ9orH" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-09T05:00:40" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: testing'}]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'authored-by'}, {'objectId': '30271', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_WRIgzwAAAARQ9p5R" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T05:01:15" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'authored-by'}, {'objectId': '30271', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_WRIgzwAAAARQ9p5j" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T05:01:15" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'authored-by'}, {'objectId': '30271', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30272" />
+		<event>
+			<string key="event_id" value="open_pull_30272" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-08T02:03:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30272', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2996750177" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-08T09:28:50" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30272', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDg2OTgzZTRmNDI5Njk5NjIzNTFmZTEzYTQ0ZTI5NTc2MjFkODUxMGQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-10T00:02:07" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '86983e4f42969962351fe13a44e2957621d8510d', 'qualifier': 'sha'}, {'objectId': '30272', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3003963820" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-10T05:19:48" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30272', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_YDE5zwAAAARSJjgl" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T05:25:44" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: text/fonts'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30272', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3019373586" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-15T08:51:21" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'approved-by'}, {'objectId': '30272', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_YDE5zwAAAARWwcPv" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T10:32:17" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30272', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_YDE5zwAAAARWwcQS" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T10:32:17" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30272', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30274" />
+		<event>
+			<string key="event_id" value="open_pull_30274" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-08T07:06:59" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30274', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_aNB4zwAAAARP0_KE" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-08T07:07:02" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: testing'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30274', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RTE_lADOABUios6_aNB4zwAAAARP0_2l" />
+			<string key="concept:name" value="rename_pull_request" />
+			<date key="time:timestamp" value="2025-07-08T07:07:12" />
+			<string key="attributes" value="[{'name': 'renamed-to', 'value': 'ci: Fix image preload with multiple conflicts'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'change-issued-by'}, {'objectId': '30274', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios61rJzo" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-08T08:58:13" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Since this passed on 854caff2d0d5133042f56eaa2e9974a3aeacbbef, I've dropped that commit.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30274', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGFmZjIwY2YwMGM0MWU2MWVlN2I3MmZkZDgwM2E4YjM4OTUzMGUwNzY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-09T03:21:24" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': 'aff20cf00c41e61ee7b72fdd803a8b389530e076', 'qualifier': 'sha'}, {'objectId': '30274', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2999965196" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-09T04:57:06" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jouni K. Seppänen', 'qualifier': 'approved-by'}, {'objectId': '30274', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_aNB4zwAAAARQ_LgU" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T05:45:25" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30274', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_aNB4zwAAAARQ_LhE" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T05:45:25" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30274', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios613n1g" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T06:11:40" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Arg, I seem to have accidentally committed the `mlab` bits here instead of #30273. But anyway, it should get joined up when `main` is merged into this branch again.'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30274', 'qualifier': 'on-pull-request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30275" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGYzZTI5NjYwZjA2ZmMzNDhjMTc0MTk3NmQzZGJkMmU5YTJiOTgyOTA" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-07T15:08:17" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'ZPyrolink', 'qualifier': 'authored-by'}, {'objectId': 'f3e29660f06fc348c1741976d3dbd2e9a2b98290', 'qualifier': 'sha'}, {'objectId': '30275', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30275" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-08T09:22:29" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'ZPyrolink', 'qualifier': 'opened-by'}, {'objectId': '30275', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_b0TZzwAAAARP-5pI" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-08T09:22:39" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: pyplot API'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_b0TZzwAAAARP-5pR" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-08T09:22:39" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: canvas and figure manager'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2996788983" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-08T09:35:01" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30275', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_b0TZzwAAAARP_zZg" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-08T09:35:11" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: typing'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="UNLE_lADOABUios6_b0TZzwAAAARP_z0n" />
+			<string key="concept:name" value="remove_label" />
+			<date key="time:timestamp" value="2025-07-08T09:35:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: pyplot API'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'unlabeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2998949018" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-08T19:59:41" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30275', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDNkN2I2NDQyZGY5ZTliODQzOWI3MzI4OTA2MWYwYmQ5ZTc5NDE3Nzc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-08T20:29:35" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'ZPyrolink', 'qualifier': 'authored-by'}, {'objectId': '3d7b6442df9e9b8439b73289061f0bd9e7941777', 'qualifier': 'sha'}, {'objectId': '30275', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGQyYWRiOGQxMzhkNGE3M2MzODM5ODhiMzQyMDRjYWNiZGJlY2I5ZDU" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-08T20:31:58" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'ZPyrolink', 'qualifier': 'authored-by'}, {'objectId': 'd2adb8d138d4a73c383988b34204cacbdbecb9d5', 'qualifier': 'sha'}, {'objectId': '30275', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_b0TZzwAAAARQr12a" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-08T20:32:12" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: pyplot API'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="2999353787" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-08T23:28:13" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30275', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_b0TZzwAAAARR_NDC" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T00:15:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_b0TZzwAAAARR_NDT" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T00:15:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30275', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30279" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDliYmUzMmI0Zjg3MDMwOWFmMTQ2OGYwZTFhMTRlNWQzOGJmMDYwZjM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-09T06:54:30" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Sebastien Wieckowski', 'qualifier': 'authored-by'}, {'objectId': '9bbe32b4f870309af1468f0e1a14e5d38bf060f3', 'qualifier': 'sha'}, {'objectId': '30279', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30279" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T06:55:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Sébastien Wieckowski', 'qualifier': 'opened-by'}, {'objectId': '30279', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3000293581" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-09T07:00:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30279', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3000803693" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-09T09:39:00" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'approved-by'}, {'objectId': '30279', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_nU7rzwAAAARRocfW" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T16:04:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30279', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_nU7rzwAAAARRocfm" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-09T16:04:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30279', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30281" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDc0MzJlZjQ0ZjAwMjNkMzdhNGUzY2MxMGJlMWUzZjkwOThjZTk5YTI" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-10T02:21:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '7432ef44f0023d37a4e3cc10be1e3f9098ce99a2', 'qualifier': 'sha'}, {'objectId': '30281', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30281" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T02:25:21" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30281', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_yY6DzwAAAARSDczF" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T02:25:30" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: axes'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_yY6DzwAAAARSDczO" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T02:25:30" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: tri'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_yY6DzwAAAARSDczR" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T02:25:30" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: user guide'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_yY6DzwAAAARSDczV" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T02:25:30" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: API'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_yY6DzwAAAARSDdEc" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T02:25:38" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3005696229" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-10T13:26:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Oscar Gustafsson', 'qualifier': 'approved-by'}, {'objectId': '30281', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3006315885" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-10T15:43:45" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30281', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62RVu0" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T15:45:31" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;&gt; One may argue if PR titles should be corrected as that was the name of the PR merged, but apart from that looks good. (And not sure I will argue.)\r\n\r\nWe have rejected this before in other PR's, but since @QuLogic has taken the effort to update the PR titles in GitHub, that's fine. Not sure whether I'd have spent the time, but we're now in a nice and clean state.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30281', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_yY6DzwAAAARSzEcI" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T15:45:37" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_yY6DzwAAAARSzEdj" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T15:45:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30281', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30283" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDFjYTIxMzZiYTczNjc0NGM1YmIwNTYwNjNlNTU2NzI5MWEzNTBmNzQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-10T13:30:57" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'IdiotCoffee', 'qualifier': 'authored-by'}, {'objectId': '1ca2136ba736744c5bb056063e5567291a350f74', 'qualifier': 'sha'}, {'objectId': '30283', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30283" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T13:33:58" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ishaan Mavinkurve', 'qualifier': 'opened-by'}, {'objectId': '30283', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_5BFCzwAAAARSolVc" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-10T13:34:09" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: examples'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30283', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3005739417" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-10T13:38:21" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30283', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62RaKw" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T15:49:14" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks, please also change here: https://github.com/matplotlib/matplotlib/blob/93a421e9c43b8f4a69e64d0615ba20e7f5616670/galleries/tutorials/index.rst?plain=1#L10'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30283', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGM2Nzk4Y2U4OGJkMjBmZDYyNDA5MGQ4NjdiOTkyNWEwM2VkMmRiNzk" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T01:52:16" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'IdiotCoffee', 'qualifier': 'authored-by'}, {'objectId': 'c6798ce88bd20fd624090d867b9925a03ed2db79', 'qualifier': 'sha'}, {'objectId': '30283', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_5BFCzwAAAARTQZ2o" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T01:53:01" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: tutorials'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30283', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3008256133" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-11T02:30:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30283', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_5BFCzwAAAARTR6nT" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:31:10" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30283', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_5BFCzwAAAARTR6nb" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:31:11" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30283', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62ZTET" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:31:27" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks @IdiotCoffee! Congratulations on your first PR to Matplotlib :tada: We hope to hear from you again. '}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30283', 'qualifier': 'on-pull-request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30286" />
+		<event>
+			<string key="event_id" value="open_pull_30286" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-10T21:46:11" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Brian Christian', 'qualifier': 'opened-by'}, {'objectId': '30286', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3007502785" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-10T21:50:43" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30286', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3007587583" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-10T22:23:19" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30286', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGQ3YzVjNjc3MGJlNTdhNmI4YmQ3ODdmYmI0M2NjZjVjOTU0YzhjZGE" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-10T22:53:47" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Brian Christian', 'qualifier': 'authored-by'}, {'objectId': 'd7c5c6770be57a6b8bd787fbb43ccf5c954c8cda', 'qualifier': 'sha'}, {'objectId': '30286', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3008208688" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-11T02:17:03" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'approved-by'}, {'objectId': '30286', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_-XqYzwAAAARTRsmu" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:25:42" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30286', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios6_-XqYzwAAAARTRsm3" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:25:42" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'PR: bugfix'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30286', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3008247014" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-11T02:27:28" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30286', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios6_-XqYzwAAAARTRyEz" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:27:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30286', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios6_-XqYzwAAAARTRyE_" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:27:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30286', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62ZN29" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:27:52" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks @brchristian! Congratulations on your first PR to Matplotlib :tada: We hope to hear from you again. '}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30286', 'qualifier': 'on-pull-request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30287" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDNhYTE0MTcyMDYzNmU1NDhlMmNkODNmOGE4MWMwYWMyMzZjZDhhOTc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T02:28:01" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'MeeseeksDev[bot]', 'qualifier': 'authored-by'}, {'objectId': '3aa141720636e548e2cd83f8a81c0ac236cd8a97', 'qualifier': 'sha'}, {'objectId': '30287', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30287" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:28:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'opened-by'}, {'objectId': '30287', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAKdnzwAAAARTRzN3" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:28:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAKdnzwAAAARTRzN6" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:28:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'PR: bugfix'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAKdnzwAAAARTRzOu" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:28:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAKdnzwAAAARTRzPG" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:28:04" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'PR: bugfix'}]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62qrXk" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T04:11:54" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Build failure is unrelated; it's due to the pybind11 update, which is fixed elsewhere.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30287', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AAKdnzwAAAARUerZC" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T05:04:05" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AAKdnzwAAAARUerZJ" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T05:04:05" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30287', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30288" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGNiMjNlNWYyZDE1YzAyYmRhMTZjZTZlZmEwYWI0MDQ2Y2JjMmIwMDE" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T02:31:16" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'MeeseeksDev[bot]', 'qualifier': 'authored-by'}, {'objectId': 'cb23e5f2d15c02bda16ce6efa0ab4046cbc2b001', 'qualifier': 'sha'}, {'objectId': '30288', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30288" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T02:31:17" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'opened-by'}, {'objectId': '30288', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAMEEzwAAAARTR63H" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:31:18" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: examples'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30288', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AAMEEzwAAAARTR63J" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T02:31:18" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: tutorials'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30288', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62qqmF" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T04:10:38" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Build failure is unrelated, due to the `pybind11` upgrade which is already fixed.'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30288', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AAMEEzwAAAARUd4Wo" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T04:10:43" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30288', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AAMEEzwAAAARUd4Wz" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T04:10:43" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30288', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30289" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGQyZDk2OWVmOWQwMTI5NzcyOGMxNWMwZmRmYTk1Nzg1MjIwMTgzNGI" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T05:30:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': 'd2d969ef9d01297728c15c0fdfa957852201834b', 'qualifier': 'sha'}, {'objectId': '30289', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30289" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T05:50:56" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30289', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ABlU2zwAAAARTZkcj" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T05:50:58" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30289', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3011406931" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-11T18:02:51" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'approved-by'}, {'objectId': '30289', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7ABlU2zwAAAARUKIwC" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:11:06" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'authored-by'}, {'objectId': '30289', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7ABlU2zwAAAARUKIwh" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:11:07" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'authored-by'}, {'objectId': '30289', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30293" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDYyZDVjODMyZGU2OWNiZTRlZThjYTZiOTZhYTQwYmVhMWViMjk5MmM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T18:11:35" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'MeeseeksDev[bot]', 'qualifier': 'authored-by'}, {'objectId': '62d5c832de69cbe4ee8ca6b96aa40bea1eb2992c', 'qualifier': 'sha'}, {'objectId': '30293', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30293" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:11:37" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'opened-by'}, {'objectId': '30293', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AJyu4zwAAAARUKKWC" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T18:11:38" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30293', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AJyu4zwAAAARUVcNK" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T21:58:31" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30293', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AJyu4zwAAAARUVcNT" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T21:58:31" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30293', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30294" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDc0ZDg2MzJmYTcxYWFkYzIxMDM3ZGU3NzYyODRlMjZhYTRjMjM1MWQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T18:11:42" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'MeeseeksDev[bot]', 'qualifier': 'authored-by'}, {'objectId': '74d8632fa71aadc21037de776284e26aa4c2351d', 'qualifier': 'sha'}, {'objectId': '30294', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30294" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:11:43" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'opened-by'}, {'objectId': '30294', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AJyxrzwAAAARUKKnt" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T18:11:44" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30294', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AJyxrzwAAAARUK5NG" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:25:44" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30294', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AJyxrzwAAAARUK5Nc" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:25:44" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30294', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30295" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDcwZTE4NDhhZTk5MzYxM2VhNTQ3ZTFiYmY2ZWNhNGY5MGVkYzA3MTM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-11T18:38:42" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Narendersingh007', 'qualifier': 'authored-by'}, {'objectId': '70e1848ae993613ea547e1bbf6eca4f90edc0713', 'qualifier': 'sha'}, {'objectId': '30295', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30295" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T18:48:05" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Narender Singh', 'qualifier': 'opened-by'}, {'objectId': '30295', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AKIhTzwAAAARUMAkJ" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-11T18:48:19" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: text'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30295', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3011538400" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-11T18:52:09" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30295', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62mvJ7" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-11T19:52:52" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thank you for your enthusiasm to contribute.  However, I think that the buggy behaviour described in #30276 is a pretty narrow edge case.  So discussing it here in the docstring may just confuse the general user.\r\n\r\nAlso, with Matplotlib v3.10.3 I see the same behaviour whether I set the axis limits before or after setting the clip path.  Do you see different behaviours with another version?'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30295', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62qG0y" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T01:47:30" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Thanks for the feedback!\r\n\r\nYou're right — this is definitely an edge case and I understand the concern about overloading the docstring. I originally chose to document this because it came up in multiple discussions including #28717 and #30276, where users experienced misalignment after `set_clip_path()` with axis limit changes.\r\n\r\nI tested this on Matplotlib versions:\r\n- 3.8.2: Clipping breaks if `set_xlim()` is used *after* `set_clip_path()`.\r\n- 3.10.3: Seems to behave more consistently (possibly fixed or improved?).\r\n\r\nSo this may indeed be version-dependent, or possibly backend/environment-specific.\r\n\r\nWould it make sense to instead:\r\n- Move this into a **note in the FAQ or examples gallery**, or\r\n- Add a warning/example in a **tutorial or `axvspan`/annotation usage guide** rather than the `Annotation` docstring itself?\r\n\r\nOpen to suggestions on where it fits best — happy to revise or close if not suitable here.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Narender Singh', 'qualifier': 'commented-by'}, {'objectId': '30295', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62r5dg" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T08:54:53" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Note that https://github.com/matplotlib/matplotlib/issues/28717 and https://github.com/matplotlib/matplotlib/issues/30276 were opened by the same person and one issue is explicitly a follow-up of the other.  Have you seen the problem come up elsewhere?\r\n\r\nI think the work to do for #30276 is to establish what the correct behaviour should be and why I get different behaviour from the OP.  Questions about if, how and where it should be documented can come after that.\r\n\r\nIf you are interested in writing documentation more generally, we welcome that and have [a lot of documentation issues open](https://github.com/matplotlib/matplotlib/issues?q=is%3Aissue%20state%3Aopen%20label%3ADocumentation).  If you are using AI to help you in your contributions, please also read\r\nhttps://matplotlib.org/devdocs/devel/contribute.html#restrictions-on-generative-ai-usage\r\n'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30295', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62sIUF" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T10:02:39" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'With v3.8.2, the clipping does not work at all for me:\r\n\r\n```python\r\nimport matplotlib.pyplot as plt\r\n\r\nfig, ax = plt.subplots()\r\nrect = ax.axvspan(2, 3.05, ymin=0, ymax=1, color=\'red\', alpha=0.5)\r\nann = ax.annotate(&quot;Hello&quot;, xy=(3, 0.5), xycoords=(&quot;data&quot;, &quot;axes fraction&quot;),\r\n                  xytext=(0, 0), textcoords=&quot;offset points&quot;, va=&quot;center&quot;, clip_on=True)\r\nann.set_clip_path(rect)\r\n\r\nplt.show()\r\n```\r\n&lt;img width=&quot;640&quot; height=&quot;480&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/2f388b72-88fe-492d-9b29-eac90444d79a&quot; /&gt;\r\n'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30295', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AKIhTzwAAAARU7pLS" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-13T10:38:07" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Narender Singh', 'qualifier': 'authored-by'}, {'objectId': '30295', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30297" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGJlMzY1OTY2Nzk1MjgwZDA3YjE3MWU0N2VmMThjMDBkM2NkMzBhZTk" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T02:18:26" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'GitHub', 'qualifier': 'authored-by'}, {'objectId': 'be365966795280d07b171e47ef18c00d3cd30ae9', 'qualifier': 'sha'}, {'objectId': '30297', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30297" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T02:32:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Narender Singh', 'qualifier': 'opened-by'}, {'objectId': '30297', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ANSElzwAAAARUcJUn" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T02:32:48" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: text'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30297', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7ANSElzwAAAARUcJ68" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T02:33:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Narender Singh', 'qualifier': 'authored-by'}, {'objectId': '30297', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ANSElzwAAAARUiF4g" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T08:07:44" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'status: duplicate'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30297', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30299" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDkxYzBmNDg2OWQ1YzUyN2RiZWYzODdmNzJlOWFhMDQxY2VhYmViYjc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T16:15:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '91c0f4869d5c527dbef387f72e9aa041ceabebb7', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30299" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T16:18:03" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'opened-by'}, {'objectId': '30299', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AQdJ2zwAAAARUrlS9" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T16:18:14" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: legend'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30299', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62vSwe" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T16:46:59" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks for the PR.  I tried your branch with the example code from the issue and got this:\r\n\r\n&lt;img width=&quot;500&quot; height=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/7fff89d0-8d4e-411a-a83d-ff1a4db81106&quot; /&gt;\r\n\r\nWe still have no label showing for the top right panel and the one for the bottom right panel is now black.  I think they should both be blue.'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62vWZN" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T16:55:03" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks for testing this out and for the helpful feedback, @rcomer!\r\n\r\nI’ll take a closer look at the color resolution logic, especially around how get_facecolor and get_edgecolor interact in these scenarios. As you noted, switching to or including get_edgecolor might resolve this more cleanly.\r\n\r\nI’ll push a follow-up commit shortly to address this, thanks again for the detailed insights!'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDE0ZTBmZTA0ZWIwYThlM2FhYjc1M2IzYzM2N2NiM2IzZGJlZDUzNzk" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T18:59:14" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '14e0fe04eb0a8e3aab753b3c367cb3b3dbed5379', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62vwth" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T19:08:28" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks again for the helpful feedback, @rcomer !\r\n\r\nI’ve made the changes now. Specifically, I updated the logic to check for transparent or missing facecolors (like in outline scatter plots or step histograms) and fall back to using the edgecolor instead as you suggested. This should fix the issue with missing or incorrect legend label colors in those cases.\r\n\r\nYou can use the following script to visually confirm that the labels now pick up the expected colors across all four plot types:\r\n\r\nLet me know if this works better now!\r\n\r\n\r\n```python\r\nimport matplotlib.pyplot as plt\r\nimport numpy as np\r\n\r\nfig, axes = plt.subplots(2, 2, figsize=(8, 8))\r\nx = np.random.randn(1000)\r\ny = np.random.randn(1000)\r\n\r\n# Top Left: Filled Histogram\r\naxes[0, 0].hist(x, histtype=\'bar\', label=&quot;filled hist&quot;, color=\'C0\')\r\naxes[0, 0].legend(labelcolor=\'linecolor\')\r\naxes[0, 0].set_title(&quot;Filled Histogram&quot;)\r\n\r\n# Top Right: Step Histogram (edge only)\r\naxes[0, 1].hist(x, histtype=\'step\', label=&quot;step hist&quot;)\r\naxes[0, 1].legend(labelcolor=\'linecolor\')\r\naxes[0, 1].set_title(&quot;Step Histogram&quot;)\r\n\r\n# Bottom Left: Filled Scatter Plot\r\naxes[1, 0].scatter(x, y, label=&quot;filled scatter&quot;, color=\'C2\')\r\naxes[1, 0].legend(labelcolor=\'linecolor\')\r\naxes[1, 0].set_title(&quot;Filled Scatter Plot&quot;)\r\n\r\n# Bottom Right: Outline Scatter Plot\r\naxes[1, 1].scatter(x, y, label=&quot;outline scatter&quot;, facecolors=\'none\', edgecolors=\'C3\')\r\naxes[1, 1].legend(labelcolor=\'linecolor\')\r\naxes[1, 1].set_title(&quot;Outline Scatter Plot&quot;)\r\n\r\nfig.suptitle(&quot;Legend Labelcolor=\'linecolor\' – Visual Test&quot;)\r\nplt.tight_layout()\r\nplt.show()\r\n```'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RTE_lADOABUios7AQdJ2zwAAAARUukKp" />
+			<string key="concept:name" value="rename_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T19:10:50" />
+			<string key="attributes" value="[{'name': 'renamed-to', 'value': 'Fix legend labelcolor=‘linecolor’ to handle all cases, including step plots and transparent markers'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'change-issued-by'}, {'objectId': '30299', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3013669161" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-12T23:17:33" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lukas Hergt', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62w8-F" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-13T00:10:25" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'This might go beyond this PR, but a few more failing examples:\r\n\r\n```python\r\nimport numpy as np\r\nimport matplotlib.pyplot as plt\r\nplt.rcParams[\'legend.loc\'] = 1\r\nplt.rcParams[\'legend.framealpha\'] = 1\r\n\r\nx = np.linspace(0, 1, 10)\r\n\r\nplt.plot(x, -x-0, \'o\', c=\'None\',            label=&quot;invisible&quot;)\r\nplt.plot(x, -x-1, \'o\',   c=\'b\', mfc=\'None\', label=&quot;matching handle and label color&quot;)\r\nplt.plot(x, -x-2, \'o\', mec=\'r\', mfc=\'None\', label=&quot;NOT MATCHING HANDLE AND LABEL COLOR!!!&quot;)\r\nplt.plot(x, -x-3, \'o\',   c=\'g\', mec=\'None\', label=&quot;again matching&quot;)\r\nplt.plot(x, -x-4, \'o\', mfc=\'m\', mec=\'None\', label=&quot;AGAIN NOT MATCHING!!!&quot;)\r\n\r\nplt.scatter(x, -x-5,  c=\'None\',             label=&quot;OH NO, i AM VISIBLE!!!&quot;)\r\nplt.scatter(x, -x-6,    ec=\'y\',  fc=\'None\', label=&quot;yay, I work now&quot;)\r\nplt.scatter(x, -x-7,    fc=\'c\',  ec=\'None\', label=&quot;yay, I still work&quot;)\r\n\r\nplt.legend(labelcolor=\'linecolor\')\r\n```\r\n\r\n&lt;img width=&quot;546&quot; height=&quot;413&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/b975e93b-6639-4c2e-a47a-93aff6886aaf&quot; /&gt;\r\n\r\nNote the two failing cases `\'r\'` and `\'m\'`. However, note also the perfectly working alternatives `\'b\'` and `\'g\'`. \r\n'}]" />
+			<string key="relationships" value="[{'objectId': 'Lukas Hergt', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62w96w" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-13T00:17:41" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks, man, nice examples you’ve got there 😂, they really helped clarify the edge cases! I’m actively working on addressing these inconsistencies (especially the mismatched mfc/mec ones like ‘r’ and ‘m’), and I’ll get back to you once I have a solid fix in place. Appreciate the detailed test cases! 🙌'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3013711417" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-13T00:41:20" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lukas Hergt', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDdmNjRiYTk3N2ZkM2RhYjIzZjNiN2ZiNjEzYzIyOTE2YTU0YTBlNmM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-13T12:41:31" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '7f64ba977fd3dab23f3b7fb613c22916a54a0e6c', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGUyNmUyZTk1YzI3NzM2YWUyZjZhMmJlZjRjYzIyOTg0OGRkNDI2ODU" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-13T12:46:27" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'e26e2e95c27736ae2f6a2bef4cc229848dd42685', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62zysm" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-13T12:50:44" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Hey! I’ve made the changes as discussed, and all the related tests are now passing\r\n\r\n1. I had to update the colour_getters logic and modify a few tests where the check was comparing the full color array. Since the updated logic uses the first valid color in some cases (like gradients or arrays), I updated those tests accordingly.\r\n2. I’ve also added the ValueError handling to catch invalid labelcolor inputs like 'not-a-color'.\r\n3. On top of that, I created several new test functions at the end to cover a wide range of edge cases, including transparent colors, None, mixed facecolors, missing labels, empty color arrays, etc.\r\n\r\nI’ve tried to ensure everything is correct, but I might’ve missed something. Feel free to point it out if so! \r\n&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDI4YmE1NjRjN2YzMmVmMDlkOGI3NjBmNTJkYmU1MjIyMjFkNDg0ZDg" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-13T12:55:26" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '28ba564c7f32ef09d8b760f52dbe522221d484d8', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDJiZDEzYzA5ODlkOTRkN2NiMTQ5NmU3MmJmMjhhNmEyYzZlY2JkNjk" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-13T12:55:30" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '2bd13c0989d94d7cb1496e72bf28a6a2c6ecbd69', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDEyMjI3YjkzODE2Y2ZlOWU3ZjEzZDdlYWRkOWMwMDdjMWIzOWY5Njc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-13T12:56:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '12227b93816cfe9e7f13d7eadd9c007c1b39f967', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62zz1b" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-13T13:00:25" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'I accidentally added the test file and removed it. This created the cleanliness error. Im unable to resolve the issue. Any tips or advices would be helpful\r\n'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3014186359" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-13T16:41:08" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lukas Hergt', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGM2YmM1N2ZkZmY5ZmMzNjA3NjRhM2U3ODFlMDFiMDYxYjdlOWE4Mjc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-14T13:02:00" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'c6bc57fdff9fc360764a3e781e01b061b7e9a827', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDkwZDJkNDUwYjg1ZjhlNjNmZmYyMjgzMmE5OGZlOGNkNjcyZDMzYWY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-14T14:22:46" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '90d2d450b85f8e63fff22832a98fe8cd672d33af', 'qualifier': 'sha'}, {'objectId': '30299', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62-iYv" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T14:35:39" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Hey, ive tried fixing all the issues uve asked, kindly know if im wrong. \r\nThank you.\r\n@rcomer any help regarding the pr cleanliness would be helpful'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62-ygp" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T14:55:11" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;@nrnavaneet have a look at a tutorial on squashing your commits.  If you've not done it before be sure to make a backup git branch.  The stack overflow answers here are useful https://stackoverflow.com/questions/5189560/how-do-i-squash-my-last-n-commits-together&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Jody Klymak', 'qualifier': 'commented-by'}, {'objectId': '30299', 'qualifier': 'on-pull-request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30301" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGFkZjZmODYwZTc1ZGYzOGQ1NjZkZTUzODliMGU3ZDdkMDEwNzIyZjc" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T22:16:42" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'adf6f860e75df38d566de5389b0e7d7d010722f7', 'qualifier': 'sha'}, {'objectId': '30301', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30301" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T22:28:28" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'opened-by'}, {'objectId': '30301', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ARqzXzwAAAARUyHdW" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T22:28:37" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: pyplot API'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30301', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ARqzXzwAAAARUyHdY" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T22:28:37" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: legend'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30301', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDdlNDNmNDEwODVlMDUxZTA5ZmVmNmVhMTQ3ZmRkZWQxNTVjYjIyZjg" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T22:33:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'GitHub', 'qualifier': 'authored-by'}, {'objectId': '7e43f41085e051e09fef6ea147fdded155cb22f8', 'qualifier': 'sha'}, {'objectId': '30301', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDdkYzVlYWEzNThmOGZiZTFhNzk1NGIxN2ExMGViZTM2M2I0OGQ4NDM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T22:38:49" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '7dc5eaa358f8fbe1a7954b17a10ebe363b48d843', 'qualifier': 'sha'}, {'objectId': '30301', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RTE_lADOABUios7ARqzXzwAAAARUyUGu" />
+			<string key="concept:name" value="rename_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T22:39:59" />
+			<string key="attributes" value="[{'name': 'renamed-to', 'value': '[MNT] Typing: Use Literal for set_loglevel'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'change-issued-by'}, {'objectId': '30301', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62wfUe" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T22:46:57" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Hi @timhoffm \r\nI’m still learning and fairly new to contributing. I initially tried addressing all three parts of the issue but ran into a few problems. So I’ve decided to focus on fixing one part at a time to keep things clean and manageable.\r\nPlease let me know if anything needs adjusting. I really appreciate the guidance'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30301', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGNmMWE3MGNkOTgxYmE3MzA1ZDAyNTI0N2Y3NTgxZGI4ZjMwYTk3MTY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T22:48:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'cf1a70cd981ba7305d025247f7581db8f30a9716', 'qualifier': 'sha'}, {'objectId': '30301', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDkyYjY5ZjcyYmZjNjYwNTI3YmE3ZjUxMWVhZmY4NGZhNGQ5ODM4MTM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T22:55:28" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '92b69f72bfc660527ba7f511eaff84fa4d983813', 'qualifier': 'sha'}, {'objectId': '30301', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62wnZu" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T23:00:00" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Hi, I wanted to clarify an issue I’m currently facing.\r\n\r\nAs part of the initial changes, I had created a temporary script tools/update_rcparam_typing.py to help with regenerating the RcParamKeyType block. I’ve since removed the file from the project, but it still appears in the PR history as both added and deleted, causing the CI check to fail.\r\n\r\nI’ve tried resolving it, but I haven’t been able to fix it successfully. I’d really appreciate any guidance on how to clean this up properly, should I rebase and drop that commit, or is there a preferred approach for this situation?\r\n\r\nThanks so much for your patience and support!'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30301', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7ARqzXzwAAAARUyz8d" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T23:01:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '30301', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30302" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDA1NTUyMDZkNDc5M2E2MjEwY2UwZWY4M2VmOThjZTA1NWE2NWYyMzQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-12T23:27:06" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '0555206d4793a6210ce0ef83ef98ce055a65f234', 'qualifier': 'sha'}, {'objectId': '30302', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30302" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T23:28:47" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'opened-by'}, {'objectId': '30302', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AR5LDzwAAAARUzNOW" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-12T23:28:59" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: pyplot API'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30302', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62w0UP" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-12T23:32:47" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Hi all 👋,\r\n\r\nI initially attempted to address multiple points from this issue in a single PR, but I realized that it introduced unnecessary complexity, especially for someone like me who is still learning and new to contributing at this scale.\r\n\r\nTo manage things better and ensure clarity in both review and implementation, I’ve now shifted to handling one fix at a time. I’ve started with set_loglevel as it seemed like a simpler, self-contained change to begin with.\r\n\r\nThis approach will also help me improve gradually and avoid making mistakes across unrelated parts. Thank you so much for your patience and guidance, it’s really encouraging for a beginner like me 🙏🙂'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30302', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios625zIt" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T09:25:09" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks. This is correct in the sense that it matches documentation now.\r\n\r\n&lt;img width=&quot;696&quot; height=&quot;58&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/71050e65-ead8-4125-80d2-8bc1faee0c3a&quot; /&gt;\r\n\r\nHowever, implementation-wise we\'ve accepted any capitalization, in particular also thd capitalized form &quot;INFO&quot;, which is passed through to/accepted by stdlibs `Logger.setLevel` - maybe we should take the opportunity to align more with the stdlib?'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30302', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3015515711" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-14T09:26:16" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30302', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios629gIo" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T13:13:27" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Yes @timhoffm, you’re right. I’ve implemented this by normalising the input to lowercase within set_loglevel(), so it aligns with the stdlib behaviour. You think that will work?\r\n\r\nLet me know if any further changes are required.\r\nThanks again for pointing that out'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30302', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3016527280" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-14T14:07:36" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30302', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RRE_lADOABUios7AR5LDzwAAAARZAxHD" />
+			<string key="concept:name" value="add_review_request" />
+			<date key="time:timestamp" value="2025-07-17T06:36:22" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'for'}, {'objectId': 'N R Navaneet', 'qualifier': 'by'}, {'objectId': '30302', 'qualifier': 'in-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3028627175" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-17T09:04:47" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30302', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RRE_lADOABUios7AR5LDzwAAAARbnYeN" />
+			<string key="concept:name" value="add_review_request" />
+			<date key="time:timestamp" value="2025-07-20T14:44:25" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'for'}, {'objectId': 'N R Navaneet', 'qualifier': 'by'}, {'objectId': '30302', 'qualifier': 'in-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AR5LDzwAAAARbrgYE" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-20T20:27:27" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'status: needs review'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30302', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3036174717" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-20T20:43:57" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'approved-by'}, {'objectId': '30302', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AR5LDzwAAAARbrySz" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-20T20:44:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30302', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AR5LDzwAAAARbryS9" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-20T20:44:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30302', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="UNLE_lADOABUios7AR5LDzwAAAARc4X2Q" />
+			<string key="concept:name" value="remove_label" />
+			<date key="time:timestamp" value="2025-07-21T22:41:41" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'status: needs review'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30302', 'qualifier': 'unlabeled-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30307" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGIxYzBhMzUzMzhiMjVkNjljMThkOGM4OWE0NWJlMTUwYjlmNWU2NmI" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-14T13:31:47" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'GitHub', 'qualifier': 'authored-by'}, {'objectId': 'b1c0a35338b25d69c18d8c89a45be150b9f5e66b', 'qualifier': 'sha'}, {'objectId': '30307', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30307" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T13:31:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Krishna Somani', 'qualifier': 'opened-by'}, {'objectId': '30307', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3016415219" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-14T13:36:16" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30307', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios62-O45" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T14:12:11" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Please do not do cosmetic (and mostly questionable) changes to README, in particular not mass-PRs to several projects. This does not add value and only distracts developers. It's not a reasonable contribution to open source.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30307', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7Ac4IQzwAAAARVyNNC" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T14:12:11" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30307', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30309" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDM0N2RjZWIxZGQyZWRmYTM5NWM1NTNjODY2ZmY2MmU4NDJkYmI1NmE" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-14T19:21:08" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '347dceb1dd2edfa395c553c866ff62e842dbb56a', 'qualifier': 'sha'}, {'objectId': '30309', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGVmNDVjN2JmMmI5ZjBhMDhiMmQxODViNDI4YWI1MjI2OTE4ZjBhMTA" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-14T19:22:12" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': 'ef45c7bf2b9f0a08b2d185b428ab5226918f0a10', 'qualifier': 'sha'}, {'objectId': '30309', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30309" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T19:23:21" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'opened-by'}, {'objectId': '30309', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AgplMzwAAAARWGD1i" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-14T19:23:33" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: build'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30309', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3018042400" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-14T23:07:32" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30309', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3018090990" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-14T23:46:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jody Klymak', 'qualifier': 'approved-by'}, {'objectId': '30309', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AgplMzwAAAARWRh-p" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T23:46:45" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jody Klymak', 'qualifier': 'authored-by'}, {'objectId': '30309', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AgplMzwAAAARWRh-6" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-14T23:46:46" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jody Klymak', 'qualifier': 'authored-by'}, {'objectId': '30309', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30311" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDdkMTEzMDIyZjg2MmE0NDE5MzhhNzhiMTBjYjYwNjk3YmRjZWVjZjU" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-15T00:07:22" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'GitHub', 'qualifier': 'authored-by'}, {'objectId': '7d113022f862a441938a78b10cb60697bdceecf5', 'qualifier': 'sha'}, {'objectId': '30311', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30311" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T00:07:22" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'opened-by'}, {'objectId': '30311', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJc1" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:23" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'dependencies'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJc7" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:23" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'github_actions'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJdz" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:23" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'dependencies'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJeH" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:24" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'github_actions'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJwd" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:33" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: Run cibuildwheel'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWSJwh" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T00:07:33" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: Run cygwin'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="UNLE_lADOABUios7Aiw75zwAAAARWWMTh" />
+			<string key="concept:name" value="remove_label" />
+			<date key="time:timestamp" value="2025-07-15T02:10:48" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: Run cibuildwheel'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'unlabeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7Aiw75zwAAAARWWMde" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T02:10:53" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'CI: Run cibuildwheel'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3018299303" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-15T02:23:14" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30311', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7Aiw75zwAAAARWn3JI" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T08:31:30" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7Aiw75zwAAAARWn3Js" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T08:31:30" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30311', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30312" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDYwMTljNDY2YTI5NDc1YmRlNjc4ZDk3MWY2NjVjNGFiZDU4OGIwMDY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-15T08:41:00" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '6019c466a29475bde678d971f665c4abd588b006', 'qualifier': 'sha'}, {'objectId': '30312', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30312" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T08:42:08" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'opened-by'}, {'objectId': '30312', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AmtpNzwAAAARWor9j" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T08:42:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: ticks axis labels'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30312', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AmtpNzwAAAARWor9t" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T08:42:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: sankey'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30312', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3019813826" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-15T11:06:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30312', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AmtpNzwAAAARXSOVJ" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T18:23:34" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30312', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AmtpNzwAAAARXSOVo" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T18:23:34" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30312', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30315" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGVlZjAzMzQzMTIzYzkyYzc5YWIzZmRmM2MxZWQyZTVlMmY0ODc4Y2M" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-15T13:01:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': 'eef03343123c92c79ab3fdf3c1ed2e5e2f4878cc', 'qualifier': 'sha'}, {'objectId': '30315', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30315" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T13:04:46" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'opened-by'}, {'objectId': '30315', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7ApzEUzwAAAARW6a4b" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T13:04:58" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: devdocs'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30315', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3020247039" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-15T13:14:11" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Benjamin Root', 'qualifier': 'approved-by'}, {'objectId': '30315', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7ApzEUzwAAAARW7tzd" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T13:20:46" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Benjamin Root', 'qualifier': 'authored-by'}, {'objectId': '30315', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7ApzEUzwAAAARW7t0D" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T13:20:47" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Benjamin Root', 'qualifier': 'authored-by'}, {'objectId': '30315', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3022022229" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-15T19:30:35" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30315', 'qualifier': 'for-pull-request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30317" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGI3N2JhMTFmNTM1NTQzZTBhYjdmODU5ZWExMjVmNGUyOTJjMmZjOGQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-15T13:36:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'jocelynvj', 'qualifier': 'authored-by'}, {'objectId': 'b77ba11f535543e0ab7f859ea125f4e292c2fc8d', 'qualifier': 'sha'}, {'objectId': '30317', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30317" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T21:25:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Jocelyn Vincentia Japnanto', 'qualifier': 'opened-by'}, {'objectId': '30317', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7AvwgDzwAAAARXc-IQ" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-15T21:26:00" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Documentation: user guide'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30317', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3022402023" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-15T21:29:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'commented-by'}, {'objectId': '30317', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3022453516" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-15T21:49:44" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'approved-by'}, {'objectId': '30317', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7AvwgDzwAAAARXg__a" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T23:13:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30317', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7AvwgDzwAAAARXg__j" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-15T23:13:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30317', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30319" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDVmYzk1NTkzOWRkMDc0YmVlYTQ1NTRiNmUyYjY2ODA2MWZiNDYwNzM" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-16T08:47:35" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '5fc955939dd074beea4554b6e2b668061fb46073', 'qualifier': 'sha'}, {'objectId': '30319', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30319" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T08:50:32" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30319', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7A0xXgzwAAAARX5fWm" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-16T08:50:42" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: text/fonts'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30319', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3023943219" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-16T09:18:55" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Antony Lee', 'qualifier': 'approved-by'}, {'objectId': '30319', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios63emxd" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T11:57:57" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Would it make sense to add an optional `size` parameter to the constructor so that one does not have to do a separate `set_size()` call? i.e. optionally initialize as part of construction.'}]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'commented-by'}, {'objectId': '30319', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios63kr57" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T18:40:33" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Given that the target consumer of Font objects is the `draw` method of our `Text` classes and they already have to always set the font size (you can't trust that it came in with the right size) I'm in favor of waiting for a user to have a need for this outside of our tests.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'commented-by'}, {'objectId': '30319', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3026381366" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-16T18:40:41" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'approved-by'}, {'objectId': '30319', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7A0xXgzwAAAARYjrMR" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T18:41:17" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30319', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7A0xXgzwAAAARYjrMp" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T18:41:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30319', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30321" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGQwZWVkMGU5ZWZmYzI0Mjc1YjYyOThkNjUwMmIzYTI0ZjM3ZWQyMDE" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-16T21:12:28" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'd0eed0e9effc24275b6298d6502b3a24f37ed201', 'qualifier': 'sha'}, {'objectId': '30321', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30321" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T21:17:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'opened-by'}, {'objectId': '30321', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7A9n8PzwAAAARYsOyH" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-16T21:18:01" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: axes'}]" />
+			<string key="relationships" value="[{'objectId': 'github-actions[bot]', 'qualifier': 'authored-by'}, {'objectId': '30321', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGI1MjBmODY3NzVhMDhkZWU1ZDA0NmRiMjBmYzNhZjYxOWFkMDJhNmQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-16T21:31:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': 'b520f86775a08dee5d046db20fc3af619ad02a6d', 'qualifier': 'sha'}, {'objectId': '30321', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios63pWAS" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T21:37:16" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;@timhoffm, I've submitted the PR as per the approval. Kindly check and lmk if any changes are required.\r\nHappy to update it. Thank you for the opportunity :)&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios63qOJo" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T22:04:01" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Thanks @nrnavaneet, the typing change seems good but the new test seems unrelated.'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios63qsaP" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-16T22:21:03" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Oh shoot ! Wrong test. I've made the changes. \r\nThanks for pointing that out !\r\n&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDI0ZTk5NDZkM2M5Y2MyNmFjYzI1YTJlNWJkOGViMjVhZmVhZmY5NmI" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-16T22:24:26" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '24e9946d3c9cc26acc25a2e5bd8eb25afeaff96b', 'qualifier': 'sha'}, {'objectId': '30321', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios632MpD" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T15:07:49" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'If you are using AI to help with your contributions, please check everything it produces before submitting it.  See also https://matplotlib.org/devdocs/devel/contribute.html#restrictions-on-generative-ai-usage\r\n\r\nI would not generally expect to see a test added with a typing change.  In this case, I am in two minds whether to keep it.  On one hand, test coverage is in general a good thing and this particular test is not expensive.  On the other hand, the method in question is so simple that it is hard to see how it could go wrong, and there are existing tests that exercise it within `test_legend.py` (although they are targeting other functionality).'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios632mII" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T15:39:16" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Sorry !!, Still a new contributor. Im still figuring things out. Shldve checked before committing. My bad , wont happen again. It was simple idk why i made it so complex. If u want u can discard this pr :(.\r\nIve Read the rules, thanks again for pointing that out; it won't happen again. I love contributing to this repo.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios632mxm" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T15:40:11" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Kindly lmk how u wanna proceed. I respect any decision you make'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3030165786" />
+			<string key="concept:name" value="comment_review" />
+			<date key="time:timestamp" value="2025-07-17T16:07:07" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios633E2g" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T16:19:54" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Ofcourse! Will do r8 away !'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDMwNzBhYzg2NzA1ZjQyZThiZTdiNzc3ZjE4ZDJlYjEwZWM3Nzc4MDA" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-17T16:29:32" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'authored-by'}, {'objectId': '3070ac86705f42e8be7b777f18d2eb10ec777800', 'qualifier': 'sha'}, {'objectId': '30321', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios633Ls0" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T16:30:48" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Removed the test as per the suggestion. Thank you :)'}]" />
+			<string key="relationships" value="[{'objectId': 'N R Navaneet', 'qualifier': 'commented-by'}, {'objectId': '30321', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RRE_lADOABUios7A9n8PzwAAAARZqVSt" />
+			<string key="concept:name" value="add_review_request" />
+			<date key="time:timestamp" value="2025-07-17T16:46:05" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'for'}, {'objectId': 'N R Navaneet', 'qualifier': 'by'}, {'objectId': '30321', 'qualifier': 'in-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7A9n8PzwAAAARZv3kq" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-17T18:22:21" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: typing'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30321', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3030572546" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-17T18:24:57" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'approved-by'}, {'objectId': '30321', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3030620439" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-17T18:43:18" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30321', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7A9n8PzwAAAARZxEAV" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T18:43:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30321', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7A9n8PzwAAAARZxEAv" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T18:43:52" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'authored-by'}, {'objectId': '30321', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30326" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDAxMzlhY2E1YzYxZDNmYmE1N2FhMmNmOGRlM2U4OWJlZDAxMzkzNzI" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-17T18:44:14" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'MeeseeksDev[bot]', 'qualifier': 'authored-by'}, {'objectId': '0139aca5c61d3fba57aa2cf8de3e89bed0139372', 'qualifier': 'sha'}, {'objectId': '30326', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30326" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T18:44:16" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'opened-by'}, {'objectId': '30326', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BJtaxzwAAAARZxFUj" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-17T18:44:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: axes'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BJtaxzwAAAARZxFUt" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-17T18:44:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: typing'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BJtaxzwAAAARZxFWI" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-17T18:44:17" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: axes'}]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BJtaxzwAAAARZxFWv" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-17T18:44:18" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: typing'}]" />
+			<string key="relationships" value="[{'objectId': 'Lumberbot (aka Jack)', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7BJtaxzwAAAARZz5J7" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T19:31:48" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7BJtaxzwAAAARZz5KS" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-17T19:31:48" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'David Stansby', 'qualifier': 'authored-by'}, {'objectId': '30326', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30329" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDdhNjI4ZTViNzUyZGE2ZTViNTQ5YTUxODBlM2UxZWJiNGYxNDJiOWQ" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-18T06:30:27" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '7a628e5b752da6e5b549a5180e3e1ebb4f142b9d', 'qualifier': 'sha'}, {'objectId': '30329', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30329" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T06:31:48" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30329', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BPk1WzwAAAARaQjks" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-18T06:31:49" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30329', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BPk1WzwAAAARaROKS" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-18T06:45:16" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'topic: text/fonts'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30329', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3032277216" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-18T07:05:51" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Oscar Gustafsson', 'qualifier': 'approved-by'}, {'objectId': '30329', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3033026355" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-18T10:26:40" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30329', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3034155821" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-18T16:35:23" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Antony Lee', 'qualifier': 'approved-by'}, {'objectId': '30329', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7BPk1WzwAAAARa9qni" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:04:41" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30329', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7BPk1WzwAAAARa9qn9" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:04:42" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30329', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30333" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGVlMWM3MGJkOTlhOWM4YzBmMGEyOGY5NTY2ZGIyMzA0N2IwZjE4Mjg" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-18T18:52:27" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': 'ee1c70bd99a9c8c0f0a28f9566db23047b0f1828', 'qualifier': 'sha'}, {'objectId': '30333', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30333" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T18:58:38" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'opened-by'}, {'objectId': '30333', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3034629429" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-18T19:20:08" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Tim Hoffmann', 'qualifier': 'approved-by'}, {'objectId': '30333', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3034662988" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-18T19:37:57" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'approved-by'}, {'objectId': '30333', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios64NcfA" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:39:24" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;test failures seem unrelated, feel free to merge after they're all run (assuming failures stay unrelated) &amp; thanks!&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'hannah', 'qualifier': 'commented-by'}, {'objectId': '30333', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7BXTlrzwAAAARbAFBE" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:54:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30333', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7BXTlrzwAAAARbAFDo" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:54:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30333', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios64NlWL" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T19:55:02" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'Owee, I\'m MrMeeseeks, Look at me.\n\nThere seem to be a conflict, please backport manually. Here are approximate instructions:\n\n1. Checkout backport branch and update it.\n\n```\ngit checkout v3.10.x\ngit pull\n```\n\n2. Cherry pick the first parent branch of the this PR on top of the older branch:\n```\ngit cherry-pick -x -m1 efacc7d26c2d378deb097349bd4051ed4bd29032\n```\n\n3. You will likely have some merge/cherry-pick conflict here, fix them and commit:\n\n```\ngit commit -am \'Backport PR #30333: FIX: cast Patch linewidth to float for dash scaling\'\n```\n\n4. Push to a named branch:\n\n```\ngit push YOURFORK v3.10.x:auto-backport-of-pr-30333-on-v3.10.x\n```\n\n5. Create a PR against branch v3.10.x, I would have named this PR:\n\n&gt; &quot;Backport PR #30333 on branch v3.10.x (FIX: cast Patch linewidth to float for dash scaling)&quot;\n\nAnd apply the correct labels and milestones.\n\nCongratulations — you did some good work! Hopefully your backport PR will be tested by the continuous integration and merged soon!\n\nRemember to remove the `Still Needs Manual Backport` label once the PR gets merged.\n\nIf these instructions are inaccurate, feel free to [suggest an improvement](https://github.com/MeeseeksBox/MeeseeksDev).\n                '}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'commented-by'}, {'objectId': '30333', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BXTlrzwAAAARbAGIu" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-18T19:55:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Still Needs Manual Backport'}]" />
+			<string key="relationships" value="[{'objectId': 'lumberbot-app[bot]', 'qualifier': 'authored-by'}, {'objectId': '30333', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios64NsYD" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-18T20:08:19" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;Conflict seems to be because the next line is wrapped on the bugfix branch\r\nhttps://github.com/matplotlib/matplotlib/blob/8076615fc25c14391b461bf536f71d5116fab1d2/lib/matplotlib/patches.py#L440-L441\r\n\r\nI'm not convinced this is worth a manual backport.&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'commented-by'}, {'objectId': '30333', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="UNLE_lADOABUios7BXTlrzwAAAARbBMkQ" />
+			<string key="concept:name" value="remove_label" />
+			<date key="time:timestamp" value="2025-07-18T20:21:00" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Still Needs Manual Backport'}]" />
+			<string key="relationships" value="[{'objectId': 'Ruth Comer', 'qualifier': 'authored-by'}, {'objectId': '30333', 'qualifier': 'unlabeled-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30340" />
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKDgzMmM5MzlmZTY3NWZlMTI4Y2NiZjUwNGFhMmEzZTRiYTM2OGI3ODY" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-21T21:46:02" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'GitHub', 'qualifier': 'authored-by'}, {'objectId': '832c939fe675fe128ccbf504aa2a3e4ba368b786', 'qualifier': 'sha'}, {'objectId': '30340', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BuQpUzwAAAARc17px" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-21T21:46:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'dependencies'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BuQpUzwAAAARc17p6" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-21T21:46:03" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'github_actions'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="open_pull_30340" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-21T21:46:03" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'opened-by'}, {'objectId': '30340', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BuQpUzwAAAARc17sd" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-21T21:46:04" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'dependencies'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BuQpUzwAAAARc17s7" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-21T21:46:05" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'github_actions'}]" />
+			<string key="relationships" value="[{'objectId': 'dependabot[bot]', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3040182070" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-21T23:25:36" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'approved-by'}, {'objectId': '30340', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="3040625399" />
+			<string key="concept:name" value="approve_review" />
+			<date key="time:timestamp" value="2025-07-22T02:38:39" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'approved-by'}, {'objectId': '30340', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="ME_lADOABUios7BuQpUzwAAAARdDemE" />
+			<string key="concept:name" value="merge_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T02:39:13" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'merged-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7BuQpUzwAAAARdDemf" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T02:39:14" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Thomas A Caswell', 'qualifier': 'authored-by'}, {'objectId': '30340', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="30341" />
+		<event>
+			<string key="event_id" value="open_pull_30341" />
+			<string key="concept:name" value="open_pull_request" />
+			<date key="time:timestamp" value="2025-07-21T23:31:04" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'opened-by'}, {'objectId': '30341', 'qualifier': 'for-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="LE_lADOABUios7BvJGfzwAAAARc7EqC" />
+			<string key="concept:name" value="add_label" />
+			<date key="time:timestamp" value="2025-07-21T23:31:06" />
+			<string key="attributes" value="[{'name': 'label', 'value': 'Maintenance'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30341', 'qualifier': 'labeled-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="C_kwDOABUiotoAKGQxM2YyM2I0MGIzZWMzOGYwZGVlNGMxMjFkYTAwOGEzM2FjMmExYTU" />
+			<string key="concept:name" value="commit" />
+			<date key="time:timestamp" value="2025-07-22T00:55:50" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': 'd13f23b40b3ec38f0dee4c121da008a33ac2a1a5', 'qualifier': 'sha'}, {'objectId': '30341', 'qualifier': 'committed-to-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="RTE_lADOABUios7BvJGfzwAAAARc_mU-" />
+			<string key="concept:name" value="rename_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T01:08:50" />
+			<string key="attributes" value="[{'name': 'renamed-to', 'value': 'ci: Try pinning older vs2022 package for AppVeyor'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'change-issued-by'}, {'objectId': '30341', 'qualifier': 'for-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios64ybR5" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T01:14:56" />
+			<string key="attributes" value="[{'name': 'comment', 'value': &quot;OK, that confirms it; it looks like it's reported upstream already: https://github.com/conda-forge/vc-feedstock/issues/102 and should be fixed in build 30: https://github.com/conda-forge/vc-feedstock/pull/104&quot;}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30341', 'qualifier': 'on-pull-request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="CE_lADOABUios7BvJGfzwAAAARc_3BJ" />
+			<string key="concept:name" value="close_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T01:15:04" />
+			<string key="attributes" value="[]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'authored-by'}, {'objectId': '30341', 'qualifier': 'closed-on-pull_request'}]" />
+		</event>
+		<event>
+			<string key="event_id" value="IC_kwDOABUios64ykep" />
+			<string key="concept:name" value="comment_pull_request" />
+			<date key="time:timestamp" value="2025-07-22T01:26:12" />
+			<string key="attributes" value="[{'name': 'comment', 'value': 'And build 30 does appear to be available, so I triggered rebuilds on the failing PRs.'}]" />
+			<string key="relationships" value="[{'objectId': 'Elliott Sales de Andrade', 'qualifier': 'commented-by'}, {'objectId': '30341', 'qualifier': 'on-pull-request'}]" />
+		</event>
+	</trace>
+</log>
