@@ -154,6 +154,10 @@ def get_files(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "file"})
 
+def get_pull_requests(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find({"type": "pull_request"})
+
 def get_object_type(name: str, collection: str):
     ocdb = myclient[f"{collection}"]
     object = ocdb["objectTypes"].find_one({"_id": name})
@@ -161,15 +165,27 @@ def get_object_type(name: str, collection: str):
 
 def get_type_of_object(object_id: str, collection: str):
     ocdb = myclient[f"{collection}"]
-    object = ocdb["objects"].find_one({"_id": object_id})
+    object = ocdb["objects_old"].find_one({"_id": object_id})
     if object:
         return object.get("type")
     print(f"ERROR: No object found for id: {object_id}")
     return None
 
-def get_events_for_type(type: str, collection: str):
+def get_events_for_eventType(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["events"].find({"type": type})
+
+def get_events_for_object(object_id: str, collection: str):
+    """
+    Get all events related to a specific object by its ID.
+    Args:
+        object_id (str): The ID of the object to get events for.
+        collection (str): The collection to search in.
+    Returns:
+        list: A list of events related to the specified object.
+    """
+    ocdb = myclient[f"{collection}"]
+    return ocdb["events"].find({"relationships.objectId": object_id})
 
 def get_object(object_id: str, collection: str):
     """
@@ -199,10 +215,10 @@ def get_event(event_id: str, collection: str):
 def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
     data = {
-        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
-        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
-        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
-        "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
+        "objectTypes_old": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
+        "eventTypes_old": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
+        "objects_old": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
+        "events_old": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
     path = f"Exports/{collection}-OCEL.json"
@@ -445,3 +461,33 @@ def get_attribute_times(id, collection):
         if "time" in attribute:
             attribute_times.add(attribute["time"])
     return list(attribute_times)
+
+def update_attribute(id, attribute_name, new_value, time, collection):
+    """
+    Update the value of an attribute.
+
+    The 'attributes' field is expected to be a list of dictionaries, 
+    each with keys: 'name', 'value', and 'time', e.g.:
+    [
+        {"name": "attribute1", "value": "some_value", "time": "2024-06-01T12:00:00"},
+        ...
+    ]
+
+    Args:
+        id (str): The ID of the object to update.
+        attribute_name (str): The name of the attribute to update.
+        new_value (str): The new value to set for the attribute.
+        time (str): The time when the attribute was updated.
+        collection (str): The collection to update the object in.
+    """ 
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].update_one(
+        {"_id": id},
+        {"$push": {
+            "attributes": {
+                "name": attribute_name,
+                "time": time,
+                "value": new_value
+            }
+        }}
+    )

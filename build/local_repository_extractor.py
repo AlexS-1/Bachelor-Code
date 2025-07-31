@@ -5,7 +5,7 @@ from numpy import insert
 from pydriller import Repository
 from requests import get
 
-from build.database_handler import get_attribute_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file
+from build.database_handler import get_attribute_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, update_attribute
 from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
 from build.utils import date_1970, date_formatter
 
@@ -30,7 +30,7 @@ def create_file(name, filename, file_change_timestamp, commit_sha, method_count,
         "file_change_timestamp": file_change_timestamp,
         "part-of-commit": commit_sha,
         "method_count": method_count,
-        "cyclomatic_complexity": cyclomatic_complexity,
+        "cc": cyclomatic_complexity,
         "theta_1": theta_1,
         "theta_2": theta_2,
         "N_1": N_1,
@@ -113,7 +113,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 repository_code_metrics.pop(modified_file.old_path, None)
                 continue
             elif modified_file.change_type.name == "RENAME":
-                # TODO Implement updating filename in MongoDB
+                update_attribute(modified_file.old_path, "filename", modified_file.new_path, commit_timestamp, collection)
                 if modified_file.old_path and modified_file.old_path.endswith(".py"):
                     repository_code_metrics.pop(modified_file.old_path, None)
                 if modified_file.new_path and modified_file.new_path.endswith(".py"):
@@ -124,13 +124,26 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 repository_code_metrics[modified_file.new_path] = [0, 0]
             elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and not modified_file.new_path.endswith(".py"):
                 print("Potentially change in documentation")
-                # # TODO Decide how to do NLP here
+                # TODO Decide how to do NLP here
+                # TODO Check if this is the right way to handle contribution guidelines
                 # import spacy
                 # nlp = spacy.load("en_core_web_sm")
                 # doc = nlp(str(modified_file.source_code))
-                # TODO Correct detection to NLP techniques instead of flagging every change of a non source code file as guideline change
-                contribution_guideline_version = commit.committer_date
-            
+                if "pull" in modified_file.new_path or "contribut" in modified_file.new_path or "document" in modified_file.new_path:
+                    print(f"Contribution guideline found in {modified_file.new_path}")
+                    keyword_list = ["reviewer",
+                            "approval",
+                            "pull request",
+                            "continuous integration",
+                            "CI/CD",
+                            "test",
+                            "workflow",
+                            "code owner",
+                            "branch protection",
+                            "requirement"]
+                    if any(keyword in modified_file.diff_parsed["diff"] for keyword in keyword_list):
+                        print(f"Contribution guideline found in {modified_file.new_path} with keywords {keyword_list}")
+                    contribution_guideline_version = commit_timestamp
             else:
                 continue
             
@@ -166,7 +179,7 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                 modified_file.new_path,
                 commit_timestamp, 
                 commit.hash,
-                -1, # TODO Check how method count works len(hm.methods),
+                -1, # TODO Check how method count works len(hm.methods), e.g. len(cc_visit) by modifying get_cyclomatic_complexity
                 cc,
                 hm.total.h1,
                 hm.total.h2,

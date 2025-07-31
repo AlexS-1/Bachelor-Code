@@ -1,9 +1,10 @@
 import pandas as pd
 import pm4py
-from qiskit_qasm3_import import convert
 from build.utils import date_1970
 from build.database_handler import get_commits, get_ocel_data, get_object_type, get_type_of_object
-from datetime import datetime
+from datetime import datetime, tzinfo, timezone
+
+from pandas._typing import Timezone
 
 from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
@@ -74,11 +75,11 @@ def flatten_ocel2(ocel, object_type, collection):
     xes
         Flattened log in the form of a xes-type encoded JSON
     """
-    event_map = {ev["id"]: ev for ev in ocel["events"]}
+    event_map = {ev["id"]: ev for ev in ocel["events_old"]}
     
     # For each relation, if object_type matches, collect (object_id, event_id)
     case_event_pairs = []
-    for event in ocel["events"]:
+    for event in ocel["events_old"]:
         for row in event["relationships"]:
             object_id = row["objectId"]
             event_id = event["id"]
@@ -93,7 +94,7 @@ def flatten_ocel2(ocel, object_type, collection):
             "case:concept:name": object_id,
             "event_id": event_id,
             "concept:name": event.get("type"),
-            "time:timestamp": event.get("time"),
+            "time:timestamp": event.get("time") + "Z",
             **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
         }
         rows.append(row)
@@ -101,7 +102,7 @@ def flatten_ocel2(ocel, object_type, collection):
     # Build DataFrame and sort by case_id and timestamp
     df = pd.DataFrame(rows)
     if df is not None:
-        df["time:timestamp"] = pd.to_datetime(df["time:timestamp"])
+        df["time:timestamp"] = pd.to_datetime(df["time:timestamp"], utc=True)
         df = df.sort_values(["case:concept:name", "time:timestamp"])
     return df
 
@@ -148,12 +149,12 @@ def divide_event_log_at(split_date: datetime, event_log: pd.DataFrame):
         Event log after the date
     """
     split_date = pd.to_datetime(split_date)
-    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"])
+    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
     traces_before = []
     traces_after = []
 
     split_date = pd.to_datetime(split_date).tz_localize(None)
-    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"]).dt.tz_localize(None)
+    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
 
     for _, trace_events in event_log.groupby("case:concept:name"):
         if (trace_events["time:timestamp"] < split_date).any():

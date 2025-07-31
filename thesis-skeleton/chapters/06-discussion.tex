@@ -1,0 +1,20 @@
+\chapter{Discussion}
+\label{chap:discussion}
+
+\section{Data Model of Objects and Events}
+\begin{itemize}
+	\item Focus on four viewpoints: Repository, pull request, user and file viewpoint
+	\item Necessity of the commit object without own viewpoint
+	\item Naming conventions used for object-to-object and object-to-event relationships
+	\item Important attributes of objects and events including initialization timestamp (1970-01-01 vs.\ actual date of creation) and considerations for merging data from two sources
+	\item Object attributes modeled as relationship to other objects
+	\item Why were maintainability index and Pylint chosen for code quality analysis
+	\item Distinguishing between events and objects: Example of the commit object and event and their differences
+\end{itemize}
+
+\section{Considerations for Comparing Code Quality Between Repositories}
+\begin{itemize}
+\item Settings used for Pylint and their influence on the resulting score
+\item Effect of Halstead metrics and cyclomatic complexity on the maintainability index
+\item Other code quality aspects not directly accounted for in chosen metrics e.g., code churn metric captured by file viewpoint on code quality
+\end{itemize}

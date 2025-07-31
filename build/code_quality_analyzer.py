@@ -65,21 +65,14 @@ def get_maintainability_index(source_code, filepath='temp_code.py'):
             print(f"Error calculating maintainability index for file at {filepath}: {result.stderr}")
             return 0
         
-def calculate_maintainability_index(loc): #N1, N2, h1, h2, complexity, loc):
-    # N = N1 + N2
-    # h = h1 + h2
-    # volume = N * math.log2(h) if h > 0 else 0
-    # mi = 171 - 5.2 * math.log(volume) - 0.23 * complexity - 16.2 * math.log(loc)
-    # mi = max(0, mi/ 171)
-    
-    # FIXME Temporary overwrite for maintainability index
-    if loc is None or loc <= 0:
-        print(f"LOC is None or <= 0, cannot calculate maintainability index, setting to 0")
-        return 0
+def calculate_maintainability_index(N1, N2, h1, h2, complexity, loc):
+    N = N1 + N2
+    h = h1 + h2
+    volume = N * math.log2(h) if h > 0 else 0
     try:
-        mi = 171 - 5.2 * math.log(45 * loc - 428) - 0.23 * (0.22 * loc - 1.9)  - 16.2 * math.log(loc)
+        mi = 171 - 5.2 * math.log(volume) - 0.23 * complexity - 16.2 * math.log(loc)
     except:
-        print(f"Error calculating maintainability index for loc=")
+        print(f"Error calculating maintainability index for N1={N1}, N2={N2}, h1={h1}, h2={h2}, complexity={complexity}, loc={loc}")
         mi = 0
     mi = max(0, mi/ 171)
     return mi
@@ -264,7 +257,8 @@ def get_cyclomatic_complexity(source_code, filepath='temp_code.py'):
         int: The Cyclomatic Complexity of the source code.
     """
     try:
-        return cc_visit(source_code)
+        res = cc_visit(source_code)
+        return sum(res[i].complexity for i in range(len(res)))
     except Exception as e:
         filename = filepath.split("/")[-1]
         with open(filename, "w") as f:
@@ -283,54 +277,6 @@ def get_cyclomatic_complexity(source_code, filepath='temp_code.py'):
         else:
             raise Exception(f"File at {filepath} does not compile: {result.stderr}")
 
-def calculate_maintainability_indeces(id, collection):
-    """
-    Get the maintainability indeces for a given object in the collection.
-    Args:
-        id (str): The ID of the object to analyze.
-        collection (str): The name of the collection to query.
-    Returns:
-        float: The maintainability index of the file 
-    """
-    origin = get_object(id, collection)
-    if origin is None:
-        print(f"Object with id {id} not found in collection {collection}")
-        return None
-    code_quality_metrics = dict()
-    if origin["type"] == "file":
-        times = get_attribute_times(id, collection)
-        for time in times:
-            h1 = get_attribute_value_at_time(id, "theta_1", time, collection) 
-            h2 = get_attribute_value_at_time(id, "theta_2", time, collection)
-            N1 = get_attribute_value_at_time(id, "N_1", time, collection)
-            N2 = get_attribute_value_at_time(id, "N_2", time, collection)
-            cyclomatic_complexity = get_attribute_value_at_time(id, "cyclomatic_complexity", time, collection)
-            loc = get_attribute_value_at_time(id, "loc", time, collection)
-            mi = calculate_maintainability_index(loc) #N1, N2, h1, h2, cyclomatic_complexity, loc)
-            pl = get_attribute_value_at_time(id, "pylint_score", time, collection)
-            code_quality_metrics[time] = {
-                "maintainability_index": mi,
-                "pylint_score": pl,
-            }
-    if origin["type"] == "commit":
-        commit_time = datetime.fromisoformat(origin["attributes"][0]["time"])
-        before_commit = commit_time.replace((commit_time.second - 1) % 60)
-        for time in [before_commit, commit_time]:
-
-            h1 = get_attribute_value_at_time(id, "h1", time, collection) 
-            h2 = get_attribute_value_at_time(id, "h2", time, collection)
-            N1 = get_attribute_value_at_time(id, "N1", time, collection)
-            N2 = get_attribute_value_at_time(id, "N2", time, collection)
-            cyclomatic_complexity = get_attribute_value_at_time(id, "cyclomatic_complexity", time, collection)
-            loc = get_attribute_value_at_time(id, "loc", time, collection)
-            mi = calculate_maintainability_index(loc) # N1, N2, h1, h2, cyclomatic_complexity, loc)
-            pl = get_attribute_value_at_time(id, "pylint_score", time, collection)
-            code_quality_metrics[time] = {
-                "maintainability_index": mi,
-                "pylint_score": pl,
-            }
-    return code_quality_metrics
-
 def get_file_metrics_at(file_id, commit_date, collection):
     h1 = get_attribute_value_at_time(file_id, "theta_1", commit_date, collection) or 0
     h2 = get_attribute_value_at_time(file_id, "theta_2", commit_date, collection) or 0
@@ -338,6 +284,6 @@ def get_file_metrics_at(file_id, commit_date, collection):
     N2 = get_attribute_value_at_time(file_id, "N_2", commit_date, collection) or 0
     cyclomatic_complexity = get_attribute_value_at_time(file_id, "cyclomatic_complexity", commit_date, collection) or 0
     loc = get_attribute_value_at_time(file_id, "loc", commit_date, collection) or 0
-    mi = calculate_maintainability_index(loc) or 0 #N1, N2, h1, h2, cyclomatic_complexity, loc) 
+    mi = calculate_maintainability_index(N1, N2, h1, h2, cyclomatic_complexity, loc) or 0
     pl = get_attribute_value_at_time(file_id, "pylint_score", commit_date, collection) or 0
     return mi, pl

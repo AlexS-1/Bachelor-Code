@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from build.code_quality_analyzer import get_file_metrics_at
 from build.contribution_process_miner import get_commits
-from build.database_handler import get_events_for_type, get_files, get_object, get_related_objects
+from build.database_handler import get_events_for_eventType, get_files, get_object, get_related_objects
 
 def plot_commit_code_quality(repo_name):
     """
@@ -13,7 +13,7 @@ def plot_commit_code_quality(repo_name):
         repo_name (str): The name of the repository of which the metrics are to be plotted.
     """
     # Set up the used variables
-    commits = get_events_for_type("commit", repo_name)
+    commits = get_events_for_eventType("commit", repo_name)
     commit_dates = []
     maintainability_indices = []
     commit_pylints = []
@@ -81,7 +81,7 @@ def split_code_quality_per_guideline_change(collection):
     guideline_versions = {}
     for commit in commits:
         if "contribution_guideline_version" in commit.get("attributes")[3]["name"]:
-            guideline_versions[commit["attributes"][0]["time"]] = commit["attributes"][3]["contribution_guideline_version"]
+            guideline_versions[commit["attributes"][0]["time"]] = commit["attributes"][3]["value"]
     code_quality = get_repository_code_quality(collection)
     times = list(code_quality.keys())
     mis = [v["mi"] for v in code_quality.values()]
@@ -90,8 +90,8 @@ def split_code_quality_per_guideline_change(collection):
     plt.plot(times, mis, label="Maintainability Index", color="blue", marker="o")
     plt.plot(times, pylints, label="Pylint Score", color="red", marker="x")
 
-    # Add vertical lines for guideline changes
-    for change_time, version in guideline_versions:
+    # Add vertical lines for guideline changes #TODO make sure vertical lines are shown
+    for change_time, version in guideline_versions.items():
         plt.axvline(x=change_time, color='green', linestyle='--', alpha=0.7)
         plt.text(change_time, plt.ylim()[1]*0.95, f'Version {version}', rotation=90, color='green', va='top', ha='right', fontsize=8)
 

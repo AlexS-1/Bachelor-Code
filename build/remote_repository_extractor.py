@@ -10,10 +10,10 @@ from build.database_handler import date_1970, datetime, insert_event, insert_pul
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
 
-def get_and_insert_remote_data(repo_url, repo_path, from_date, to_date):
+def get_and_insert_remote_data(repo_url, repo_path):
     repo = get_repo_information(repo_url)
     collection = repo_url.split("/")[-1]
-    get_closed_pulls(repo["utility_information"]["pulls_url"], from_date, to_date, collection)
+    get_closed_pulls(repo["utility_information"]["pulls_url"], collection)
     
 def get_api_response(url, retries=0):
     headers = {"Authorization": f"token {token}"}
@@ -55,9 +55,9 @@ def get_repo_information(repo_url):
     }
     return repo_information
 
-def get_closed_pulls(pulls_url, from_date, to_date, collection):
+def get_closed_pulls(pulls_url, collection):
     # TODO Check pulls for date range with link headers in pagination
-    pages = 5
+    pages = 190
     for page in range(1, pages + 1):
         pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
         for pull in pull_response:
