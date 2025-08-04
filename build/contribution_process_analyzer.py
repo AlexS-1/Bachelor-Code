@@ -41,7 +41,7 @@ def pull_request_reviewer_analysis(pull_request_ids, collection, visualise=False
         bots = []
         for pr in pull_request_data:
             times.append(pr["time"])
-            counts.append(len(pr["reviewers"])+ len(pr["bots"]))
+            counts.append(len(pr["reviewers"]) + len(pr["bots"]))
             bots.append(len(pr["bots"]))
         # Sort by time
         sorted_pairs = sorted(zip(times, counts))

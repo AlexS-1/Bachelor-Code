@@ -74,8 +74,27 @@ def calculate_maintainability_index(N1, N2, h1, h2, complexity, loc):
     except:
         print(f"Error calculating maintainability index for N1={N1}, N2={N2}, h1={h1}, h2={h2}, complexity={complexity}, loc={loc}")
         mi = 0
-    mi = max(0, mi/ 171)
+    mi = min(max(0.0, mi * 100 / 171.0), 100.0)
     return mi
+
+from radon.metrics import mi_compute as mi
+def calculate_maintainability_index_like_radon(N1, N2, h1, h2, complexity, sloc, comments):
+    """
+    Calculate the maintainability index using a formula similar to Radon's.
+    Args:
+        N1 (int): Number of distinct operators.
+        N2 (int): Number of distinct operands.
+        h1 (int): Total number of operators.
+        h2 (int): Total number of operands.
+        complexity (int): Cyclomatic complexity.
+        loc (int): Lines of code.
+    Returns:
+        float: The maintainability index.
+    """
+    N = N1 + N2
+    h = h1 + h2 if h1 + h2 > 0 else 1
+    halstead_volume = N * math.log2(h) if h > 0 else 0
+    return mi(halstead_volume, complexity, sloc, comments)
 
 # def get_pylint_score(source_code, filepath='temp_code.py'):
 #     """
@@ -275,7 +294,8 @@ def get_cyclomatic_complexity(source_code, filepath='temp_code.py'):
             os.remove(filename)
             return int(match_cc.group(1))
         else:
-            raise Exception(f"File at {filepath} does not compile: {result.stderr}")
+            print(f"File at {filepath} does not compile: {result.stderr}")
+            return 0
 
 def get_file_metrics_at(file_id, commit_date, collection):
     h1 = get_attribute_value_at_time(file_id, "theta_1", commit_date, collection) or 0

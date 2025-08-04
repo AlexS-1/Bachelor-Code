@@ -141,8 +141,8 @@ def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapsho
                             "code owner",
                             "branch protection",
                             "requirement"]
-                    if any(keyword in modified_file.diff_parsed["diff"] for keyword in keyword_list):
-                        print(f"Contribution guideline found in {modified_file.new_path} with keywords {keyword_list}")
+                    # if any(keyword in modified_file.diff_parsed["diff"] for keyword in keyword_list):
+                    #     print(f"Contribution guideline found in {modified_file.new_path} with keywords {keyword_list}")
                     contribution_guideline_version = commit_timestamp
             else:
                 continue

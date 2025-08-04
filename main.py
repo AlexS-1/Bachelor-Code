@@ -7,7 +7,7 @@ from build.utils import clone_ropositoriy
 from build.local_repository_extractor import get_and_insert_local_data
 from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
-from build.code_quality_visualizer import plot_commit_code_quality, split_code_quality_per_guideline_change
+from build.code_quality_visualizer import split_code_quality_per_guideline_change
 from build.contribution_process_miner import divide_event_log_at, split_OCEL_at_guideline_changes, flatten_ocel2, visualise_xes_as
 
 def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
@@ -19,7 +19,7 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = datetime(2003, 5, 12)
+    from_date = datetime(2013, 5, 12)
     to_date = from_date + timedelta(days=10*365)
 
     # Select supported file types your code quality analyser
@@ -40,7 +40,7 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     # =========================================================
     
     # Go through all commits in the given time period
-    get_and_insert_local_data(repo_path, from_date, to_date, file_types, True)
+    # get_and_insert_local_data(repo_path, from_date, to_date, file_types, True)
 
     # TODO Implement checking if remote and local user ids match
     get_and_insert_remote_data(api_url, repo_path)
