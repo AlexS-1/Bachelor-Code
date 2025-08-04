@@ -26,7 +26,8 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     file_types = [".py"]
 
     if not os.path.exists(f"../tmp/{collection}"):
-        repo_path = clone_ropositoriy(repo_url)
+        tmp_path = os.path.abspath("../tmp")
+        repo_path = clone_ropositoriy(repo_url, temp_dir=tmp_path)
     else:
         repo_path = os.path.abspath(f"../tmp/{collection}")
 
