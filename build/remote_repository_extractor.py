@@ -136,26 +136,32 @@ def extract_events_from_pull(pull_response, collection):
                     [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
                 )
             elif event["event"] == "review_requested":
-                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                try:
+                    requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                except KeyError:
+                    requested_reviewer = {"objectId": event["requested_team"]["name"], "qualifier": "for"}
                 review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
                     "add_review_request",
                     timestamp,
                     collection, 
-                    [],
-                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
+                    [requested_reviewer],
+                    [review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "review_request_removed":
-                requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                try:
+                    requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
+                except KeyError:
+                    requested_reviewer = {"objectId": event["requested_team"]["name"], "qualifier": "for"}
                 review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
                     "remove_review_request",
                     timestamp,
                     collection,
-                    [],
-                    [requested_reviewer, review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
+                    [requested_reviewer],
+                    [review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "commented":
                 user_relation = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "commented-by"}

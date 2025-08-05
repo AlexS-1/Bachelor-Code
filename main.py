@@ -19,8 +19,8 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = datetime(2013, 5, 12)
-    to_date = from_date + timedelta(days=10*365)
+    from_date = datetime(2024, 5, 12)
+    to_date = from_date + timedelta(days=1*365)
 
     # Select supported file types your code quality analyser
     file_types = [".py"]
