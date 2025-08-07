@@ -165,7 +165,7 @@ def get_object_type(name: str, collection: str):
 
 def get_type_of_object(object_id: str, collection: str):
     ocdb = myclient[f"{collection}"]
-    object = ocdb["objects_old"].find_one({"_id": object_id})
+    object = ocdb["objects"].find_one({"_id": object_id})
     if object:
         return object.get("type")
     print(f"ERROR: No object found for id: {object_id}")
@@ -215,16 +215,28 @@ def get_event(event_id: str, collection: str):
 def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
     data = {
-        "objectTypes_old": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
-        "eventTypes_old": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
-        "objects_old": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
-        "events_old": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
+        "objectTypes": [rename_field(doc, "_id", "name") for doc in ocdb["objectTypes"].find()],
+        "eventTypes": [rename_field(doc, "_id", "name") for doc in ocdb["eventTypes"].find()],
+        "objects": [rename_field(doc, "_id", "id") for doc in ocdb["objects"].find()],
+        "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
     path = f"Exports/{collection}-OCEL.json"
     
     write_json(path, data)
     return path
+
+def get_user_by_username(username: str, collection: str):
+    """
+    Get a user from the database by their username.
+    Args:
+        username (str): The username of the user to retrieve.
+        collection (str): The collection to search in.
+    Returns:
+        dict: The user data if found, otherwise None.
+    """
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find_one({"type": "user", "attributes.0.value": username})
 
 ### Initialisation functions
 def initialise_database(repo_path):

@@ -1,11 +1,12 @@
 from datetime import timedelta
 from gc import collect
+from operator import ge
 import time
 from numpy import extract
 import requests
 import os
 
-from build.database_handler import date_1970, datetime, insert_event, insert_pull, insert_user
+from build.database_handler import date_1970, datetime, get_user_by_username, insert_event, insert_pull, insert_user
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
@@ -72,8 +73,8 @@ def get_closed_pulls(pulls_url, collection):
                 "closed_at_timestamp": pull["closed_at"],
                 "has-participant": 
                     [get_name_by_username(pull["user"]["login"], collection)] + 
-                    [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["requested_teams"] + pull["assignees"]],
-                "is-reviewed-by": [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["requested_teams"]], 
+                    [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["assignees"]],
+                "is-reviewed-by": [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"]], 
                 "formalises": get_related_commits(pull["commits_url"]),
                 "aggregates": get_related_files(pull["url"] + "/files"),
                 # FIXME Extract correct state
@@ -281,16 +282,21 @@ def get_name_by_username(username, collection, author_association = "NONE"):
         "type": "Bot",
         "updated_at": date_1970(),
     }
-    if username != "Copilot":
-        user_response = get_api_response(f"https://api.github.com/users/{username}")
-        if user_response["name"] is None and user_response["type"] == "User":
-            anonymous_user_counter[username] = anonymous_user_counter.get(username, 0) + 1
-    user = {
-        "name": user_response["name"] if user_response["name"] else username, 
-        "username": user_response["login"] if user_response["login"] else username, 
-        "rank": author_association,
-        "is-bot": False if user_response["type"] == "User" else True, 
-        "created_at_timestamp": user_response["updated_at"] if user_response["updated_at"] else date_1970(),
-    }
-    insert_user(user, collection)
-    return user["name"]
+    # Check if user is already in database, than save API calls
+    user_object = get_user_by_username(username, collection)
+    if user_object:
+        return user_object["_id"]
+    else:
+        if username != "Copilot":
+            user_response = get_api_response(f"https://api.github.com/users/{username}")
+            if user_response["name"] is None and user_response["type"] == "User":
+                anonymous_user_counter[username] = anonymous_user_counter.get(username, 0) + 1
+        user = {
+            "name": user_response["name"] if user_response["name"] else username, 
+            "username": user_response["login"] if user_response["login"] else username, 
+            "rank": author_association,
+            "is-bot": False if user_response["type"] == "User" else True, 
+            "created_at_timestamp": user_response["updated_at"] if user_response["updated_at"] else date_1970(),
+        }
+        insert_user(user, collection)
+        return user["name"]

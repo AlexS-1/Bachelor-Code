@@ -57,6 +57,16 @@ def pull_request_reviewer_analysis(pull_request_ids, collection, visualise=False
         plt.ylabel('Number of Reviewers')
         plt.yticks(range(0, max(counts_sorted) + 2))
         plt.title('Number of Reviewers per Pull Request Over Time')
+        plt.rcParams['figure.facecolor'] = 'white'
+        plt.rcParams['axes.facecolor'] = 'white'
+        plt.rcParams['axes.edgecolor'] = 'black'
+        plt.rcParams['axes.labelcolor'] = 'black'
+        plt.rcParams['xtick.color'] = 'black'
+        plt.rcParams['ytick.color'] = 'black'
+        plt.rcParams['legend.edgecolor'] = 'black'
+        plt.rcParams['legend.facecolor'] = 'black'
+        plt.rcParams['axes.spines.top'] = False
+        plt.rcParams['axes.spines.right'] = False
         plt.legend()
         plt.show()
     else:
@@ -142,6 +152,15 @@ def pull_request_open_time_analysis(pull_request_ids, collection, visualise=Fals
         plt.title("Pull Request Overlaps Timeline")
         plt.yticks(range(max([lvl for _, _, lvl, _ in intervals]) + 1))
         plt.tight_layout()
+        plt.rcParams['axes.facecolor'] = 'white'
+        plt.rcParams['axes.edgecolor'] = 'black'
+        plt.rcParams['axes.labelcolor'] = 'black'
+        plt.rcParams['xtick.color'] = 'black'
+        plt.rcParams['ytick.color'] = 'black'
+        plt.rcParams['legend.edgecolor'] = 'black'
+        plt.rcParams['legend.facecolor'] = 'black'
+        plt.rcParams['axes.spines.top'] = False
+        plt.rcParams['axes.spines.right'] = False
         plt.show()
         
     else:
@@ -175,6 +194,15 @@ def pull_request_review_iterations(pull_request_ids, collection, visualise=False
         plt.title('Number of Review Iterations per Pull Request')
         plt.xticks(rotation=45)
         plt.tight_layout()
+        plt.rcParams['axes.facecolor'] = 'white'
+        plt.rcParams['axes.edgecolor'] = 'black'
+        plt.rcParams['axes.labelcolor'] = 'black'
+        plt.rcParams['xtick.color'] = 'black'
+        plt.rcParams['ytick.color'] = 'black'
+        plt.rcParams['legend.edgecolor'] = 'black'
+        plt.rcParams['legend.facecolor'] = 'black'
+        plt.rcParams['axes.spines.top'] = False
+        plt.rcParams['axes.spines.right'] = False
         plt.show()
     else:
         return pr_review_iterations

@@ -75,11 +75,11 @@ def flatten_ocel2(ocel, object_type, collection):
     xes
         Flattened log in the form of a xes-type encoded JSON
     """
-    event_map = {ev["id"]: ev for ev in ocel["events_old"]}
+    event_map = {ev["id"]: ev for ev in ocel["events"]}
     
     # For each relation, if object_type matches, collect (object_id, event_id)
     case_event_pairs = []
-    for event in ocel["events_old"]:
+    for event in ocel["events"]:
         for row in event["relationships"]:
             object_id = row["objectId"]
             event_id = event["id"]
@@ -101,6 +101,7 @@ def flatten_ocel2(ocel, object_type, collection):
     
     # Build DataFrame and sort by case_id and timestamp
     df = pd.DataFrame(rows)
+    print(df.columns)
     if df is not None:
         df["time:timestamp"] = pd.to_datetime(df["time:timestamp"], utc=True)
         df = df.sort_values(["case:concept:name", "time:timestamp"])

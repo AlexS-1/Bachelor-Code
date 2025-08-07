@@ -10,7 +10,7 @@ from build.database_handler import get_attribute_value_at_time, get_object, get_
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num as date2num
 
-def plot_repo_code_quality_fast(collection): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
+def plot_repo_code_quality_fast(collection, year): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
     """
     Plot the code quality metrics for each commit of a repository in the database
     Args:
@@ -27,11 +27,12 @@ def plot_repo_code_quality_fast(collection): #TODO Unify with get_repository_cod
         pylint_score = commit["relationships"][0]["objectId"]
         maintainability_index = commit["relationships"][1]["objectId"]
         guideline_version = commit["attributes"][3]["value"]
-        metrics[commit_date] = {
-            "maintainability_index": maintainability_index,
-            "pylint_score": pylint_score,
-            "guideline_version": guideline_version
-        }
+        if year in commit_date:
+            metrics[commit_date] = {
+                "maintainability_index": maintainability_index,
+                "pylint_score": pylint_score,
+                "guideline_version": guideline_version
+            }
 
     plt.figure(figsize=(12, 6))
     datetimes = [datetime.fromisoformat(ts) for ts in sorted(metrics.keys())]
