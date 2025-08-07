@@ -10,7 +10,7 @@ from build.database_handler import get_attribute_value_at_time, get_object, get_
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num as date2num
 
-def plot_repo_code_quality_fast(collection, year): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
+def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
     """
     Plot the code quality metrics for each commit of a repository in the database
     Args:
@@ -24,16 +24,28 @@ def plot_repo_code_quality_fast(collection, year): #TODO Unify with get_reposito
     # Prepare the data for plotting
     for commit in commits:
         commit_date = commit["attributes"][0]["time"]
-        pylint_score = commit["relationships"][0]["objectId"]
-        maintainability_index = commit["relationships"][1]["objectId"]
         guideline_version = commit["attributes"][3]["value"]
-        if year in commit_date:
+        pylint_score = None
+        maintainability_index = None
+
+        for rel in commit.get("relationships", []):
+            if rel.get("qualifier") == "commit_pylint":
+                pylint_score = rel["objectId"]
+            elif rel.get("qualifier") == "commit_mi":
+                maintainability_index = rel["objectId"]
+
+        if year and year in commit_date:
             metrics[commit_date] = {
                 "maintainability_index": maintainability_index,
                 "pylint_score": pylint_score,
                 "guideline_version": guideline_version
             }
-
+        else:
+            metrics[commit_date] = {
+                "maintainability_index": maintainability_index,
+                "pylint_score": pylint_score,
+                "guideline_version": guideline_version
+            }
     plt.figure(figsize=(12, 6))
     datetimes = [datetime.fromisoformat(ts) for ts in sorted(metrics.keys())]
     commit_dates = np.array(datetimes)
@@ -47,16 +59,22 @@ def plot_repo_code_quality_fast(collection, year): #TODO Unify with get_reposito
         # Plot depending on label
         if metric_label == "Guideline Version":
             guideline_changes = sorted(list(set([metrics[date]["guideline_version"] for date in sorted(metrics.keys())])))[1:]
+            labelled = False
             for change in guideline_changes:
                 if not isinstance(change, datetime):
                     dt_change = datetime.fromisoformat(change)
                 else:
                     dt_change = change
+                if not labelled:
+                    plt.axvline(float(mdates.date2num(dt_change)), color='black', linestyle='--', label="Contribution Guideline Changes" , alpha=0.7)
+                    labelled = True
+                else:
+                    plt.axvline(float(mdates.date2num(dt_change)), color='black', linestyle='--', alpha=0.7)
 
-                plt.axvline(float(mdates.date2num(dt_change)), color='black', linestyle='--', alpha=0.7)
         else:
-            values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
-            plt.plot(commit_dates, values, label=metric_label, linestyle="-")
+            if metric != "maintainability_index":
+                values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
+                plt.plot(commit_dates, values, label=metric_label, linestyle="-")
 
     plt.title(f"Code Quality Metrics Over Time for {collection}")
     plt.rcParams['axes.spines.top'] = False
@@ -78,7 +96,7 @@ def plot_repo_code_quality_fast(collection, year): #TODO Unify with get_reposito
     plt.rcParams['xtick.color'] = 'black'
     plt.rcParams['ytick.color'] = 'black'
     plt.rcParams['legend.edgecolor'] = 'black'
-    plt.rcParams['legend.facecolor'] = 'black'
+    plt.rcParams['legend.facecolor'] = 'gray'
     plt.show()
 
 def plot_file_code_quality(file_id, collection):

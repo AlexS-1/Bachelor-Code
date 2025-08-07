@@ -107,14 +107,14 @@ def flatten_ocel2(ocel, object_type, collection):
         df = df.sort_values(["case:concept:name", "time:timestamp"])
     return df
 
-def visualise_xes_as(variant, event_log):
+def visualise_xes_as(variant, event_log, collection):
 
     #flat_log = dataframe_utils.convert_timestamp_columns_in_df(flat_log)
     event_log = log_converter.apply(event_log, variant=log_converter.Variants.TO_EVENT_LOG)
 
-    xes_exporter.apply(event_log, "pull_request_flattened.xes")
+    xes_exporter.apply(event_log, f"{collection}-PR-flattened.xes")
 
-    event_log = xes_importer.apply("pull_request_flattened.xes")
+    event_log = xes_importer.apply(f"{collection}-PR-flattened.xes")
 
     if variant != "dfg":
         # Discover a process tree

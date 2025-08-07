@@ -144,6 +144,27 @@ def insert_object(id, object_type: str, data: dict, collection: str):
     except (pymongo.errors.DocumentTooLarge, pymongo.errors.InvalidDocument) as e: # type: ignore
         print(e)
 
+def insert_ocel_object(object, collection: str):
+    """
+    Insert an object into the OCEL database.
+    Args:
+        object (dict): The object to insert, must contain 'id', 'type', 'attributes', and 'relationships'.
+        collection (str): The collection to insert the object into.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].replace_one({"_id": object["id"]}, {k: v for k, v in object.items() if k != "id"}, True)
+
+
+def insert_ocel_event(event, collection: str):
+    """
+    Insert an event into the OCEL database.
+    Args:
+        event (dict): The event to insert, must contain 'id', 'type', 'attributes', and 'relationships'.
+        collection (str): The collection to insert the event into.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb["events"].replace_one({"_id": event["id"]}, {k: v for k, v in event.items() if k != "id"}, True)
+
 
 ### Get functions
 def get_commits(collection: str):
