@@ -275,7 +275,8 @@ def get_anonymous_user_counter():
     return anonymous_user_counter
 
 def get_name_by_username(username, collection, author_association = "NONE"):
-    global anonymous_user_counter
+    global anonymous_user_counter # TODO Check if still necessary
+    # TODO Implement checking if remote and local user ids match
     user_response = {
         "name": None,
         "login": username,

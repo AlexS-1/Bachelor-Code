@@ -1,9 +1,8 @@
 import pandas as pd
 import pm4py
 from build.utils import date_1970
-from build.database_handler import get_commits, get_ocel_data, get_object_type, get_type_of_object
-from datetime import datetime, tzinfo, timezone
-
+from build.database_handler import get_commits, get_ocel_data, get_object_type_by_type_name, get_type_of_object
+from datetime import datetime
 from pandas._typing import Timezone
 
 from pm4py.objects.conversion.log import converter as log_converter
@@ -101,20 +100,19 @@ def flatten_ocel2(ocel, object_type, collection):
     
     # Build DataFrame and sort by case_id and timestamp
     df = pd.DataFrame(rows)
-    print(df.columns)
-    if df is not None:
+    export_path = f"{collection}-{object_type}-flattened.xes"
+    if df is not None and rows != []:
         df["time:timestamp"] = pd.to_datetime(df["time:timestamp"], utc=True)
         df = df.sort_values(["case:concept:name", "time:timestamp"])
-    return df
+        event_log = log_converter.apply(df, variant=log_converter.Variants.TO_EVENT_LOG)
+        xes_exporter.apply(event_log, export_path)
+        return export_path
 
-def visualise_xes_as(variant, event_log, collection):
+    print("ERROR flattening OCEL for export at ", export_path)
+    return None
 
-    #flat_log = dataframe_utils.convert_timestamp_columns_in_df(flat_log)
-    event_log = log_converter.apply(event_log, variant=log_converter.Variants.TO_EVENT_LOG)
-
-    xes_exporter.apply(event_log, f"{collection}-PR-flattened.xes")
-
-    event_log = xes_importer.apply(f"{collection}-PR-flattened.xes")
+def visualise_xes_as(variant, import_path, collection):
+    event_log = xes_importer.apply(import_path)
 
     if variant != "dfg":
         # Discover a process tree
@@ -131,7 +129,7 @@ def visualise_xes_as(variant, event_log, collection):
         gviz = dfg_visualizer.apply(dfg)
         dfg_visualizer.view(gviz)
 
-def divide_event_log_at(split_date: datetime, event_log: pd.DataFrame):
+def divide_event_log_at(split_date: datetime, event_log_path: str):
     """
     Splits the XES log at a given date.
     
@@ -139,17 +137,19 @@ def divide_event_log_at(split_date: datetime, event_log: pd.DataFrame):
     -------------------
     date
         Date to split the log at
-    event_log
+    event_log_path
         Event log to split
 
     Returns
     ------------------
-    traces_before
-        Event log before the date
-    traces_after
-        Event log after the date
+    export_path_before
+        Path to event log before the date
+    export_path_after
+        Path to event log after the date
     """
+    event_log = xes_importer.apply(event_log_path)
     split_date = pd.to_datetime(split_date)
+
     event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
     traces_before = []
     traces_after = []
@@ -157,15 +157,22 @@ def divide_event_log_at(split_date: datetime, event_log: pd.DataFrame):
     split_date = pd.to_datetime(split_date).tz_localize(None)
     event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
 
-    for _, trace_events in event_log.groupby("case:concept:name"):
+    for _, trace_events in event_log.groupby("case:concept:name"): # type: ignore
         if (trace_events["time:timestamp"] < split_date).any():
             traces_before.append(trace_events)
         else:
             traces_after.append(trace_events)
 
     # Concatenate the traces back into DataFrames
-    df_before = pd.concat(traces_before) if traces_before else pd.DataFrame(columns=event_log.columns)
-    df_after = pd.concat(traces_after) if traces_after else pd.DataFrame(columns=event_log.columns)
+    df_before = pd.concat(traces_before) if traces_before else pd.DataFrame(columns=event_log.columns) # type: ignore
+    df_after = pd.concat(traces_after) if traces_after else pd.DataFrame(columns=event_log.columns) # type: ignore
     if traces_before == [] or traces_after == []:
         print("ERROR splitting log: split-date is not in range of event_log")
-    return df_before, df_after
+    
+    export_path_before = f"{event_log_path.split('.')[0]}-before.xes"
+    export_path_after = f"{event_log_path.split('.')[0]}-after.xes"
+
+    xes_exporter.apply(df_before, export_path_before)
+    xes_exporter.apply(df_after, export_path_after)
+
+    return export_path_before, export_path_after

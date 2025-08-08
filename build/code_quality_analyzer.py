@@ -14,7 +14,7 @@ import os
 from sympy import Q
 from tomlkit import date
 
-from build.database_handler import get_attribute_times, get_attribute_value_at_time, get_object
+from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object
 class ScoreOnlyReporter(BaseReporter):
     def __init__(self, output = None) -> None:
         super().__init__(output)

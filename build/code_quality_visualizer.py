@@ -1,12 +1,10 @@
 from datetime import datetime
 from pydoc import doc
-from matplotlib import pyplot as plt, ticker
+from matplotlib import pyplot as plt
 import numpy as np
-from build.code_quality_analyzer import get_file_metrics_at
+from build.code_quality_analyzer import calculate_maintainability_index, get_file_metrics_at
 from build.contribution_process_miner import get_commits
-from build.database_handler import get_events_for_eventType, get_files, get_object, get_related_objects
-import random
-from build.database_handler import get_attribute_value_at_time, get_object, get_related_objects
+from build.database_handler import get_attribute_time, get_attribute_value, get_events_for_eventType, get_files, get_object, get_related_objectIds
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num as date2num
 
@@ -15,6 +13,7 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
     Plot the code quality metrics for each commit of a repository in the database
     Args:
         repo_name (str): The name of the repository of which the metrics are to be plotted.
+        year (str, optional): The year for which the metrics are to be plotted. If None, all years are included.
     """
     # Set up the used variables
     commits = get_commits(collection)
@@ -23,16 +22,14 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
     metrics = {}
     # Prepare the data for plotting
     for commit in commits:
-        commit_date = commit["attributes"][0]["time"]
-        guideline_version = commit["attributes"][3]["value"]
+        # TODO Fix as not intended use of function 
+        commit_date = get_attribute_time(commit["_id"], "message", collection)
+        guideline_version = get_attribute_value(commit["_id"], "guideline_version", collection)
         pylint_score = None
         maintainability_index = None
 
-        for rel in commit.get("relationships", []):
-            if rel.get("qualifier") == "commit_pylint":
-                pylint_score = rel["objectId"]
-            elif rel.get("qualifier") == "commit_mi":
-                maintainability_index = rel["objectId"]
+        pylint_score = get_related_objectIds(commit["_id"], "commit_pylint", collection)[0]
+        maintainability_index = get_related_objectIds(commit["_id"], "commit_mi", collection)[0]
 
         if year and year in commit_date:
             metrics[commit_date] = {
@@ -40,7 +37,7 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
                 "pylint_score": pylint_score,
                 "guideline_version": guideline_version
             }
-        else:
+        elif not year:
             metrics[commit_date] = {
                 "maintainability_index": maintainability_index,
                 "pylint_score": pylint_score,
@@ -88,18 +85,9 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
     plt.ylabel("Code Quality Score")
     plt.ylim(0, 1)
 
-    plt.legend()
-    plt.rcParams['figure.facecolor'] = 'white'
-    plt.rcParams['axes.facecolor'] = 'white'
-    plt.rcParams['axes.edgecolor'] = 'black'
-    plt.rcParams['axes.labelcolor'] = 'black'
-    plt.rcParams['xtick.color'] = 'black'
-    plt.rcParams['ytick.color'] = 'black'
-    plt.rcParams['legend.edgecolor'] = 'black'
-    plt.rcParams['legend.facecolor'] = 'gray'
-    plt.show()
+    _set_plot_style_and_plot()
 
-def plot_file_code_quality(file_id, collection):
+def plot_file_code_quality(file_id, collection, metric_names=[]):
     """
     Plot the code quality metrics for a specific file in the repository
     Args:
@@ -110,66 +98,79 @@ def plot_file_code_quality(file_id, collection):
     if not file:
         print(f"File with ID {file_id} not found in collection {collection}.")
         return
-    metrics = {}
-
-    for attribute in file["attributes"]:
-        if attribute["name"] == "pylint_score":
-            pylint_score = attribute["value"]
-            metrics[attribute["time"]] = {"pylint_score": pylint_score}
     
-    commit_dates = sorted(metrics.keys())
-    # maintainability_indices = [metrics[date]["mi"] for date in commit_dates]
-    pylint_scores = [metrics[date]["pylint_score"] for date in commit_dates]
+    # Setup the metrics dictionary
+    metrics = {}
+    input_metrics = []
+    if "mi" in metric_names:
+        input_metrics = (["cc", "theta_1", "theta_2", "N_1", "N_2", "sloc"] + metric_names) # TODO Fix error where MI is in wrong order
+    else: 
+        input_metrics = metric_names
+    default_metric_structure = {}
+    for metric in input_metrics:
+        default_metric_structure[metric] = None
 
-    filtered_metrics = {dt: m for dt, m in metrics.items() if "pylint_score" in m}
-    commit_dates = sorted(filtered_metrics.keys())
-    pylint_scores = [filtered_metrics[date]["pylint_score"] for date in commit_dates]
+    previous_time = None
+    previous_complete_time = None
+    for attribute in file["attributes"]:
+        if attribute["name"] not in input_metrics:
+            continue
+        time = attribute["time"]
+        name = attribute["name"]
+        value = attribute["value"]
 
+        if time not in list(metrics.keys()):
+            metrics[time] = default_metric_structure.copy()
+            if previous_time is not None and previous_time != time:
+                previous_complete_time = list(metrics.keys())[-3] if len(metrics) > 2 else None
+                for metric, metric_value in metrics[previous_time].items():
+                    if metric_value is None and metric != "mi":
+                        metrics[previous_time][metric] = metrics[previous_complete_time][metric]
+                    elif metric == "mi":
+                        if all(metrics[previous_time][m] is not None for m in input_metrics if m != "mi"):
+                            metrics[previous_time][metric] = calculate_maintainability_index(
+                                metrics[previous_time]["N_1"],
+                                metrics[previous_time]["N_2"],
+                                metrics[previous_time]["theta_1"],
+                                metrics[previous_time]["theta_2"],
+                                metrics[previous_time]["cc"],
+                                metrics[previous_time]["sloc"]
+                            )/100
+                        else: 
+                            print(f"ERROR: Not all required metrics for MI calculation are available at {previous_time}.")
+        metrics[time][name] = int(value) if name != "pylint_score" else float(value)
+        previous_time = time
+
+    # After going through all changed attributes, ensure that the last time point has also all metrics filled (Not accounted for in loop)
+    for metric, metric_value in metrics[previous_time].items():
+        if metric_value is None:
+            metrics[previous_time][metric] = metrics[previous_complete_time][metric]
+
+    # Plotting the metrics
     plt.figure(figsize=(12, 6))
-    # plt.plot(commit_dates, maintainability_indices, label="Maintainability Index", color="blue", marker="o", linestyle="-")
+    datetimes = [datetime.fromisoformat(ts) for ts in sorted(metrics.keys())]
+    commit_dates = np.array(datetimes)
+    for metric in metric_names:
+        values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
+        if len(metric.split("_")) > 1:
+            metric_label = metric.replace("_", " ").title()
+        else:
+            metric_label = metric.upper()
+        plt.plot(commit_dates, values, label=metric_label, marker="o", linestyle="-")
 
-    plt.plot(commit_dates, pylint_scores, label="Pylint Score", color="red", marker="x", linestyle="-")
-    plt.xlabel("Commit Date")
-    plt.ylabel("Code Quality Score")
-    plt.title(f"Code Quality Metrics Over Time for {file['_id']}") # type: ignore
-    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(nbins=10, prune='both'))
-    plt.rcParams['axes.spines.top'] = False
-    plt.rcParams['axes.spines.right'] = False
-    plt.ylim(0, 1)
-    plt.legend()
-
-def split_code_quality_per_guideline_change(collection, limit_commits=None):
-    """
-    Split the code quality metrics per contribution guideline change
-    Args:
-        collection (str): The name of the collection to split the code quality metrics for.
-    """
-    # Get all commits and their contribution guideline versions
-    commits = get_commits(collection)
-    guideline_versions = {}
-    for commit in commits[:limit_commits]:
-        if "contribution_guideline_version" in commit.get("attributes")[3]["name"]:
-            guideline_versions[commit["attributes"][0]["time"]] = commit["attributes"][3]["value"]
-    code_quality = get_repository_code_quality(collection)
-    times = list(code_quality.keys())
-    mis = [v["mi"] for v in code_quality.values()]
-    pylints = [v["pylint_score"] for v in code_quality.values()]
-    plt.figure(figsize=(14, 7))
-    plt.plot(times, mis, label="Maintainability Index", color="blue", marker="o")
-    plt.plot(times, pylints, label="Pylint Score", color="red", marker="x")
-
-    # Add vertical lines for guideline changes #TODO make sure vertical lines are shown
-    for change_time, version in guideline_versions.items():
-        plt.axvline(x=change_time, color='green', linestyle='--', alpha=0.7)
-        # plt.text(change_time, plt.ylim()[1]*0.95, f'Version {version}', rotation=90, color='green', va='top', ha='right', fontsize=8)
+    plt.title(f"Code Quality Metrics Over Time for {file['_id']}")
 
     plt.xlabel("Commit Date")
+    ax = plt.gca()
+    ax.xaxis.set_major_locator(mdates.YearLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+
     plt.ylabel("Code Quality Score")
-    plt.title(f"Repository Code Quality Over Time with Guideline Changes")
-    plt.legend()
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.show()
+    if "mi" in metric_names or "pylint_score" in metric_names:
+        plt.ylim(0, 1)
+    else:
+        plt.ylim(0, max([max(metrics[date][metric] for date in metrics) for metric in metric_names]) * 1.1)
+    _set_plot_style_and_plot()
 
 def get_repository_code_quality(collection, limit_commits=None):
     """
@@ -181,6 +182,7 @@ def get_repository_code_quality(collection, limit_commits=None):
     Returns:
         dict: A dictionary mapping each commit date (datetime) to the averaged code quality metrics at that point in time.
     """
+    # TODO Compare and contrast with fast version above
     files = get_files(collection)
     commits = get_commits(collection)
     file_metrics = {}
@@ -207,7 +209,7 @@ def get_repository_code_quality(collection, limit_commits=None):
     }
     for commit in commits[:limit_commits]:
         commit_time = datetime.fromisoformat(commit["attributes"][0]["time"])
-        files = get_related_objects(commit["_id"], "aggregates", collection)
+        files = get_related_objectIds(commit["_id"], "aggregates", collection)
         for changed_file in files:
             if changed_file.split(".")[-1] not in ["py"]: 
                 continue
@@ -226,3 +228,17 @@ def get_repository_code_quality(collection, limit_commits=None):
             "pylint_score": pylint_average
         }
     return code_quality
+
+def _set_plot_style_and_plot():
+    plt.rcParams['figure.facecolor'] = 'white'
+    plt.rcParams['axes.facecolor'] = 'white'
+    plt.rcParams['axes.edgecolor'] = 'black'
+    plt.rcParams['axes.labelcolor'] = 'black'
+    plt.rcParams['xtick.color'] = 'black'
+    plt.rcParams['ytick.color'] = 'black'
+    plt.rcParams['legend.edgecolor'] = 'black'
+    plt.rcParams['legend.facecolor'] = 'black'
+    plt.rcParams['axes.spines.top'] = False
+    plt.rcParams['axes.spines.right'] = False
+    plt.legend()
+    plt.show()

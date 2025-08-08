@@ -6,11 +6,10 @@ import pymongo
 from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-ocdb = myclient["OCEL"]
 
 ### Insert object-type functions
 def insert_commit(data, collection):
-    commit_type = get_object_type("commit", collection)
+    commit_type = get_object_type_by_type_name("commit", collection)
     try: 
         verify_objectType(data, commit_type)
         data_to_insert = {k: v for k, v in data.items() if k != "commit_sha"}
@@ -19,7 +18,7 @@ def insert_commit(data, collection):
     insert_object(data["commit_sha"], "commit", data_to_insert, collection)
 
 def insert_pull(data, collection):
-    pull_request_type = get_object_type("pull_request", collection)
+    pull_request_type = get_object_type_by_type_name("pull_request", collection)
     try:
         verify_objectType(data, pull_request_type)
         data_to_insert = {k: v for k, v in data.items() if k != "number"}
@@ -28,7 +27,7 @@ def insert_pull(data, collection):
     insert_object(data["number"], "pull_request", data_to_insert, collection)
 
 def insert_file(data, collection):
-    file_type = get_object_type("file", collection)
+    file_type = get_object_type_by_type_name("file", collection)
     try:
         verify_objectType(data, file_type)
         data_to_insert = data
@@ -37,7 +36,7 @@ def insert_file(data, collection):
     insert_object(data["filename"], "file", data_to_insert, collection)
 
 def insert_user(data, collection):
-    user_type = get_object_type("user", collection)
+    user_type = get_object_type_by_type_name("user", collection)
     try:
         verify_objectType(data, user_type)
         data_to_insert = data
@@ -62,7 +61,7 @@ def insert_event(id, event_type: str, time, collection, attributes=[], relations
 
 def insert_object(id, object_type: str, data: dict, collection: str):
     ocdb = myclient[f"{collection}"]
-    attribute_keys = [attribute_key["name"] for attribute_key in list(get_object_type(object_type, collection)["attributes"])] # type: ignore
+    attribute_keys = [attribute_key["name"] for attribute_key in list(get_object_type_by_type_name(object_type, collection)["attributes"])] # type: ignore
     timestamp_keys = [key for key in list(data.keys()) if key.find("timestamp") != -1]
     relationship_keys = list(set(data.keys()) - set(attribute_keys) - set(timestamp_keys))
     attributes = []
@@ -154,7 +153,6 @@ def insert_ocel_object(object, collection: str):
     ocdb = myclient[f"{collection}"]
     ocdb["objects"].replace_one({"_id": object["id"]}, {k: v for k, v in object.items() if k != "id"}, True)
 
-
 def insert_ocel_event(event, collection: str):
     """
     Insert an event into the OCEL database.
@@ -179,9 +177,9 @@ def get_pull_requests(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "pull_request"})
 
-def get_object_type(name: str, collection: str):
+def get_object_type_by_type_name(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
-    object = ocdb["objectTypes"].find_one({"_id": name})
+    object = ocdb["objectTypes"].find_one({"_id": type})
     return object
 
 def get_type_of_object(object_id: str, collection: str):
@@ -230,8 +228,7 @@ def get_event(event_id: str, collection: str):
         dict: The event data if found, otherwise None.
     """
     ocdb = myclient[f"{collection}"]
-    return ocdb["events"].find({"_id": event_id})
-    
+    return ocdb["events"].find({"_id": event_id}) 
 
 def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
@@ -258,6 +255,150 @@ def get_user_by_username(username: str, collection: str):
     """
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find_one({"type": "user", "attributes.0.value": username})
+
+def get_attribute_value_at_time(id, attribute_name, time, collection):
+    """
+    Get the value of an attribute at a specific time.
+    Args:
+        id (str): The ID of the object to get the attribute value for.
+        attribute_name (str): The name of the attribute to get the value for.
+        time (datetime): The time to get the attribute value at.
+    Returns:
+        str: The value of the attribute at the specified time, or None if not found.
+    """
+    file = get_object(id, collection)
+    time = datetime.fromisoformat(time).replace(tzinfo=None)
+    attributes = {}
+    if file is None:
+        return None
+    for attribute in file["attributes"]:
+        attr_time = datetime.fromisoformat(attribute["time"]).replace(tzinfo=None)
+        if attribute["name"] == attribute_name and attr_time <= time:
+            # Convert string to designated attribute_type
+            object_type = get_object_type_by_type_name(file["type"], collection)
+            if object_type is not None:
+                attribute_type = next((attr["type"] for attr in object_type["attributes"] if attr["name"] == attribute_name), None)
+                if attribute_type == "int":
+                    attributes[attr_time] = int(attribute["value"])
+                if attribute_type == "float":
+                    attributes[attr_time] = float(attribute["value"])
+                if attribute_type == "boolean":
+                    attributes[attr_time] = True if attribute["value"] == "True" else False
+        else:
+            print("ERROR: No suitable object type for requested id")
+    return attributes.get(max(attributes.keys(), default=None), None) if attributes else None
+
+
+    return None
+
+def get_attribute_value(id, attribute_name, collection):
+    """
+    Get the (first) value of an object attribute.
+    Args:
+        id (str): The ID of the object to get the attribute value for.
+        attribute_name (str): The name of the attribute to get the value for.
+        collection (str): The collection to get the object from.
+    Returns:
+        str: The value of the attribute, or None if not found.
+    """
+    file = get_object(id, collection)
+    if file is None:
+        return None
+    for attribute in file["attributes"]:
+        if attribute["name"] == attribute_name:
+            return attribute["value"]
+    return None
+
+def get_related_objectIds(id, qualifier, collection):
+    """
+    Get the related objects of an object based on a qualifier.
+    Args:
+        id (str): The ID of the file to get the related objects for.
+        qualifier (str): The qualifier to filter the related objects by.
+    Returns:
+        list: A list of related object IDs.
+    """
+    object = get_object(id, collection)
+    related_objects = []
+    if object is None:
+        return related_objects
+    for relation in object["relationships"]:
+        if relation["qualifier"] == qualifier:
+            related_objects.append(relation["objectId"])
+    return related_objects 
+
+def get_attribute_change_times(id, collection):
+    """
+    Get the timestamps when an attribute value changed
+    Args:
+        id (str): The ID of the object to get the attribute times for.
+        collection (str): The collection to get the object from.
+    Returns:
+        list: A list of timestamps when the attribute value changed.
+    """
+    try:
+        file = get_object(id, collection)
+    except Exception as e:
+        print(f"Error retrieving object with ID {id} from collection {collection}: {e}")
+        return []
+    
+    if not file or "attributes" not in file:
+        print(f"No attributes found for object with ID {id} in collection {collection}")
+        return []
+    
+    attribute_times = set()
+    for attribute in file["attributes"]:
+        if "time" in attribute:
+            attribute_times.add(attribute["time"])
+    return list(attribute_times)
+
+def get_attribute_time(id, attribute_name, collection):
+    """
+    Get the timestamp of an object attribute.
+    Args:
+        id (str): The ID of the object to get the attribute time for.
+        attribute_name (str): The name of the attribute to get the time for.
+        collection (str): The collection to get the object from.
+    Returns:
+        str: The timestamp of the attribute, or None if not found.
+    """
+    file = get_object(id, collection)
+    if file is None:
+        return None
+    for attribute in file["attributes"]:
+        if attribute["name"] == attribute_name:
+            return attribute["time"]
+
+### Update functions
+def update_attribute(id, attribute_name, new_value, time, collection):
+    """
+    Update the value of an attribute.
+
+    The 'attributes' field is expected to be a list of dictionaries, 
+    each with keys: 'name', 'value', and 'time', e.g.:
+    [
+        {"name": "attribute1", "value": "some_value", "time": "2024-06-01T12:00:00"},
+        ...
+    ]
+
+    Args:
+        id (str): The ID of the object to update.
+        attribute_name (str): The name of the attribute to update.
+        new_value (str): The new value to set for the attribute.
+        time (str): The time when the attribute was updated.
+        collection (str): The collection to update the object in.
+    """ 
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].update_one(
+        {"_id": id},
+        {"$push": {
+            "attributes": {
+                "name": attribute_name,
+                "time": time,
+                "value": new_value
+            }
+        }}
+    )
 
 ### Initialisation functions
 def initialise_database(repo_path):
@@ -418,109 +559,3 @@ def verify_objectType(data, obj_type):
                     raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())})")
         except Exception as e:
             raise ValueError(f"{e}: Data is {data}")
-
-def get_attribute_value_at_time(id, attribute_name, time, collection):
-    """
-    Get the value of an attribute at a specific time.
-    Args:
-        id (str): The ID of the object to get the attribute value for.
-        attribute_name (str): The name of the attribute to get the value for.
-        time (datetime): The time to get the attribute value at.
-    Returns:
-        str: The value of the attribute at the specified time, or None if not found.
-    """
-    file = get_object(id, collection)
-    time = datetime.fromisoformat(time).replace(tzinfo=None)
-    attributes = {}
-    if file is None:
-        return None
-    for attribute in file["attributes"]:
-        attr_time = datetime.fromisoformat(attribute["time"]).replace(tzinfo=None)
-        if attribute["name"] == attribute_name and attr_time <= time:
-            # Convert string to designated attribute_type
-            object_type = get_object_type(file["type"], collection)
-            if object_type is not None:
-                attribute_type = next((attr["type"] for attr in object_type["attributes"] if attr["name"] == attribute_name), None)
-                if attribute_type == "int":
-                    attributes[attr_time] = int(attribute["value"])
-                if attribute_type == "float":
-                    attributes[attr_time] = float(attribute["value"])
-                if attribute_type == "boolean":
-                    attributes[attr_time] = True if attribute["value"] == "True" else False
-        else:
-            print("ERROR: No suitable object type for requested id")
-    return attributes.get(max(attributes.keys(), default=None), None) if attributes else None
-
-
-def get_related_objects(id, qualifier, collection):
-    """
-    Get the related objects of an object based on a qualifier.
-    Args:
-        id (str): The ID of the file to get the related objects for.
-        qualifier (str): The qualifier to filter the related objects by.
-    Returns:
-        list: A list of related object IDs.
-    """
-    object = get_object(id, collection)
-    related_objects = []
-    if object is None:
-        return []
-    for relation in object["relationships"]:
-        if relation["qualifier"] == qualifier:
-            related_objects.append(relation["objectId"])
-    return related_objects 
-
-def get_attribute_times(id, collection):
-    """
-    Get the timestamps when an attribute value changed
-    Args:
-        id (str): The ID of the object to get the attribute times for.
-        collection (str): The collection to get the object from.
-    Returns:
-        list: A list of timestamps when the attribute value changed.
-    """
-    try:
-        file = get_object(id, collection)
-    except Exception as e:
-        print(f"Error retrieving object with ID {id} from collection {collection}: {e}")
-        return []
-    
-    if not file or "attributes" not in file:
-        print(f"No attributes found for object with ID {id} in collection {collection}")
-        return []
-    
-    attribute_times = set()
-    for attribute in file["attributes"]:
-        if "time" in attribute:
-            attribute_times.add(attribute["time"])
-    return list(attribute_times)
-
-def update_attribute(id, attribute_name, new_value, time, collection):
-    """
-    Update the value of an attribute.
-
-    The 'attributes' field is expected to be a list of dictionaries, 
-    each with keys: 'name', 'value', and 'time', e.g.:
-    [
-        {"name": "attribute1", "value": "some_value", "time": "2024-06-01T12:00:00"},
-        ...
-    ]
-
-    Args:
-        id (str): The ID of the object to update.
-        attribute_name (str): The name of the attribute to update.
-        new_value (str): The new value to set for the attribute.
-        time (str): The time when the attribute was updated.
-        collection (str): The collection to update the object in.
-    """ 
-    ocdb = myclient[f"{collection}"]
-    ocdb["objects"].update_one(
-        {"_id": id},
-        {"$push": {
-            "attributes": {
-                "name": attribute_name,
-                "time": time,
-                "value": new_value
-            }
-        }}
-    )

@@ -2,7 +2,7 @@ from heapq import merge
 import pandas as pd
 from build.code_quality_visualizer import get_object
 from build.utils import date_1970
-from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_ocel_data, get_object_type, get_type_of_object
+from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_ocel_data, get_object_type_by_type_name, get_type_of_object
 from datetime import datetime, tzinfo, timezone
 from matplotlib import pyplot as plt
 
@@ -84,8 +84,9 @@ def pull_request_open_time_analysis(pull_request_ids, collection, visualise=Fals
                 open_time = datetime.fromisoformat(event["time"])
                 if pull_request_id in pr_open_to_close_times:
                     pr_open_to_close_times[pull_request_id]["open"] = open_time
-                    close_time = pr_open_to_close_times[pull_request_id]["close"]
-                    pr_open_to_close_times[pull_request_id]["duration"] = (close_time - open_time).total_seconds() / 3600
+                    if "close" in pr_open_to_close_times[pull_request_id]:
+                        close_time = pr_open_to_close_times[pull_request_id]["close"]
+                        pr_open_to_close_times[pull_request_id]["duration"] = (close_time - open_time).total_seconds() / 3600
                 else:
                     pr_open_to_close_times.setdefault(pull_request_id, {})["open"] = open_time
             if "close" in event["type"]:

@@ -5,7 +5,7 @@ from numpy import insert
 from pydriller import Repository
 from requests import get
 
-from build.database_handler import get_attribute_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, update_attribute
+from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, update_attribute
 from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
 from build.utils import date_1970, date_formatter
 
