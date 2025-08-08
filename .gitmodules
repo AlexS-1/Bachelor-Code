@@ -1,0 +1,4 @@
+[submodule "thesis-writing"]
+	path = thesis-writing
+	url = git@github.com:AlexS-1/Bachelor-Thesis.git
+	branch = main
