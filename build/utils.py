@@ -8,12 +8,13 @@ import subprocess
 from jsonschema import validate
 from numpy import std
 
-def diff_to_dict(diff):
-    return {
-        diff[0]: diff[1]
-    }   
+def list_to_dict(diff: list):
+    dict = {}
+    for list in diff:
+        dict[list[0]] = list[1]
+    return dict
 
-def clone_ropositoriy(repo_url, temp_dir="/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"):
+def clone_repository(repo_url, temp_dir="/Users/as/Library/Mobile Documents/com~apple~CloudDocs/Dokumente/Studium/Bachelor-Thesis/tmp"):
     repo_name = os.path.basename(repo_url).replace(".git", "")
     clone_path = os.path.join(temp_dir, repo_name)
     subprocess.run(['git', 'clone', repo_url, clone_path], check=True)
@@ -34,7 +35,10 @@ def generic_to_python_type(python_type):
     else:
         return None
     
-def date_formatter(date):
+def date_formatter(date: datetime.datetime):
+    """
+    Format a datetime object to a string.
+    """
     return date.strftime('%Y-%m-%dT%H:%M:%SZ')
 
 def date_1970():

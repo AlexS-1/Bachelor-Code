@@ -3,7 +3,7 @@ from pydoc import doc
 from matplotlib import pyplot as plt
 import numpy as np
 from build.code_quality_analyzer import calculate_maintainability_index, get_file_metrics_at
-from build.contribution_process_miner import get_commits
+from build.database_handler import get_commits
 from build.database_handler import get_attribute_time, get_attribute_value, get_events_for_eventType, get_files, get_object, get_related_objectIds
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num as date2num

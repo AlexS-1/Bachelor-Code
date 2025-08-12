@@ -1,29 +1,34 @@
+from datetime import datetime
+import hashlib
+import re
 import subprocess
 from venv import create
 from colorama import init
-from numpy import insert
+from numpy import insert, size
 from pydriller import Repository
 from requests import get
+from typing import Dict, List
 
-from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, update_attribute
+from tomlkit import date
+
+from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, insert_file_metrics, update_attribute
 from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
-from build.utils import date_1970, date_formatter
+from build.utils import date_1970, date_formatter, list_to_dict
 
-def create_commit(commit_sha, author, message, repository, branches, commit_timestamp, contribution_guideline_version, description=None, file_changes=None, parents=None):
+def _create_commit(commit_sha, author, message, repository, branches, commit_timestamp, contribution_guideline_version, description=None, file_changes=None, parents=None):
     return {
         "commit_sha": commit_sha,
         "message": message,
-        "description": description,
-        "to": [repository + ":" + branch for branch in branches],
+        "description": str(description),
+        "to": str([repository + ":" + branch for branch in branches]),
         "is-authored-by": author,
         "commit_timestamp": commit_timestamp,
-        "aggregates": file_changes,
-        "is-child-of": parents,
-
+        "aggregates": str(file_changes),
+        "is-child-of": str(parents),
         "contribution_guideline_version": contribution_guideline_version
     }
 
-def create_file(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
+def _create_file_metrics(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
     return {
         "file-changed_by": name,
         "filename": filename,
@@ -44,13 +49,21 @@ def create_file(name, filename, file_change_timestamp, commit_sha, method_count,
         "pylint_score": pylint_score
     }
 
-def get_snapshot_code_quality(repo_path, from_date, file_types):
-    repository_code_metrics = {}
-    # FIXME Split in extract and insert methods in two modules
+def _create_file(name, filename, file_change_timestamp, commit_sha, size_bytes, file_purpose):
+    return {
+        "file-changed_by": name,
+        "filename": filename,
+        "file_change_timestamp": file_change_timestamp,
+        "part-of-commit": commit_sha,
+        "size_bytes": size_bytes,
+        "file_purpose": file_purpose,
+    }
+
+def _get_snapshot_code_quality(repo_path, from_date, file_types, collection, partial=True):
+    repository_code_metrics: Dict[str, List[float]] = {}  # filename: [maintainability_index, pylint_score]
     for commit in Repository(repo_path, 
-                             since=from_date, 
-                             only_modifications_with_file_types=file_types).traverse_commits():
-        
+                             since=from_date).traverse_commits():
+
         # Get the initial commit to reset the repository to its original state
         initial_commit = subprocess.run(
             ['git', 'rev-parse', 'HEAD'], 
@@ -59,29 +72,104 @@ def get_snapshot_code_quality(repo_path, from_date, file_types):
             text=True).stdout.strip()
         
         # Move HEAD to the commit, from which we want to analze the code quality
-        # and get the code metrics for all Python files
-        print(f"Checking out commit {commit.hash} from original commit {initial_commit}")
-        subprocess.run(['git', 'checkout', commit.hash], cwd=repo_path, check=True)
-        result = subprocess.run(
-            ["git", "ls-files", "*.py", "**/*.py"],
-            cwd=repo_path,
-            stdout=subprocess.PIPE,
-            text=True,
-            check=True
-        )
-        py_files = result.stdout.strip().split('\n')
-        # TODO Check if simply passing the path is faster
-        for file in py_files:
-            try:
-                with open(f"{repo_path}/{file}", 'r') as f:
-                    source_code = f.read()
-            except Exception as e:
-                print(f"Error reading file {file}: {e}")
-                source_code = ""
-            # TODO Implement own calculation of other metrics
-            mi = get_maintainability_index(source_code)/100
-            pl = get_pylint_score(source_code)/10
-            repository_code_metrics[file] = [mi, pl]
+        if partial:
+            # Get the code metrics for only Python files:
+            print(f"Checking out commit {commit.hash} from original commit {initial_commit}")
+            subprocess.run(['git', 'checkout', commit.hash], cwd=repo_path, check=True)
+            result = subprocess.run(
+                ["git", "ls-files", "*.py", "**/*.py"],
+                cwd=repo_path,
+                stdout=subprocess.PIPE,
+                text=True,
+                check=True
+            )
+            py_files = result.stdout.strip().split('\n')
+            for file in py_files:
+                try:
+                    with open(f"{repo_path}/{file}", 'r') as f:
+                        source_code = f.read()
+                except Exception as e:
+                    print(f"Error reading file {file}: {e}")
+                    source_code = ""
+                mi = get_maintainability_index(source_code)/100 # TODO Implement own calculation of maintainability index
+                pl = get_pylint_score(source_code)/10
+                repository_code_metrics[file] = [mi, pl]
+        else:
+            # Get inital values for all files in the repository and add them to the OCEL
+            all_files = subprocess.run(
+                ["git", "ls-files"],
+                cwd=repo_path,
+                stdout=subprocess.PIPE,
+                text=True,
+                check=True
+            )
+            for file in all_files.stdout.strip().split('\n'):
+                try:
+                    with open(f"{repo_path}/{file}", 'r') as f:
+                        source = f.read()
+                except Exception as e:
+                    print(f"ERROR: Reading file {file}: {e}")
+                    source = ""
+                file_purpose = _check_file_purpose(file, source, file_types)
+                file_object = _create_file(
+                    "Repository Owner", 
+                    file,
+                    date_1970(), 
+                    commit.hash,
+                    size(source),
+                    file_purpose
+                )
+                insert_file(file_object, collection)
+
+                if file_purpose == "source":
+                    source_code_metrics = _extract_source_code_metrics(source)
+                    repository_code_metrics[file] = source_code_metrics[0:2]
+                    ps, cc, hm, lm = source_code_metrics[1:6]
+                    file_metrics = _create_file_metrics(
+                        commit.committer.name, 
+                        file,
+                        date_1970, 
+                        commit.hash,
+                        -1, # FIXME Check with prior suggestion of cc_visit
+                        cc,
+                        hm.total.h1,
+                        hm.total.h2,
+                        hm.total.N1,
+                        hm.total.N2,
+                        lm.loc,
+                        lm.lloc,
+                        lm.sloc,
+                        lm.comments,
+                        lm.multi,
+                        lm.blank,
+                        ps)
+                    insert_file_metrics(file_metrics, collection)
+
+                if file_purpose == "documentation":
+                    word_count = len(source.split())
+                    diff_new = {i: line for i, line in enumerate(source.split("\n"), 1)}
+                    candidates = _extract_guideline_rule_candidates_combined(
+                        file,
+                        diff_new,
+                        guideline_id=f"g_{date_1970}"
+                    )
+                    for rule in candidates:
+                        insert_event(f"GR_{rule['rule_id']}_{date}",
+                                    "guideline_rule_candidate",
+                                    date_1970(),
+                                    collection,
+                                    [rule],
+                                    [])
+                    
+                    # diff_new = list_to_dict(modified_file.diff_parsed["added"])
+                    # for line, content in diff_new.items():
+                    #     for keyword in set(keyword_topic.keys()):
+                    #         if keyword.lower() in content.split():
+                    #             print(f"LOG: Found line \"{content}\" for \"{keyword}\" in \"{modified_file.new_path}\"")
+                    #             contribution_guidelines[modified_file.new_path] = {
+                    #                 line: content,
+                    #                 keyword.lower(): keyword_topic[keyword]
+                    #             }
 
         # Move HEAD back to the initial commit
         subprocess.run(['git', 'checkout', initial_commit], cwd=repo_path, check=True)
@@ -89,128 +177,387 @@ def get_snapshot_code_quality(repo_path, from_date, file_types):
         break
     return repository_code_metrics
 
-def get_and_insert_local_data(repo_path, from_date, to_date, file_types, snapshot=False):
-    # FIXME Split in extract and insert methods in two modules
+def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: datetime, file_types: list, do_snapshot: bool = False):
+    """
+    Extract the file level change for a given repository and certain source code files
+    Args:
+        repo_path (str): The file path to the repository
+        from_date (datetime): The start date for the analysis
+        to_date (datetime): The end date for the analysis
+        file_types (list): The file types to include in the analysis
+        do_snapshot (bool): Whether to take a snapshot of the code quality
+    """
     collection = repo_path.split("/")[-1]
-    contribution_guideline_version = date_1970()
-    repository_code_metrics = get_snapshot_code_quality(repo_path, from_date, file_types) if snapshot else {}
+    repository_code_metrics = _get_snapshot_code_quality(repo_path, from_date, file_types, collection) if do_snapshot else {}
     for commit in Repository(repo_path, 
                              since=from_date, 
                              to=to_date,
-                             only_modifications_with_file_types=file_types).traverse_commits():
+                             #only_modifications_with_file_types=file_types NOTE Remove for final version
+                            ).traverse_commits():
         commit_timestamp = date_formatter(commit.committer_date)
-        
-        # TODO test if replaying with MongoDB is faster
-        file_mis = []
-        file_pylints = []
+        file_metrics = {
+            "maintainability_index": [],
+            "pylint_score": []
+        }
+        filenames = []
+        contribution_guidelines = {}
 
-        # Update the repository code metrics for current commit and skip irrelevant commits
+        # Update the repository code metrics for current commit
         for modified_file in commit.modified_files:
-            if modified_file.change_type.name == "ADD" and modified_file.new_path and modified_file.new_path.endswith(".py"):
-                repository_code_metrics[modified_file.new_path] = [0, 0]
-            elif modified_file.change_type.name == "DELETE" and modified_file.old_path and modified_file.old_path.endswith(".py"):
-                # TODO Decide how to handle deleted files
-                repository_code_metrics.pop(modified_file.old_path, None)
-                continue
-            elif modified_file.change_type.name == "RENAME":
-                update_attribute(modified_file.old_path, "filename", modified_file.new_path, commit_timestamp, collection)
-                if modified_file.old_path and modified_file.old_path.endswith(".py"):
+            file_action = {}
+            file_actor = {}
+            if modified_file.change_type.name == "DELETE" and commit.committer.name:
+                if modified_file.old_path and any(modified_file.old_path.endswith(extension) for extension in file_types):
                     repository_code_metrics.pop(modified_file.old_path, None)
-                if modified_file.new_path and modified_file.new_path.endswith(".py"):
-                    repository_code_metrics[modified_file.new_path] = [0, 0]
-                if modified_file.source_code and modified_file.source_code_before:
-                    print(f"RENAME: File LOC changed from {len(modified_file.source_code_before.split("\n"))} to {len(modified_file.source_code.split("\n"))}")
-            elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and modified_file.new_path.endswith(".py"):
-                repository_code_metrics[modified_file.new_path] = [0, 0]
-            elif modified_file.change_type.name == "MODIFY" and modified_file.new_path and not modified_file.new_path.endswith(".py"):
-                print("Potentially change in documentation")
-                # TODO Decide how to do NLP here
-                # TODO Check if this is the right way to handle contribution guidelines
-                # import spacy
-                # nlp = spacy.load("en_core_web_sm")
-                # doc = nlp(str(modified_file.source_code))
-                if "pull" in modified_file.new_path or "contribut" in modified_file.new_path or "document" in modified_file.new_path:
-                    print(f"Contribution guideline found in {modified_file.new_path}")
-                    keyword_list = ["reviewer",
-                            "approval",
-                            "pull request",
-                            "continuous integration",
-                            "CI/CD",
-                            "test",
-                            "workflow",
-                            "code owner",
-                            "branch protection",
-                            "requirement"]
-                    # if any(keyword in modified_file.diff_parsed["diff"] for keyword in keyword_list):
-                    #     print(f"Contribution guideline found in {modified_file.new_path} with keywords {keyword_list}")
-                    contribution_guideline_version = commit_timestamp
+                file_action = {"removed_file": modified_file.old_path}
+                file_actor = {"removed_by": commit.committer.name}
             else:
-                continue
-            
-            # Skip irrevant files in relevant commits
-            if modified_file.new_path is None or modified_file.new_path.endswith(".py") == False:
-                # TODO Check if there are cases where code_metrics is stil set to [0, 0]
-                continue
-            
-            # Prevent wrong code quality measurements for empty files
-            # TODO Optimize by not analyzing files that are renamed
-            if modified_file.source_code is None:
-                source = ""
-                print(f"File {modified_file.new_path} has no source code")
-            else:
-                source = modified_file.source_code
+                if modified_file.change_type.name == "ADD" and modified_file.new_path and commit.committer.name:
+                    file_action = {"added_file": modified_file.new_path}
+                    file_actor = {"added_by": commit.committer.name}
+                elif modified_file.change_type.name == "RENAME" and modified_file.old_path and modified_file.new_path and commit.committer.name:
+                    update_attribute(modified_file.old_path, "filename", modified_file.new_path, commit_timestamp, collection, update_id = True)
+                    if any(modified_file.old_path.endswith(extension) for extension in file_types):
+                        repository_code_metrics.pop(modified_file.old_path, None)
+                    file_action = {"renamed_file": modified_file.new_path}
+                    file_actor = {"renamed_by": commit.committer.name}
+                elif modified_file.new_path and commit.committer.name: # modified_file.change_type.name == "MODIFIED"
+                    file_action = {"modified_file": modified_file.new_path}
+                    file_actor = {"modified_by": commit.committer.name}
+                else:
+                    print(f"WARNING Unknown change type {modified_file.change_type.name} in commit {commit.hash}")
+                insert_event(
+                    f"CF_{commit_timestamp}", 
+                    "change_file", 
+                    commit_timestamp, 
+                    collection, 
+                    [], 
+                    [file_action, file_actor])
+                
+                # For every change to a file including adding a file, create/update object
+                if modified_file.new_path and modified_file.source_code:
+                    file_purpose = _check_file_purpose(modified_file.new_path, modified_file.source_code, file_types)
+                else:
+                    file_purpose = "unknown"
+                file = _create_file(
+                    commit.committer.name, 
+                    modified_file.new_path,
+                    commit_timestamp, 
+                    commit.hash,
+                    size(modified_file.source_code) if modified_file.source_code else 0,
+                    file_purpose
+                )
+                insert_file(file, collection)
 
-            # Gather code quality data per file
-            mi = get_maintainability_index(source)/100
-            pl = get_pylint_score(source)/10
-            lm = get_line_metrics(source)
-            hm = get_halstead_metrics(source)
-            cc = get_cyclomatic_complexity(source)
+                # For every source file additionally update metrics
+                if file_purpose == "source" and modified_file.new_path and modified_file.source_code:
+                    source_code_metrics = _extract_source_code_metrics(modified_file.source_code)
+                    repository_code_metrics[modified_file.new_path] = source_code_metrics[0:2]
+                    ps, cc, hm, lm = source_code_metrics[1:6]
+                    file_metrics = _create_file_metrics(
+                        commit.committer.name, 
+                        modified_file.new_path,
+                        commit_timestamp, 
+                        commit.hash,
+                        len(modified_file.methods),
+                        cc,
+                        hm.total.h1,
+                        hm.total.h2,
+                        hm.total.N1,
+                        hm.total.N2,
+                        lm.loc,
+                        lm.lloc,
+                        lm.sloc,
+                        lm.comments,
+                        lm.multi,
+                        lm.blank,
+                        ps)
+                    insert_file_metrics(file_metrics, collection)
 
-            # TODO Implement as reading from MongoDB
-            repository_code_metrics[modified_file.new_path] = [mi, pl]
+                # For every documentation document check wether it is a contribution relevant document
+                if file_purpose == "documentation" and modified_file.new_path and modified_file.source_code:
+                    word_count = len(modified_file.source_code.split())
+                    diff_new = list_to_dict(modified_file.diff_parsed["added"])
+                    candidates = _extract_guideline_rule_candidates_combined(
+                        modified_file.new_path,
+                        diff_new,
+                        guideline_id=f"g_{commit_timestamp}"
+                    )
+                    for rule in candidates:
+                        insert_event(f"GR_{rule['rule_id']}_{commit_timestamp}",
+                                    "guideline_rule_candidate",
+                                    commit_timestamp,
+                                    collection,
+                                    [rule],
+                                    [])
+                    
+                    # diff_new = list_to_dict(modified_file.diff_parsed["added"])
+                    # for line, content in diff_new.items():
+                    #     for keyword in set(keyword_topic.keys()):
+                    #         if keyword.lower() in content.split():
+                    #             print(f"LOG: Found line \"{content}\" for \"{keyword}\" in \"{modified_file.new_path}\"")
+                    #             contribution_guidelines[modified_file.new_path] = {
+                    #                 line: content,
+                    #                 keyword.lower(): keyword_topic[keyword]
+                    #             }
 
-            #####################################################
-            # TODO Split here for insertion and MongoDB control #
-            #####################################################
+            # Append the filename according to the performed action to the list of filenames
+            _, objectId = file_action.popitem()
+            filenames.append(objectId)
 
-            file = create_file(
-                commit.committer.name, 
-                modified_file.new_path,
-                commit_timestamp, 
-                commit.hash,
-                -1, # TODO Check how method count works len(hm.methods), e.g. len(cc_visit) by modifying get_cyclomatic_complexity
-                cc,
-                hm.total.h1,
-                hm.total.h2,
-                hm.total.N1,
-                hm.total.N2,
-                lm.loc,
-                lm.lloc,
-                lm.sloc,
-                lm.comments,
-                lm.multi,
-                lm.blank,
-                pl)
-            insert_file(file, collection)
-        filenames = [f.new_path for f in commit.modified_files if f.new_path]
-        commit_object = create_commit(
+        # After going through all file changes add the commit information
+        commit_object = _create_commit(
             commit.hash, 
             commit.author.name, 
             commit.msg.split("\n\n", 1)[0], 
             commit.project_name, 
             commit.branches, 
-            commit_timestamp, 
-            contribution_guideline_version,
+            commit_timestamp,
+            # contribution_guideline_version,
             "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], 
             filenames, 
             commit.parents)
+        
+        # Calculate the overall code quality scores for the files in the repository i.e., in ´repository_code_metrics´
         for _,v in repository_code_metrics.items():
-            file_mis.append(v[0])
-            file_pylints.append(v[1])
-        commit_mi = sum(file_mis)/len(file_mis) if file_mis else 0
-        commit_pylint = sum(file_pylints)/len(file_pylints) if file_pylints else 0
-        commit_object["commit_mi"] = commit_mi
-        commit_object["commit_pylint"] = commit_pylint
+            file_metrics["maintainability_index"].append(v[0])
+            file_metrics["pylint_score"].append(v[1])
+        commit_mi = sum(file_metrics["maintainability_index"])/len(file_metrics["maintainability_index"]) if file_metrics["maintainability_index"] else 0
+        commit_pylint = sum(file_metrics["pylint_score"])/len(file_metrics["pylint_score"]) if file_metrics["pylint_score"] else 0
+        commit_object["repository_maintainability_index"] = commit_mi
+        commit_object["repository_pylint_score"] = commit_pylint
         insert_commit(commit_object, collection)
     return
+
+def _extract_source_code_metrics(source):
+    if source is None:
+        source = ""
+        print(f"File has no source code")
+
+    # Gather code quality data per file
+    mi = get_maintainability_index(source)/100
+    ps = get_pylint_score(source)/10
+    lm = get_line_metrics(source)
+    hm = get_halstead_metrics(source)
+    cc = get_cyclomatic_complexity(source)
+
+    return [mi, ps, cc, hm, lm]
+
+def _check_file_purpose(path: str, source: str, file_types: list):
+    if path:
+        path_parts = path.split("/")
+        for path_part in reversed(path_parts):
+            if any(path_part.endswith(extension) for extension in file_types):
+                return "source"
+            elif any(path_part.endswith(extension) for extension in [".txt", ".md", ".rst"]) or "doc" in path_part:
+                return "documentation"
+            elif "test" in path_part:
+                return "test"
+            elif "example" in path_part:
+                return "example"
+            elif any(path_part.endswith(extension) for extension in [".yaml", ".yml"]):
+                return "configuration"
+            elif "git" in path_part:
+                return "git"
+        if len(path_parts) == 1:
+            return "information"
+        print(f"WARNING: Found no file purpose for {path}")
+    return "misc"
+
+NORMATIVE_RE = re.compile(r'\b(must|should|shall|required|require|needs? to|has to|at least|minimum|no more than|within|before|after|days?|hours?)\b', re.I)
+
+PATTERNS = {
+    "min_approvals": re.compile(r'(?:at least|minimum of)\s+(\d+)\s+(?:approvals?|reviewers?)', re.I),
+    "max_open_days": re.compile(r'(?:close|closed|stale).{0,30}(?:after|within)\s+(\d+)\s+day', re.I),
+    "max_loc_changed": re.compile(r'(?:no more than|less than|under|max(?:imum)? of)\s+(\d+)\s+(?:lines?|loc)', re.I),
+    "require_issue_link": re.compile(r'(?:must|should).{0,40}(?:reference|link).{0,15}(?:issue|#\d+)', re.I),
+    "require_tests": re.compile(r'(?:must|should).{0,40}tests?', re.I),
+    "require_lint_pass": re.compile(r'(?:must|should).{0,40}(?:lint|style).{0,10}(?:pass|clean)', re.I),
+}
+
+TOPIC_ORDER = [
+    ("Pull Request Acceptance Criteria", re.compile(r'(approv|review|approval|minimum.*review)', re.I)),
+    ("Contribution Workflow", re.compile(r'(pull request|merge|rebase|branch|workflow)', re.I)),
+    ("Continuous Integration Tools", re.compile(r'(ci|pipeline|test|coverage|lint|bot|build|check)', re.I)),
+    ("Traceability", re.compile(r'(issue|#\d+|closes\s+#|references?)', re.I)),
+    ("Project Orientation", re.compile(r'(owner|maintain|contact|governance|license|cla)', re.I)),
+    ("Size Constraints", re.compile(r'(lines changed|loc|lines?)', re.I)),
+]
+
+COUNT_MAP = {
+    "a":1,"an":1,"one":1,"two":2,"three":3,"four":4,"five":5
+}
+
+RX_MIN_APPROVALS = re.compile(r'\brequire(?:s)?\s*\+1\s+by\s+(?P<count>a|an|one|two|three|four|five|\d+)\s+core\s+contributor(?:s)?', re.I)
+
+RX_LAZY_CONSENSUS = re.compile(r'no\s*-1\s+by\s+a\s+core\s+contributor', re.I)
+
+def extract_min_approvals(sentence):
+    m = RX_MIN_APPROVALS.search(sentence)
+    if not m:
+        return None
+    raw = m.group('count').lower()
+    approvals = COUNT_MAP.get(raw, int(raw))
+    lazy = bool(RX_LAZY_CONSENSUS.search(sentence))
+    return {"constraint_type":"min_approvals",
+            "operator":">=",
+            "parameter_value":approvals,
+            "lazy_consensus":lazy}
+
+def split_sentences(text: str):
+    # Lightweight sentence splitter
+    parts = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9])', text.strip())
+    return [p.strip() for p in parts if p.strip()]
+
+def topic_for(sentence: str) -> str:
+    for name, rx in TOPIC_ORDER:
+        if rx.search(sentence):
+            return name
+    return "Other"
+
+def detect_rule(sentence: str):
+    # Specialized phrase (+1 by X core contributors) first
+    specialized = extract_min_approvals(sentence)
+    if specialized:
+        specialized["confidence_heuristic"] = 0.95
+        return specialized
+    for ctype, rx in PATTERNS.items():
+        m = rx.search(sentence)
+        if m:
+            val = m.group(1) if m.groups() else None
+            operator = ">=" if ctype == "min_approvals" else \
+                       "<=" if ctype in ("max_open_days", "max_loc_changed") else "presence"
+            return {
+                "constraint_type": ctype,
+                "operator": operator,
+                "parameter_value": val,
+                "confidence_heuristic": 0.9
+            }
+    return {
+        "constraint_type": "unclassified",
+        "operator": "",
+        "parameter_value": "",
+        "confidence_heuristic": 0.3
+    }
+
+def _candidate_sentences(added_lines: Dict[int, str]):
+    # Merge contiguous lines into blocks to avoid fragmenting sentences
+    sorted_lines = sorted(added_lines.items())
+    block = []
+    prev = None
+    for ln, txt in sorted_lines:
+        if prev is None or ln == prev + 1:
+            block.append((ln, txt))
+        else:
+            yield from _emit_block(block)
+            block = [(ln, txt)]
+        prev = ln
+    if block:
+        yield from _emit_block(block)
+
+def _emit_block(block):
+    text = " ".join(t for _, t in block)
+    for sent in split_sentences(text):
+        norm = sent.lower()
+        if NORMATIVE_RE.search(norm) or any(p.search(norm) for p in PATTERNS.values()):
+            lines = [ln for ln, _ in block]
+            yield {
+                "sentence": sent,
+                "line_start": lines[0],
+                "line_end": lines[-1],
+            }
+
+def _extract_guideline_rule_candidates(file_path: str, added_lines: Dict[int, str], guideline_id: str):
+    seen = set()
+    results = []
+    for cand in _candidate_sentences(added_lines):
+        s = cand["sentence"]
+        h = hashlib.sha1(s.encode()).hexdigest()
+        if h in seen:
+            continue
+        seen.add(h)
+        topic = topic_for(s)
+        rule_meta = detect_rule(s)
+        importance = "MUST" if re.search(r'\bmust|shall|required|has to|needs to\b', s, re.I) else \
+                     "SHOULD" if re.search(r'\bshould\b', s, re.I) else "UNSPECIFIED"
+        results.append({
+            "rule_id": f"R_{h[:10]}",
+            "guideline_id": guideline_id,
+            "source_text": s,
+            "topic": topic,
+            "importance": importance,
+            **rule_meta,
+            "effective_from": guideline_id[2:],
+            "status": "active",
+            "subject_type": "pull_request" if "pull request" in s.lower() else "",
+            "detection_method": "sentence_heuristic",
+        })
+    return results
+
+def _extract_guideline_rule_candidates_combined(file_path: str, added_lines: Dict[int, str], guideline_id: str):
+    """Combine heuristic sentence-based extraction with keyword-topic signals.
+
+    1. Run sentence heuristic extractor (normative + regex patterns).
+    2. Add any new-line keyword hits not already covered by heuristic sentences.
+    """
+    heuristic_rules = _extract_guideline_rule_candidates(file_path, added_lines, guideline_id)
+    covered_texts = {r["source_text"].lower() for r in heuristic_rules}
+    keyword_rules = []
+    for ln, text in added_lines.items():
+        lowered = text.lower().strip()
+        if not lowered:
+            continue
+        matched_topics = [topic for kw, topic in _keyword_topic.items() if kw.lower() in lowered]
+        if matched_topics:
+            # Skip if heuristic already captured (substring or exact)
+            if any(lowered in ht or ht in lowered for ht in covered_texts):
+                continue
+            topic = matched_topics[0]
+            h = hashlib.sha1(text.encode()).hexdigest()
+            keyword_rules.append({
+                "rule_id": f"RKW_{h[:10]}",
+                "guideline_id": guideline_id,
+                "source_text": text.strip(),
+                "topic": topic,
+                "importance": "UNSPECIFIED",
+                "constraint_type": "keyword_signal",
+                "operator": "",
+                "parameter_value": "",
+                "confidence_heuristic": 0.6,
+                "effective_from": guideline_id[2:],
+                "status": "active",
+                "subject_type": "pull_request" if "pull request" in lowered else "",
+                "detection_method": "keyword",
+            })
+    return heuristic_rules + keyword_rules
+
+_keyword_topic = {
+                    "review": "Pull Request Acceptance Criteria",
+                    "pull request": "Contribution Workflow",
+                    "continuous integration": "Continuous Integration Tools",
+                    "CI/CD": "Continuous Integration Tools",
+                    "test": "Continuous Integration Tools",
+                    "workflow": "Contribution Workflow",
+                    "owner": "Project Orientation",
+                    "protection": "Contribution Workflow",
+                    "requirement": "Pull Request Acceptance Criteria",
+                    "CLA": "Project Orientation",
+                    "submit": "Contribution Workflow",
+                    "approv": "Pull Request Acceptance Criteria",
+                    "bot": "Continuous Integration Tools",
+                    "check": "Continuous Integration Tools",
+                    "link": "Traceability",
+                    "how to": "Project Orientation",
+                    "knowledge": "Project Orientation",
+                    "CI": "Continuous Integration Tools",
+                    "MUST": "Pull Request Acceptance Criteria",
+                    "SHOULD": "Pull Request Acceptance Criteria",
+                    "REQUIRED": "Pull Request Acceptance Criteria",
+                    "MINIMUM": "Pull Request Acceptance Criteria",
+                    "DAYS": "Pull Request Acceptance Criteria",
+                    "APPROVAL": "Pull Request Acceptance Criteria",
+                    "REVIEW": "Pull Request Acceptance Criteria",
+                    "TEST": "Continuous Integration Tools",
+                    "LINT": "Continuous Integration Tools",
+                    "ISSUE": "Traceability"
+                }

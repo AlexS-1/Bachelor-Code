@@ -4,7 +4,7 @@ import os
 from datetime import datetime, timedelta
 
 from build.code_quality_visualizer import plot_repo_code_quality_fast
-from build.utils import clone_ropositoriy
+from build.utils import clone_repository
 from build.local_repository_extractor import get_and_insert_local_data
 from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
@@ -28,7 +28,7 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
 
     if not os.path.exists(f"../tmp/{collection}"):
         tmp_path = os.path.abspath("../tmp")
-        repo_path = clone_ropositoriy(repo_url, temp_dir=tmp_path)
+        repo_path = clone_repository(repo_url, temp_dir=tmp_path)
     else:
         repo_path = os.path.abspath(f"../tmp/{collection}")
 
@@ -42,7 +42,7 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     # =========================================================
     
     # Go through all commits in the given time period
-    get_and_insert_local_data(repo_path, from_date, to_date, file_types, True)
+    get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
 
     get_and_insert_remote_data(api_url, repo_path)
 

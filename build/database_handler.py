@@ -35,6 +35,15 @@ def insert_file(data, collection):
         raise ValueError("Data does not match the file change type: {e}")
     insert_object(data["filename"], "file", data_to_insert, collection)
 
+def insert_file_metrics(data, collection):
+    file_metrics_type = get_object_type_by_type_name("file_metrics", collection)
+    try:
+        verify_objectType(data, file_metrics_type)
+        data_to_insert = data
+    except ValueError as e:
+        raise ValueError("Data does not match the file change type: {e}")
+    insert_object(f"m_{data['filename']}", "file_metrics", data_to_insert, collection)
+
 def insert_user(data, collection):
     user_type = get_object_type_by_type_name("user", collection)
     try:
@@ -43,6 +52,16 @@ def insert_user(data, collection):
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert, collection)
+
+def insert_contribution_guideline(data, collection):
+    contribution_guideline_type = get_object_type_by_type_name("contribution_guideline", collection)
+    try:
+        verify_objectType(data, contribution_guideline_type)
+        data_to_insert = data
+    except ValueError as e:
+        raise ValueError(f"Data does not match the contribution guideline type: {e}")
+    insert_object(f"g_{data['filename']}", "contribution_guideline", data_to_insert, collection)
+
 
 ### TODO Make inserting events and objects consistent
 
@@ -228,7 +247,7 @@ def get_event(event_id: str, collection: str):
         dict: The event data if found, otherwise None.
     """
     ocdb = myclient[f"{collection}"]
-    return ocdb["events"].find({"_id": event_id}) 
+    return ocdb["events"].find_one({"_id": event_id}) 
 
 def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
@@ -255,6 +274,18 @@ def get_user_by_username(username: str, collection: str):
     """
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find_one({"type": "user", "attributes.0.value": username})
+
+def get_is_user_bot(user_id: str, collection: str):
+    """
+    Get wether a user is a bot or not.
+    Args: 
+        user_id (str): The id of the user object
+        collection (str): The collection to search in.
+    Returns
+        bool: Wether the user is a bot.
+    """
+    is_bot = get_attribute_value(user_id, "is-bot", collection) 
+    return bool(is_bot) if is_bot else False
 
 def get_attribute_value_at_time(id, attribute_name, time, collection):
     """
@@ -327,6 +358,31 @@ def get_related_objectIds(id, qualifier, collection):
             related_objects.append(relation["objectId"])
     return related_objects 
 
+def get_related_objectIds_for_event(event_id, qualifier, collection, group_of_qualifiers = False):
+    """
+    Get the related objects of an event based on a qualifier/sub-string of a qualifier.
+    Args:
+        event_id (str): The ID of the event to get the related objects for.
+        qualifier (str): The qualifier to filter the related objects by.
+        group_of_qualifiers (bool): Whether to also add objects, that match sub-strings of the qualifier.
+    Returns:
+        list: A list of related object IDs.
+    """
+    event = get_event(event_id, collection)
+    if event is None:
+        return []
+
+    related_objects = []
+    if group_of_qualifiers:
+        for relation in event["relationships"]:
+            if qualifier in relation["qualifier"]:
+                related_objects.append(relation["objectId"])
+    else:
+        for relation in event["relationships"]:
+            if relation["qualifier"] == qualifier:
+                related_objects.append(relation["objectId"])
+    return related_objects
+
 def get_attribute_change_times(id, collection):
     """
     Get the timestamps when an attribute value changed
@@ -370,7 +426,7 @@ def get_attribute_time(id, attribute_name, collection):
             return attribute["time"]
 
 ### Update functions
-def update_attribute(id, attribute_name, new_value, time, collection):
+def update_attribute(id: str, attribute_name: str, new_value: str, time: str, collection: str, update_id: bool = False):
     """
     Update the value of an attribute.
 
@@ -396,9 +452,16 @@ def update_attribute(id, attribute_name, new_value, time, collection):
                 "name": attribute_name,
                 "time": time,
                 "value": new_value
-            }
+            },
         }}
     )
+    if update_id:
+        doc = ocdb["objects"].find_one_and_delete({"_id": id})
+        if doc is None:
+            print(f"WARNING: Wanted to update value for {attribute_name} in non-existent document with id: {id}")
+            return
+        doc["_id"] = new_value
+        ocdb["objects"].insert(doc)
 
 ### Initialisation functions
 def initialise_database(repo_path):
@@ -411,7 +474,7 @@ def initialise_objectTypes(repo_path):
         "name": "user",
         "attributes": [
             {"name": "username", "type": "string"},
-            {"name": "rank", "type": "string"}, # TODO Find way to model rank
+            {"name": "rank", "type": "string"}, #TODO Check how rank changes over time
             {"name": "is-bot", "type": "boolean"}
         ]
     }
@@ -420,11 +483,11 @@ def initialise_objectTypes(repo_path):
     commit_type = {
         "name": "commit",
         "attributes": [
-            # {"name": "commit_sha", "type": "string"}, Removed as it is used as id
             {"name": "message", "type": "string"},
             {"name": "description", "type": "string"},
             {"name": "to", "type": "string"},
-            {"name": "contribution_guideline_version", "type": "string"},
+            {"name": "repository_pylint_score", "type": "float"},
+            {"name": "repository_maintainability_index", "type": "float"}
         ]
     }
     insert_objectType(commit_type["name"], commit_type["attributes"], collection)
@@ -441,6 +504,14 @@ def initialise_objectTypes(repo_path):
         "name": "file",
         "attributes": [
             {"name": "filename", "type": "string"},
+            {"name": "file_purpose", "type": "string"},  # e.g. added, modified, removed
+            {"name": "size_bytes", "type": "int"},
+        ]
+    }
+    insert_objectType(file_type["name"], file_type["attributes"], collection)
+    file_metrics_type = {
+        "name": "file_metrics",
+        "attributes": [
             {"name": "cc", "type": "int"},
             {"name": "method_count", "type": "int"},
             {"name": "theta_1", "type": "int"},
@@ -456,7 +527,26 @@ def initialise_objectTypes(repo_path):
             {"name": "pylint_score", "type": "float"}
         ]
     }
-    insert_objectType(file_type["name"], file_type["attributes"], collection)
+    insert_objectType(file_metrics_type["name"], file_metrics_type["attributes"], collection)
+    contribution_guideline_type = {
+        "name": "contribution_guideline",
+        "attributes": [
+            {"name": "version", "type": "string"},
+            {"name": "topic", "type": "string"},
+            {"name": "word_count", "type": "int"},
+
+        ]
+    }
+    insert_objectType(contribution_guideline_type["name"], contribution_guideline_type["attributes"], collection)
+    contribution_guideline_rule_type = {# TODO
+        "name": "contribution_guideline_rule",
+        "attributes": [
+            {"name": "version", "type": "string"},
+            {"name": "topic", "type": "array"},
+            {"name": "rule", "type": "string"}
+        ]
+    }
+    insert_objectType(contribution_guideline_rule_type["name"], contribution_guideline_rule_type["attributes"], collection)
 
 def initialise_eventTypes(repo_path):
     collection = repo_path.split("/")[-1]
@@ -550,12 +640,10 @@ def initialise_eventTypes(repo_path):
     insert_eventType(dismiss_review_event["name"], dismiss_review_event["attributes"], collection)
 
 def verify_objectType(data, obj_type):
-    for attribute in obj_type["attributes"]:
-        try:
-            if attribute["name"] not in list(data.keys()): 
-                if type(data[attribute["name"]]) and generic_to_python_type(attribute["type"] is type(data[attribute["name"]])):
-                    raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())} or {generic_to_python_type(attribute["type"])} is not of type {type(data[attribute["name"]])})")
-                else: 
-                    raise ValueError(f"Attribute {attribute["name"]} not in {list(data.keys())})")
-        except Exception as e:
-            raise ValueError(f"{e}: Data is {data}")
+    for attr in obj_type["attributes"]:
+        name, gtype = attr["name"], attr["type"]
+        if name not in data:
+            raise ValueError(f"Missing attribute {name}")
+        py_type = generic_to_python_type(gtype)
+        if py_type and not isinstance(data[name], py_type):
+            raise ValueError(f"Attribute \"{name}\" expected {py_type}, got {type(data[name])}")

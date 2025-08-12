@@ -1,7 +1,9 @@
 import pandas as pd
 import pm4py
+from build.code_quality_visualizer import get_attribute_value
+from build.database_handler import get_is_user_bot, get_related_objectIds, get_related_objectIds_for_event
 from build.utils import date_1970
-from build.database_handler import get_commits, get_ocel_data, get_object_type_by_type_name, get_type_of_object
+from build.database_handler import get_commits, get_event, get_ocel_data, get_object_type_by_type_name, get_type_of_object
 from datetime import datetime
 from pandas._typing import Timezone
 
@@ -89,11 +91,15 @@ def flatten_ocel2(ocel, object_type, collection):
     rows = []
     for object_id, event_id in case_event_pairs:
         event = event_map[event_id]
+        related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
+        bot = get_is_user_bot(related_object_ids[0], collection)
+        rank = get_attribute_value(related_object_ids[0], "rank" , collection)
         row = {
             "case:concept:name": object_id,
             "event_id": event_id,
             "concept:name": event.get("type"),
             "time:timestamp": event.get("time") + "Z",
+            "is_bot": bot,
             **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
         }
         rows.append(row)
