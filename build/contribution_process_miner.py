@@ -81,32 +81,33 @@ def flatten_ocel2(ocel, object_type, collection):
     # For each relation, if object_type matches, collect (object_id, event_id)
     case_event_pairs = []
     for event in ocel["events"]:
-        for row in event["relationships"]:
-            object_id = row["objectId"]
-            event_id = event["id"]
-            if get_type_of_object(object_id, collection) == object_type:
-                case_event_pairs.append((object_id, event_id))
+        if "file" not in event["type"]:
+            for row in event["relationships"]:
+                object_id = row["objectId"]
+                event_id = event["id"]
+                if get_type_of_object(object_id, collection) == object_type:
+                    case_event_pairs.append((object_id, event_id))
 
     # For each (object_id, event_id), build a row with case_id, activity, timestamp, event_id, etc.
     rows = []
     for object_id, event_id in case_event_pairs:
         event = event_map[event_id]
-        related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
-        bot = get_is_user_bot(related_object_ids[0], collection)
-        rank = get_attribute_value(related_object_ids[0], "rank" , collection)
+        # related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
+        # bot = get_is_user_bot(related_object_ids[0], collection)
+        # rank = get_attribute_value(related_object_ids[0], "rank" , collection)
         row = {
             "case:concept:name": object_id,
             "event_id": event_id,
             "concept:name": event.get("type"),
             "time:timestamp": event.get("time") + "Z",
-            "is_bot": bot,
+            # "is_bot": bot,
             **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
         }
         rows.append(row)
     
     # Build DataFrame and sort by case_id and timestamp
     df = pd.DataFrame(rows)
-    export_path = f"{collection}-{object_type}-flattened.xes"
+    export_path = f"Exports/{collection}-{object_type}-flattened.xes"
     if df is not None and rows != []:
         df["time:timestamp"] = pd.to_datetime(df["time:timestamp"], utc=True)
         df = df.sort_values(["case:concept:name", "time:timestamp"])

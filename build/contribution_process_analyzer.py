@@ -1,10 +1,11 @@
 from heapq import merge
 import pandas as pd
 from build.code_quality_visualizer import get_object
-from build.utils import date_1970
-from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_ocel_data, get_object_type_by_type_name, get_type_of_object
+from build.utils import _set_plot_style_and_plot, date_1970
+from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_is_user_bot, get_ocel_data, get_object_type_by_type_name, get_related_objectIds_for_event, get_type_of_object
 from datetime import datetime, tzinfo, timezone
 from matplotlib import pyplot as plt
+from itertools import combinations
 
 def pull_request_reviewer_analysis(pull_request_ids, collection, visualise=False):
     """
@@ -57,18 +58,7 @@ def pull_request_reviewer_analysis(pull_request_ids, collection, visualise=False
         plt.ylabel('Number of Reviewers')
         plt.yticks(range(0, max(counts_sorted) + 2))
         plt.title('Number of Reviewers per Pull Request Over Time')
-        plt.rcParams['figure.facecolor'] = 'white'
-        plt.rcParams['axes.facecolor'] = 'white'
-        plt.rcParams['axes.edgecolor'] = 'black'
-        plt.rcParams['axes.labelcolor'] = 'black'
-        plt.rcParams['xtick.color'] = 'black'
-        plt.rcParams['ytick.color'] = 'black'
-        plt.rcParams['legend.edgecolor'] = 'black'
-        plt.rcParams['legend.facecolor'] = 'black'
-        plt.rcParams['axes.spines.top'] = False
-        plt.rcParams['axes.spines.right'] = False
-        plt.legend()
-        plt.show()
+        _set_plot_style_and_plot()
     else:
         return pull_request_data
     
@@ -152,17 +142,7 @@ def pull_request_open_time_analysis(pull_request_ids, collection, visualise=Fals
         plt.ylabel("Concurrent PRs")
         plt.title("Pull Request Overlaps Timeline")
         plt.yticks(range(max([lvl for _, _, lvl, _ in intervals]) + 1))
-        plt.tight_layout()
-        plt.rcParams['axes.facecolor'] = 'white'
-        plt.rcParams['axes.edgecolor'] = 'black'
-        plt.rcParams['axes.labelcolor'] = 'black'
-        plt.rcParams['xtick.color'] = 'black'
-        plt.rcParams['ytick.color'] = 'black'
-        plt.rcParams['legend.edgecolor'] = 'black'
-        plt.rcParams['legend.facecolor'] = 'black'
-        plt.rcParams['axes.spines.top'] = False
-        plt.rcParams['axes.spines.right'] = False
-        plt.show()
+        _set_plot_style_and_plot()
         
     else:
         return pr_open_to_close_times
@@ -193,17 +173,218 @@ def pull_request_review_iterations(pull_request_ids, collection, visualise=False
         plt.ylabel('Number of Review Iterations')
         plt.yticks(range(0, max(pr_review_iterations.values()) + 2))
         plt.title('Number of Review Iterations per Pull Request')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        plt.rcParams['axes.facecolor'] = 'white'
-        plt.rcParams['axes.edgecolor'] = 'black'
-        plt.rcParams['axes.labelcolor'] = 'black'
-        plt.rcParams['xtick.color'] = 'black'
-        plt.rcParams['ytick.color'] = 'black'
-        plt.rcParams['legend.edgecolor'] = 'black'
-        plt.rcParams['legend.facecolor'] = 'black'
-        plt.rcParams['axes.spines.top'] = False
-        plt.rcParams['axes.spines.right'] = False
-        plt.show()
+        _set_plot_style_and_plot()
     else:
         return pr_review_iterations
+    
+def pull_request_approving_reviews(pull_request_ids, collection, visualise=False):
+    pr_attributes = {}
+    pr_label_sets = {}
+    pr_approvals = {}
+    for pull_request_id in pull_request_ids:
+        events = get_events_for_object(pull_request_id, collection)
+        events = sorted(events, key=lambda x: datetime.fromisoformat(x["time"]))
+        pr_labels = []
+        approvals = 0
+        for event in events:
+            if "add_label" in event["type"]:
+                pr_labels.append(_get_event_attribute(event))
+            if "approve" in event["type"]:
+                approvals += 1
+        pr_attributes[pull_request_id] = {
+            "labels": pr_labels,
+            "approvals": approvals
+        }
+    
+    if visualise:
+        plt.figure(figsize=(10, 5))
+        labels = [pr["labels"] for pr in pr_attributes.values()]
+        approvals = [pr["approvals"] for pr in pr_attributes.values()]
+        ids = list(pr_attributes.keys())
+        plt.plot(ids, approvals, tick_label=list(pr_attributes.keys()))
+        plt.plot(ids, [len(label_set) for label_set in labels], tick_label=list(pr_attributes.keys()), label='Labels')
+        plt.hlines(sum(approvals)/len(approvals), ids[0], ids[1], color='orange', label='Average Approvals')
+        plt.xlabel('Pull Request ID')
+        plt.ylabel('Number of Approving Reviews')
+        plt.title('Number of Approving Reviews per Pull Request')
+        _set_plot_style_and_plot()
+    else:
+        return pr_attributes
+        
+def _get_event_attribute(event):
+    for attribute in event.get("attributes", []):
+        if attribute.get("name") == "label":
+            return attribute.get("value")
+    return None
+
+def pull_request_approving_reviews_grouped(pull_request_ids,
+                                           collection,
+                                           visualise=False,
+                                           min_prs_per_group=1):
+    """
+    Group PRs by every non-empty combination (subset) of their labels.
+
+    For a PR with labels {A,B,C} it contributes to:
+      {A}, {B}, {C}, {A,B}, {A,C}, {B,C}, {A,B,C}
+
+    Args:
+        pull_request_ids (list[str])
+        collection (str)
+        visualise (bool): show bar chart of average approvals per label group
+        min_prs_per_group (int): filter out sparse groups
+
+    """
+    pr_label_sets = {}
+    pr_approvals = {}
+    for pull_request_id in pull_request_ids:
+        events = get_events_for_object(pull_request_id, collection)
+        events = sorted(events, key=lambda x: datetime.fromisoformat(x["time"]))
+        labels = set()
+        approvals = 0
+        for event in events:
+            etype = event["type"]
+            if "add_label" in etype:
+                labels.add(_get_event_attribute(event))
+            if "approve" in etype:
+                approvals += 1
+        if labels:
+            pr_label_sets[pull_request_id] = labels
+            pr_approvals[pull_request_id] = approvals
+
+    # Step 2: build power-set groups (exclude empty)
+    group_data = {}
+
+    def all_non_empty_subsets(labels_set):
+        labels_list = sorted(labels_set)
+        for r in range(1, len(labels_list) + 1):
+            for comb in combinations(labels_list, r):
+                yield comb
+
+    for pr_id, labels in pr_label_sets.items():
+        approvals = pr_approvals.get(pr_id, 0)
+        for subset in all_non_empty_subsets(labels):
+            if subset not in group_data:
+                group_data[subset] = {"prs": [], "approvals": []}
+            group_data[subset]["prs"].append(pr_id)
+            group_data[subset]["approvals"].append(approvals)
+
+    # Step 3: compute aggregates & filter
+    filtered = {}
+    for group_key, payload in group_data.items():
+        n = len(payload["prs"])
+        payload_with_av = {**payload, "avg_approvals": sum(payload["approvals"]) / n if n >= min_prs_per_group else 0.0, "n_prs": n}
+        filtered[group_key] = payload_with_av
+
+    # Step 4: visualisation
+    if visualise and filtered:
+        # Prepare plotting order: larger groups first then by avg approvals
+        order = sorted(filtered.items(),
+                       key=lambda kv: (len(kv[0]), kv[1]["avg_approvals"]),
+                       reverse=True)
+        labels_txt = [" | ".join(k) for k, _ in order]
+        avgs = [v["avg_approvals"] for _, v in order]
+
+        # Color mapping: base color per single label; combos take color of first label
+        base_palette = plt.get_cmap("tab20")
+        single_labels = sorted({lab for g in filtered.keys() if len(g) == 1 for lab in g})
+        color_map = {lab: base_palette(i % 20) for i, lab in enumerate(single_labels)}
+
+        colors = []
+        for g, _ in order:
+            primary = g[0]
+            colors.append(color_map.get(primary, "#808080"))
+
+        plt.figure(figsize=(min(18, 0.6 * len(order) + 4), 6))
+        bars = plt.bar(range(len(order)), avgs, color=colors)
+
+        # Annotate n
+        for i, (_, payload) in enumerate(order):
+            plt.text(i, avgs[i] + 0.02, f"n={payload['n_prs']}", ha="center", va="bottom", fontsize=8, rotation=90)
+
+        plt.xticks(range(len(order)), labels_txt, rotation=90)
+        plt.ylabel("Average Approvals")
+        plt.title("Average Approvals per Label Combination (power-set groups)")
+
+        # Legend (single labels)
+        
+        plt.legend(single_labels, title="Primary Label", bbox_to_anchor=(1.02, 1), loc="upper left")
+        plt.tight_layout()
+        _set_plot_style_and_plot()
+    else: 
+        result = {"groups": filtered}
+        return result
+    
+def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
+    """
+    Compute bot vs total event counts for the given PRs.
+    Returns both per-event-type totals and bot-only counts, plus debug stats.
+    """
+    event_by_bot = {}
+    event_not_by_bot = {}
+    event_by_type = {}
+    totals = {
+        "events_processed": 0,
+        "events_with_actor": 0,
+        "bot_events": 0,
+        "non_bot_events": 0,
+        "unmatched_actor": [],
+        "user_lookup_failed": 0,
+    }
+
+    for pull_request_id in pull_request_ids:
+        if int(pull_request_id) < 30000:
+            events = get_events_for_object(pull_request_id, collection)
+            events = sorted(events, key=lambda x: datetime.fromisoformat(x["time"]))
+
+            for event in events:
+                etype = event["type"]
+                event_by_type[etype] = event_by_type.get(etype, 0) + 1
+                totals["events_processed"] += 1
+
+                actor_id, origin = _extract_event_actor(event, collection)
+                if actor_id:
+                    totals["events_with_actor"] += 1
+                    is_bot = get_is_user_bot(actor_id, collection)
+                    if is_bot == True:
+                        totals["bot_events"] += 1
+                        event_by_bot[etype] = event_by_bot.get(etype, 0) + 1
+                    elif is_bot == False:
+                        totals["non_bot_events"] += 1
+                        event_not_by_bot[etype] = event_not_by_bot.get(etype, 0) + 1
+                    else:
+                        totals["unmatched_actor"].append(actor_id)
+                else:
+                    totals["user_lookup_failed"] += 1
+
+    # Log summary
+    total_events = totals["events_processed"]
+    matched = totals["events_with_actor"]
+    print(f"LOG: Processed {total_events} events across {len(pull_request_ids)} PRs.")
+    print(f"LOG: Actor matched for {matched} events ({(matched/total_events*100 if total_events else 0):.1f}%).")
+    print(f"LOG: Bot events: {totals['bot_events']} ({(totals['bot_events']/total_events*100 if total_events else 0):.1f}%).")
+
+    if visualise:
+        print("WARNING: Visualisation not implemented yet")
+    else:
+        return {
+            "by_bot": event_by_bot,
+            "not_by_bot": event_not_by_bot,
+            "totals": event_by_type,
+            "totals": totals
+        }
+
+# Prefer actor from attributes when available; else use relationships.
+# Looks for common attribute names and relationship qualifiers.
+def _extract_event_actor(event, collection):
+    prefer = ["by", "author", "committer", "merged_by", "closed_by", "requested_by", "reviewer", "assignee", "user", "actor"]
+    rels = event.get("relationships", [])
+    # exact or substring match
+    for pref in prefer:
+        for rel in rels:
+            qual = rel.get("qualifier", "")
+            if qual == pref or pref in qual:
+                oid = rel.get("objectId")
+                if oid and get_type_of_object(oid, collection) == "user":
+                    return oid, "relationship"
+
+    return None, "none"

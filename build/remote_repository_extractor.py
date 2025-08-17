@@ -59,7 +59,7 @@ def get_repo_information(repo_url):
 def get_closed_pulls(pulls_url, collection):
     # TODO Check pulls for date range with link headers in pagination
     pages = 190
-    for page in range(1, pages + 1):
+    for page in range(180, pages + 1):
         pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
         for pull in pull_response:
             pull_content = {

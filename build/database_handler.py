@@ -285,7 +285,12 @@ def get_is_user_bot(user_id: str, collection: str):
         bool: Wether the user is a bot.
     """
     is_bot = get_attribute_value(user_id, "is-bot", collection) 
-    return bool(is_bot) if is_bot else False
+    if is_bot == "True":
+        return True
+    elif is_bot == "False":
+        return False
+    else:
+        return None
 
 def get_attribute_value_at_time(id, attribute_name, time, collection):
     """
@@ -569,12 +574,16 @@ def initialise_eventTypes(repo_path):
     insert_eventType(reopen_pull_request_event["name"], reopen_pull_request_event["attributes"], collection)
     add_label_event = {
         "name": "add_label",
-        "attributes": []
+        "attributes": [
+            {"name": "label", "type": "string"},
+        ]
     }
     insert_eventType(add_label_event["name"], add_label_event["attributes"], collection)
     remove_label_event = {
         "name": "remove_label",
-        "attributes": []
+        "attributes": [
+            {"name": "label", "type": "string"},
+        ]
     }
     insert_eventType(remove_label_event["name"], remove_label_event["attributes"], collection)
     open_pull_request_event = {
@@ -599,7 +608,9 @@ def initialise_eventTypes(repo_path):
     insert_eventType(rename_pull_request_event["name"], rename_pull_request_event["attributes"], collection)
     comment_pull_request_event = {
         "name": "comment_pull_request",
-        "attributes": []
+        "attributes": [
+            {"name": "comment", "type": "string"},
+        ]
     }
     insert_eventType(comment_pull_request_event["name"], comment_pull_request_event["attributes"], collection)
     # Review viewpoint

@@ -1,11 +1,10 @@
-import ast
 import datetime
 import json
-from multiprocessing import process
 import os
 import subprocess
 
 from jsonschema import validate
+from matplotlib import pyplot as plt
 from numpy import std
 
 def list_to_dict(diff: list):
@@ -77,3 +76,16 @@ def write_to_file(path: str, data: str):
 def read_from_file(path: str):
     with open(path, "r") as file:
         return json.load(file)
+    
+def _set_plot_style_and_plot():
+    plt.rcParams['figure.facecolor'] = 'white'
+    plt.rcParams['axes.facecolor'] = 'white'
+    plt.rcParams['axes.edgecolor'] = 'black'
+    plt.rcParams['axes.labelcolor'] = 'black'
+    plt.rcParams['xtick.color'] = 'black'
+    plt.rcParams['ytick.color'] = 'black'
+    plt.rcParams['legend.edgecolor'] = 'black'
+    plt.rcParams['legend.facecolor'] = 'black'
+    plt.rcParams['axes.spines.top'] = False
+    plt.rcParams['axes.spines.right'] = False
+    plt.show()

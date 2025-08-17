@@ -232,8 +232,8 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
                     commit_timestamp, 
                     collection, 
                     [], 
-                    [file_action, file_actor])
-                
+                    [{"qualifier": file_action, "objectId": file_actor}])
+
                 # For every change to a file including adding a file, create/update object
                 if modified_file.new_path and modified_file.source_code:
                     file_purpose = _check_file_purpose(modified_file.new_path, modified_file.source_code, file_types)
@@ -288,7 +288,7 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
                                     "guideline_rule_candidate",
                                     commit_timestamp,
                                     collection,
-                                    [rule],
+                                    [{"attributes": rule}],
                                     [])
                     
                     # diff_new = list_to_dict(modified_file.diff_parsed["added"])
@@ -349,13 +349,15 @@ def _check_file_purpose(path: str, source: str, file_types: list):
         for path_part in reversed(path_parts):
             if any(path_part.endswith(extension) for extension in file_types):
                 return "source"
+            elif "requirement" in path_part or "dep" in path_part:
+                return "dependency"
             elif any(path_part.endswith(extension) for extension in [".txt", ".md", ".rst"]) or "doc" in path_part:
                 return "documentation"
             elif "test" in path_part:
                 return "test"
             elif "example" in path_part:
                 return "example"
-            elif any(path_part.endswith(extension) for extension in [".yaml", ".yml"]):
+            elif any(path_part.endswith(extension) for extension in [".yaml", ".yml", ".cfg"]) or "conf" in path_part:
                 return "configuration"
             elif "git" in path_part:
                 return "git"

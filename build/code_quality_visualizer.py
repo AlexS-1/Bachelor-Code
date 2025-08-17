@@ -8,6 +8,8 @@ from build.database_handler import get_attribute_time, get_attribute_value, get_
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num as date2num
 
+from build.utils import _set_plot_style_and_plot
+
 def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
     """
     Plot the code quality metrics for each commit of a repository in the database
@@ -228,17 +230,3 @@ def get_repository_code_quality(collection, limit_commits=None):
             "pylint_score": pylint_average
         }
     return code_quality
-
-def _set_plot_style_and_plot():
-    plt.rcParams['figure.facecolor'] = 'white'
-    plt.rcParams['axes.facecolor'] = 'white'
-    plt.rcParams['axes.edgecolor'] = 'black'
-    plt.rcParams['axes.labelcolor'] = 'black'
-    plt.rcParams['xtick.color'] = 'black'
-    plt.rcParams['ytick.color'] = 'black'
-    plt.rcParams['legend.edgecolor'] = 'black'
-    plt.rcParams['legend.facecolor'] = 'black'
-    plt.rcParams['axes.spines.top'] = False
-    plt.rcParams['axes.spines.right'] = False
-    plt.legend()
-    plt.show()
