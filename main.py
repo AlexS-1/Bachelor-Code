@@ -10,7 +10,7 @@ from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
 from build.contribution_process_miner import divide_event_log_at, split_OCEL_at_guideline_changes, flatten_ocel2, visualise_xes_as
 
-def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
+def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     # =============================================
     # Set-Up
     # =============================================
@@ -42,7 +42,7 @@ def main(repo_url="https://github.com/matplotlib/matplotlib", **kwargs):
     # =========================================================
     
     # Go through all commits in the given time period
-    get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
+    # get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
 
     get_and_insert_remote_data(api_url, repo_path)
 

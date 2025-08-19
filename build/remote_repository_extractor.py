@@ -1,12 +1,13 @@
 from datetime import timedelta
 from gc import collect
 from operator import ge
+import re
 import time
 from numpy import extract
 import requests
 import os
 
-from build.database_handler import date_1970, datetime, get_user_by_username, insert_event, insert_pull, insert_user
+from build.database_handler import date_1970, datetime, get_user_by_username, insert_event, insert_pull, insert_user, update_attribute
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
@@ -59,7 +60,7 @@ def get_repo_information(repo_url):
 def get_closed_pulls(pulls_url, collection):
     # TODO Check pulls for date range with link headers in pagination
     pages = 190
-    for page in range(180, pages + 1):
+    for page in range(0, pages + 1):
         pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
         for pull in pull_response:
             pull_content = {
@@ -67,7 +68,7 @@ def get_closed_pulls(pulls_url, collection):
                 "number": str(pull["number"]),
                 "is-authored-by": get_name_by_username(pull["user"]["login"], collection, pull["author_association"]),
                 "title": pull["title"],
-                "description": pull["body"],
+                "description": pull["body"] if pull["body"] else "",
                 "merged_at_timestamp": pull["merged_at"],
                 "created_at_timestamp": pull["created_at"],
                 "closed_at_timestamp": pull["closed_at"],
@@ -79,9 +80,59 @@ def get_closed_pulls(pulls_url, collection):
                 "aggregates": get_related_files(pull["url"] + "/files"),
                 # FIXME Extract correct state
                 "state": pull["state"],
-            } 
+                "issue_label": extract_label_from_related_issues(pull["_links"]["self"]["href"], pull["body"]) if pull["body"] else ""
+            }
             insert_pull(pull_content, collection)
-            extract_events_from_pull(pull_response, collection)
+        extract_events_from_pull(pull_response, collection)
+
+def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
+    """
+    Extract issue references from PR text.
+    Matches:
+    - "#123" (up to 5 digits, not followed by a dot)
+      - https://github.com/<owner>/<repo>/issues/123
+      - https://api.github.com/repos/<owner>/<repo>/issues/123
+    Returns a sorted list like ["#12", "#203"].
+    """
+    if not pull_body:
+        return ""
+
+    # Try to get owner/repo from the API/web issue URL to restrict matches to same repo
+    owner = repo = ""
+    match = re.match(r"https?://(?:api\.github\.com/repos|github\.com)/([^/]+)/([^/]+)/", pull_url or "")
+    if match:
+        owner, repo = match.group(1).lower(), match.group(2).lower()
+
+    refs: set[str] = set()
+
+    # Intra-repo shorthand references: require whitespace or opening bracket before '#'
+    # Constraints:
+    #   - allow only up to 5 digits
+    #   - do NOT match if a dot follows the digits (e.g., "#12345.67")
+    # Matches: " #123", "(#123", "[#123"
+    for m in re.finditer(r"(?:(?<=\s)|(?<=\()|(?<=\[))#(\d{1,5})(?!\.)\b", pull_body):
+        refs.add(f"{m.group(1)}")
+
+    # Web URLs to issues in the same repo
+    for m in re.finditer(r"https?://github\.com/([^/\s]+)/([^/\s]+)/issues/(\d+)", pull_body):
+        if not owner or (m.group(1).lower() == owner and m.group(2).lower() == repo):
+            refs.add(f"{m.group(3)}")
+
+    # API URLs to issues in the same repo
+    for m in re.finditer(r"https?://api\.github\.com/repos/([^/\s]+)/([^/\s]+)/issues/(\d+)", pull_body):
+        if not owner or (m.group(1).lower() == owner and m.group(2).lower() == repo):
+            refs.add(f"{m.group(3)}")
+    labels = []
+    for ref in refs:
+        response = get_api_response(f"https://api.github.com/repos/{owner}/{repo}/issues/{ref}")
+        if response and "labels" in response:
+            labels.extend(label["name"] for label in response["labels"])
+        if "good first issue" in labels:
+            print(f"LOG: Found label: 'good first issue' for referenced issue #{ref} in PR#{pull_url.split('/')[-1]}")
+    print("LOG: labels:", labels)
+    return str(labels)
+
+
 
 def extract_events_from_pull(pull_response, collection):
     for pull in pull_response:
@@ -174,6 +225,11 @@ def extract_events_from_pull(pull_response, collection):
                     [{"name": "comment", "value": f"{event["body"]}"}],
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "on-pull-request"}]
                 )
+                if "#" in event["body"] or "https://" in event["body"]:
+                    issue_references = extract_label_from_related_issues(pull["url"], event["body"])
+                    if issue_references:
+                        update_attribute(pull['number'], "issue_label", issue_references, timestamp, collection)
+                    
             elif event["event"] == "ready-for-review":
                 insert_event(
                     f"{event['node_id']}",

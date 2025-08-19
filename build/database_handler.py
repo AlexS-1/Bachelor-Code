@@ -2,6 +2,7 @@ from datetime import datetime
 from os import path
 from flask.cli import F
 import pymongo
+from ulid import T
 
 from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
 
@@ -208,6 +209,10 @@ def get_type_of_object(object_id: str, collection: str):
         return object.get("type")
     print(f"ERROR: No object found for id: {object_id}")
     return None
+
+def get_events(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["events"].find()
 
 def get_events_for_eventType(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
@@ -466,7 +471,7 @@ def update_attribute(id: str, attribute_name: str, new_value: str, time: str, co
             print(f"WARNING: Wanted to update value for {attribute_name} in non-existent document with id: {id}")
             return
         doc["_id"] = new_value
-        ocdb["objects"].insert(doc)
+        ocdb["objects"].replace_one({"_id": new_value}, doc, True)
 
 ### Initialisation functions
 def initialise_database(repo_path):
@@ -502,6 +507,7 @@ def initialise_objectTypes(repo_path):
             {"name": "title", "type": "string"},
             {"name": "description", "type": "string"},
             {"name": "state", "type": "string"},
+            {"name": "issue_label", "type": "string"},
         ]
     }
     insert_objectType(pull_request_type["name"], pull_request_type["attributes"], collection)
