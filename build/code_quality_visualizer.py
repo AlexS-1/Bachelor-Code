@@ -10,7 +10,7 @@ from matplotlib.dates import date2num as date2num
 
 from build.utils import _set_plot_style_and_plot
 
-def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_repository_code_quality and split_code_quality_per_guideline_change
+def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_repository_code_quality
     """
     Plot the code quality metrics for each commit of a repository in the database
     Args:
@@ -24,60 +24,37 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
     metrics = {}
     # Prepare the data for plotting
     for commit in commits:
-        # TODO Fix as not intended use of function 
         commit_date = get_attribute_time(commit["_id"], "message", collection)
-        guideline_version = get_attribute_value(commit["_id"], "guideline_version", collection)
         pylint_score = None
         maintainability_index = None
 
-        pylint_score = get_related_objectIds(commit["_id"], "commit_pylint", collection)[0]
-        maintainability_index = get_related_objectIds(commit["_id"], "commit_mi", collection)[0]
+        pylint_score = get_attribute_value(commit["_id"], "repository_pylint_score", collection)
+        maintainability_index = get_attribute_value(commit["_id"], "repository_maintainability_index", collection)
 
         if year and year in commit_date:
             metrics[commit_date] = {
                 "maintainability_index": maintainability_index,
-                "pylint_score": pylint_score,
-                "guideline_version": guideline_version
+                "pylint_score": pylint_score
             }
         elif not year:
             metrics[commit_date] = {
                 "maintainability_index": maintainability_index,
-                "pylint_score": pylint_score,
-                "guideline_version": guideline_version
+                "pylint_score": pylint_score
             }
     plt.figure(figsize=(12, 6))
     datetimes = [datetime.fromisoformat(ts) for ts in sorted(metrics.keys())]
     commit_dates = np.array(datetimes)
-    for metric in ["maintainability_index", "pylint_score", "guideline_version"]:
+    for metric in ["maintainability_index", "pylint_score"]:
         # Set lables
         if len(metric.split("_")) > 1:
             metric_label = metric.replace("_", " ").title()
         else:
             metric_label = metric.upper()
 
-        # Plot depending on label
-        if metric_label == "Guideline Version":
-            guideline_changes = sorted(list(set([metrics[date]["guideline_version"] for date in sorted(metrics.keys())])))[1:]
-            labelled = False
-            for change in guideline_changes:
-                if not isinstance(change, datetime):
-                    dt_change = datetime.fromisoformat(change)
-                else:
-                    dt_change = change
-                if not labelled:
-                    plt.axvline(float(mdates.date2num(dt_change)), color='black', linestyle='--', label="Contribution Guideline Changes" , alpha=0.7)
-                    labelled = True
-                else:
-                    plt.axvline(float(mdates.date2num(dt_change)), color='black', linestyle='--', alpha=0.7)
-
-        else:
-            if metric != "maintainability_index":
-                values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
-                plt.plot(commit_dates, values, label=metric_label, linestyle="-")
+        values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
+        plt.plot(commit_dates, values, label=metric_label, linestyle="-")
 
     plt.title(f"Code Quality Metrics Over Time for {collection}")
-    plt.rcParams['axes.spines.top'] = False
-    plt.rcParams['axes.spines.right'] = False
 
     plt.xlabel("Commit Date")
     ax = plt.gca()

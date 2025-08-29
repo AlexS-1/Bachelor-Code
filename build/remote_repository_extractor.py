@@ -1,9 +1,6 @@
 from datetime import timedelta
-from gc import collect
-from operator import ge
 import re
 import time
-from numpy import extract
 import requests
 import os
 
@@ -12,12 +9,12 @@ from build.database_handler import date_1970, datetime, get_user_by_username, in
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
 anonymous_user_counter = {}
 
-def get_and_insert_remote_data(repo_url, repo_path):
+def get_and_insert_remote_data(repo_url, repo_path, start_date, end_date):
     repo = get_repo_information(repo_url)
     collection = repo_url.split("/")[-1]
-    get_closed_pulls(repo["utility_information"]["pulls_url"], collection)
+    get_closed_pulls(repo["utility_information"]["pulls_url"], collection, start_date, end_date)
     
-def get_api_response(url, retries=0):
+def get_api_response(url, retries=0, headers = False):
     headers = {"Authorization": f"token {token}"}
     response = requests.get(url, headers=headers)
     if response.ok:
@@ -38,6 +35,12 @@ def get_api_response(url, retries=0):
     else: 
         raise Exception(response.raise_for_status())
 
+def get_api_response_with_headers(url):
+    headers = {"Authorization": f"token {token}"}
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return response.json(), response.headers
+
 def get_repo_information(repo_url):
     repo_response = get_api_response(repo_url)
     repo_information = {
@@ -51,18 +54,42 @@ def get_repo_information(repo_url):
             "pulls_url": repo_response["pulls_url"][:-9],
             "issues_url": repo_response["issues_url"][:-9],
             "commits_url": repo_response["commits_url"][:-6],
-            #TODO Check if it was modified and how to get data (e.g. rename of repository)
             "created_at": repo_response["created_at"], 
         }
     }
     return repo_information
 
-def get_closed_pulls(pulls_url, collection):
-    # TODO Check pulls for date range with link headers in pagination
-    pages = 190
-    for page in range(0, pages + 1):
-        pull_response = get_api_response(pulls_url + "?state=closed&page=" + str(page))
+def _parse_link_last_page(headers) -> int:
+    link = headers.get("Link", "")
+    m = re.search(r'[?&]page=(\d+)>;\s*rel="last"', link or "")
+    return int(m.group(1)) if m else 1
+
+def get_closed_pulls(pulls_url, collection, start_date, end_date):
+    # Find the first pull request after the start page and the corresponding page
+    last_pull_requests, headers = get_api_response_with_headers(pulls_url+"?state=closed&per_page=100")
+    last_pull_request_number = int(last_pull_requests[0]["number"])
+    page_max = _parse_link_last_page(headers)
+    low, high = 1, max(1, page_max)
+    while low < high:
+        current_page = (low + high) // 2
+        pull_response = get_api_response(pulls_url + "?state=closed&per_page=100&direction=asc&page=" + str(current_page))
+        last_created = datetime.fromisoformat(pull_response[1]["created_at"]).replace(tzinfo=None)
+        if last_created < start_date:
+            low = current_page + 1
+        else:
+            high = current_page
+
+    start_page = low
+    pages = page_max - low
+    print(f"LOG: Found {last_pull_request_number} closed pull requests in {pages} pages, starting at page {start_page}.")
+    for page in range(start_page, page_max + 1):
+        pull_response = get_api_response(pulls_url + "?state=closed&per_page=100&direction=asc&page=" + str(page))
         for pull in pull_response:
+            created_at = datetime.fromisoformat(pull["created_at"]).replace(tzinfo=None)
+            if created_at > end_date:
+                break
+            if created_at < start_date:
+                continue
             pull_content = {
                 "is-merged-with":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
@@ -78,12 +105,11 @@ def get_closed_pulls(pulls_url, collection):
                 "is-reviewed-by": [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"]], 
                 "formalises": get_related_commits(pull["commits_url"]),
                 "aggregates": get_related_files(pull["url"] + "/files"),
-                # FIXME Extract correct state
-                "state": pull["state"],
+                "state": "open",
                 "issue_label": extract_label_from_related_issues(pull["_links"]["self"]["href"], pull["body"]) if pull["body"] else ""
             }
             insert_pull(pull_content, collection)
-        extract_events_from_pull(pull_response, collection)
+        extract_events_from_pull(pull_response, collection, start_date, end_date)
 
 def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
     """
@@ -124,7 +150,13 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
             refs.add(f"{m.group(3)}")
     labels = []
     for ref in refs:
-        response = get_api_response(f"https://api.github.com/repos/{owner}/{repo}/issues/{ref}")
+        try:
+            response = get_api_response(f"https://api.github.com/repos/{owner}/{repo}/issues/{ref}")
+        except requests.exceptions.HTTPError as e:
+            try: 
+                response = get_api_response(f"https://api.github.com/repos/{owner}/{repo}/discussions/{ref}")
+            except requests.exceptions.HTTPError as e:
+                response = None
         if response and "labels" in response:
             labels.extend(label["name"] for label in response["labels"])
         if "good first issue" in labels:
@@ -132,28 +164,37 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
     print("LOG: labels:", labels)
     return str(labels)
 
-
-
-def extract_events_from_pull(pull_response, collection):
+def extract_events_from_pull(pull_response, collection, start_date, end_date):
     for pull in pull_response:
         # Check PR events
-
+        created_at = datetime.fromisoformat(pull["created_at"]).replace(tzinfo=None)
+        if created_at > end_date:
+            break
+        if created_at < start_date:
+            continue
+        
         for event in get_api_response(pull["issue_url"] + "/timeline"):
+            if not event:
+                print("ERROR: No event found for pull request", pull["number"])
+                continue
             if event["event"] not in ["committed", "reviewed"]:
                 timestamp = event["created_at"]
-                actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
+                try: #FIXME
+                    actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
+                except:
+                    print(f"ERROR: Unable to get actor for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
+                    continue
             else:
-                # TODO Check OCEL for those attributes
                 timestamp = date_1970()
                 actor = "Cincinnatus"
             # Handle specific events from OCEL-Diagrams.drawio
             if event["event"] == "committed":
-                # TOOD Define timestamp correctly: timestamp = event["author"]["date"]
+                # TODO Define timestamp correctly: timestamp = event["author"]["date"]
                 committer = {"objectId": event["committer"]["name"], "qualifier": "authored-by"}
                 commit = {"objectId": event["sha"], "qualifier": "sha"}
                 insert_event(
                     f"{event['node_id']}",
-                    "commit",
+                    "commit_event",
                     event["committer"]["date"], 
                     collection, 
                     [],
@@ -168,6 +209,7 @@ def extract_events_from_pull(pull_response, collection):
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "closed-on-pull_request"}]
                 )
+                update_attribute(str(pull['number']), "state", "closed", timestamp, collection)
             elif event["event"] == "reopened":
                 actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "reopened-by"}
                 insert_event(
@@ -178,6 +220,7 @@ def extract_events_from_pull(pull_response, collection):
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "reopened-pull-request"}]
                 )
+                update_attribute(str(pull['number']), "state", "open", timestamp, collection)
             elif event["event"] == "merged":
                 insert_event(
                     f"{event['node_id']}",
@@ -187,6 +230,7 @@ def extract_events_from_pull(pull_response, collection):
                     [],
                     [actor, {"objectId": str(pull['number']), "qualifier": "merged-on-pull_request"}]
                 )
+                update_attribute(str(pull['number']), "state", "merged", timestamp, collection)
             elif event["event"] == "review_requested":
                 try:
                     requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
@@ -248,6 +292,7 @@ def extract_events_from_pull(pull_response, collection):
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
                     [{"objectId": get_name_by_username(event["actor"]["login"], collection, collection), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
+                update_attribute(str(pull['number']), "title", event["rename"]["from"], timestamp, collection)
             elif event["event"] == "labeled":
                 label = {"name": "label", "value": event["label"]["name"]}
                 insert_event(
@@ -258,6 +303,7 @@ def extract_events_from_pull(pull_response, collection):
                     [label],
                     [actor, {"objectId": str(pull['number']), "qualifier": "labeled-on-pull_request"}]
                 )
+                # update_attribute(pull['number'], "issue_label", event["label"]["name"], timestamp, collection) #TODO Decide for separate PR label?
             elif event["event"] == "unlabeled":
                 label = {"name": "label", "value": event["label"]["name"]}
                 insert_event(
@@ -269,18 +315,23 @@ def extract_events_from_pull(pull_response, collection):
                     [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
                 )
             elif event["event"] == "reviewed":
+                try:
+                    user = {"objectId": get_name_by_username(event["user"]["login"], collection)}
+                except:
+                    print(f"ERROR: Could not retrieve user during extraction of event: {event['node_id']} in #PR: {pull['number']}")
+                    continue
                 if event["state"] == "approved":
                     review_type = "approve_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "approved-by"}
+                    user_relation = {"objectId": user["objectId"], "qualifier": "approved-by"}
                 elif event["state"] == "changes_requested":
                     review_type = "suggest_changes_as_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "requested-by"}
+                    user_relation = {"objectId": user["objectId"], "qualifier": "requested-by"}
                 elif event["state"] == "review_dismissed":
                     review_type = "dismiss_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "dismissed-by"}
+                    user_relation = {"objectId": user["objectId"], "qualifier": "dismissed-by"}
                 else:
                     review_type = "comment_review"
-                    user_relation = {"objectId": get_name_by_username(event["user"]["login"], collection), "qualifier": "commented-by"}
+                    user_relation = {"objectId": user["objectId"], "qualifier": "commented-by"}
                 timestamp = event["submitted_at"]
                 insert_event(
                     f"{event['id']}",
@@ -299,7 +350,6 @@ def extract_events_from_pull(pull_response, collection):
             [],
             [{"objectId": get_name_by_username(pull["user"]["login"], collection), "qualifier": "opened-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull_request"}]
         )
-        # TODO 1. Change file event
 
 
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:

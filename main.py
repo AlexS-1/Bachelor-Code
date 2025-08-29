@@ -20,8 +20,10 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1)
-    to_date = datetime.today() - timedelta(days=1)
+    from_date = datetime(2024,5,1).replace(tzinfo=None)  # e.g. 5 years ago
+    # (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1, tzinfo=None)
+    to_date = datetime(2025, 8, 15).replace(tzinfo=None)  # e.g. today
+    (datetime.today() - timedelta(days=1)).replace(tzinfo=None)
 
     # Select supported file types your code quality analyser
     file_types = [".py"]
@@ -38,15 +40,16 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     initialise_database(repo_path)
 
     # =========================================================
-    # RQ1: Creation of OCEL
+    # RQ0: Creation of OCEL
     # =========================================================
     
     # Go through all commits in the given time period
-    # get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
+    get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
 
-    get_and_insert_remote_data(api_url, repo_path)
+    get_and_insert_remote_data(api_url, repo_path, from_date, to_date)
 
     path = get_ocel_data(collection)
+    path = "Exports/scikit-learn-OCEL.json"
     with open(path) as f:
         ocel = json.load(f)
 
@@ -63,20 +66,20 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     flat_event_log = flatten_ocel2(ocel, object_type="pull_request", collection=collection)
     visualise_xes_as("petri_net", flat_event_log, collection=collection)
 
-    if flat_event_log:
-        before_log, after_log = divide_event_log_at(datetime(2025, 7, 7, 15, 0).replace(tzinfo=None), flat_event_log)
-        visualise_xes_as("petri_net", before_log, collection=collection)
-        visualise_xes_as("petri_net", after_log, collection=collection)
-    else:
-        print("ERROR: Flattened event log is empty")
+    # if flat_event_log:
+    #     before_log, after_log = divide_event_log_at(datetime(2023, 7, 7, 0, 0, 0).replace(tzinfo=None), flat_event_log)
+    #     visualise_xes_as("petri_net", before_log, collection=collection)
+    #     visualise_xes_as("petri_net", after_log, collection=collection)
+    # else:
+    #     print("ERROR: Flattened event log is empty")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--repo_url",
         type=str,
-        default='https://github.com/matplotlib/matplotlib',
-        help="URL of the GitHub repository to analyze (default: https://github.com/matplotlib/matplotlib)"
+        default='https://github.com/scikit-learn/scikit-learn',
+        help="URL of the GitHub repository to analyze (default: https://github.com/scikit-learn/scikit-learn)"
     )
     args = parser.parse_args()
     main(repo_url=args.repo_url)

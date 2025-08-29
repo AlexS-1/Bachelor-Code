@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import path
 from flask.cli import F
 import pymongo
@@ -22,7 +22,7 @@ def insert_pull(data, collection):
     pull_request_type = get_object_type_by_type_name("pull_request", collection)
     try:
         verify_objectType(data, pull_request_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "number"}
+        data_to_insert = {k: v for k, v in data.items() if k != "number" or v is not None}
     except ValueError as e: 
         raise ValueError(f"Data does not match the pull request type: {e}")
     insert_object(data["number"], "pull_request", data_to_insert, collection)
@@ -110,10 +110,16 @@ def insert_object(id, object_type: str, data: dict, collection: str):
                 return
         if attribute_keys:
             for key in attribute_keys:
+                if object_type == "pull_request" and timestamp_keys and len(timestamp_keys) > 1:
+                    time = data[timestamp_keys[1]]
+                elif timestamp_keys:
+                    time = data[timestamp_keys[0]]
+                else:
+                    time = date_1970()
                 attributes.append({
                     "name": key,
                     "value": str(data[key]),
-                    "time": str(date_1970()) if not timestamp_keys else data[timestamp_keys[0]]
+                    "time": time
                 })
             if not relationship_keys:
                 ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
@@ -460,8 +466,8 @@ def update_attribute(id: str, attribute_name: str, new_value: str, time: str, co
         {"$push": {
             "attributes": {
                 "name": attribute_name,
-                "time": time,
-                "value": new_value
+                "value": new_value,
+                "time": time
             },
         }}
     )
@@ -539,31 +545,12 @@ def initialise_objectTypes(repo_path):
         ]
     }
     insert_objectType(file_metrics_type["name"], file_metrics_type["attributes"], collection)
-    contribution_guideline_type = {
-        "name": "contribution_guideline",
-        "attributes": [
-            {"name": "version", "type": "string"},
-            {"name": "topic", "type": "string"},
-            {"name": "word_count", "type": "int"},
-
-        ]
-    }
-    insert_objectType(contribution_guideline_type["name"], contribution_guideline_type["attributes"], collection)
-    contribution_guideline_rule_type = {# TODO
-        "name": "contribution_guideline_rule",
-        "attributes": [
-            {"name": "version", "type": "string"},
-            {"name": "topic", "type": "array"},
-            {"name": "rule", "type": "string"}
-        ]
-    }
-    insert_objectType(contribution_guideline_rule_type["name"], contribution_guideline_rule_type["attributes"], collection)
 
 def initialise_eventTypes(repo_path):
     collection = repo_path.split("/")[-1]
     # File viewpoint
     commit_event = {
-        "name": "commit",
+        "name": "commit_event",
         "attributes": []
     }
     insert_eventType(commit_event["name"], commit_event["attributes"], collection)
@@ -571,6 +558,134 @@ def initialise_eventTypes(repo_path):
         "name": "change_file",
         "attributes": []
     }
+    # File Event Types
+    conditional_added_event = {
+        "name": "conditional_added",
+        "attributes": [
+            {"name": "added", "type": "string"},
+        ]
+    }
+    insert_eventType(conditional_added_event["name"], conditional_added_event["attributes"], collection)
+    docstring_deleted_event = {
+        "name": "docstring_deleted",
+        "attributes": []
+    }
+    insert_eventType(docstring_deleted_event["name"], docstring_deleted_event["attributes"], collection)
+    configuration_modified_event = {
+        "name": "configuration_modified",
+        "attributes": []
+    }
+    insert_eventType(configuration_modified_event["name"], configuration_modified_event["attributes"], collection)
+    statement_deleted_event = {
+        "name": "statement_deleted",
+        "attributes": [
+            {"name": "count", "type": "int"},
+        ]
+    }
+    insert_eventType(statement_deleted_event["name"], statement_deleted_event["attributes"], collection)
+    parameter_modified_event = {
+        "name": "parameter_modified",
+        "attributes": [
+            {"name": "before", "type": "string"},
+            {"name": "after", "type": "string"}
+        ]
+    }
+    insert_eventType(parameter_modified_event["name"], parameter_modified_event["attributes"], collection)
+    method_deleted_event = {
+        "name": "method_deleted",
+        "attributes": []
+    }
+    insert_eventType(method_deleted_event["name"], method_deleted_event["attributes"], collection)
+    docstring_added_event = {
+        "name": "docstring_added",
+        "attributes": []
+    }
+    insert_eventType(docstring_added_event["name"], docstring_added_event["attributes"], collection)
+    dependency_deleted_event = {
+        "name": "dependency_deleted",
+        "attributes": []
+    }
+    insert_eventType(dependency_deleted_event["name"], dependency_deleted_event["attributes"], collection)
+    statement_added_event = {
+        "name": "statement_added",
+        "attributes": [
+            {"name": "count", "type": "int"},
+        ]
+    }
+    insert_eventType(statement_added_event["name"], statement_added_event["attributes"], collection)
+    test_modified_event = {
+        "name": "test_modified",
+        "attributes": []
+    }
+    insert_eventType(test_modified_event["name"], test_modified_event["attributes"], collection)
+    parameter_added_event = {
+        "name": "parameter_added",
+        "attributes": [
+            {"name": "before", "type": "string"},
+            {"name": "after", "type": "string"}
+        ]
+    }
+    insert_eventType(parameter_added_event["name"], parameter_added_event["attributes"], collection)
+    comments_modified_event = {
+        "name": "comments_modified",
+        "attributes": []
+    }
+    insert_eventType(comments_modified_event["name"], comments_modified_event["attributes"], collection)
+    statement_modified_event = {
+        "name": "statement_modified",
+        "attributes": [
+            {"name": "added", "type": "int"},
+            {"name": "deleted", "type": "int"}
+        ]
+    }
+    insert_eventType(statement_modified_event["name"], statement_modified_event["attributes"], collection)
+    parameter_deleted_event = {
+        "name": "parameter_deleted",
+        "attributes": [
+            {"name": "before", "type": "string"},
+            {"name": "after", "type": "string"}
+        ]
+    }
+    insert_eventType(parameter_deleted_event["name"], parameter_deleted_event["attributes"], collection)
+    method_added_event = {
+        "name": "method_added",
+        "attributes": []
+    }
+    insert_eventType(method_added_event["name"], method_added_event["attributes"], collection)
+    conditional_deleted_event = {
+        "name": "conditional_deleted",
+        "attributes": [
+            {"name": "deleted", "type": "string"},
+        ]
+    }
+    insert_eventType(conditional_deleted_event["name"], conditional_deleted_event["attributes"], collection)
+    dependency_added_event = {
+        "name": "dependency_added",
+        "attributes": []
+    }
+    insert_eventType(dependency_added_event["name"], dependency_added_event["attributes"], collection)
+    conditional_modified_event = {
+        "name": "conditional_modified",
+        "attributes": [
+            {"name": "added", "type": "string"},
+            {"name": "deleted", "type": "string"}
+        ]
+    }
+    insert_eventType(conditional_modified_event["name"], conditional_modified_event["attributes"], collection)
+    method_renamed_event = {
+        "name": "method_renamed",
+        "attributes": [
+            {"name": "old_name", "type": "string"},
+            {"name": "new_name", "type": "string"}
+        ]
+    }
+    insert_eventType(method_renamed_event["name"], method_renamed_event["attributes"], collection)
+    docstring_modified_event = {
+        "name": "docstring_modified",
+        "attributes": []
+    }
+    insert_eventType(docstring_modified_event["name"], docstring_modified_event["attributes"], collection)
+
     # Pull request viewpoint
     insert_eventType(change_file_event["name"], change_file_event["attributes"], collection)
     reopen_pull_request_event = {

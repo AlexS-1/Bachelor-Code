@@ -17,7 +17,7 @@ from build.database_handler import get_attribute_change_times, get_attribute_val
 from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
 from build.utils import date_1970, date_formatter, list_to_dict
 
-def _create_commit(commit_sha, author, message, repository, branches, commit_timestamp, contribution_guideline_version, description=None, file_changes=None, parents=None):
+def _create_commit(commit_sha, author, message, repository, branches, commit_timestamp, description=None, file_changes=None, parents=None):
     return {
         "commit_sha": commit_sha,
         "message": message,
@@ -27,7 +27,6 @@ def _create_commit(commit_sha, author, message, repository, branches, commit_tim
         "commit_timestamp": commit_timestamp,
         "aggregates": str(file_changes),
         "is-child-of": str(parents),
-        "contribution_guideline_version": contribution_guideline_version
     }
 
 def _create_file_metrics(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
@@ -183,7 +182,7 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
     for commit in Repository(repo_path, 
                              since=from_date, 
                              to=to_date,
-                             #only_modifications_with_file_types=file_types NOTE Remove for final version
+                             #only_modifications_with_file_types=file_types NOTE Remove for final version 
                             ).traverse_commits():
         commit_timestamp = date_formatter(commit.committer_date)
         file_metrics = {
@@ -283,7 +282,6 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
             commit.project_name, 
             commit.branches, 
             commit_timestamp,
-            # contribution_guideline_version,
             "" if len(commit.msg.split("\n\n")) < 2 else commit.msg.split("\n\n", 1)[1], 
             filenames, 
             commit.parents)
@@ -382,11 +380,11 @@ def _extract_non_source_code_events(file_purpose, change_type, source_code, sour
             return _create_event_properties("DDD", "documentation_deleted", [])
     elif file_purpose == "dependency":
         if len(source_code.split("\n")) < len(source_code_old.split("\n")) or change_type == "ADDED":
-            return _create_event_properties("dependency_added", "DEA", [])
+            return _create_event_properties("DEA", "dependency_added", [])
         elif len(source_code.split("\n")) == len(source_code_old.split("\n")) and change_type == "MODIFIED":
             return _create_event_properties("DEM", "dependency_modified", [])
         elif len(source_code.split("\n")) > len(source_code_old.split("\n")) or change_type == "DELETED":
-            return _create_event_properties("dependency_deleted", "DED", [])
+            return _create_event_properties("DED", "dependency_deleted", [])
     elif file_purpose == "configuration" or file_purpose == "git":
         return _create_event_properties("CON", "configuration_modified", [])
     elif file_purpose == "example":

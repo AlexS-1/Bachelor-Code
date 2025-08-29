@@ -8,10 +8,13 @@ from datetime import datetime
 from pandas._typing import Timezone
 
 from pm4py.objects.conversion.log import converter as log_converter
+from typing import cast
+from pm4py.objects.log.obj import EventLog, EventStream
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 from pm4py.objects.log.importer.xes import importer as xes_importer
 from pm4py.algo.discovery.inductive import algorithm as inductive_miner
 from pm4py.algo.discovery.dfg import algorithm as dfg_discovery
+from pm4py.algo.filtering.log.timestamp.timestamp_filter import filter_traces_intersecting as filter_log
 from pm4py.visualization.petri_net import visualizer as pn_visualizer
 from pm4py.visualization.process_tree import visualizer as pt_visualizer
 from pm4py.visualization.dfg import visualizer as dfg_visualizer
@@ -92,15 +95,15 @@ def flatten_ocel2(ocel, object_type, collection):
     rows = []
     for object_id, event_id in case_event_pairs:
         event = event_map[event_id]
-        # related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
-        # bot = get_is_user_bot(related_object_ids[0], collection)
+        related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
+        bot = get_is_user_bot(related_object_ids[0], collection)
         # rank = get_attribute_value(related_object_ids[0], "rank" , collection)
         row = {
             "case:concept:name": object_id,
             "event_id": event_id,
             "concept:name": event.get("type"),
             "time:timestamp": event.get("time") + "Z",
-            # "is_bot": bot,
+            "is_bot": bot,
             **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
         }
         rows.append(row)
@@ -154,32 +157,22 @@ def divide_event_log_at(split_date: datetime, event_log_path: str):
     export_path_after
         Path to event log after the date
     """
-    event_log = xes_importer.apply(event_log_path)
-    split_date = pd.to_datetime(split_date)
 
-    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
-    traces_before = []
-    traces_after = []
+    raw_log = xes_importer.apply(event_log_path)
+    event_log: EventLog = cast(EventLog, log_converter.apply(raw_log, variant=log_converter.Variants.TO_EVENT_LOG))
 
-    split_date = pd.to_datetime(split_date).tz_localize(None)
-    event_log["time:timestamp"] = pd.to_datetime(event_log["time:timestamp"], utc=True)
 
-    for _, trace_events in event_log.groupby("case:concept:name"): # type: ignore
-        if (trace_events["time:timestamp"] < split_date).any():
-            traces_before.append(trace_events)
-        else:
-            traces_after.append(trace_events)
+    start_date = datetime.min.replace(tzinfo=None)
+    split_date = split_date.replace(tzinfo=None)
+    end_date = datetime.today().replace(tzinfo=None)
 
-    # Concatenate the traces back into DataFrames
-    df_before = pd.concat(traces_before) if traces_before else pd.DataFrame(columns=event_log.columns) # type: ignore
-    df_after = pd.concat(traces_after) if traces_after else pd.DataFrame(columns=event_log.columns) # type: ignore
-    if traces_before == [] or traces_after == []:
-        print("ERROR splitting log: split-date is not in range of event_log")
-    
+    before = filter_log(event_log, start_date, split_date)
+    after = filter_log(event_log, split_date, end_date)
+
     export_path_before = f"{event_log_path.split('.')[0]}-before.xes"
     export_path_after = f"{event_log_path.split('.')[0]}-after.xes"
 
-    xes_exporter.apply(df_before, export_path_before)
-    xes_exporter.apply(df_after, export_path_after)
+    xes_exporter.apply(before, export_path_before)
+    xes_exporter.apply(after, export_path_after)
 
     return export_path_before, export_path_after

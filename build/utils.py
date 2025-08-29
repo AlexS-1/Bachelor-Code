@@ -85,7 +85,9 @@ def _set_plot_style_and_plot():
     plt.rcParams['xtick.color'] = 'black'
     plt.rcParams['ytick.color'] = 'black'
     plt.rcParams['legend.edgecolor'] = 'black'
-    plt.rcParams['legend.facecolor'] = 'black'
+    plt.rcParams['legend.facecolor'] = "#A2A2A2"
+    plt.rcParams['axes.titlecolor'] = 'black'
     plt.rcParams['axes.spines.top'] = False
+    plt.rcParams['text.color'] = 'black'
     plt.rcParams['axes.spines.right'] = False
     plt.show()

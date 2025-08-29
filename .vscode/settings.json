@@ -1,4 +1,5 @@
 {
     "debug.focusEditorOnBreak": false,
-    "debug.focusWindowOnBreak": false
+    "debug.focusWindowOnBreak": false,
+    "python.envFile": "${workspaceFolder}/.venv"
 }
