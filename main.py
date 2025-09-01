@@ -8,7 +8,7 @@ from build.utils import clone_repository
 from build.local_repository_extractor import get_and_insert_local_data
 from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
-from build.contribution_process_miner import divide_event_log_at, split_OCEL_at_guideline_changes, flatten_ocel2, visualise_xes_as
+from build.contribution_process_miner import flatten_ocel2, visualise_xes_as
 
 def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     # =============================================

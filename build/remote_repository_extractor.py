@@ -115,7 +115,7 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
     """
     Extract issue references from PR text.
     Matches:
-    - "#123" (up to 5 digits, not followed by a dot)
+      - "#123" (up to 5 digits, not ollowed by a dot)
       - https://github.com/<owner>/<repo>/issues/123
       - https://api.github.com/repos/<owner>/<repo>/issues/123
     Returns a sorted list like ["#12", "#203"].
@@ -148,7 +148,7 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
     for m in re.finditer(r"https?://api\.github\.com/repos/([^/\s]+)/([^/\s]+)/issues/(\d+)", pull_body):
         if not owner or (m.group(1).lower() == owner and m.group(2).lower() == repo):
             refs.add(f"{m.group(3)}")
-    labels = []
+    labels = set()
     for ref in refs:
         try:
             response = get_api_response(f"https://api.github.com/repos/{owner}/{repo}/issues/{ref}")
@@ -158,7 +158,7 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
             except requests.exceptions.HTTPError as e:
                 response = None
         if response and "labels" in response:
-            labels.extend(label["name"] for label in response["labels"])
+            labels.update(label["name"] for label in response["labels"])
         if "good first issue" in labels:
             print(f"LOG: Found label: 'good first issue' for referenced issue #{ref} in PR#{pull_url.split('/')[-1]}")
     print("LOG: labels:", labels)
@@ -242,8 +242,8 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     "add_review_request",
                     timestamp,
                     collection, 
-                    [requested_reviewer],
-                    [review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
+                    [],
+                    [review_requester, requested_reviewer, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "review_request_removed":
                 try:
@@ -256,8 +256,8 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     "remove_review_request",
                     timestamp,
                     collection,
-                    [requested_reviewer],
-                    [review_requester, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
+                    [],
+                    [review_requester, requested_reviewer, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "commented":
                 user_relation = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "commented-by"}

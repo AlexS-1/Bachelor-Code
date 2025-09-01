@@ -1,8 +1,12 @@
 from heapq import merge
+from math import e
+from typing import Dict, List
 import pandas as pd
+from pyparsing import Any
+from sympy import N
 from build.code_quality_visualizer import get_object
 from build.utils import _set_plot_style_and_plot, date_1970
-from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_is_user_bot, get_ocel_data, get_object_type_by_type_name, get_related_objectIds_for_event, get_type_of_object
+from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_is_user_bot, get_ocel_data, get_object_type_by_type_name, get_pull_requests, get_related_objectIds_for_event, get_type_of_object
 from datetime import datetime, tzinfo, timezone
 from matplotlib import pyplot as plt
 from itertools import combinations
@@ -188,7 +192,7 @@ def pull_request_approving_reviews(pull_request_ids, collection, visualise=False
         approvals = 0
         for event in events:
             if "add_label" in event["type"]:
-                pr_labels.append(_get_event_attribute(event))
+                pr_labels.append(_get_local_attribute_value(event, "label"))
             if "approve" in event["type"]:
                 approvals += 1
         pr_attributes[pull_request_id] = {
@@ -211,11 +215,95 @@ def pull_request_approving_reviews(pull_request_ids, collection, visualise=False
     else:
         return pr_attributes
         
-def _get_event_attribute(event):
-    for attribute in event.get("attributes", []):
-        if attribute.get("name") == "label":
-            return attribute.get("value")
-    return None
+def plot_pr_issue_label_distribution(collection: str, top_n: int = 10, include_empty: bool = False, figsize=(8, 6)):
+    """
+    Plot distribution of the most common issue_label values in pull requests for a collection.
+    Handles issue_label stored as str, comma/semicolon-separated str, list[str], or list[dict{name}].
+    Returns the counts Series.
+    Args:
+        collection (str): The collection name.
+        top_n (int): The number for specifying how many labels to include.
+        include_empty (bool): Whether to exclude counts for PRs without labels.
+        figsize (tuple): The figure size for the plot.
+    Returns:
+        pd.Series: The counts of issue labels.
+    """
+    pull_requests = get_pull_requests(collection) or []
+    label_list = []
+    for pr in pull_requests:
+        labels = _get_local_attribute_value(pr, "issue_label")
+        if labels is None:
+            print(f"ERROR: No issue_label found for PR {pr['_id']}")
+            continue
+        parsed_labels = _parse_labels(labels, include_empty)
+        label_list.extend(parsed_labels)
+
+    if len(label_list) == 0:
+        print("WARNING: No issue_labels were found.")
+        return pd.Series(dtype=int)
+
+    counts = pd.Series(label_list).value_counts()
+    top_labels = counts.head(top_n)[::-1]  # reverse for horizontal bar plot (largest on top)
+
+    plt.figure(figsize=figsize)
+    plt.barh(top_labels.index, top_labels.to_numpy(dtype=int), color="#fad7ac")
+    plt.xlabel("Count")
+    plt.title(f"Top {min(top_n, len(counts))} Issue Labels in Pull Requests ({collection})", color="black")
+    for index, value in enumerate(top_labels.values):
+        plt.text(value, index, f" {value}", va="center")
+    plt.tight_layout()
+    _set_plot_style_and_plot()
+
+    return counts
+
+def plot_pr_secondary_issue_label_distribution(collection: str, label: str, top_n: int = 10, include_single_secondary: bool = False, figsize=(8, 6)):
+    """
+    For PRs whose issue_label contains 'good first issue', compute distribution of
+    the other labels present on those PRs. Returns a pandas Series (counts).
+    Args:
+        collection (str): The collection name.
+        label (str): The specific label to analyze.
+        top_n (int): The number for specifying how many labels to include.
+        include_single_secondary (bool): Whether to include counts for PRs where only the specified label is present
+        figsize (tuple): The figure size for the plot.
+    Returns:
+        pd.Series: The counts of issue labels.
+    """
+    pull_requests = get_pull_requests(collection) or []
+    counts = {}
+    label = label.lower()
+    for pr in pull_requests:
+        if not _pr_has_label(pr, label):
+            continue
+        labels_string = _get_local_attribute_value(pr, "issue_label")
+        if labels_string is None:
+            print(f"ERROR: No issue_label found for PR {pr['_id']}")
+            continue
+        labels = _parse_labels(labels_string, False)
+        if labels == [label] and include_single_secondary:
+            counts[f"<Only {label}>"] = counts.get("<Only {label}>", 0) + 1
+        for lbl in labels:
+            if label in str(lbl).lower():
+                continue
+            counts[lbl] = counts.get(lbl, 0) + 1
+
+    if not counts:
+        print(f"WARNING: No labels found on PRs with label: {label} in collection: {collection}")
+        return pd.Series(dtype=int)
+
+    series = pd.Series(counts).sort_values(ascending=False)
+    top_labels = series.head(top_n)[::-1]
+
+    plt.figure(figsize=(6, 6))
+    plt.barh(top_labels.index, top_labels.to_numpy(dtype=int), color="#fad7ac")
+    plt.xlabel("Count")
+    plt.title(f"Top {min(top_n, len(series))} other labels on 'good first issue' PRs ({collection})")
+    for index, value in enumerate(top_labels.to_numpy(dtype=int)):
+        plt.text(value, index, f" {int(value)}", va="center")
+    plt.tight_layout()
+    _set_plot_style_and_plot()
+
+    return series
 
 def pull_request_approving_reviews_grouped(pull_request_ids,
                                            collection,
@@ -244,7 +332,7 @@ def pull_request_approving_reviews_grouped(pull_request_ids,
         for event in events:
             etype = event["type"]
             if "add_label" in etype:
-                labels.add(_get_event_attribute(event))
+                labels.add(_get_local_attribute_value(event, "label"))
             if "approve" in etype:
                 approvals += 1
         if labels:
@@ -373,8 +461,8 @@ def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
             "totals": totals
         }
 
-# Prefer actor from attributes when available; else use relationships.
-# Looks for common attribute names and relationship qualifiers.
+# Helper methods for local use
+
 def _extract_event_actor(event, collection):
     prefer = ["by", "author", "committer", "merged_by", "closed_by", "requested_by", "reviewer", "assignee", "user", "actor"]
     rels = event.get("relationships", [])
@@ -388,3 +476,32 @@ def _extract_event_actor(event, collection):
                     return oid, "relationship"
 
     return None, "none"
+
+def _parse_labels(labels_string: str, include_empty: bool) -> list[str]:
+    """Get the labels as list for a given string or list input."""
+    output = []
+    if labels_string is None:
+        return output
+    if isinstance(labels_string, str):
+        labels_string = labels_string.replace(";", ",")
+        labels_string = labels_string.replace("[", "").replace("]", "").replace("'", "").replace('"', "")
+        parts = [label.strip() for label in labels_string.split(",") if label.strip() != "" or include_empty]
+        return parts
+    if isinstance(labels_string, list):
+        for label in labels_string:
+            if isinstance(label, str):
+                output.append(label.strip())
+        return output
+    return output
+
+def _get_local_attribute_value(object, attribute_name):
+    for a in object.get("attributes", []):
+        if a.get("name") == attribute_name:
+            return str(a.get("value"))
+        
+def _pr_has_label(pull_request: Dict[str, Any], label: str) -> bool:
+    labels_string = _get_local_attribute_value(pull_request, "issue_label")
+    if labels_string is None:
+        return False
+    return label in labels_string.lower()
+        

@@ -1,3 +1,4 @@
+from ast import Dict
 from datetime import datetime, timedelta
 from os import path
 from flask.cli import F
@@ -220,6 +221,10 @@ def get_events(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["events"].find()
 
+def get_objects(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find()
+
 def get_events_for_eventType(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["events"].find({"type": type})
@@ -380,6 +385,7 @@ def get_related_objectIds_for_event(event_id, qualifier, collection, group_of_qu
     Args:
         event_id (str): The ID of the event to get the related objects for.
         qualifier (str): The qualifier to filter the related objects by.
+        collection (str): The collection to search the events in.
         group_of_qualifiers (bool): Whether to also add objects, that match sub-strings of the qualifier.
     Returns:
         list: A list of related object IDs.
@@ -441,6 +447,18 @@ def get_attribute_time(id, attribute_name, collection):
         if attribute["name"] == attribute_name:
             return attribute["time"]
 
+def get_filtered_objects(filter, collection):
+    """
+    Get objects from MongoDB using the filter as criteria for querying
+    Args:
+        filter (str): Query written in MongoDB query language for Python
+        collection (str): The collection to apply the filter in
+    Returns:
+        list: The objects that match the criteria set in the filter
+    """
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find(filter)
+
 ### Update functions
 def update_attribute(id: str, attribute_name: str, new_value: str, time: str, collection: str, update_id: bool = False):
     """
@@ -478,6 +496,24 @@ def update_attribute(id: str, attribute_name: str, new_value: str, time: str, co
             return
         doc["_id"] = new_value
         ocdb["objects"].replace_one({"_id": new_value}, doc, True)
+
+def replace_relationships(id: str, relationships: list[Dict], collection: str, type: str):
+    """
+    Update the value of a relationship.
+
+    Args:
+        id (str): The ID of the object to update.
+        new_value (str): The new value to set for the relationship.
+        time (str): The time when the relationship was updated.
+        collection (str): The collection to update the object in.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb[f"{type}"].update_one(
+        {"_id": id},
+        {"$set": {
+            "relationships": relationships,
+        }}
+    )
 
 ### Initialisation functions
 def initialise_database(repo_path):
