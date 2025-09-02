@@ -1,9 +1,7 @@
 from ast import Dict
 from datetime import datetime, timedelta
 from os import path
-from flask.cli import F
 import pymongo
-from ulid import T
 
 from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
 
@@ -54,15 +52,6 @@ def insert_user(data, collection):
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert, collection)
-
-def insert_contribution_guideline(data, collection):
-    contribution_guideline_type = get_object_type_by_type_name("contribution_guideline", collection)
-    try:
-        verify_objectType(data, contribution_guideline_type)
-        data_to_insert = data
-    except ValueError as e:
-        raise ValueError(f"Data does not match the contribution guideline type: {e}")
-    insert_object(f"g_{data['filename']}", "contribution_guideline", data_to_insert, collection)
 
 
 ### TODO Make inserting events and objects consistent
@@ -190,6 +179,17 @@ def insert_ocel_event(event, collection: str):
     ocdb = myclient[f"{collection}"]
     ocdb["events"].replace_one({"_id": event["id"]}, {k: v for k, v in event.items() if k != "id"}, True)
 
+### Remove functions
+
+def remove_event(event_id: str, collection: str):
+    """
+    Remove an event from the OCEL database.
+    Args:
+        event_id (str): The ID of the event to remove.
+        collection (str): The collection to remove the event from.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb["events"].delete_one({"_id": event_id})
 
 ### Get functions
 def get_commits(collection: str):
@@ -199,6 +199,10 @@ def get_commits(collection: str):
 def get_files(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "file"})
+
+def get_file_metrics(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find({"type": "file_metrics"})
 
 def get_pull_requests(collection: str):
     ocdb = myclient[f"{collection}"]
@@ -274,7 +278,7 @@ def get_ocel_data(collection: str):
         "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
-    path = f"Exports/{collection}-OCEL.json"
+    path = f"Exports/{collection}-local-OCEL.json"
     
     write_json(path, data)
     return path
@@ -513,6 +517,19 @@ def replace_relationships(id: str, relationships: list[Dict], collection: str, t
         {"$set": {
             "relationships": relationships,
         }}
+        
+def append_relationship(id, relationships, collection):
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].update_one(
+        {"_id": id},
+        {"$push": {"relationships": relationships}}
+    )
+
+def remove_relationships(id, collection):
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].update_one(
+        {"_id": id},
+        {"$set": {"relationships": []}}
     )
 
 ### Initialisation functions

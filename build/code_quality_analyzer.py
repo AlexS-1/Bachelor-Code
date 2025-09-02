@@ -2,7 +2,6 @@ from datetime import datetime
 import math
 import os
 import subprocess
-from matplotlib.pylab import f
 from radon.metrics import mi_visit, h_visit
 from radon.raw import analyze
 from radon.complexity import cc_visit
@@ -10,9 +9,6 @@ from pylint.reporters.base_reporter import BaseReporter
 import re
 from pylint.lint import Run
 import os
-
-from sympy import Q
-from tomlkit import date
 
 from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object
 class ScoreOnlyReporter(BaseReporter):

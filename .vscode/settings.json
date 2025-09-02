@@ -1,5 +1,10 @@
 {
     "debug.focusEditorOnBreak": false,
     "debug.focusWindowOnBreak": false,
-    "python.envFile": "${workspaceFolder}/.venv"
+    "python.envFile": "${workspaceFolder}/.venv",
+    "python.defaultInterpreterPath": "/Users/alexanderschranner/Documents/Bachelor-Code/.venv312/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.extraPaths": [
+        "/Users/alexanderschranner/Documents/Bachelor-Code/.venv312/lib/python3.12/site-packages"
+    ]
 }

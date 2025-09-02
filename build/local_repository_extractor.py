@@ -3,15 +3,10 @@ from datetime import datetime
 import hashlib
 import re
 import subprocess
-from venv import create
-from colorama import init
-from isort import file
-from numpy import insert, size, source
+from numpy import insert, size
 from pydriller import Repository
-from requests import get
 from typing import Dict, List, Optional, Set
 
-from tomlkit import date
 
 from build.database_handler import get_attribute_change_times, get_attribute_value_at_time, get_object, insert_commit, insert_event, insert_file, insert_file_metrics, update_attribute
 from build.code_quality_analyzer import get_cyclomatic_complexity, get_halstead_metrics, get_line_metrics, get_pylint_score, get_maintainability_index
@@ -31,10 +26,7 @@ def _create_commit(commit_sha, author, message, repository, branches, commit_tim
 
 def _create_file_metrics(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
     return {
-        "file-changed_by": name,
-        "filename": filename,
         "file_change_timestamp": file_change_timestamp,
-        "part-of-commit": commit_sha,
         "method_count": method_count,
         "cc": cyclomatic_complexity,
         "theta_1": theta_1,
@@ -50,7 +42,7 @@ def _create_file_metrics(name, filename, file_change_timestamp, commit_sha, meth
         "pylint_score": pylint_score
     }
 
-def _create_file(name, filename, file_change_timestamp, commit_sha, size_bytes, file_purpose):
+def _create_file(name, filename, file_change_timestamp, commit_sha, size_bytes, file_purpose, file_metrics=None):
     return {
         "file-changed_by": name,
         "filename": filename,
@@ -58,6 +50,7 @@ def _create_file(name, filename, file_change_timestamp, commit_sha, size_bytes, 
         "part-of-commit": commit_sha,
         "size_bytes": size_bytes,
         "file_purpose": file_purpose,
+        "has-file-metrics": file_metrics is not None
     }
 
 def _get_snapshot_code_quality(repo_path, from_date, file_types, collection, partial=True):
@@ -118,7 +111,8 @@ def _get_snapshot_code_quality(repo_path, from_date, file_types, collection, par
                     str(date_1970()), 
                     commit.hash,
                     size(source),
-                    file_purpose
+                    file_purpose,
+                    "m_" + str(file) if file_purpose == "source" else None
                 )
                 insert_file(file_object, collection)
 
@@ -178,7 +172,11 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
         do_snapshot (bool): Whether to take a snapshot of the code quality
     """
     collection = repo_path.split("/")[-1]
-    repository_code_metrics = _get_snapshot_code_quality(repo_path, from_date, file_types, collection, partial = False) if do_snapshot else {}
+    repository_code_metrics = _get_snapshot_code_quality(repo_path, from_date, file_types, collection, partial = True) if do_snapshot else {}
+
+    print(f"LOG: Finsehd snapshotting, now extracting local data from {repo_path} between {from_date} and {to_date}")
+    print(repository_code_metrics)
+
     for commit in Repository(repo_path, 
                              since=from_date, 
                              to=to_date,
@@ -215,13 +213,6 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
                     file_actor = {"modified_by": commit.committer.name}
                 else:
                     print(f"WARNING Unknown change type {modified_file.change_type.name} in commit {commit.hash}")
-                insert_event(
-                    f"CF_{commit_timestamp}", 
-                    "change_file", 
-                    commit_timestamp, 
-                    collection, 
-                    [], 
-                    [{"qualifier": file_action, "objectId": file_actor}])
 
                 # For every change to a file including adding a file, create/update object
                 if modified_file.new_path and modified_file.source_code:
@@ -234,11 +225,20 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
                     commit_timestamp, 
                     commit.hash,
                     size(modified_file.source_code) if modified_file.source_code else 0,
-                    file_purpose
+                    file_purpose,
+                    "m_" + str(modified_file.new_path) if file_purpose == "source" else None
                 )
                 insert_file(file, collection)
 
-                extract_source_code_events(modified_file, commit, file_purpose, collection)
+                if not extract_source_code_events(modified_file, commit, file_purpose, collection):
+                    insert_event(
+                        f"CF_{commit_timestamp}", 
+                        "change_file", 
+                        commit_timestamp, 
+                        collection, 
+                        [], 
+                        [{"qualifier": list(file_action.keys())[0], "objectId": list(file_action.values())[0]},
+                         {"qualifier": list(file_actor.keys())[0], "objectId": list(file_actor.values())[0]}])
 
                 # For every source file additionally update metrics
                 if file_purpose == "source" and modified_file.new_path and modified_file.source_code:
@@ -341,6 +341,8 @@ def extract_source_code_events(modified_file, commit, file_purpose, collection):
         modified_file: The modified file object from PyDriller.
         file_purpose: The purpose of the file (e.g., "source", "documentation").
         collection: The database collection to insert events into.
+    Return:
+        bool: True if events were inserted, False otherwise.
     """
     # Extract source code events from the modified file
     if modified_file.new_path and modified_file.source_code and modified_file.diff_parsed:
@@ -354,8 +356,9 @@ def extract_source_code_events(modified_file, commit, file_purpose, collection):
         else:
             source_code_events = [_extract_non_source_code_events(file_purpose, change_type, modified_file.source_code, modified_file.source_code_before)]
 
+        inserted_event = False
         if source_code_events == None:
-            return None
+            return inserted_event
 
         for event in source_code_events:
             if event is None:
@@ -367,8 +370,10 @@ def extract_source_code_events(modified_file, commit, file_purpose, collection):
                 collection,
                 event["attributes"],
                 [{"qualifier": "file-modified-by", "objectId": actor}, 
-                 {"qualifier": "in-file", "value": modified_file.new_path}]
+                 {"qualifier": "in-file", "objectId": modified_file.new_path}]
             )
+            inserted_event = True
+        return inserted_event
 
 def _extract_non_source_code_events(file_purpose, change_type, source_code, source_code_old):
     if file_purpose == "documentation":
@@ -379,12 +384,14 @@ def _extract_non_source_code_events(file_purpose, change_type, source_code, sour
         elif change_type == "DELETED":
             return _create_event_properties("DDD", "documentation_deleted", [])
     elif file_purpose == "dependency":
-        if len(source_code.split("\n")) < len(source_code_old.split("\n")) or change_type == "ADDED":
+        if change_type == "ADDED" or source_code and source_code_old and len(source_code.split("\n")) < len(source_code_old.split("\n")):
             return _create_event_properties("DEA", "dependency_added", [])
-        elif len(source_code.split("\n")) == len(source_code_old.split("\n")) and change_type == "MODIFIED":
+        elif change_type == "MODIFIED" and source_code and source_code_old  and len(source_code.split("\n")) == len(source_code_old.split("\n")):
             return _create_event_properties("DEM", "dependency_modified", [])
-        elif len(source_code.split("\n")) > len(source_code_old.split("\n")) or change_type == "DELETED":
+        elif change_type == "DELETED" or source_code and source_code_old and len(source_code.split("\n")) > len(source_code_old.split("\n")):
             return _create_event_properties("DED", "dependency_deleted", [])
+        else:
+            print(f"WARNING: Unknown change type: {change_type} for dependency file with purpose: {file_purpose}")
     elif file_purpose == "configuration" or file_purpose == "git":
         return _create_event_properties("CON", "configuration_modified", [])
     elif file_purpose == "example":
@@ -662,14 +669,13 @@ def detect_parameter_changes(file_path: str, source_before: Optional[str], sourc
         nb, na = len(b["params"]), len(a["params"])
         if na > nb:
             events.append({"acronym": "PAD", "type": "parameter_added", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "before", "value": b["params"]}, {"name": "after", "value": a["params"]}]})
+                           "attributes": [{"name": "before", "value": str(b["params"])}, {"name": "after", "value": str(a["params"])}]})
         elif na < nb:
             events.append({"acronym": "PDE", "type": "parameter_deleted", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "before", "value": b["params"]}, {"name": "after", "value": a["params"]}]})
+                           "attributes": [{"name": "before", "value": str(b["params"])}, {"name": "after", "value": str(a["params"])}]})
         elif nb == na and b["params"] != a["params"]:
             events.append({"acronym": "PMO", "type": "parameter_modified", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "before", "value": b["params"]}, {"name": "after", "value": a["params"]},
-                                          {"name": "before_ann", "value": b["annotations"]}, {"name": "after_ann", "value": a["annotations"]}]})
+                           "attributes": [{"name": "before", "value": str(b["params"])}, {"name": "after", "value": str(a["params"])}]})
     return events
 
 

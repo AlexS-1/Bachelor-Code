@@ -23,7 +23,7 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     from_date = datetime(2024,5,1).replace(tzinfo=None)  # e.g. 5 years ago
     # (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1, tzinfo=None)
     to_date = datetime(2025, 8, 15).replace(tzinfo=None)  # e.g. today
-    (datetime.today() - timedelta(days=1)).replace(tzinfo=None)
+    # (datetime.today() - timedelta(days=1)).replace(tzinfo=None)
 
     # Select supported file types your code quality analyser
     file_types = [".py"]
