@@ -3,7 +3,6 @@ from math import e
 from typing import Dict, List
 import pandas as pd
 from pyparsing import Any
-from sympy import N
 from build.code_quality_visualizer import get_object
 from build.utils import _set_plot_style_and_plot, date_1970
 from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_is_user_bot, get_ocel_data, get_object_type_by_type_name, get_pull_requests, get_related_objectIds_for_event, get_type_of_object

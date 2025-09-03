@@ -516,7 +516,7 @@ def replace_relationships(id: str, relationships: list[Dict], collection: str, t
         {"_id": id},
         {"$set": {
             "relationships": relationships,
-        }}
+        }})
         
 def append_relationship(id, relationships, collection):
     ocdb = myclient[f"{collection}"]
