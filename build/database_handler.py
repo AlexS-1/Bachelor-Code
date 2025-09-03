@@ -48,7 +48,7 @@ def insert_user(data, collection):
     user_type = get_object_type_by_type_name("user", collection)
     try:
         verify_objectType(data, user_type)
-        data_to_insert = data
+        data_to_insert = {k: v for k, v in data.items() if k != "name"}
     except ValueError as e:
         raise ValueError(f"Data does not match the user type: {e}")
     insert_object(data["name"], "user", data_to_insert, collection)
@@ -208,6 +208,10 @@ def get_pull_requests(collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["objects"].find({"type": "pull_request"})
 
+def get_users(collection: str):
+    ocdb = myclient[f"{collection}"]
+    return ocdb["objects"].find({"type": "user"})
+
 def get_object_type_by_type_name(type: str, collection: str):
     ocdb = myclient[f"{collection}"]
     object = ocdb["objectTypes"].find_one({"_id": type})
@@ -278,7 +282,7 @@ def get_ocel_data(collection: str):
         "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
-    path = f"Exports/{collection}-local-OCEL.json"
+    path = f"Exports/{collection}-OCEL.json"
     
     write_json(path, data)
     return path

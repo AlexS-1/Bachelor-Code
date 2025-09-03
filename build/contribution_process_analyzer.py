@@ -1,12 +1,12 @@
-from heapq import merge
-from math import e
-from typing import Dict, List
+from typing import Dict
+import numpy as np
 import pandas as pd
 from pyparsing import Any
 from build.code_quality_visualizer import get_object
-from build.utils import _set_plot_style_and_plot, date_1970
-from build.database_handler import get_commits, get_events_for_eventType, get_events_for_object, get_is_user_bot, get_ocel_data, get_object_type_by_type_name, get_pull_requests, get_related_objectIds_for_event, get_type_of_object
-from datetime import datetime, tzinfo, timezone
+from build.contribution_process_miner import _actor_from_event, get_open_pr_event_id, is_bot_user
+from build.utils import _set_plot_style_and_plot
+from build.database_handler import get_attribute_value, get_event, get_events, get_events_for_object, get_is_user_bot, get_pull_requests, get_type_of_object
+from datetime import datetime
 from matplotlib import pyplot as plt
 from itertools import combinations
 
@@ -459,6 +459,234 @@ def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
             "totals": event_by_type,
             "totals": totals
         }
+
+def generate_author_distribution_for_issue_labels(collection, analysis_labels, plot: bool = True):
+    """
+    Create a DataFrame with author-type distributions per category.
+    Args:
+        collection (str): The collection to analyse the PRs in
+        analysis_labels (list(str)): The issue labels to group the author distribtuions by
+        plot (bool): Wether or not to plot the results (default = True)
+    Returns:
+        pd.DataFrame: Indexed by category with columns ['new','bot','experienced','total']
+    """
+
+    # expected percentages as decimals (new, bot, experienced)
+    percents = {
+        "Documentation": (0.40, 0.20, 0.40),
+        "Good First Issue": (0.80, 0.10, 0.10),
+        "Good First Review": (0.15, 0.05, 0.80),
+        r"Average \ {Good First Issue, Good First Review}": (0.075, 0.075, 0.85),
+        "PRs Average": (0.09, 0.09, 0.82),
+    }
+
+    # Collect author distribution per pull request
+    rows = []
+    actors_per_pr = {}
+    pull_requests = get_pull_requests(collection)
+    for pr in pull_requests:
+        issue_labels = get_attribute_value(pr["_id"], "issue_label", collection)
+        open_event_id = get_open_pr_event_id(pr["_id"], collection)
+        opener = ""
+        opener_bot = False
+        if open_event_id:
+            event = get_event(open_event_id, collection)
+            if event:
+                opener = _actor_from_event(event) or ""
+                opener_bot = is_bot_user(opener, collection) or False
+        res_labels = []
+        for label in analysis_labels:
+            if label in issue_labels:
+                res_labels.append(label)
+        
+        actors_per_pr[pr["_id"]] = {
+            "opener": opener,
+            "is_bot": opener_bot,
+            "labels": res_labels,
+        }
+
+    # Group author distribution by issue_labels
+    results = {}
+    already_contributed = set()
+    for _, values in actors_per_pr.items():
+        categories = ["Average"]
+        if values["labels"] == []:
+            categories.append("Other")
+        else: 
+            categories.extend(values["labels"])
+        for category in categories:
+            n_new, n_bot, n_other = results.setdefault(category, (0, 0, 0))
+            if values["opener"] not in already_contributed:
+                n_new += 1
+            elif values["is_bot"]:
+                n_bot += 1
+            else:
+                n_other += 1
+            results[category] = (n_new, n_bot, n_other)
+        already_contributed.add(values["opener"])
+    
+    # Add categories to DataFrame
+    for category in ["Average", "Other"] + analysis_labels:
+        n_new, n_bot, n_other = results.get(category, (0, 0, 0))
+        rows.append({"category": category, "new": n_new, "bot": n_bot, "experienced": n_other, "total": sum(results.get(category, (0, 0, 0)))})
+    df = pd.DataFrame(rows).set_index("category")[["new", "bot", "experienced", "total"]]
+
+    # Plot results if specified
+    if plot:
+        props = df[["new", "bot", "experienced"]].div(df["total"], axis=0)
+        colors = {"new": "#4C72B0", "bot": "#DD8452", "experienced": "#55A868"}
+        y = np.arange(len(df))
+        height = 0.6
+
+
+        plt.figure(figsize=(10, max(4, len(df) * 0.7)))
+        plt.title(f"Distribution of Pull Request Authors by Related Issue labels ({collection})")
+        left = np.zeros(len(df))
+        for col in ["new", "bot", "experienced"]:
+            vals = np.array(props[col].values)
+            plt.barh(y, vals, left=left, height=height, color=colors[col], label=col.title())
+            # annotate percentage if wide enough
+            for i, (l, v) in enumerate(zip(left, vals)):
+                if v > 0.04:
+                    plt.text(l + v/2, i, f"{int(round(v*100))}%", ha="center", va="center", color="white", fontsize=9)
+            left += vals
+
+        # annotate absolute totals on right
+        for i, tot in enumerate(df["total"].values):
+            plt.text(1.02, i, f"n={tot}", va="center", fontsize=9)
+
+        plt.xlim(0, 1.15)
+        plt.xlabel("Proportion of Author Types Normalized to 1")
+        ax = plt.gca()
+        ax.set_xticks([])
+        ax.set_xticklabels([])
+        label_list = df.index.astype(str).tolist()  # make Sequence[str] for type checker
+        plt.yticks(y, label_list)
+        plt.gca().invert_yaxis()
+        plt.tight_layout()
+        plt.legend(loc="lower center", bbox_to_anchor=(-0.3, -0.15), ncol=1)
+        _set_plot_style_and_plot()
+
+    return df
+
+_bot_ids = {
+    "matplotlib": [
+        "lumberbot-app[bot]",
+        "codecov[bot]",
+        "github-actions[bot]",
+        "Matplotlib Developers",
+        "dependabot[bot]",
+        "Codecov",
+        "ALL",
+        "pre-commit-ci[bot]",
+        "csc510-team5",
+        "AppVeyor Systems Inc.",
+        "github-advanced-security[bot]",
+        "Dependabot",
+        "Copilot"
+    ],
+    "scikit-learn": [
+        "scikit-learn-bot",
+        "Copilot",
+        "github-actions[bot]",
+        "Open Source Maintainers on GitHub [moved]",
+        "dependabot[bot]",
+        "codecov[bot]",
+        "github-advanced-security[bot]",
+        "Dependabot",
+        "Women in Machine Learning & Data Science",
+        "scikit-learn",
+        "azure-pipelines[bot]",
+        "github-merge-queue[bot]",
+        "beartype",
+        "azure-pipelines",
+        "Article",
+        "mergify[bot]",
+        "neurodata"
+    ],
+    "edx-platform": [
+        "github-actions[bot]",
+        "dependabot[bot]",
+        "Dependabot",
+        "Open edX",
+        "Incresco"
+    ]
+}
+
+def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=datetime(2020, 1, 1), end_date=datetime(2025, 12, 31)):
+    """
+    Stacked area of bot vs non-bot events with moving average smoothing.
+    No percentage axis; bot proportion visible via relative area.
+    """
+    start_date = pd.to_datetime(start_date, utc=True)
+    end_date = pd.to_datetime(end_date, utc=True)
+    bot_ids = _bot_ids[collection]
+    events = get_events(collection)
+    
+    rows = []
+    for ev in events:
+        ts = datetime.fromisoformat(ev.get("time"))
+        if not (start_date <= ts <= end_date):
+            continue
+        is_bot = 0
+        for rel in ev.get("relationships", []) or []:
+            if "by" in (rel.get("qualifier") or ""):
+                if rel.get("objectId") in bot_ids:
+                    is_bot = 1
+                break
+        rows.append({"time": ts, "is_bot": is_bot})
+
+    if not rows:
+        print("No events in interval.")
+        return pd.DataFrame()
+
+    df = (pd.DataFrame(rows)
+            .sort_values("time")
+            .set_index("time"))
+
+    agg = pd.DataFrame({
+        "events": df["is_bot"].resample(freq).count(),
+        "bot_events": df["is_bot"].resample(freq).sum()
+    }).loc[start_date:end_date]
+
+    agg["non_bot"] = agg["events"] - agg["bot_events"]
+
+    ma = agg[["bot_events","non_bot","events"]].rolling(ma_window, min_periods=1).mean()
+    ma = ma.rename(columns={
+        "bot_events":"bot_events_ma",
+        "non_bot":"non_bot_ma",
+        "events":"events_ma"
+    })
+
+    plot_df = pd.concat([agg, ma], axis=1)
+
+    x = plot_df.index
+    bot_smoothed = plot_df["bot_events_ma"]
+    non_bot_smoothed = plot_df["non_bot_ma"]
+    total_smoothed = bot_smoothed + non_bot_smoothed
+
+    plt.figure(figsize=(12,6))
+    plt.stackplot(
+        x,
+        non_bot_smoothed,
+        bot_smoothed,
+        colors=["#bac8d3", "#45372c"],
+        labels=["Non-bot (MA)", "Bot (MA)"],
+        alpha=0.95
+    )
+    frequency = freq.replace("M", "Month").replace("D", "Day").replace("W", "Week").replace("Q", "Quarter")
+    plt.plot(x, total_smoothed, color="black", linewidth=1.6, label="Total (MA)")
+    
+    plt.plot(x, plot_df["events"], color="black", linewidth=0.8, alpha=0.25, linestyle="--", label="Total (raw)")
+
+    plt.xlim(start_date, end_date)
+    plt.title(f"Bot vs Non-Bot Events (Smoothed per {frequency} with Moving Average (MA) of Window={ma_window})")
+    plt.xlabel("Time")
+    plt.ylabel(f"Events per {frequency}")
+    plt.legend(loc="upper left")
+    plt.tight_layout()
+    _set_plot_style_and_plot()
+    return plot_df
 
 # Helper methods for local use
 

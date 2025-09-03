@@ -7,7 +7,6 @@ import os
 from build.database_handler import date_1970, datetime, get_user_by_username, insert_event, insert_pull, insert_user, update_attribute
 
 token = os.getenv("GITHUB_TOKEN")  # Import GitHub token from environment variables
-anonymous_user_counter = {}
 
 def get_and_insert_remote_data(repo_url, repo_path, start_date, end_date):
     repo = get_repo_information(repo_url)
@@ -173,6 +172,15 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
         if created_at < start_date:
             continue
         
+        # Assumption: Creation of pull request is when pull request was opened, i.e. pull requests are opened not as draft
+        insert_event(
+            f"open_pull_{pull['number']}",
+            "open_pull_request",
+            pull["created_at"],
+            collection,
+            [],
+            [{"objectId": get_name_by_username(pull["user"]["login"], collection), "qualifier": "opened-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull_request"}]
+        )
         for event in get_api_response(pull["issue_url"] + "/timeline"):
             if not event:
                 print("ERROR: No event found for pull request", pull["number"])
@@ -315,6 +323,7 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     [actor, {"objectId": str(pull['number']), "qualifier": "unlabeled-on-pull_request"}]
                 )
             elif event["event"] == "reviewed":
+                comment = []
                 try:
                     user = {"objectId": get_name_by_username(event["user"]["login"], collection)}
                 except:
@@ -331,6 +340,7 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     user_relation = {"objectId": user["objectId"], "qualifier": "dismissed-by"}
                 else:
                     review_type = "comment_review"
+                    comment = [{"name": "comment", "value": event["body"]}]
                     user_relation = {"objectId": user["objectId"], "qualifier": "commented-by"}
                 timestamp = event["submitted_at"]
                 insert_event(
@@ -338,18 +348,9 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     review_type,
                     timestamp,
                     collection,
-                    [],
+                    comment,
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
-        # Assumption: Creation of pull request is when pull request was opened, i.e. pull requests are opened not as draft
-        insert_event(
-            f"open_pull_{pull['number']}",
-            "open_pull_request",
-            pull["created_at"],
-            collection,
-            [],
-            [{"objectId": get_name_by_username(pull["user"]["login"], collection), "qualifier": "opened-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull_request"}]
-        )
 
 
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:
@@ -376,12 +377,7 @@ def get_related_pulls(pulls_url):
         pulls.append(str(pull["number"]))
     return pulls
 
-def get_anonymous_user_counter():
-    global anonymous_user_counter
-    return anonymous_user_counter
-
 def get_name_by_username(username, collection, author_association = "NONE"):
-    global anonymous_user_counter # TODO Check if still necessary
     # TODO Implement checking if remote and local user ids match
     user_response = {
         "name": None,
@@ -396,11 +392,9 @@ def get_name_by_username(username, collection, author_association = "NONE"):
     else:
         if username != "Copilot":
             user_response = get_api_response(f"https://api.github.com/users/{username}")
-            if user_response["name"] is None and user_response["type"] == "User":
-                anonymous_user_counter[username] = anonymous_user_counter.get(username, 0) + 1
         user = {
-            "name": user_response["name"] if user_response["name"] else username, 
-            "username": user_response["login"] if user_response["login"] else username, 
+            "name": user_response["name"] if user_response["name"] else username,
+            "username": user_response["login"] if user_response["login"] else username,
             "rank": author_association,
             "is-bot": False if user_response["type"] == "User" else True, 
             "created_at_timestamp": user_response["updated_at"] if user_response["updated_at"] else date_1970(),
