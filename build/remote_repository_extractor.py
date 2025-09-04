@@ -185,16 +185,21 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
             if not event:
                 print("ERROR: No event found for pull request", pull["number"])
                 continue
-            if event["event"] not in ["committed", "reviewed"]:
-                timestamp = event["created_at"]
-                try: #FIXME
-                    actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
+            if event["event"] not in ["committed", "reviewed", "line-commented", "mentioned", "subscribed"]:
+                try:
+                    timestamp = event["created_at"]
                 except:
-                    print(f"ERROR: Unable to get actor for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
+                    print(f"ERROR: Unable to get timestamp for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
                     continue
+                try: 
+                    actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
+                except: 
+                    print(f"ERROR: Unable to get actor for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
+                finally:
+                    actor = {"objectId": "Cincinnatus", "qualifier": "authored-by"}
             else:
                 timestamp = date_1970()
-                actor = "Cincinnatus"
+                actor = {"objectId": "Cincinnatus", "qualifier": "authored-by"}
             # Handle specific events from OCEL-Diagrams.drawio
             if event["event"] == "committed":
                 # TODO Define timestamp correctly: timestamp = event["author"]["date"]
@@ -219,14 +224,17 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                 )
                 update_attribute(str(pull['number']), "state", "closed", timestamp, collection)
             elif event["event"] == "reopened":
-                actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "reopened-by"}
+                try:
+                    actor = [{"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "reopened-by"}]
+                except: 
+                    actor = []
                 insert_event(
                     f"{event['node_id']}",
                     "reopen_pull_request",
                     timestamp,
                     collection,
                     [],
-                    [actor, {"objectId": str(pull['number']), "qualifier": "reopened-pull-request"}]
+                    actor.append({"objectId": str(pull['number']), "qualifier": "reopened-pull-request"})
                 )
                 update_attribute(str(pull['number']), "state", "open", timestamp, collection)
             elif event["event"] == "merged":
@@ -241,24 +249,30 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                 update_attribute(str(pull['number']), "state", "merged", timestamp, collection)
             elif event["event"] == "review_requested":
                 try:
-                    requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
-                except KeyError:
-                    requested_reviewer = {"objectId": event["requested_team"]["name"], "qualifier": "for"}
-                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
+                    requested_reviewer = [{"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}]
+                except:
+                    requested_reviewer = [{"objectId": event["requested_team"]["name"], "qualifier": "for"}]
+                try:
+                    requested_reviewer.append({"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"})
+                except:
+                    pass
                 insert_event(
                     f"{event['node_id']}",
                     "add_review_request",
                     timestamp,
                     collection, 
                     [],
-                    [review_requester, requested_reviewer, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
+                    [requested_reviewer.append({"objectId": str(pull['number']), "qualifier": "in-pull-request"})]
                 )
             elif event["event"] == "review_request_removed":
                 try:
                     requested_reviewer = {"objectId": get_name_by_username(event["requested_reviewer"]["login"], collection), "qualifier": "for"}
-                except KeyError:
+                except:
                     requested_reviewer = {"objectId": event["requested_team"]["name"], "qualifier": "for"}
-                review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
+                try:
+                    review_requester = {"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"}
+                except:
+                    review_requester = {"objectId": event["requested_team"]["name"], "qualifier": "by"}
                 insert_event(
                     f"{event['node_id']}",
                     "remove_review_request",
@@ -281,7 +295,22 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     issue_references = extract_label_from_related_issues(pull["url"], event["body"])
                     if issue_references:
                         update_attribute(pull['number'], "issue_label", issue_references, timestamp, collection)
-                    
+            elif event["event"] == "line-commented":
+                for comment in event["comments"]:
+                    try:
+                        user = {"objectId": get_name_by_username(comment["user"]["login"], collection)}
+                    except:
+                        print(f"ERROR: Could not retrieve user during extraction of event: {event['node_id']} in #PR: {pull['number']}")
+                        continue
+                    insert_event(
+                        f"LC_{comment['id']}",
+                        "comment_pull_request",
+                        comment["created_at"],
+                        collection,
+                        [{"name": "comment", "value": comment["body"]}],
+                        [{"objectId": user["objectId"], "qualifier": "commented-by"}, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}, {"objectId": comment["commit_id"], "qualifier": "for-commit"}, {"objectId": comment["path"], "qualifier": "for-file"}]
+                    )
+            
             elif event["event"] == "ready-for-review":
                 insert_event(
                     f"{event['node_id']}",
@@ -292,15 +321,19 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     [actor, {"objectId": str(pull['number']), "qualifier": "in-pull-request"}]
                 )
             elif event["event"] == "renamed":
+                try:
+                    actor = [{"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "change-issued-by"}]
+                except:
+                    actor = []
                 insert_event(
                     f"{event['node_id']}",
                     "rename_pull_request",
                     timestamp,
                     collection,
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
-                    [{"objectId": get_name_by_username(event["actor"]["login"], collection, collection), "qualifier": "change-issued-by"}, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
+                    actor.append({"objectId": str(pull['number']), "qualifier": "for-pull-request"})
                 )
-                update_attribute(str(pull['number']), "title", event["rename"]["from"], timestamp, collection)
+                update_attribute(str(pull['number']), "title", event["rename"]["from"], timestamp, collection) #FIXME
             elif event["event"] == "labeled":
                 label = {"name": "label", "value": event["label"]["name"]}
                 insert_event(

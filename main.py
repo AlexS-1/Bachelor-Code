@@ -21,7 +21,7 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = datetime(2015,1,1).replace(tzinfo=None)  # e.g. 5 years ago
+    from_date = datetime(2018,1,20).replace(tzinfo=None)  # e.g. 5 years ago
     # (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1, tzinfo=None)
     to_date = datetime(2025, 8, 15).replace(tzinfo=None)  # e.g. today
     # (datetime.today() - timedelta(days=1)).replace(tzinfo=None)

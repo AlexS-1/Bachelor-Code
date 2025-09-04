@@ -512,8 +512,8 @@ def replace_relationships(id: str, relationships: list[Dict], collection: str, t
     Args:
         id (str): The ID of the object to update.
         new_value (str): The new value to set for the relationship.
-        time (str): The time when the relationship was updated.
         collection (str): The collection to update the object in.
+        type (str): Either objects or events relationship.
     """
     ocdb = myclient[f"{collection}"]
     ocdb[f"{type}"].update_one(

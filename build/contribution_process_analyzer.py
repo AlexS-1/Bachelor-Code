@@ -613,7 +613,7 @@ _bot_ids = {
     ]
 }
 
-def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=datetime(2020, 1, 1), end_date=datetime(2025, 12, 31)):
+def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=datetime(2015, 1, 1), end_date=datetime(2025, 12, 31)):
     """
     Stacked area of bot vs non-bot events with moving average smoothing.
     No percentage axis; bot proportion visible via relative area.
@@ -676,7 +676,9 @@ def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=dat
     )
     frequency = freq.replace("M", "Month").replace("D", "Day").replace("W", "Week").replace("Q", "Quarter")
     plt.plot(x, total_smoothed, color="black", linewidth=1.6, label="Total (MA)")
-    
+
+    plt.plot(x, agg["bot_events"], color="red", linewidth=0.8, alpha=0.25, linestyle="--", label="Bot (raw)")
+    plt.plot(x, agg["non_bot"], color="blue", linewidth=0.8, alpha=0.25, linestyle="--", label="Non-Bot (raw)")
     plt.plot(x, plot_df["events"], color="black", linewidth=0.8, alpha=0.25, linestyle="--", label="Total (raw)")
 
     plt.xlim(start_date, end_date)
