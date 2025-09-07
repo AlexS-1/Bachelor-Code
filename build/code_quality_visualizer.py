@@ -60,7 +60,7 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
 
     plt.ylabel("Code Quality Score")
     plt.ylim(0, 1)
-
+    plt.grid(visible=True, which='both', axis='y', linestyle='--', linewidth=0.5)
     _set_plot_style_and_plot()
 
 def plot_file_code_quality(file_id, collection, metric_names=[]):

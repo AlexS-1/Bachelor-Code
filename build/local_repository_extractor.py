@@ -26,6 +26,7 @@ def _create_commit(commit_sha, author, message, repository, branches, commit_tim
 
 def _create_file_metrics(name, filename, file_change_timestamp, commit_sha, method_count, cyclomatic_complexity, theta_1, theta_2, N_1, N_2, loc, lloc, sloc, cloc, dloc, blank_lines, pylint_score):
     return {
+        "filename": filename,
         "file_change_timestamp": file_change_timestamp,
         "method_count": method_count,
         "cc": cyclomatic_complexity,
@@ -271,8 +272,9 @@ def get_and_insert_local_data(repo_path: str, from_date: datetime, to_date: date
                     diff_new = list_to_dict(modified_file.diff_parsed["added"])
 
             # Append the filename according to the performed action to the list of filenames
-            _, objectId = file_action.popitem()
-            filenames.append(objectId)
+            if not len(list(file_action.values())) == 0:
+                _, objectId = file_action.popitem()
+                filenames.append(objectId)
 
         # After going through all file changes add the commit information
         commit_object = _create_commit(

@@ -39,7 +39,7 @@ def insert_file_metrics(data, collection):
     file_metrics_type = get_object_type_by_type_name("file_metrics", collection)
     try:
         verify_objectType(data, file_metrics_type)
-        data_to_insert = data
+        data_to_insert = {k: v for k, v in data.items() if k != "filename"}
     except ValueError as e:
         raise ValueError("Data does not match the file change type: {e}")
     insert_object(f"m_{data['filename']}", "file_metrics", data_to_insert, collection)

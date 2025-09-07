@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import Dict
 import numpy as np
 import pandas as pd
@@ -689,6 +690,60 @@ def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=dat
     plt.tight_layout()
     _set_plot_style_and_plot()
     return plot_df
+
+def plot_top_bot_event_types(collection: str, top_n: int = 10, figsize=(10, 6)):
+    """
+    Plots the top n event types with the highest percentage of bot actors as a vertical bar chart.
+    Annotates each bar with the total number of events of that type.
+    """
+    events = get_events(collection) or []
+    if not events:
+        print(f"No events found for collection '{collection}'.")
+        return
+
+    # Count bots and totals per event type
+    type_counts = defaultdict(int)
+    bot_counts = defaultdict(int)
+
+    for ev in events:
+        ev_type = ev.get("type", "unknown")
+        actor = _actor_from_event(ev)
+        if actor in _bot_ids[collection]:
+            bot_counts[ev_type] += 1
+        type_counts[ev_type] += 1
+
+    # Compute bot percentage per event type
+    data = []
+    for ev_type in type_counts:
+        total = type_counts[ev_type]
+        bots = bot_counts.get(ev_type, 0)
+        pct = bots / total if total > 0 else 0
+        data.append((ev_type, pct, total, bots))
+
+    # Sort by bot percentage descending, then by total descending
+    data.sort(key=lambda x: (-x[1], -x[2]))
+    top = data[:top_n]
+
+    # Prepare for plotting
+    event_types = [x[0] for x in top]
+    bot_pcts = [x[1] for x in top]
+    totals = [x[2] for x in top]
+
+    plt.figure(figsize=figsize)
+    bars = plt.bar(event_types, bot_pcts, color="#DD8452", alpha=0.85)
+    plt.ylabel("Bot actor percentage")
+    plt.xlabel("Event type")
+    plt.title(f"Top {top_n} event types by bot actor percentage ({collection})")
+    plt.ylim(0, 1.05)
+    plt.xticks(rotation=45, ha="right")
+
+    # Annotate total event count on each bar
+    for bar, total in zip(bars, totals):
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, height + 0.02, f"n={total}", ha="center", va="bottom", fontsize=9)
+
+    plt.tight_layout()
+    _set_plot_style_and_plot()
 
 # Helper methods for local use
 

@@ -90,4 +90,5 @@ def _set_plot_style_and_plot():
     plt.rcParams['axes.spines.top'] = False
     plt.rcParams['text.color'] = 'black'
     plt.rcParams['axes.spines.right'] = False
+    plt.legend()
     plt.show()
