@@ -96,7 +96,7 @@ def insert_object(id, object_type: str, data: dict, collection: str):
                 elif type(data[key]) != list:
                     relationships.append({"objectId": str(data[key]), "qualifier": key})
             if not attribute_keys:
-                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "relationships": relationships}, True)
+                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
                 return
         if attribute_keys:
             for key in attribute_keys:
@@ -112,7 +112,7 @@ def insert_object(id, object_type: str, data: dict, collection: str):
                     "time": time
                 })
             if not relationship_keys:
-                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes}, True)
+                ocdb["objects"].replace_one({"_id": id}, {"type": object_type, "attributes": attributes, "relationships": relationships}, True)
                 return
     else:
         # If the object exists, update it
@@ -282,7 +282,7 @@ def get_ocel_data(collection: str):
         "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
-    path = f"Exports/{collection}-OCEL.json"
+    path = f"Exports/{collection}-book-OCEL.json"
     
     write_json(path, data)
     return path
@@ -364,7 +364,7 @@ def get_attribute_value(id, attribute_name, collection):
     file = get_object(id, collection)
     if file is None:
         return None
-    for attribute in file["attributes"]:
+    for attribute in file["attributes"][::-1]:  # Start from the end to get the most recent value
         if attribute["name"] == attribute_name:
             return attribute["value"]
     return None

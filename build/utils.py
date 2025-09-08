@@ -22,6 +22,12 @@ def clone_repository(repo_url, temp_dir="/Users/as/Library/Mobile Documents/com~
 def array_to_string(array):
     return "[" + ", ".join(map(str, array)) + "]"
 
+def string_to_array(s: str) -> list[str]:
+    s = s.strip("[]")
+    if not s:
+        return []
+    return [item.strip().lower() for item in s.split(",")]
+
 def generic_to_python_type(python_type):
     if (python_type == "string"):
         return str
@@ -90,5 +96,4 @@ def _set_plot_style_and_plot():
     plt.rcParams['axes.spines.top'] = False
     plt.rcParams['text.color'] = 'black'
     plt.rcParams['axes.spines.right'] = False
-    plt.legend()
     plt.show()

@@ -89,6 +89,11 @@ def get_closed_pulls(pulls_url, collection, start_date, end_date):
                 break
             if created_at < start_date:
                 continue
+            try:
+                files = get_related_files(pull["url"] + "/files")
+            except requests.exceptions.HTTPError as e:
+                files = []
+                print(f"ERROR: Unable to get related files for pull request #{pull['number']}: {e}")
             pull_content = {
                 "is-merged-with":  pull["merge_commit_sha"],
                 "number": str(pull["number"]),
@@ -103,7 +108,7 @@ def get_closed_pulls(pulls_url, collection, start_date, end_date):
                     [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"] + pull["assignees"]],
                 "is-reviewed-by": [get_name_by_username(user["login"], collection) for user in pull["requested_reviewers"]], 
                 "formalises": get_related_commits(pull["commits_url"]),
-                "aggregates": get_related_files(pull["url"] + "/files"),
+                "aggregates": files,
                 "state": "open",
                 "issue_label": extract_label_from_related_issues(pull["_links"]["self"]["href"], pull["body"]) if pull["body"] else ""
             }
@@ -161,7 +166,7 @@ def extract_label_from_related_issues(pull_url: str, pull_body: str) -> str:
         if "good first issue" in labels:
             print(f"LOG: Found label: 'good first issue' for referenced issue #{ref} in PR#{pull_url.split('/')[-1]}")
     print("LOG: labels:", labels)
-    return str(labels)
+    return str(list(labels))
 
 def extract_events_from_pull(pull_response, collection, start_date, end_date):
     for pull in pull_response:
@@ -202,8 +207,7 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                 actor = {"objectId": "Cincinnatus", "qualifier": "authored-by"}
             # Handle specific events from OCEL-Diagrams.drawio
             if event["event"] == "committed":
-                # TODO Define timestamp correctly: timestamp = event["author"]["date"]
-                committer = {"objectId": event["committer"]["name"], "qualifier": "authored-by"}
+                committer = {"objectId": event["author"]["name"], "qualifier": "authored-by"}
                 commit = {"objectId": event["sha"], "qualifier": "sha"}
                 insert_event(
                     f"{event['node_id']}",
@@ -228,13 +232,14 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     actor = [{"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "reopened-by"}]
                 except: 
                     actor = []
+                actor.append({"objectId": str(pull['number']), "qualifier": "reopened-pull-request"})
                 insert_event(
                     f"{event['node_id']}",
                     "reopen_pull_request",
                     timestamp,
                     collection,
                     [],
-                    actor.append({"objectId": str(pull['number']), "qualifier": "reopened-pull-request"})
+                    actor
                 )
                 update_attribute(str(pull['number']), "state", "open", timestamp, collection)
             elif event["event"] == "merged":
@@ -325,13 +330,14 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     actor = [{"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "change-issued-by"}]
                 except:
                     actor = []
+                actor.append({"objectId": str(pull['number']), "qualifier": "for-pull-request"})
                 insert_event(
                     f"{event['node_id']}",
                     "rename_pull_request",
                     timestamp,
                     collection,
                     [{"name": "renamed-to", "value": event["rename"]["to"]}],
-                    actor.append({"objectId": str(pull['number']), "qualifier": "for-pull-request"})
+                    actor 
                 )
                 update_attribute(str(pull['number']), "title", event["rename"]["from"], timestamp, collection) #FIXME
             elif event["event"] == "labeled":

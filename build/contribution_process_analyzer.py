@@ -683,7 +683,7 @@ def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=dat
     plt.plot(x, plot_df["events"], color="black", linewidth=0.8, alpha=0.25, linestyle="--", label="Total (raw)")
 
     plt.xlim(start_date, end_date)
-    plt.title(f"Bot vs Non-Bot Events (Smoothed per {frequency} with Moving Average (MA) of Window={ma_window})")
+    plt.title(f"Events by Actor (Smoothed per {frequency} with Moving Average (MA) of Window={ma_window}), {collection}")
     plt.xlabel("Time")
     plt.ylabel(f"Events per {frequency}")
     plt.legend(loc="upper left")

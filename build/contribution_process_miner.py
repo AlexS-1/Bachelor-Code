@@ -7,7 +7,7 @@ import pandas as pd
 import pm4py
 from build.code_quality_visualizer import get_attribute_value
 from build.database_handler import get_events_for_object, get_filtered_objects, get_is_user_bot, get_object, get_related_objectIds, get_related_objectIds_for_event
-from build.utils import date_1970, rename_field
+from build.utils import date_1970, rename_field, string_to_array
 from build.database_handler import get_commits, get_event, get_ocel_data, get_object_type_by_type_name, get_type_of_object
 from datetime import datetime
 from pandas._typing import Timezone
@@ -180,14 +180,36 @@ def flatten_ocel2(ocel, object_type, collection):
         event = event_map[event_id]
         related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
         bot = get_is_user_bot(related_object_ids[0], collection)
+        issue_labels = str(get_attribute_value(object_id, "issue_label", collection)).lower()
+        if "good first issue" in issue_labels:
+            issue_label = "Good First Issue"
+        elif "documentation" in issue_labels:
+            issue_label = "Documentation"
+        elif "build" in issue_labels or "CI" in issue_labels:
+            issue_label = "CI"
+        elif "enhancement" in issue_labels:
+            issue_label = "enhancement"
+        else:
+            issue_label = "MISC"
+        
+        if "easy" in issue_labels or "good first issue" in issue_labels:
+            difficulty = "Easy"
+        elif "medium" in issue_labels:
+            difficulty = "Medium"
+        elif "hard" in issue_labels or "difficult" in issue_labels:
+            difficulty = "Hard"
+        else:
+            difficulty = "MISC"
         # rank = get_attribute_value(related_object_ids[0], "rank" , collection)
         row = {
             "case:concept:name": object_id,
+            "case:issue_label": issue_label,
+            "case:difficulty": difficulty,
             "event_id": event_id,
             "concept:name": event.get("type"),
             "time:timestamp": event.get("time") + "Z",
             "is_bot": bot,
-            **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
+            # **{k: v for k, v in event.items() if k not in ["id", "type", "time"]}
         }
         rows.append(row)
     
@@ -209,7 +231,7 @@ def correct_XES_headers(export_path):
     ET.register_namespace('', "http://www.xes-standard.org/")
     tree = ET.parse(export_path)
     root = tree.getroot()
-    root.set("xes.version","1.0")
+    root.set("xes.version","2.0")
     root.set("xes.features","")
     tree.write(export_path, encoding="utf-8", xml_declaration=False)
     # Now strip any leftover xmlns="..." the serializer may have kept
@@ -219,25 +241,6 @@ def correct_XES_headers(export_path):
     with open(export_path, "w", encoding="utf-8") as f:
         f.write(txt)
     return export_path
-
-
-def visualise_xes_as(variant, import_path, collection):
-    event_log = xes_importer.apply(import_path)
-
-    if variant != "dfg":
-        # Discover a process tree
-        process_tree = inductive_miner.apply(event_log)
-        if variant == "petri_net":
-            net1, im1, fm1 = convert_to_petri_net(process_tree)
-            gviz = pn_visualizer.apply(net1, im1, fm1)
-            pn_visualizer.view(gviz) 
-        else:
-            gviz = pt_visualizer.apply(process_tree)
-            pt_visualizer.view(gviz)
-    else:
-        dfg = dfg_discovery.apply(event_log)
-        gviz = dfg_visualizer.apply(dfg)
-        dfg_visualizer.view(gviz)
 
 def divide_event_log_at(split_date: datetime, event_log_path: str):
     """

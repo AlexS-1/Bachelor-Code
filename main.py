@@ -8,7 +8,7 @@ from build.utils import clone_repository
 from build.local_repository_extractor import get_and_insert_local_data
 from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
-from build.contribution_process_miner import flatten_ocel2, visualise_xes_as
+from build.contribution_process_miner import flatten_ocel2
 
 def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
 
@@ -45,9 +45,9 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     # =========================================================
     
     # Go through all commits in the given time period
-    get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
+    # get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
 
-    # get_and_insert_remote_data(api_url, repo_path, from_date, to_date)
+    get_and_insert_remote_data(api_url, repo_path, from_date, to_date)
 
     path = get_ocel_data(collection)
     path = "Exports/scikit-learn-OCEL.json"
@@ -65,7 +65,6 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     # =========================================================
 
     # flat_event_log = flatten_ocel2(ocel, object_type="pull_request", collection=collection)
-    # visualise_xes_as("petri_net", flat_event_log, collection=collection)
 
     # if flat_event_log:
     #     before_log, after_log = divide_event_log_at(datetime(2023, 7, 7, 0, 0, 0).replace(tzinfo=None), flat_event_log)
