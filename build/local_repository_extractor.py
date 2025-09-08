@@ -723,8 +723,8 @@ def detect_docstring_changes(file_path: str, source_before: Optional[str], sourc
             aparams = _parse_doc_params(adoc)
             if bparams != aparams:
                 events.append({"acronym": "DPM", "type": "docstring_parameters_modified", "qname": name, "span": (aln, aen),
-                               "attributes": [{"name": "before_params", "value": sorted(bparams)},
-                                              {"name": "after_params", "value": sorted(aparams)}]})
+                               "attributes": [{"name": "before_params", "value": str(sorted(bparams))},
+                                              {"name": "after_params", "value": str(sorted(aparams))}]})
             else:
                 events.append({"acronym": "DMO", "type": "docstring_modified", "qname": name, "span": (aln, aen), "attributes": []})
         elif bdoc and adoc is None:
@@ -782,14 +782,14 @@ def detect_condition_changes(file_path: str, source_before: Optional[str], sourc
         deleted_conditions = b["conditions"] - a["conditions"]
         if added_conditions and not deleted_conditions:
             events.append({"acronym": "CAD", "type": "conditional_added", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "added", "value": list(added_conditions)}]})
+                           "attributes": [{"name": "added", "value": str(list(added_conditions))}]})
         elif deleted_conditions and not added_conditions:
             events.append({"acronym": "COD", "type": "conditional_deleted", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "deleted", "value": list(deleted_conditions)}]})
+                           "attributes": [{"name": "deleted", "value": str(list(deleted_conditions))}]})
         elif added_conditions or deleted_conditions:
             events.append({"acronym": "COM", "type": "conditional_modified", "qname": name, "span": (a["lineno"], a["end_lineno"]),
-                           "attributes": [{"name": "added", "value": list(added_conditions)},
-                                          {"name": "deleted", "value": list(deleted_conditions)}]})
+                           "attributes": [{"name": "added", "value": str(list(added_conditions))},
+                                          {"name": "deleted", "value": str(list(deleted_conditions))}]})
     return events
 
 
@@ -814,12 +814,12 @@ def detect_statement_changes_fallback(diff_parsed: Optional[Dict]) -> List[Dict]
     events: List[Dict] = []
     if added_lines and not deleted_lines:
         events.append({"acronym": "SAD", "type": "statement_added", "qname": "", "span": (1, 1),
-                       "attributes": [{"name": "count", "value": len(added_lines)}]})
+                       "attributes": [{"name": "count", "value": str(len(added_lines))}]})
     elif deleted_lines and not added_lines:
         events.append({"acronym": "SDE", "type": "statement_deleted", "qname": "", "span": (1, 1),
-                       "attributes": [{"name": "count", "value": len(deleted_lines)}]})
+                       "attributes": [{"name": "count", "value": str(len(deleted_lines))}]})
     elif added_lines and deleted_lines:
         events.append({"acronym": "SMO", "type": "statement_modified", "qname": "", "span": (1, 1),
-                       "attributes": [{"name": "added", "value": len(added_lines)},
-                                      {"name": "deleted", "value": len(deleted_lines)}]})
+                       "attributes": [{"name": "added", "value": str(len(added_lines))},
+                                      {"name": "deleted", "value": str(len(deleted_lines))}]})
     return events

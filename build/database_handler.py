@@ -1,6 +1,5 @@
 from ast import Dict
-from datetime import datetime, timedelta
-from os import path
+from datetime import datetime
 import pymongo
 
 from build.utils import date_1970, generic_to_python_type, rename_field, write_json, write_to_file
@@ -282,7 +281,7 @@ def get_ocel_data(collection: str):
         "events": [rename_field(doc, "_id", "id") for doc in ocdb["events"].find()]
     }
     # Return data as JSON
-    path = f"Exports/{collection}-book-OCEL.json"
+    path = f"Exports/{collection}-OCEL.json"
     
     write_json(path, data)
     return path
@@ -504,6 +503,23 @@ def update_attribute(id: str, attribute_name: str, new_value: str, time: str, co
             return
         doc["_id"] = new_value
         ocdb["objects"].replace_one({"_id": new_value}, doc, True)
+
+def replace_attributes(_id: str, new_attributes: list[Dict], collection: str):
+    """
+    Update the value of an attribute.
+
+    Args:
+        id (str): The ID of the object to update.
+        new_attributes (str): The attributes to update to.
+        collection (str): The collection to update the object in.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].update_one(
+        {"_id": _id},
+        {"$set": {
+            "attributes": new_attributes
+        }}
+    )
 
 def replace_relationships(id: str, relationships: list[Dict], collection: str, type: str):
     """

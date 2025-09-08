@@ -261,13 +261,14 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     requested_reviewer.append({"objectId": get_name_by_username(event["review_requester"]["login"], collection), "qualifier": "by"})
                 except:
                     pass
+                requested_reviewer.append({"objectId": str(pull['number']), "qualifier": "in-pull-request"})
                 insert_event(
                     f"{event['node_id']}",
                     "add_review_request",
                     timestamp,
                     collection, 
                     [],
-                    [requested_reviewer.append({"objectId": str(pull['number']), "qualifier": "in-pull-request"})]
+                    requested_reviewer
                 )
             elif event["event"] == "review_request_removed":
                 try:
@@ -379,7 +380,7 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     user_relation = {"objectId": user["objectId"], "qualifier": "dismissed-by"}
                 else:
                     review_type = "comment_review"
-                    comment = [{"name": "comment", "value": event["body"]}]
+                    comment = [{"name": "comment", "value": event["body"] or ""}]
                     user_relation = {"objectId": user["objectId"], "qualifier": "commented-by"}
                 timestamp = event["submitted_at"]
                 insert_event(

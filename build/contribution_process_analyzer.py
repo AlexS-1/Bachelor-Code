@@ -98,54 +98,54 @@ def pull_request_open_time_analysis(pull_request_ids, collection, visualise=Fals
     if visualise:
         plt.figure(figsize=(10, 5))
         """Plot PR open times as a histogram"""
-        # plt.hist([data["duration"] for data in pr_open_to_close_times.values() if "duration" in data], bins=30, edgecolor='black')
-        # plt.xlabel('Open Time (hours)')
-        # plt.ylabel('Frequency')
-        # plt.title('Distribution of Pull Request Open Times')
+        plt.hist([data["duration"] for data in pr_open_to_close_times.values() if "duration" in data], bins=30, edgecolor='black')
+        plt.xlabel('Open Time (hours)')
+        plt.ylabel('Frequency')
+        plt.title('Distribution of Pull Request Open Times')
         """Plot PR open times as a boxplot"""
         # durations = [data["duration"] for data in pr_open_to_close_times.values() if "duration" in data]
         # plt.boxplot(durations, vert=False)
         # plt.xlabel('Open Time (hours)')
         # plt.title('Boxplot of Pull Request Open Times')
         """Plot PR open times as a timeline"""
-        def plot_pr_timeline(pr_open_to_close_times):
-            # Prepare list of (open, close, pr_id)
-            pr_intervals = []
-            for pr_id, data in pr_open_to_close_times.items():
-                if "open" in data and "merge" in data:
-                    pr_intervals.append((data["open"], data["merge"], pr_id, "merge"))
-                elif "open" in data and "close" in data:
-                    pr_intervals.append((data["open"], data["close"], pr_id, "close"))
-            # Sort by open time
-            pr_intervals.sort(key=lambda x: x[0])
+        # def plot_pr_timeline(pr_open_to_close_times):
+        #     # Prepare list of (open, close, pr_id)
+        #     pr_intervals = []
+        #     for pr_id, data in pr_open_to_close_times.items():
+        #         if "open" in data and "merge" in data:
+        #             pr_intervals.append((data["open"], data["merge"], pr_id, "merge"))
+        #         elif "open" in data and "close" in data:
+        #             pr_intervals.append((data["open"], data["close"], pr_id, "close"))
+        #     # Sort by open time
+        #     pr_intervals.sort(key=lambda x: x[0])
 
-            # Assign stack levels to avoid overlap
-            levels = []
-            for open_time, close_time, _, type in pr_intervals:
-                # Find the lowest available level
-                for i, last_close in enumerate(levels):
-                    if open_time > last_close:
-                        levels[i] = close_time
-                        break
-                else:
-                    levels.append(close_time)
-                    i = len(levels) - 1
-                # Store the level index
-                yield (open_time, close_time, i, type)
-        intervals = list(plot_pr_timeline(pr_open_to_close_times))
-        plt.figure(figsize=(12, 0.5 * (max([lvl for _, _, lvl, _ in intervals]) + 2)))
-        for open_time, close_time, level, type in intervals:
-            plt.hlines(level, open_time, close_time, color='tab:blue', linewidth=2)
-            plt.plot(open_time, level, 'o', color='green')  # Open marker
-            if type == "merge":
-                plt.plot(close_time, level, 'o', color='green')   # Close marker
-            else:
-                plt.plot(close_time, level, 'x', color='red')
-            plt.plot()
-        plt.xlabel("Time")
-        plt.ylabel("Concurrent PRs")
-        plt.title("Pull Request Overlaps Timeline")
-        plt.yticks(range(max([lvl for _, _, lvl, _ in intervals]) + 1))
+        #     # Assign stack levels to avoid overlap
+        #     levels = []
+        #     for open_time, close_time, _, type in pr_intervals:
+        #         # Find the lowest available level
+        #         for i, last_close in enumerate(levels):
+        #             if open_time > last_close:
+        #                 levels[i] = close_time
+        #                 break
+        #         else:
+        #             levels.append(close_time)
+        #             i = len(levels) - 1
+        #         # Store the level index
+        #         yield (open_time, close_time, i, type)
+        # intervals = list(plot_pr_timeline(pr_open_to_close_times))
+        # plt.figure(figsize=(12, 0.5 * (max([lvl for _, _, lvl, _ in intervals]) + 2)))
+        # for open_time, close_time, level, type in intervals:
+        #     plt.hlines(level, open_time, close_time, color='tab:blue', linewidth=2)
+        #     plt.plot(open_time, level, 'o', color='green')  # Open marker
+        #     if type == "merge":
+        #         plt.plot(close_time, level, 'o', color='green')   # Close marker
+        #     else:
+        #         plt.plot(close_time, level, 'x', color='red')
+        #     plt.plot()
+        # plt.xlabel("Time")
+        # plt.ylabel("Concurrent PRs")
+        # plt.title("Pull Request Overlaps Timeline")
+        # plt.yticks(range(max([lvl for _, _, lvl, _ in intervals]) + 1))
         _set_plot_style_and_plot()
         
     else:

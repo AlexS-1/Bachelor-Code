@@ -1,32 +1,18 @@
-from ast import Dict
-from os import read
-from pdb import pm
 import re
 from git import Optional
 import pandas as pd
-import pm4py
 from build.code_quality_visualizer import get_attribute_value
-from build.database_handler import get_events_for_object, get_filtered_objects, get_is_user_bot, get_object, get_related_objectIds, get_related_objectIds_for_event
-from build.utils import date_1970, rename_field, string_to_array
-from build.database_handler import get_commits, get_event, get_ocel_data, get_object_type_by_type_name, get_type_of_object
+from build.database_handler import get_events_for_object, get_filtered_objects, get_is_user_bot, get_object, get_related_objectIds_for_event
+from build.utils import rename_field
+from build.database_handler import get_type_of_object
 from datetime import datetime
 from pandas._typing import Timezone
 import xml.etree.ElementTree as ET
-from typing import Any, Iterable, cast
-import typing
+from typing import Any, cast
 
 from pm4py.objects.conversion.log import converter as log_converter
-from pm4py.objects.log.obj import EventLog, EventStream
+from pm4py.objects.log.obj import EventLog
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
-from pm4py.objects.log.importer.xes import importer as xes_importer
-from pm4py.algo.discovery.inductive import algorithm as inductive_miner
-from pm4py.algo.discovery.dfg import algorithm as dfg_discovery
-from pm4py.algo.filtering.log.timestamp.timestamp_filter import filter_traces_intersecting as filter_log
-from pm4py.visualization.petri_net import visualizer as pn_visualizer
-from pm4py.visualization.process_tree import visualizer as pt_visualizer
-from pm4py.visualization.dfg import visualizer as dfg_visualizer
-from pm4py import convert_to_petri_net
-import pm4py
 
 def filter_ocel_by_object_attributes(ocel, collection, criteria):
     filtered_OCEL = emptyOCEL()
@@ -241,41 +227,3 @@ def correct_XES_headers(export_path):
     with open(export_path, "w", encoding="utf-8") as f:
         f.write(txt)
     return export_path
-
-def divide_event_log_at(split_date: datetime, event_log_path: str):
-    """
-    Splits the XES log at a given date.
-    
-    Parameters
-    -------------------
-    date
-        Date to split the log at
-    event_log_path
-        Event log to split
-
-    Returns
-    ------------------
-    export_path_before
-        Path to event log before the date
-    export_path_after
-        Path to event log after the date
-    """
-
-    raw_log = xes_importer.apply(event_log_path)
-    event_log: EventLog = cast(EventLog, log_converter.apply(raw_log, variant=log_converter.Variants.TO_EVENT_LOG))
-
-
-    start_date = datetime.min.replace(tzinfo=None)
-    split_date = split_date.replace(tzinfo=None)
-    end_date = datetime.today().replace(tzinfo=None)
-
-    before = filter_log(event_log, start_date, split_date)
-    after = filter_log(event_log, split_date, end_date)
-
-    export_path_before = f"{event_log_path.split('.')[0]}-before.xes"
-    export_path_after = f"{event_log_path.split('.')[0]}-after.xes"
-
-    xes_exporter.apply(before, export_path_before)
-    xes_exporter.apply(after, export_path_after)
-
-    return export_path_before, export_path_after

@@ -1,3 +1,4 @@
+"""Main script to execute the analysis pipeline."""
 import argparse
 import json
 import os
@@ -10,7 +11,8 @@ from build.remote_repository_extractor import get_and_insert_remote_data
 from build.database_handler import initialise_database, get_ocel_data
 from build.contribution_process_miner import flatten_ocel2
 
-def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
+def main(repo_url="https://github.com/scikit-learn/scikit-learn"):
+    """Main function to execute the analysis pipeline."""
 
     # =============================================
     # Set-Up
@@ -21,7 +23,7 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = datetime(2015,1,1).replace(tzinfo=None)  # e.g. 5 years ago
+    from_date = datetime(2019,6,1).replace(tzinfo=None)  # e.g. 5 years ago
     # (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1, tzinfo=None)
     to_date = datetime(2025, 8, 15).replace(tzinfo=None)  # e.g. today
     # (datetime.today() - timedelta(days=1)).replace(tzinfo=None)
@@ -37,13 +39,13 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
 
     if not os.path.exists(repo_path):
         raise Exception(f"Repository at {repo_path} does not exist")
-    
+
     initialise_database(repo_path)
 
     # =========================================================
     # RQ0: Creation of OCEL
     # =========================================================
-    
+
     # Go through all commits in the given time period
     # get_and_insert_local_data(repo_path, from_date, to_date, file_types, False)
 
@@ -64,10 +66,12 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn", **kwargs):
     # RQ3: Contribution Guidelines Analysis and Visualisation
     # =========================================================
 
-    # flat_event_log = flatten_ocel2(ocel, object_type="pull_request", collection=collection)
+    flat_event_log = flatten_ocel2(ocel, object_type="pull_request", collection=collection)
 
     # if flat_event_log:
-    #     before_log, after_log = divide_event_log_at(datetime(2023, 7, 7, 0, 0, 0).replace(tzinfo=None), flat_event_log)
+    #     before_log, after_log = divide_event_log_at(
+    #       datetime(2023, 7, 7, 0, 0, 0).replace(tzinfo=None),
+    #       flat_event_log)
     #     visualise_xes_as("petri_net", before_log, collection=collection)
     #     visualise_xes_as("petri_net", after_log, collection=collection)
     # else:
@@ -79,7 +83,8 @@ if __name__ == "__main__":
         "--repo_url",
         type=str,
         default='https://github.com/scikit-learn/scikit-learn',
-        help="URL of the GitHub repository to analyze (default: https://github.com/scikit-learn/scikit-learn)"
+        help="URL of the GitHub repository to analyze "
+        "(default: https://github.com/scikit-learn/scikit-learn)"
     )
     args = parser.parse_args()
     main(repo_url=args.repo_url)
