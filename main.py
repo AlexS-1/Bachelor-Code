@@ -23,7 +23,7 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn"):
     collection = repo_url.split("/")[-1]
 
     # Setting different timeperiod
-    from_date = datetime(2019,6,1).replace(tzinfo=None)  # e.g. 5 years ago
+    from_date = datetime(2021, 3, 19).replace(tzinfo=None)  # e.g. 5 years ago
     # (datetime.today() - timedelta(days=5*365)).replace(day=1, month=1, tzinfo=None)
     to_date = datetime(2025, 8, 15).replace(tzinfo=None)  # e.g. today
     # (datetime.today() - timedelta(days=1)).replace(tzinfo=None)
@@ -52,8 +52,7 @@ def main(repo_url="https://github.com/scikit-learn/scikit-learn"):
     get_and_insert_remote_data(api_url, repo_path, from_date, to_date)
 
     path = get_ocel_data(collection)
-    path = "Exports/scikit-learn-OCEL.json"
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         ocel = json.load(f)
 
     # =========================================================

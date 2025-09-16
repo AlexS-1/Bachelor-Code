@@ -18,34 +18,55 @@ def filter_ocel_by_object_attributes(ocel, collection, criteria):
     filtered_OCEL = emptyOCEL()
     filtered_OCEL["eventTypes"] = ocel["eventTypes"]
     filtered_OCEL["objectTypes"] = ocel["objectTypes"]
-    ocel_objects = {object["id"]: object for object in ocel.get("objects")}
+    ocel_objects = {obj["id"]: obj for obj in ocel.get("objects")}
 
     objectIds = set()
+    event_ids_seen: set[str] = set()
+    object_ids_seen: set[str] = set()
 
     objects = get_filtered_objects(criteria, collection)
 
-    for object in objects:
-        object_id = object["_id"]
+    for obj in objects:
+        object_id = obj["_id"]
         objectIds.add(object_id)
-        events = get_events_for_object(object_id, collection)
+        object_ids_seen.add(object_id)
+        events = get_events_for_object(object_id, collection) or []
         for event in events:
-            object_ids = _get_local_related_objectIds_for(event)
-            objectIds.update(object_ids)
-            filtered_OCEL["events"].append(rename_field(event, "_id", "id"))
+            # Track related objects
+            for oid in _get_local_related_objectIds_for(event):
+                objectIds.add(oid)
+                object_ids_seen.add(oid)
+            # Deduplicate events by id in O(1)
+            eid = event.get("_id")
+            if eid and eid not in event_ids_seen:
+                filtered_OCEL["events"].append(rename_field(event, "_id", "id"))
+                event_ids_seen.add(eid)
+
     for object_id in objectIds:
-        object = ocel_objects.get(object_id)
-        if object:
-            filtered_OCEL["objects"].append(object)
-            secondary_objectIds = _get_local_related_objectIds_for(object)
-            for secondary_objectId in secondary_objectIds:
-                if secondary_objectId not in objectIds:
-                    secondary_object = ocel_objects.get(secondary_objectId)
-                    if secondary_object:
-                        filtered_OCEL["objects"].append(secondary_object)
-                    else:
-                        print(f"ERROR: Could not find secondary object: {secondary_objectId}")
-        else:
+        obj = ocel_objects.get(object_id)
+        if not obj:
             print(f"ERROR: Could not find object: {object_id}")
+            continue
+
+        filtered_OCEL["objects"].append(obj)
+        secondary_objectIds = _get_local_related_objectIds_for(obj)
+        for secondary_objectId in secondary_objectIds:
+            if secondary_objectId in object_ids_seen:
+                continue
+            sec_obj = ocel_objects.get(secondary_objectId)
+            if not sec_obj:
+                print(f"ERROR: Could not find secondary object: {secondary_objectId}")
+                continue
+
+            filtered_OCEL["objects"].append(sec_obj)
+            object_ids_seen.add(secondary_objectId)
+
+            filtered_events = get_events_for_object(secondary_objectId, collection) or []
+            for event in filtered_events:
+                eid = event.get("_id")
+                if eid and eid not in event_ids_seen:
+                    filtered_OCEL["events"].append(rename_field(event, "_id", "id"))
+                    event_ids_seen.add(eid)
     return filtered_OCEL
 
 def filter_ocel_by_timeframe(ocel, start_datetime, end_datetime):
@@ -165,7 +186,7 @@ def flatten_ocel2(ocel, object_type, collection):
     for object_id, event_id in case_event_pairs:
         event = event_map[event_id]
         related_object_ids = get_related_objectIds_for_event(event_id, "by", collection, True)
-        bot = get_is_user_bot(related_object_ids[0], collection)
+        bot = get_is_user_bot(related_object_ids[0], collection) if len(related_object_ids) > 0 else False
         issue_labels = str(get_attribute_value(object_id, "issue_label", collection)).lower()
         if "good first issue" in issue_labels:
             issue_label = "Good First Issue"

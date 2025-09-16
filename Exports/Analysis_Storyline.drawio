@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Anaysis-Goals" id="97916047-d0de-89f5-080d-49f4d83e522f">
-        <mxGraphModel dx="630" dy="1461" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+        <mxGraphModel dx="529" dy="554" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -557,7 +557,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="eKUK3vrR_9GYCevPWeM6" name="Overview-Diagram">
-        <mxGraphModel dx="525" dy="1218" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" adaptiveColors="none">
+        <mxGraphModel dx="1357" dy="1063" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" adaptiveColors="none">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1797,7 +1797,7 @@
                         <mxPoint x="1040" y="3080" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="xG_qz15uYqbEhiWFoJKV-17" value="Discover Process Model Using Flattened Event Log" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;fontSize=16;" parent="1" vertex="1">
+                <mxCell id="xG_qz15uYqbEhiWFoJKV-17" value="Discover Process Models Using OCEL" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;fontSize=16;" parent="1" vertex="1">
                     <mxGeometry x="680" y="3040" width="120" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="xG_qz15uYqbEhiWFoJKV-22" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=block;endFill=0;" parent="1" source="xG_qz15uYqbEhiWFoJKV-19" target="xG_qz15uYqbEhiWFoJKV-17" edge="1">

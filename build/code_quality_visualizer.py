@@ -6,8 +6,9 @@ import numpy as np
 from build.code_quality_analyzer import calculate_maintainability_index, get_file_metrics_at
 from build.database_handler import get_commits, get_attribute_time, get_attribute_value, get_files, get_object, get_related_objectIds
 from build.utils import _set_plot_style_and_plot
+from matplotlib.lines import Line2D
 
-def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_repository_code_quality
+def plot_repo_code_quality_fast(collection, year=None, threshold=1, only_hashes=False):
     """
     Plot the code quality metrics for each commit of a repository in the database
     Args:
@@ -16,9 +17,11 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
     """
     # Set up the used variables
     commits = get_commits(collection)
+    commits = list(commits)
     commit_dates = []
-
     metrics = {}
+    hashes = []
+
     # Prepare the data for plotting
     for commit in commits:
         commit_date = get_attribute_time(commit["_id"], "message", collection)
@@ -38,9 +41,10 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
                 "maintainability_index": maintainability_index,
                 "pylint_score": pylint_score
             }
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(10, 4))
     datetimes = [datetime.fromisoformat(ts) for ts in sorted(metrics.keys())]
     commit_dates = np.array(datetimes)
+
     for metric in ["maintainability_index", "pylint_score"]:
         # Set lables
         if len(metric.split("_")) > 1:
@@ -49,19 +53,36 @@ def plot_repo_code_quality_fast(collection, year=None): #TODO Unify with get_rep
             metric_label = metric.upper()
 
         values = np.array([float(metrics[date][metric]) for date in sorted(metrics.keys())])
+        change_datetimes = []
+        change_impact = []
+        for i in range(1, len(values)):
+            if abs(values[i] - values[i - 1]) > threshold:
+                plt.axvline(commit_dates[i], color="black", linestyle="--", linewidth=0.7)
+                change_datetimes.append(commit_dates[i])
+                change_impact.append(values[i] - values[i - 1])
+                hashes.append(commits[i]["_id"])
+        if only_hashes:
+            return hashes
         plt.plot(commit_dates, values, label=metric_label, linestyle="-")
 
-    plt.title(f"Code Quality Metrics Over Time for {collection}")
+    # plt.title(f"Code Quality Metrics Over Time for {collection}")
 
     plt.xlabel("Commit Date")
     ax = plt.gca()
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+    # Add a single legend entry for vertical lines indicating significant changes
+    custom_lines = [Line2D([0], [0], color='black', linestyle='--', linewidth=0.7)]
+    # plt.legend(custom_lines + plt.gca().get_legend_handles_labels()[0],
+            #    ['Significant Code Quality Change (> ' + str(threshold) + ')'] + plt.gca().get_legend_handles_labels()[1])
 
     plt.ylabel("Code Quality Score")
+    plt.yticks(ys, [f"{y:.2f}" for y in ys])
     plt.ylim(0, 1)
     plt.grid(visible=True, which='both', axis='y', linestyle='--', linewidth=0.5)
+    plt.savefig(f"thesis-writing/thesis-main/figures/{collection}-repo-code-quality.pdf", dpi=300)
     _set_plot_style_and_plot()
+    return zip(change_datetimes, change_impact)
 
 def plot_file_code_quality(file_id, collection, metric_names=[]):
     """

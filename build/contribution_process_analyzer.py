@@ -1,4 +1,5 @@
 from collections import defaultdict
+from tkinter import font
 from typing import Dict
 import numpy as np
 import pandas as pd
@@ -6,10 +7,12 @@ from pyparsing import Any
 from build.code_quality_visualizer import get_object
 from build.contribution_process_miner import _actor_from_event, get_open_pr_event_id, is_bot_user
 from build.utils import _set_plot_style_and_plot
-from build.database_handler import get_attribute_value, get_event, get_events, get_events_for_object, get_is_user_bot, get_pull_requests, get_type_of_object
+from build.database_handler import get_attribute_value, get_event, get_events, get_events_for_object, get_is_user_bot, get_pull_requests, get_type_of_object, get_objects
 from datetime import datetime
-from matplotlib import pyplot as plt
+from matplotlib import legend, pyplot as plt
 from itertools import combinations
+import matplotlib.dates as mdates
+import matplotlib.ticker as mticker
 
 def pull_request_reviewer_analysis(pull_request_ids, collection, visualise=False):
     """
@@ -90,24 +93,24 @@ def pull_request_open_time_analysis(pull_request_ids, collection, visualise=Fals
                     pr_open_to_close_times[pull_request_id]["close"] = close_time
                     pr_open_to_close_times[pull_request_id]["duration"] = (close_time - open_time).total_seconds() / 3600
                 else:
-                   pr_open_to_close_times.setdefault(pull_request_id, {})["close"] = close_time
+                    pr_open_to_close_times.setdefault(pull_request_id, {})["close"] = close_time
             if "merge" in event["type"]:
                 merge_time = datetime.fromisoformat(event["time"])
                 pr_open_to_close_times.setdefault(pull_request_id, {})["merge"] = merge_time
 
     if visualise:
         plt.figure(figsize=(10, 5))
-        """Plot PR open times as a histogram"""
+    # Plot PR open times as a histogram
         plt.hist([data["duration"] for data in pr_open_to_close_times.values() if "duration" in data], bins=30, edgecolor='black')
         plt.xlabel('Open Time (hours)')
         plt.ylabel('Frequency')
         plt.title('Distribution of Pull Request Open Times')
-        """Plot PR open times as a boxplot"""
+    # Plot PR open times as a boxplot
         # durations = [data["duration"] for data in pr_open_to_close_times.values() if "duration" in data]
         # plt.boxplot(durations, vert=False)
         # plt.xlabel('Open Time (hours)')
         # plt.title('Boxplot of Pull Request Open Times')
-        """Plot PR open times as a timeline"""
+    # Plot PR open times as a timeline
         # def plot_pr_timeline(pr_open_to_close_times):
         #     # Prepare list of (open, close, pr_id)
         #     pr_intervals = []
@@ -183,8 +186,8 @@ def pull_request_review_iterations(pull_request_ids, collection, visualise=False
     
 def pull_request_approving_reviews(pull_request_ids, collection, visualise=False):
     pr_attributes = {}
-    pr_label_sets = {}
-    pr_approvals = {}
+    _pr_label_sets = {}
+    _pr_approvals = {}
     for pull_request_id in pull_request_ids:
         events = get_events_for_object(pull_request_id, collection)
         events = sorted(events, key=lambda x: datetime.fromisoformat(x["time"]))
@@ -256,7 +259,7 @@ def plot_pr_issue_label_distribution(collection: str, top_n: int = 10, include_e
 
     return counts
 
-def plot_pr_secondary_issue_label_distribution(collection: str, label: str, top_n: int = 10, include_single_secondary: bool = False, figsize=(8, 6)):
+def plot_pr_secondary_issue_label_distribution(collection: str, label: str, top_n: int = 10, include_single_secondary: bool = False, figsize=(4, 6)):
     """
     For PRs whose issue_label contains 'good first issue', compute distribution of
     the other labels present on those PRs. Returns a pandas Series (counts).
@@ -294,13 +297,17 @@ def plot_pr_secondary_issue_label_distribution(collection: str, label: str, top_
     series = pd.Series(counts).sort_values(ascending=False)
     top_labels = series.head(top_n)[::-1]
 
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=figsize)
     plt.barh(top_labels.index, top_labels.to_numpy(dtype=int), color="#fad7ac")
-    plt.xlabel("Count")
-    plt.title(f"Top {min(top_n, len(series))} other labels on 'good first issue' PRs ({collection})")
+    plt.xticks(fontsize=18)
+    plt.gca().xaxis.set_major_locator(mticker.MaxNLocator(nbins=6, prune='both'))
+    plt.yticks(fontsize=18)
+    plt.xlabel("Count", fontsize=18)
+    # plt.title(f"Top {min(top_n, len(series))} Other Labels on Pull Requests Labelled {label} ({collection})")
     for index, value in enumerate(top_labels.to_numpy(dtype=int)):
-        plt.text(value, index, f" {int(value)}", va="center")
+        plt.text(value, index, f" {int(value)}", va="center", fontsize=18)
     plt.tight_layout()
+    plt.savefig(f"thesis-writing/thesis-main/figures/{collection}-gfi-labels.pdf")
     _set_plot_style_and_plot()
 
     return series
@@ -366,9 +373,11 @@ def pull_request_approving_reviews_grouped(pull_request_ids,
     # Step 4: visualisation
     if visualise and filtered:
         # Prepare plotting order: larger groups first then by avg approvals
-        order = sorted(filtered.items(),
-                       key=lambda kv: (len(kv[0]), kv[1]["avg_approvals"]),
-                       reverse=True)
+        order = sorted(
+            filtered.items(),
+            key=lambda kv: (len(kv[0]), kv[1]["avg_approvals"]),
+            reverse=True,
+        )
         labels_txt = [" | ".join(k) for k, _ in order]
         avgs = [v["avg_approvals"] for _, v in order]
 
@@ -376,31 +385,32 @@ def pull_request_approving_reviews_grouped(pull_request_ids,
         base_palette = plt.get_cmap("tab20")
         single_labels = sorted({lab for g in filtered.keys() if len(g) == 1 for lab in g})
         color_map = {lab: base_palette(i % 20) for i, lab in enumerate(single_labels)}
-
-        colors = []
-        for g, _ in order:
-            primary = g[0]
-            colors.append(color_map.get(primary, "#808080"))
+        colors = [color_map.get(g[0], "#808080") for g, _ in order]
 
         plt.figure(figsize=(min(18, 0.6 * len(order) + 4), 6))
-        bars = plt.bar(range(len(order)), avgs, color=colors)
+        _bars = plt.bar(range(len(order)), avgs, color=colors)
 
         # Annotate n
         for i, (_, payload) in enumerate(order):
-            plt.text(i, avgs[i] + 0.02, f"n={payload['n_prs']}", ha="center", va="bottom", fontsize=8, rotation=90)
+            plt.text(
+                i,
+                avgs[i] + 0.02,
+                f"n={payload['n_prs']}",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+                rotation=90,
+            )
 
         plt.xticks(range(len(order)), labels_txt, rotation=90)
         plt.ylabel("Average Approvals")
         plt.title("Average Approvals per Label Combination (power-set groups)")
-
-        # Legend (single labels)
-        
         plt.legend(single_labels, title="Primary Label", bbox_to_anchor=(1.02, 1), loc="upper left")
         plt.tight_layout()
         _set_plot_style_and_plot()
-    else: 
-        result = {"groups": filtered}
-        return result
+        return {"groups": filtered}
+
+    return {"groups": filtered}
     
 def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
     """
@@ -429,7 +439,7 @@ def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
                 event_by_type[etype] = event_by_type.get(etype, 0) + 1
                 totals["events_processed"] += 1
 
-                actor_id, origin = _extract_event_actor(event, collection)
+                actor_id = _extract_event_actor(event)
                 if actor_id:
                     totals["events_with_actor"] += 1
                     is_bot = get_is_user_bot(actor_id, collection)
@@ -457,8 +467,8 @@ def pull_request_bot_ratio(pull_request_ids, collection, visualise=False):
         return {
             "by_bot": event_by_bot,
             "not_by_bot": event_not_by_bot,
-            "totals": event_by_type,
-            "totals": totals
+            "by_type": event_by_type,
+            "summary": totals
         }
 
 def generate_author_distribution_for_issue_labels(collection, analysis_labels, plot: bool = True):
@@ -473,7 +483,7 @@ def generate_author_distribution_for_issue_labels(collection, analysis_labels, p
     """
 
     # expected percentages as decimals (new, bot, experienced)
-    percents = {
+    _percents = {
         "Documentation": (0.40, 0.20, 0.40),
         "Good First Issue": (0.80, 0.10, 0.10),
         "Good First Review": (0.15, 0.05, 0.80),
@@ -570,6 +580,76 @@ def generate_author_distribution_for_issue_labels(collection, analysis_labels, p
 
     return df
 
+def repo_inventory_stats(collections: list[str] | None = None, return_dataframe: bool = True):
+    """
+    Compute repository inventory stats for one or more collections.
+
+    For each collection (repository), return:
+      - total_objects: total number of OCEL objects
+      - total_events: total number of OCEL events
+      - objects_per_type: dict mapping object type -> count
+
+    Args:
+        collections (list[str] | None): Repository collections to inspect. If None,
+            defaults to the three investigated repositories ["scikit-learn", "matplotlib", "edx-platform"].
+        return_dataframe (bool): If True, also return a tidy DataFrame with columns
+            [total_objects, total_events, obj_<type>...].
+
+    Returns:
+        dict | dict[str, Any]:
+            If return_dataframe=True: {"stats": <per-repo dict>, "table": pandas.DataFrame}
+            Else: <per-repo dict> only.
+    """
+    repos = collections or ["scikit-learn", "matplotlib", "edx-platform"]
+    results: dict[str, dict] = {}
+
+    for col in repos:
+        type_counts: dict[str, int] = defaultdict(int)
+
+        # Count objects and break down by type
+        total_objects = 0
+        try:
+            objs_cursor = get_objects(col) or []
+            for obj in objs_cursor:
+                total_objects += 1
+                otype = obj.get("type", "unknown")
+                type_counts[otype] = type_counts.get(otype, 0) + 1
+        except:
+            total_objects = 0
+
+        # Count events
+        total_events = 0
+        try:
+            ev_cursor = get_events(col) or []
+            for _ in ev_cursor:
+                total_events += 1
+        except:
+            total_events = 0
+
+        results[col] = {
+            "total_objects": total_objects,
+            "total_events": total_events,
+            "objects_per_type": dict(sorted(type_counts.items(), key=lambda kv: (-kv[1], kv[0]))),
+        }
+
+    if return_dataframe:
+        rows = []
+        # Build a wide table with one row per repo and columns per object type
+        for col, stats in results.items():
+            row = {
+                "collection": col,
+                "total_objects": stats["total_objects"],
+                "total_events": stats["total_events"],
+            }
+            for otype, count in stats["objects_per_type"].items():
+                row[f"obj_{otype}"] = count
+            rows.append(row)
+
+        table = pd.DataFrame(rows).set_index("collection").sort_index()
+        return {"stats": results, "table": table}
+
+    return results
+
 _bot_ids = {
     "matplotlib": [
         "lumberbot-app[bot]",
@@ -610,14 +690,35 @@ _bot_ids = {
         "dependabot[bot]",
         "Dependabot",
         "Open edX",
-        "Incresco"
+        "Incresco",
+        "Copilot"
     ]
 }
 
-def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=datetime(2015, 1, 1), end_date=datetime(2025, 12, 31)):
+def plot_bot_activity(
+        collection, 
+        freq="M", 
+        ma_window=3, 
+        start_date=datetime(2020, 1, 1), 
+        end_date=datetime(2025, 12, 31), 
+        yscale: str = "linear", 
+        eps: float = 1e-2, 
+        ylim: tuple | None = None, 
+        ylabel: bool = True,
+        figsize=(6, 4),
+        plot_legend=False):
     """
     Stacked area of bot vs non-bot events with moving average smoothing.
     No percentage axis; bot proportion visible via relative area.
+
+    Args:
+        collection: repository/collection name
+        freq: resample frequency (e.g., "M", "W", "D", "Q")
+        ma_window: moving average window
+        start_date, end_date: time window
+        yscale: "linear" (default) or "log"
+        eps: small positive value to replace zeros when using log scale
+        ylim: optional (ymin, ymax)
     """
     start_date = pd.to_datetime(start_date, utc=True)
     end_date = pd.to_datetime(end_date, utc=True)
@@ -664,102 +765,188 @@ def plot_bot_activity_smoothed(collection, freq="M", ma_window=3, start_date=dat
     x = plot_df.index
     bot_smoothed = plot_df["bot_events_ma"]
     non_bot_smoothed = plot_df["non_bot_ma"]
-    total_smoothed = bot_smoothed + non_bot_smoothed
 
-    plt.figure(figsize=(12,6))
-    plt.stackplot(
+    # Clip zeros for log scale to avoid -inf
+    if yscale == "log":
+        bot_smoothed = bot_smoothed.clip(lower=eps)
+        non_bot_smoothed = non_bot_smoothed.clip(lower=eps)
+        raw_bot = agg["bot_events"].clip(lower=eps)
+        raw_total = plot_df["events"].clip(lower=eps)
+    else:
+        raw_bot = agg["bot_events"]
+        raw_total = plot_df["events"]
+
+    _, ax = plt.subplots(figsize=figsize)
+    plt.rcParams.update({'font.size': 20})
+    ax.stackplot(
         x,
-        non_bot_smoothed,
-        bot_smoothed,
-        colors=["#bac8d3", "#45372c"],
-        labels=["Non-bot (MA)", "Bot (MA)"],
+        raw_bot,
+        raw_total - raw_bot,
+        colors=["#45372c", "#bac8d3"],
+        labels=["Bot", "Non-Bot"],
         alpha=0.95
     )
-    frequency = freq.replace("M", "Month").replace("D", "Day").replace("W", "Week").replace("Q", "Quarter")
-    plt.plot(x, total_smoothed, color="black", linewidth=1.6, label="Total (MA)")
+    frequency = freq.replace("ME", "Month").replace("D", "Day").replace("W", "Week").replace("Q", "Quarter")
 
-    plt.plot(x, agg["bot_events"], color="red", linewidth=0.8, alpha=0.25, linestyle="--", label="Bot (raw)")
-    plt.plot(x, agg["non_bot"], color="blue", linewidth=0.8, alpha=0.25, linestyle="--", label="Non-Bot (raw)")
-    plt.plot(x, plot_df["events"], color="black", linewidth=0.8, alpha=0.25, linestyle="--", label="Total (raw)")
+    # ...existing code...
+    ax.set_xlim(start_date, end_date)
+    ax.xaxis.set_major_locator(mdates.YearLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
 
-    plt.xlim(start_date, end_date)
-    plt.title(f"Events by Actor (Smoothed per {frequency} with Moving Average (MA) of Window={ma_window}), {collection}")
-    plt.xlabel("Time")
-    plt.ylabel(f"Events per {frequency}")
-    plt.legend(loc="upper left")
+    # Get the first year from the data
+    first_year = plot_df.index.year.min()
+    # Set the ticks to start from the second year
+    ax.set_xticks([mdates.date2num(datetime(year, 1, 1)) for year in range(first_year + 1, datetime.now().year + 1)])
+    if ylabel:
+        ax.set_ylabel(f"Events per {frequency}")
+
+    if plot_legend:
+        ax.legend(loc="upper right")
+
+    # Apply scale and limits
+    ax.set_yscale(yscale)
+    if ylim:
+        ax.set_ylim(*ylim)
+    elif yscale == "linear":
+        ax.set_ylim(0, 4500)
+
     plt.tight_layout()
+    plt.savefig(f"thesis-writing/thesis-main/figures/{collection}-bot-percentage.pdf", format="pdf", bbox_inches="tight")
     _set_plot_style_and_plot()
     return plot_df
 
-def plot_top_bot_event_types(collection: str, top_n: int = 10, figsize=(10, 6)):
+def list_bot_events_per_type(collection: str, event_type: str, fast=True):
     """
-    Plots the top n event types with the highest percentage of bot actors as a vertical bar chart.
-    Annotates each bar with the total number of events of that type.
+    Print and return approve_review events where the actor is a bot.
+    Returns a list of dicts (and a pandas DataFrame if pandas is available).
     """
-    events = get_events(collection) or []
-    if not events:
-        print(f"No events found for collection '{collection}'.")
-        return
-
-    # Count bots and totals per event type
-    type_counts = defaultdict(int)
-    bot_counts = defaultdict(int)
-
+    events = get_events(collection)
+    rows = []
+    count_scanned = 0
     for ev in events:
-        ev_type = ev.get("type", "unknown")
-        actor = _actor_from_event(ev)
+        if ev.get("type") != event_type:
+            continue
+        actor = _extract_event_actor(ev)
         if actor in _bot_ids[collection]:
-            bot_counts[ev_type] += 1
-        type_counts[ev_type] += 1
+            if fast:
+                count_scanned += 1
+            else:
+                rows.append({
+                    "event_id": ev.get("_id"),
+                    "time": ev.get("time"),
+                    "actor": actor,
+                    "repo": collection,
+                })
 
-    # Compute bot percentage per event type
-    data = []
-    for ev_type in type_counts:
-        total = type_counts[ev_type]
-        bots = bot_counts.get(ev_type, 0)
-        pct = bots / total if total > 0 else 0
-        data.append((ev_type, pct, total, bots))
+    # Pretty print and optional DataFrame
+    if not fast:
+        df = pd.DataFrame(rows).sort_values("time")
+        print(f"Found {len(df)} {event_type} event(s) by bots in '{collection}':")
+        display(df)
+        return len(df)
+    else:
+        return count_scanned
 
-    # Sort by bot percentage descending, then by total descending
-    data.sort(key=lambda x: (-x[1], -x[2]))
-    top = data[:top_n]
+def plot_top_bot_event_types(top_n: int = 10, figsize=(10, 6), all_repos=False, show_title=False, just_data=False):
+    """
+    Plot the top N event types with highest bot activity.
+    When all_repos=False (default):
+                - For a single collection, show the top_n event types ranked by total count (desc),
+                    then by bot percentage (desc). Bars show TOTAL counts (not percentage).
 
-    # Prepare for plotting
-    event_types = [x[0] for x in top]
-    bot_pcts = [x[1] for x in top]
-    totals = [x[2] for x in top]
+    When all_repos=True:
+        - Consider the three studied repositories ["scikit-learn", "matplotlib", "edx-platform"].
+        - Select the top_n event types by TOTAL count across all three repos.
+                - Plot a grouped bar chart with one bar per repo for each event type,
+                    where the bar height is the TOTAL count for that repo.
+        - Repository colors are defined at the start of the method.
+    """
+
+    # Repository colors for multi-repo view
+    repo_colors = {
+        "scikit-learn": "#4C72B0",  # blue
+        "matplotlib": "#55A868",    # green
+        "edx-platform": "#DD8452",  # orange
+    }
+    repos = ["scikit-learn", "matplotlib", "edx-platform"]
+    per_repo_type_counts: dict[str, dict[str, int]] = {r: defaultdict(int) for r in repos}
+    per_repo_bot_counts: dict[str, dict[str, int]] = {r: defaultdict(int) for r in repos}
+
+    # Gather counts per repo
+    for repo in repos:
+        events = get_events(repo) or []
+        for ev in events:
+            ev_type = ev.get("type")
+            actor = _actor_from_event(ev)
+            if actor in _bot_ids[repo]:
+                per_repo_bot_counts[repo][ev_type] += 1
+            per_repo_type_counts[repo][ev_type] += 1
+    if just_data:
+        return per_repo_bot_counts, per_repo_type_counts
+    # Total across repos per event type
+    global_totals: dict[str, int] = defaultdict(int)
+    for repo in repos:
+        for ev_type, cnt in per_repo_type_counts[repo].items():
+            global_totals[ev_type] += cnt
+
+    # Choose top_n by total count across repos (stable tie-breaker by name)
+    selected_types = [
+        et for et, _ in sorted(
+            global_totals.items(),
+            key=lambda kv: (kv[1], kv[0]),
+            reverse=True
+        )[:top_n]
+    ]
+
+    # Prepare grouped data: per event type, bot percentage for each repo
+    x_labels = selected_types
+    x = np.arange(len(x_labels))
+    width = 0.33
 
     plt.figure(figsize=figsize)
-    bars = plt.bar(event_types, bot_pcts, color="#DD8452", alpha=0.85)
-    plt.ylabel("Bot actor percentage")
-    plt.xlabel("Event type")
-    plt.title(f"Top {top_n} event types by bot actor percentage ({collection})")
-    plt.ylim(0, 1.05)
-    plt.xticks(rotation=45, ha="right")
 
-    # Annotate total event count on each bar
-    for bar, total in zip(bars, totals):
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, height + 0.02, f"n={total}", ha="center", va="bottom", fontsize=9)
+    bars_per_repo = []
+    # Slimmer bars; width relative to number of repos to keep spacing tight
+    width = min(0.18, 0.7 / max(1, len(repos)))
+    for i, repo in enumerate(repos):
+        totals_vals = []
+        share_pcts_for_ann = []
+        for et in x_labels:
+            bot_count = per_repo_bot_counts[repo].get(et, 0)
+            total_count = per_repo_type_counts[repo].get(et, 0)
+            totals_vals.append(bot_count)
+            pct = (bot_count / total_count) if total_count > 0 else 0
+            share_pcts_for_ann.append(pct)
+        bars = plt.bar(x + (i - 1) * width, totals_vals, width=width, color=repo_colors.get(repo, "#808080"), alpha=0.9, label=repo)
+        
+        # annotate repo share % on each bar
+        for bar, pct in zip(bars, share_pcts_for_ann):
+            h = bar.get_height()
+            if h > 0:
+                plt.text(bar.get_x() + bar.get_width()/2, h + max(0.5, h * 0.01), f"{int(round(pct*100))}%", ha="center", va="bottom", fontsize=10, rotation=0)
+        bars_per_repo.append(bars)
 
+    plt.xticks(x, x_labels, rotation=45, ha="right")
+    plt.ylabel("Event Count")
+    plt.xlabel("Event Type")
+    if show_title:
+        plt.title(f"Top {top_n} Event Types Across Repositories (Annotated With Repository Share %)")
+    plt.legend(title="Repository")
     plt.tight_layout()
+    plt.savefig("thesis-writing/thesis-main/figures/bot-event-type-distribution.pdf", format="pdf", bbox_inches="tight")
     _set_plot_style_and_plot()
 
 # Helper methods for local use
 
-def _extract_event_actor(event, collection):
-    prefer = ["by", "author", "committer", "merged_by", "closed_by", "requested_by", "reviewer", "assignee", "user", "actor"]
+def _extract_event_actor(event):
+    prefer = ["by", "merged_by", "closed_by", "requested_by"]
     rels = event.get("relationships", [])
     # exact or substring match
-    for pref in prefer:
-        for rel in rels:
-            qual = rel.get("qualifier", "")
-            if qual == pref or pref in qual:
-                oid = rel.get("objectId")
-                if oid and get_type_of_object(oid, collection) == "user":
-                    return oid, "relationship"
-
-    return None, "none"
+    for rel in rels:
+        qual = rel.get("qualifier")
+        if qual and any(p in qual for p in prefer):
+            return rel.get("objectId")
+    return None
 
 def _parse_labels(labels_string: str, include_empty: bool) -> list[str]:
     """Get the labels as list for a given string or list input."""
@@ -768,7 +955,7 @@ def _parse_labels(labels_string: str, include_empty: bool) -> list[str]:
         return output
     if isinstance(labels_string, str):
         labels_string = labels_string.replace(";", ",")
-        labels_string = labels_string.replace("[", "").replace("]", "").replace("'", "").replace('"', "")
+        labels_string = labels_string.replace("[", "").replace("]", "").replace("'", "").replace('"', "").replace("{", "").replace("}", "")
         parts = [label.strip() for label in labels_string.split(",") if label.strip() != "" or include_empty]
         return parts
     if isinstance(labels_string, list):
@@ -778,8 +965,8 @@ def _parse_labels(labels_string: str, include_empty: bool) -> list[str]:
         return output
     return output
 
-def _get_local_attribute_value(object, attribute_name):
-    for a in object.get("attributes", []):
+def _get_local_attribute_value(obj, attribute_name):
+    for a in obj.get("attributes", []):
         if a.get("name") == attribute_name:
             return str(a.get("value"))
         
@@ -788,4 +975,3 @@ def _pr_has_label(pull_request: Dict[str, Any], label: str) -> bool:
     if labels_string is None:
         return False
     return label in labels_string.lower()
-        

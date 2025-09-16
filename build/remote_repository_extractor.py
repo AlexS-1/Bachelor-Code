@@ -195,13 +195,15 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     timestamp = event["created_at"]
                 except:
                     print(f"ERROR: Unable to get timestamp for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
-                    continue
+                    if prev_event and "created_at" in prev_event:
+                        timestamp = prev_event["created_at"].replace(second=prev_event["created_at"].second + 1)
+                        print(f"LOG: Using previous event timestamp +1s: {timestamp} for event", event['type'])
+                    else:
+                        continue
                 try: 
                     actor = {"objectId": get_name_by_username(event["actor"]["login"], collection), "qualifier": "authored-by"}
                 except: 
                     print(f"ERROR: Unable to get actor for event: {event['node_id']} with event type: {event['event']} in #PR: {pull['number']}")
-                finally:
-                    actor = {"objectId": "Cincinnatus", "qualifier": "authored-by"}
             else:
                 timestamp = date_1970()
                 actor = {"objectId": "Cincinnatus", "qualifier": "authored-by"}
@@ -391,6 +393,7 @@ def extract_events_from_pull(pull_response, collection, start_date, end_date):
                     comment,
                     [user_relation, {"objectId": str(pull['number']), "qualifier": "for-pull-request"}]
                 )
+            prev_event = event
 
 
 def get_pull_data(number: int, owner: str, repo_name: str) -> dict:

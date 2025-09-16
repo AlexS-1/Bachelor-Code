@@ -20,7 +20,7 @@ def insert_pull(data, collection):
     pull_request_type = get_object_type_by_type_name("pull_request", collection)
     try:
         verify_objectType(data, pull_request_type)
-        data_to_insert = {k: v for k, v in data.items() if k != "number" or v is not None}
+        data_to_insert = {k: v for k, v in data.items() if k != "number" and v is not None}
     except ValueError as e: 
         raise ValueError(f"Data does not match the pull request type: {e}")
     insert_object(data["number"], "pull_request", data_to_insert, collection)
@@ -190,6 +190,16 @@ def remove_event(event_id: str, collection: str):
     ocdb = myclient[f"{collection}"]
     ocdb["events"].delete_one({"_id": event_id})
 
+def remove_object(object_id: str, collection: str):
+    """
+    Remove an object from the OCEL database.
+    Args:
+        object_id (str): The ID of the object to remove.
+        collection (str): The collection to remove the object from.
+    """
+    ocdb = myclient[f"{collection}"]
+    ocdb["objects"].delete_one({"_id": object_id})
+
 ### Get functions
 def get_commits(collection: str):
     ocdb = myclient[f"{collection}"]
@@ -272,6 +282,18 @@ def get_event(event_id: str, collection: str):
     ocdb = myclient[f"{collection}"]
     return ocdb["events"].find_one({"_id": event_id}) 
 
+def get_events_for_time(time: str, collection: str):
+    """
+    Get all events that occurred at a specific time.
+    Args:
+        time (datetime): The time to get events for.
+        collection (str): The collection to search in.
+    Returns:
+        list: A list of events that occurred at the specified time.
+    """
+    ocdb = myclient[f"{collection}"]
+    return ocdb["events"].find({"time": time})
+
 def get_ocel_data(collection: str):
     ocdb = myclient[f"{collection}"]
     data = {
@@ -348,9 +370,7 @@ def get_attribute_value_at_time(id, attribute_name, time, collection):
     return attributes.get(max(attributes.keys(), default=None), None) if attributes else None
 
 
-    return None
-
-def get_attribute_value(id, attribute_name, collection):
+def get_attribute_value(id, attribute_name, collection, index=0):
     """
     Get the (first) value of an object attribute.
     Args:
@@ -363,9 +383,12 @@ def get_attribute_value(id, attribute_name, collection):
     file = get_object(id, collection)
     if file is None:
         return None
+    i = 0
     for attribute in file["attributes"][::-1]:  # Start from the end to get the most recent value
         if attribute["name"] == attribute_name:
-            return attribute["value"]
+            if i >= index:
+                return attribute["value"]
+            i += 1
     return None
 
 def get_related_objectIds(id, qualifier, collection):
